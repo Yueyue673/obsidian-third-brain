@@ -8,7 +8,11 @@ Local excerpts make no model requests. Processing mode is never silently upgrade
 
 ## Cloud consent
 
-Cloud mode needs explicit consent, HTTPS and a host-managed secret. Ordinary note text and explicitly submitted queries may be sent to that provider. Opaque source identifiers replace filenames/paths in model input. The provider's retention and privacy terms are separate from this plugin.
+Cloud mode needs explicit consent, HTTPS and a host-managed secret. Ordinary note text and explicitly submitted queries may be sent to that provider. The provider's retention and privacy terms are separate from this plugin.
+
+The user-message data supplied to the model contains only `task`, redacted `text` and bounded `vocabulary`. The plugin does not attach source identifiers, filenames or paths as metadata. Paths or filenames mentioned within the text are masked only when they match conservative patterns; some bare filenames, such as CSV or spreadsheet names, may remain in the body. This is not comprehensive filename/path anonymisation.
+
+模型请求不附加来源 ID、文件名或路径元数据。正文里的路径和文件名仅按有限模式遮罩；例如某些 CSV、表格文件名仍可能原样发送。未识别的机密内容也可能保留，应在首次云端处理前标记 local/private 或排除来源。
 
 ## local/private
 
