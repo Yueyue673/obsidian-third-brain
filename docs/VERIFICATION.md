@@ -10,9 +10,11 @@ This file records evidence, not feature aspirations. Release acceptance must ref
 - Publication scan: passed on the working tree. This is a conservative pattern scan, not comprehensive personal-information detection. Screenshots were manually inspected for publication scope too.
 - Local release preparation: deterministic ZIP with only `main.js`, `manifest.json` and `styles.css`, plus individual assets and `SHA256SUMS`. Local archive-entry, CRC and hash validation passed; this is not GitHub delivery evidence.
 
-## Actual browser journey
+The repaired code was committed as `a0169ed1c37e3580529c6ccbd0d29f4575dc6163`. GitHub CI run `37260195565` completed successfully on Ubuntu and Windows, each with Node 22 and 24. All four downloaded artifact sets passed SHA-256, archive-entry/CRC and byte-for-byte comparison against the local build. This establishes exact-commit CI delivery, not a public Release or its installation.
 
-The current production renderer/controller/core/filesystem was exercised using synthetic notes and local excerpts:
+## Actual browser journey — earlier baseline
+
+The production renderer/controller/core/filesystem from the earlier baseline was exercised using synthetic notes and local excerpts:
 
 - Initial refresh displayed 8 source notes and 14 fragments.
 - The vague dialogue-space idea returned four grounded candidates from dialogue and music notes, with distinct lexical/facet explanations.
@@ -23,7 +25,7 @@ The current production renderer/controller/core/filesystem was exercised using s
 
 Screenshots in `docs/images/test-harness-*.png` are real captures, explicitly labelled **not native Obsidian**. Their sample facets are declared in synthetic notes; they do not demonstrate automatic live-model discovery.
 
-## Native Obsidian acceptance — 2026-10-05
+## Native Obsidian acceptance — earlier baseline, 2026-10-05
 
 Real Obsidian **1.13.7** (the exact version the host reports), launched with an isolated profile against a fresh synthetic vault; the plugin folder was populated only from the release assets, which were byte-identical to the local build.
 
@@ -36,6 +38,14 @@ Real Obsidian **1.13.7** (the exact version the host reports), launched with an 
 - The window was closed immediately after the run; no Obsidian process was left behind.
 
 Screenshots `docs/images/native-obsidian-*.png` are captures of that run. This is real-host evidence for local excerpts; it is not live-AI evidence.
+
+## Renewed native install attempt — 2026-10-05, repaired code
+
+The exact Windows/Node 22 ZIP downloaded from CI `37260195565` was installed into the previously approved isolated synthetic vault. A parent readback verified that all three installed files are byte-identical to the ZIP and local build; all eight originals still have identical SHA-256 hashes and modification times.
+
+The renewed **runtime journey remains unverified**. The desktop automation policy rejected remote-debugging launch parameters, so no alternate shell launch or unapproved debugging route was used. A subsequent native-UI-only launch also refused minimized startup because Windows could not provide the foreground lock needed to prevent activation. No test app instance was started. No permission was obtained for a foreground switch.
+
+These attempts establish installation-byte correctness only, not the new runtime version, refresh/search/source-open journey, renderer errors/network activity, unchanged-rerun IDs or post-commit staging cleanup. The earlier host screenshots and the passing filesystem/process tests do not replace this pending renewed native gate. Publication remains on hold.
 
 ## Request-boundary privacy regressions
 
@@ -67,7 +77,7 @@ The two request-boundary repairs now check every paragraph/chunk and the current
 
 Storage cleanup now requires a store/folder/transaction-bound authenticated inventory and an unchanged hash for each staged artifact. It retains unknown or edited files, invalid/forged/replayed inventories and unverifiable legacy orphans. Six selected regressions fail against an isolated cc12fb6 copy; the repaired store suite passes 74 tests. A follow-up found that prospective work filenames must not be claimed just because their bytes match a plan: that regression failed against the first repair and passes after work names were excluded from orphan cleanup. A real child-process exit after journal removal verifies forward state recovery and cleanup of authenticated unchanged staging. Tests use synthetic data only and hide child-process windows.
 
-The marker is a local trust anchor, not a defence against an actor able to rewrite all metadata. Hash checks cannot eliminate concurrent check-to-unlink races. New exact-commit CI/asset verification and renewed native/downloaded-install acceptance are still pending. The older process-interruption sweep alone does not establish the new cleanup repair's correctness.
+The marker is a local trust anchor, not a defence against an actor able to rewrite all metadata. Hash checks cannot eliminate concurrent check-to-unlink races. Exact-commit CI and artifact verification are complete for a0169ed. Renewed native/downloaded-install acceptance is still pending. The older process-interruption sweep alone does not establish the new cleanup repair's correctness.
 
 ## Boundaries still pending
 
