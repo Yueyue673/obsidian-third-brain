@@ -2,7 +2,7 @@
 import * as fs from 'node:fs/promises';
 import { constants } from 'node:fs';
 import * as path from 'node:path';
-import { createHash, randomBytes } from 'node:crypto';
+import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
 import { AsyncLocalStorage } from 'node:async_hooks';
 import type { Facets, Fragment, IndexState, StorePort } from '../core/types';
 
@@ -49,7 +49,7 @@ function relative(v: unknown): string {
 
 // JSON.parse alone accepts duplicate keys. Scan the bounded document first;
 // refuse duplicate/prototype keys and deep nesting before parsing any schema.
-function parse(data: Buffer, limit = STATE_LIMIT): unknown {
+function parse(data: Buffer, limit = STATE_LIMIT, entryLimit = 50000): unknown {
   if (data.length > limit) fail('Store data exceeds size limit');
   let s: string;
   try { s = new TextDecoder('utf-8', { fatal: true }).decode(data); } catch { return fail(); }
@@ -75,7 +75,7 @@ function parse(data: Buffer, limit = STATE_LIMIT): unknown {
       if (s[i] === end) { i++; return; }
       let count = 0;
       while (i < s.length) {
-        if (++count > 50000) fail();
+        if (++count > entryLimit) fail();
         ws();
         if (object) {
           if (s[i] !== '"') fail();
@@ -144,13 +144,33 @@ function validateIndex(v: unknown): IndexState {
   return v as IndexState;
 }
 
-interface Marker { schema: 1; owner: 'third-brain'; storeId: string; outputFolder: string; }
+interface Marker { schema: 1; owner: 'third-brain'; storeId: string; outputFolder: string; stagingKey?: string; }
 interface Manifest { schema: 1; owner: 'third-brain'; storeId: string; outputFolder: string; index: IndexState; owned: Record<string, string>; }
 interface Loaded { value: Manifest; bytes: Buffer; hash: string; }
 interface Operation { target: string; before: string | null; after: string | null; backup: string | null; stage: string | null; }
 interface Journal { schema: 1; owner: 'third-brain'; storeId: string; outputFolder: string; transaction: string; previous: string | null; next: string; operations: Operation[]; }
+interface StagingOwnership { schema: 1; owner: 'third-brain'; storeId: string; outputFolder: string; transaction: string; artifacts: Record<string, string>; authentication: string; }
 
-export interface StoreIOEvent { phase: 'staged' | 'before-apply' | 'before-rollback' | 'after-link' | 'after-apply' | 'before-finalize'; target?: string; }
+// Only durable stage/backup artifacts belong to this inventory. Work names are
+// prospective and may never be created by the transaction. Without a live
+// recovery proof, matching their expected bytes cannot establish ownership.
+function stagingArtifacts(journal: Journal): Record<string, string> {
+  const artifacts: Record<string, string> = { 'next.json': journal.next };
+  if (journal.previous) artifacts['previous.json'] = journal.previous;
+  journal.operations.forEach(o => {
+    if (o.backup && o.before) artifacts[o.backup] = o.before;
+    if (o.stage && o.after) artifacts[o.stage] = o.after;
+  });
+  return artifacts;
+}
+function authenticateStaging(marker: Marker, tx: string, artifacts: Record<string, string>): string {
+  if (!marker.stagingKey) fail('Missing staging ownership key');
+  const payload = JSON.stringify([1, OWNER, marker.storeId, marker.outputFolder, tx,
+    Object.entries(artifacts).sort(([a], [b]) => a < b ? -1 : a > b ? 1 : 0)]);
+  return createHmac('sha256', Buffer.from(marker.stagingKey, 'hex')).update(payload).digest('hex');
+}
+
+export interface StoreIOEvent { phase: 'staged' | 'before-apply' | 'before-rollback' | 'after-link' | 'after-apply' | 'before-finalize' | 'after-finalize'; target?: string; }
 export interface StoreTestHooks {
   /** Optional boundary failpoint; production callers leave this absent. */
   io?: (event: Readonly<StoreIOEvent>) => void | Promise<void>;
@@ -343,31 +363,53 @@ export class OwnedStore implements StorePort {
     await fs.unlink(await this.guard(rel));
     await this.syncDir(path.posix.dirname(rel));
   }
-  /** Best-effort removal of a finalized transaction's own staging directory.
-   * Only artifact names this store creates there are unlinked; anything else is
-   * left untouched and simply keeps the directory non-empty. Cleanup never
-   * invalidates an already-finalized commit. */
-  private async discardTransaction(tx: string): Promise<void> {
+  /** Best-effort, hash-owned cleanup. The durable authenticated inventory is
+   * written before staging, and remains until every owned artifact is gone.
+   * Legacy stores have no key: only a live/validated journal can prove cleanup;
+   * their unverifiable orphan directories are intentionally preserved. */
+  private async discardTransaction(marker: Marker, tx: string, proven?: Record<string, string>): Promise<void> {
     if (!TOKEN.test(tx)) return;
     const dir = `${this.reserved}/transactions/${tx}`;
     try {
+      let artifacts = proven;
+      let ownershipBytes: Buffer | null = null;
+      if (marker.stagingKey) {
+        ownershipBytes = await this.read(`${dir}/ownership.json`);
+        if (!ownershipBytes) return;
+        const v = keys(parse(ownershipBytes, STATE_LIMIT, 90005), ['schema', 'owner', 'storeId', 'outputFolder', 'transaction', 'artifacts', 'authentication']);
+        if (v.schema !== 1 || v.owner !== OWNER || v.storeId !== marker.storeId || v.outputFolder !== this.folder || v.transaction !== tx) return;
+        const claimed = record(v.artifacts);
+        if (Object.keys(claimed).length > 90005 || !own(claimed, 'next.json')) return;
+        for (const [name, expected] of Object.entries(claimed)) {
+          if (!/^(?:previous\.json|next\.json|(?:backup|stage)-\d+\.bin)$/.test(name) || name.length > 64) return;
+          digest(expected);
+        }
+        const authentication = digest(v.authentication);
+        const expected = authenticateStaging(marker, tx, claimed as Record<string, string>);
+        if (!timingSafeEqual(Buffer.from(authentication, 'hex'), Buffer.from(expected, 'hex'))) return;
+        if (proven && (Object.keys(proven).length !== Object.keys(claimed).length || Object.entries(proven).some(([name, h]) => claimed[name] !== h))) return;
+        artifacts = claimed as Record<string, string>;
+      }
+      if (!artifacts) return;
       let names: string[];
       try { names = await fs.readdir(await this.guard(dir)); } catch (error) { if (missing(error)) return; throw error; }
       for (const name of names) {
-        if (!/^(?:previous\.json|next\.json|(?:backup|stage|work-(?:forward|rollback))-\d+\.bin)$/.test(name)) continue;
-        try { await fs.unlink(await this.guard(`${dir}/${name}`)); } catch { /* keep trying the rest */ }
+        if (!own(artifacts, name)) continue;
+        try { await this.remove(`${dir}/${name}`, artifacts[name]); } catch { /* preserve edited/unsafe artifacts */ }
       }
+      names = await fs.readdir(await this.guard(dir));
+      if (ownershipBytes && names.length === 1 && names[0] === 'ownership.json') await this.remove(`${dir}/ownership.json`, hash(ownershipBytes));
       try { await fs.rmdir(await this.guard(dir)); } catch { /* an unrecognised remnant keeps the directory */ }
       await this.syncDir(`${this.reserved}/transactions`);
     } catch { /* cleanup is best effort */ }
   }
-  /** Dead transaction directories have no journal; a crash can leave them after
-   * the journal was already removed. They are pruned on the next locked run. */
-  private async sweepTransactions(): Promise<void> {
+  /** A crash may outlive its journal. Only authenticated, hash-matching artifacts
+   * can be pruned on the next locked run; all unverifiable orphans stay intact. */
+  private async sweepTransactions(marker: Marker): Promise<void> {
     try {
       let names: string[];
       try { names = await fs.readdir(await this.guard(`${this.reserved}/transactions`)); } catch (error) { if (missing(error)) return; throw error; }
-      for (const name of names) if (TOKEN.test(name)) await this.discardTransaction(name);
+      for (const name of names) if (TOKEN.test(name)) await this.discardTransaction(marker, name);
     } catch { /* best effort */ }
   }
   private async getMarker(create: boolean): Promise<Marker | null> {
@@ -382,13 +424,16 @@ export class OwnedStore implements StorePort {
       await this.mkdir(this.folder);
       // Never adopt an existing .third-brain directory, even an empty one.
       await fs.mkdir(await this.guard(this.reserved));
-      const marker: Marker = { schema: 1, owner: OWNER, storeId: randomBytes(16).toString('hex'), outputFolder: this.folder };
+      const marker: Marker = { schema: 1, owner: OWNER, storeId: randomBytes(16).toString('hex'), outputFolder: this.folder,
+        stagingKey: randomBytes(32).toString('hex') };
       await this.exclusive(`${this.reserved}/marker.json`, Buffer.from(JSON.stringify(marker)));
     }
     const bytes = await this.read(`${this.reserved}/marker.json`, 8192);
     if (!bytes) fail('Reserved store directory has no ownership marker');
-    const m = keys(parse(bytes, 8192), ['schema', 'owner', 'storeId', 'outputFolder']);
+    const parsed = record(parse(bytes, 8192));
+    const m = keys(parsed, ['schema', 'owner', 'storeId', 'outputFolder', ...(own(parsed, 'stagingKey') ? ['stagingKey'] : [])]);
     if (m.schema !== 1 || m.owner !== OWNER || typeof m.storeId !== 'string' || !TOKEN.test(m.storeId) || m.outputFolder !== this.folder) fail('Unknown store marker');
+    if (own(m, 'stagingKey')) digest(m.stagingKey);
     return m as unknown as Marker;
   }
   private async locked<T>(create: boolean, fn: (marker: Marker | null) => Promise<T>): Promise<T> {
@@ -562,7 +607,7 @@ export class OwnedStore implements StorePort {
   }
   private async recoverLocked(marker: Marker): Promise<void> {
     const pending = await this.getJournal(marker);
-    if (!pending) { await this.getState(marker); await this.sweepTransactions(); return; }
+    if (!pending) { await this.getState(marker); await this.sweepTransactions(marker); return; }
     const current = await this.read(`${this.reserved}/state.json`);
     const committed = current !== null && hash(current) === pending.journal.next;
     const ops = pending.journal.operations;
@@ -573,8 +618,9 @@ export class OwnedStore implements StorePort {
     await this.getState(marker);
     await this.event('before-finalize');
     await this.remove(`${this.reserved}/journal.json`, hash(pending.bytes));
-    await this.discardTransaction(pending.journal.transaction);
-    await this.sweepTransactions();
+    await this.event('after-finalize');
+    await this.discardTransaction(marker, pending.journal.transaction, stagingArtifacts(pending.journal));
+    await this.sweepTransactions(marker);
   }
   async load(): Promise<IndexState | null> {
     return await this.locked(false, async marker => {
@@ -622,6 +668,17 @@ export class OwnedStore implements StorePort {
         const b = await this.read(o.target);
         if ((b ? hash(b) : null) !== o.before) fail('Unowned or human-edited generated target');
       }
+      const journal: Journal = { schema: 1, owner: OWNER, storeId: marker.storeId, outputFolder: this.folder, transaction: tx,
+        previous: previous?.hash ?? null, next: next.hash, operations: ops };
+      const artifacts = stagingArtifacts(journal);
+      await this.mkdir(`${this.reserved}/transactions`);
+      // Never adopt a pre-existing transaction directory, even on token collision.
+      await fs.mkdir(await this.guard(txRoot));
+      if (marker.stagingKey) {
+        const ownership: StagingOwnership = { schema: 1, owner: OWNER, storeId: marker.storeId, outputFolder: this.folder,
+          transaction: tx, artifacts, authentication: authenticateStaging(marker, tx, artifacts) };
+        await this.exclusive(`${txRoot}/ownership.json`, Buffer.from(JSON.stringify(ownership)));
+      }
       await this.exclusive(`${txRoot}/next.json`, bytes);
       if (previous) await this.exclusive(`${txRoot}/previous.json`, previous.bytes);
       const outputOps = ops.filter(o => o.target.startsWith(`${this.folder}/fragment-`));
@@ -641,8 +698,6 @@ export class OwnedStore implements StorePort {
       }
       await this.event('staged');
       aborted(signal);
-      const journal: Journal = { schema: 1, owner: OWNER, storeId: marker.storeId, outputFolder: this.folder, transaction: tx,
-        previous: previous?.hash ?? null, next: next.hash, operations: ops };
       const journalBytes = Buffer.from(JSON.stringify(journal));
       await this.exclusive(`${this.reserved}/journal.json`, journalBytes);
       let switched = false;
@@ -665,8 +720,9 @@ export class OwnedStore implements StorePort {
         await this.getState(marker);
         await this.event('before-finalize');
         await this.remove(`${this.reserved}/journal.json`, hash(journalBytes));
-        await this.discardTransaction(tx);
-        await this.sweepTransactions();
+        await this.event('after-finalize');
+        await this.discardTransaction(marker, tx, artifacts);
+        await this.sweepTransactions(marker);
       } catch (error) {
         // The state swap may have happened even if an after-write hook failed.
         const current = await this.read(`${this.reserved}/state.json`, STATE_LIMIT, true);

@@ -2,10 +2,10 @@
 
 This file records evidence, not feature aspirations. Release acceptance must refer to the exact reviewed commit and downloaded assets.
 
-## Current build evidence — 2026-10-05
+## Latest completed full gates — 2026-10-05, repaired release candidate
 
-- Typecheck, production build, filesystem smoke, publication pattern scan and release preparation all exited 0 on the current working tree.
-- Full unit/integration suite: **401 passed across 14 files**, exit 0. Includes AI editorial/facet discovery through deterministic synthetic adapters, source decoding, freshness/privacy, request-boundary race regressions, transaction-staging cleanup, extraction wire-policy parity, settings snapshots, filesystem ownership/CAS/recovery, real loopback HTTP and synthetic process-crash cases. A count does not establish real-model semantic quality.
+- Typecheck, production build, filesystem smoke, publication pattern scan, release preparation and diff checks all exited 0 after the three release-blocker repairs and the additional prospective-work ownership regression.
+- Full unit/integration suite: **446 passed across 15 files**, exit 0. Includes AI editorial/facet discovery through deterministic synthetic adapters, source decoding, freshness/privacy, per-paragraph/chunk request-boundary races, authenticated staging ownership, extraction wire-policy parity, settings snapshots, filesystem ownership/CAS/recovery, real loopback HTTP and synthetic process-crash cases. A count does not establish real-model semantic quality.
 - Filesystem smoke: 8 originals, 14 fragments, 4 idea matches and 0 unrelated matches. Original SHA-256 hashes and modification times stayed unchanged; an unchanged rerun preserved IDs. No real AI provider was used.
 - Publication scan: passed on the working tree. This is a conservative pattern scan, not comprehensive personal-information detection. Screenshots were manually inspected for publication scope too.
 - Local release preparation: deterministic ZIP with only `main.js`, `manifest.json` and `styles.css`, plus individual assets and `SHA256SUMS`. Local archive-entry, CRC and hash validation passed; this is not GitHub delivery evidence.
@@ -49,15 +49,25 @@ An independent read-only review found three send-boundary race gaps in the previ
 
 The production transport, its prompt and the pure core now share the extraction limits: edited summaries at most 800 characters, exact excerpt summaries at most 6000 characters only when contained in a verified quotation, and at most six inferred labels per channel. Query interpretation remains separate: at most 24 labels selected from existing safe vocabulary, not newly invented labels.
 
-Thirteen new real-loopback HTTP regressions cover those boundaries, including 3001/6000-character literal excerpts through transport and core, 800/801-character editorial summaries, all four facet channels, and the interpretation limit. Eleven failed on the old transport before the fix; all thirteen pass after it. The complete transport suite passes 89 tests. The server responses are explicitly deterministic synthetic fixtures: this validates the production network/schema handoff, not live-provider compatibility or semantic quality.
+Thirteen new real-loopback HTTP regressions cover those boundaries, including 3001/6000-character literal excerpts through transport and core, 800/801-character editorial summaries, all four facet channels, and the interpretation limit. Eleven failed on the old transport before the fix; all thirteen pass after it. The complete transport suite passes 92 tests. The server responses are explicitly deterministic synthetic fixtures: this validates the production network/schema handoff, not live-provider compatibility or semantic quality.
 
 ## Adversarial review and privacy-claim check
 
-A read-only review of DOM rendering, transport boundaries, store recovery and documentation found no reproducible P0/P1 defect within that inspected scope. It did find an overstatement: the privacy documentation incorrectly described replacing filenames with opaque source identifiers.
+An earlier read-only review of DOM rendering, transport boundaries, store recovery and documentation found no reproducible P0/P1 defect within its inspected scope. It did find an overstatement: the privacy documentation incorrectly described replacing filenames with opaque source identifiers.
 
 A real-loopback wire probe reproduced the actual behaviour: the user message has only `task`, `text` and `vocabulary`; source identifiers and paths are not attached as metadata, while some bare filenames in the note body remain unmasked. The privacy document and implementation brief now state that conservative boundary. An additional production core-to-HTTP test protects metadata omission and recognised-path redaction without freezing today's DLP blind spots as required behaviour.
 
-An additional ad-hoc synthetic crash/recovery sweep was rerun on the current store: 40 iterations, 25 forced commit-process exits, 15 clean commits, zero unexpected commit rejections and two forced recovery-process exits. Every iteration recovered a complete old or new revision with the matching fragment-file set, unchanged original text and a successful follow-up commit. The parent probe guards optional I/O event targets; an exception in a probe callback is not counted as an intended process crash. This is process-interruption evidence, not a real power-loss or hostile-filesystem guarantee.
+An additional ad-hoc synthetic crash/recovery sweep was rerun on the store included in cc12fb6: 40 iterations, 25 forced commit-process exits, 15 clean commits, zero unexpected commit rejections and two forced recovery-process exits. Every iteration recovered a complete old or new revision with the matching fragment-file set, unchanged original text and a successful follow-up commit. The parent probe guards optional I/O event targets; an exception in a probe callback is not counted as an intended process crash. This is process-interruption evidence, not a real power-loss or hostile-filesystem guarantee.
+
+## Subsequent release-blocker audit — repairs verified locally
+
+The final audit found three reproducible P1 gaps, independently reproduced on cc12fb6: later extraction requests from the same note lacked a new privacy check; extraction dictionary labels could outlive a donor's privacy change; and no-journal staging cleanup inferred ownership from directory/file names. All three repairs now pass their regressions and the complete local gates; remote and downloaded-release acceptance remain separate.
+
+The two request-boundary repairs now check every paragraph/chunk and the current proofs behind the actual outgoing dictionary. Required donors are checked before the active note; merged cached labels require all original donors. Common shared labels use an independent proof rather than an entire-library read on every request. An isolated copy of cc12fb6 with the new regression tests failed 22 selected tests; after the repairs, the complete core-boundary and real-HTTP suites passed 113 tests. Three real-loopback HTTP cases specifically demonstrate that an active-note, explicit-label or newly inferred-label privacy change blocks the second network request. No real AI provider was used.
+
+Storage cleanup now requires a store/folder/transaction-bound authenticated inventory and an unchanged hash for each staged artifact. It retains unknown or edited files, invalid/forged/replayed inventories and unverifiable legacy orphans. Six selected regressions fail against an isolated cc12fb6 copy; the repaired store suite passes 74 tests. A follow-up found that prospective work filenames must not be claimed just because their bytes match a plan: that regression failed against the first repair and passes after work names were excluded from orphan cleanup. A real child-process exit after journal removal verifies forward state recovery and cleanup of authenticated unchanged staging. Tests use synthetic data only and hide child-process windows.
+
+The marker is a local trust anchor, not a defence against an actor able to rewrite all metadata. Hash checks cannot eliminate concurrent check-to-unlink races. New exact-commit CI/asset verification and renewed native/downloaded-install acceptance are still pending. The older process-interruption sweep alone does not establish the new cleanup repair's correctness.
 
 ## Boundaries still pending
 

@@ -40,7 +40,13 @@ export async function analyzeSource(input: SourceSnapshot, options: AnalyzeOptio
   for (const block of usable) for (const sanitized of splitBlock({ ...redact(block),heading:'' },MODEL_TEXT_LIMIT)) {
     checkAbort(options.signal);
     if (!meaningful(sanitized.text)) continue;
-    const response = await cancellable(() => options.model!.request({ task:'extract',text:sanitized.text,vocabulary },options.signal),options.signal);
+    const response = await cancellable(async () => {
+      // Each paragraph/chunk is a separate disclosure boundary. A successful
+      // earlier request never authorises later text or a stale dictionary.
+      await options.beforeRequest?.(snapshot,vocabulary);
+      checkAbort(options.signal);
+      return options.model!.request({ task:'extract',text:sanitized.text,vocabulary },options.signal);
+    },options.signal);
     checkAbort(options.signal);
     const extracted = parseExtraction(response,snapshot,sanitized,vocabulary,now);
     fragments.push(...extracted);

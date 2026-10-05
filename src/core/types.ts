@@ -11,7 +11,7 @@ export interface IndexState { version: 1; signature: string; updatedAt: string; 
 export interface Analysis { status: SourceStatus; fragments: Fragment[]; }
 export interface ModelRequest { task: 'extract' | 'interpret'; text: string; vocabulary: Facets; }
 export interface ModelPort { request(input: ModelRequest, signal?: AbortSignal): Promise<unknown>; }
-export interface AnalyzeOptions { mode: Mode; cloudConsent: boolean; model?: ModelPort; vocabulary?: Facets; now?: string; signal?: AbortSignal; }
+export interface AnalyzeOptions { mode: Mode; cloudConsent: boolean; model?: ModelPort; vocabulary?: Facets; now?: string; signal?: AbortSignal; beforeRequest?: (source: SourceSnapshot, vocabulary: Facets) => Promise<void>; }
 export interface RelationReason { kind: 'content' | 'topic' | 'concept' | 'mechanism' | 'analogy' | 'atmosphere'; label: string; quotes: string[]; caveat?: string; }
 export interface SearchResult { fragment: Fragment; score: number; reasons: RelationReason[]; }
 export interface SearchOptions { breadth: Breadth; limit?: number; facets?: Partial<Facets>; excludeSource?: string; }

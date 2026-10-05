@@ -7,7 +7,7 @@ import dns from 'node:dns';
 import type { AddressInfo, Socket } from 'node:net';
 import { createModelPort } from '../src/runtime/transport';
 import { emptyFacets, type ModelRequest, type TransportOptions } from '../src/core/types';
-import { analyzeSource, interpretQuery } from '../src/core/index';
+import { analyzeSource, buildIndex, interpretQuery, prepareSource } from '../src/core/index';
 import { createHash } from 'node:crypto';
 
 const source = 'Synthetic note: Shorter feedback loops reduce wasted work.';
@@ -172,6 +172,34 @@ describe('real OpenAI-compatible request and strict output schema', () => {
     }
     // Do not lock in the present DLP blind spots: future redaction may cover
     // more bare filenames. The documented guarantee is explicitly conservative.
+  });
+  it.each(['active', 'explicit-donor', 'inferred-donor'])('blocks a second real HTTP request after a privacy change: %s', async kind => {
+    const make = (path: string, raw: string) => prepareSource(path, raw,
+      createHash('sha256').update(raw).digest('hex'), createHash('sha256').update(path).digest('hex'));
+    const donor = make('synthetic/a-donor.md', kind === 'active'
+      ? 'Synthetic opening paragraph explains one method.\n\nSynthetic later confidential paragraph explains another method.'
+      : `${kind === 'explicit-donor' ? '---\ntags: [synthetic donor marker]\n---\n' : ''}Synthetic donor explains useful practice.`);
+    const target = make('synthetic/b-target.md', 'Synthetic target explains a different routine.');
+    const notes = kind === 'active' ? [donor] : [donor, target], live = new Map(notes.map(note => [note.path, note]));
+    const requests: ModelRequest[] = [];
+    const { endpoint } = await listen((req, res) => {
+      let body = ''; req.on('data', chunk => { body += chunk.toString('utf8'); });
+      req.on('end', () => {
+        const request: ModelRequest = JSON.parse(JSON.parse(body).messages[1].content); requests.push(request);
+        live.set(donor.path, make(donor.path, '---\nprivacy: private\n---\n' + donor.text));
+        json(res, kind === 'inferred-donor' ? { version: 1, decision: 'extract', fragments: [{
+          title: 'Synthetic supported idea', summary: request.text, kind: 'excerpt', topics: ['synthetic learned marker'],
+          concepts: [], mechanisms: [], atmosphere: [], quotes: [request.text], conditions: [], caveats: [],
+        }] } : { version: 1, decision: 'insufficient-context', fragments: [] });
+      });
+    });
+    // Exercise the cloud-core policy against a synthetic loopback provider;
+    // there is no external service or real provider credential in this test.
+    await expect(buildIndex(notes, { mode: 'cloud-model', cloudConsent: true, previous: null,
+      signature: 'synthetic-network-boundary', model: createModelPort(options(endpoint)),
+      recheck: async snapshot => live.get(snapshot.path) ?? null })).rejects.toThrow(/Source notes changed/);
+    expect(requests).toHaveLength(1);
+    if (kind === 'active') expect(requests[0].text).not.toContain('later confidential');
   });
   it('accepts bounded vocabulary interpretation with the actual core wire schema', async () => {
     const expected = { version: 1, ...emptyFacets(), mechanisms: ['Synthetic feedback loop'] };

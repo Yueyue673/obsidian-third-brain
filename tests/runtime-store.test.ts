@@ -498,17 +498,160 @@ describe('OwnedStore actual transactions, CAS, cancellation and recovery', () =>
     expect(await new OwnedStore(root, folder).load()).toEqual(changed(old));
     expect(await fs.readFile(absolute(sourcePath), 'utf8')).toBe(original);
   });
-  it('prunes recognised stale staging during recovery but never removes unknown artifacts', async () => {
-    const old = await fixture(); await new OwnedStore(root, folder).commit(old);
-    const dead = `${meta('transactions')}/${'a'.repeat(32)}`;
-    await fs.mkdir(dead, { recursive: true });
-    await fs.writeFile(`${dead}/stage-0.bin`, 'Synthetic stale stage');
-    await fs.writeFile(`${dead}/work-forward-0.bin`, 'Synthetic stale work file');
-    await fs.writeFile(`${dead}/unknown.bin`, 'Synthetic unrecognised artifact');
+  it('preserves unclaimed staging names in a hex transaction directory inside a valid empty store', async () => {
     const store = new OwnedStore(root, folder);
+    const empty = emptyIndex(); await store.commit(empty);
+    const dead = meta(`transactions/${'e'.repeat(32)}`);
+    await fs.mkdir(dead);
+    const files = ['next.json', 'previous.json', 'stage-0.bin', 'backup-0.bin', 'work-forward-0.bin', 'work-rollback-0.bin', 'unknown.bin'];
+    for (const name of files) await fs.writeFile(path.join(dead, name), `Synthetic unowned ${name}`);
     await store.recover();
-    expect(await fs.readdir(dead)).toEqual(['unknown.bin']);
-    expect(await fs.readFile(`${dead}/unknown.bin`, 'utf8')).toBe('Synthetic unrecognised artifact');
-    expect(await store.load()).toEqual(old);
+    expect((await fs.readdir(dead)).sort()).toEqual([...files].sort());
+    for (const name of files) expect(await fs.readFile(path.join(dead, name), 'utf8')).toBe(`Synthetic unowned ${name}`);
+    expect(await store.load()).toEqual(empty);
+    expect(await store.managedSourcePaths()).toEqual(new Set());
+    await store.commit({ ...empty, signature: 'synthetic-next' });
+    expect((await fs.readdir(dead)).sort()).toEqual([...files].sort());
+  });
+  it.each(['next.json', 'previous.json', 'stage-0.bin', 'backup-0.bin'])('preserves human-edited real staging %s and unknown files during no-journal cleanup', async editedName => {
+    const old = await fixture(); await new OwnedStore(root, folder).commit(old);
+    const staged = new OwnedStore(root, folder, { io: e => { if (e.phase === 'staged') throw new Error('Synthetic pre-journal interruption'); } });
+    await expect(staged.commit(changed(old))).rejects.toThrow('pre-journal');
+    const [tx] = await fs.readdir(meta('transactions'));
+    const dir = meta(`transactions/${tx}`);
+    await fs.appendFile(path.join(dir, editedName), '\nSynthetic human staging edit.');
+    await fs.writeFile(path.join(dir, 'unknown.bin'), 'Synthetic unknown file');
+    const edited = await fs.readFile(path.join(dir, editedName));
+    await new OwnedStore(root, folder).recover();
+    expect(await fs.readFile(path.join(dir, editedName))).toEqual(edited);
+    expect(await fs.readFile(path.join(dir, 'unknown.bin'), 'utf8')).toBe('Synthetic unknown file');
+    expect(await new OwnedStore(root, folder).load()).toEqual(old);
+  });
+  it('cleans authenticated unchanged pre-journal staging without needing its original store instance', async () => {
+    const old = await fixture(); await new OwnedStore(root, folder).commit(old);
+    const staged = new OwnedStore(root, folder, { io: e => { if (e.phase === 'staged') throw new Error('Synthetic pre-journal interruption'); } });
+    await expect(staged.commit(changed(old))).rejects.toThrow('pre-journal');
+    expect((await fs.readdir(meta('transactions'))).length).toBe(1);
+    expect(await absent(meta('journal.json'))).toBe(true);
+    await new OwnedStore(root, folder).recover();
+    expect(await fs.readdir(meta('transactions'))).toEqual([]);
+    expect(await new OwnedStore(root, folder).load()).toEqual(old);
+  });
+  it('does not claim a merely planned work filename that the transaction never created', async () => {
+    const old = await fixture(); await new OwnedStore(root, folder).commit(old);
+    const staged = new OwnedStore(root, folder, { io: e => { if (e.phase === 'staged') throw new Error('Synthetic pre-journal interruption'); } });
+    await expect(staged.commit(changed(old))).rejects.toThrow('pre-journal');
+    const [tx] = await fs.readdir(meta('transactions'));
+    const dir = meta(`transactions/${tx}`), manualWork = path.join(dir, 'work-forward-1.bin');
+    // Expected bytes alone do not prove this file was ever plugin-created.
+    await fs.copyFile(path.join(dir, 'stage-0.bin'), manualWork);
+    const manualBytes = await fs.readFile(manualWork);
+    await new OwnedStore(root, folder).recover();
+    expect(await fs.readFile(manualWork)).toEqual(manualBytes);
+    expect(await new OwnedStore(root, folder).load()).toEqual(old);
+  });
+  it.each(['corrupt', 'duplicate-key', 'unknown-schema', 'unknown-field', 'foreign-store', 'foreign-folder', 'other-transaction', 'traversal', 'bad-hash', 'forged-signature', 'reclaimed-human-edit'])('preserves every staging artifact when ownership metadata is %s', async variant => {
+    const old = await fixture(); await new OwnedStore(root, folder).commit(old);
+    const staged = new OwnedStore(root, folder, { io: e => { if (e.phase === 'staged') throw new Error('Synthetic pre-journal interruption'); } });
+    await expect(staged.commit(changed(old))).rejects.toThrow('pre-journal');
+    const [tx] = await fs.readdir(meta('transactions'));
+    const dir = meta(`transactions/${tx}`), ownershipFile = path.join(dir, 'ownership.json');
+    const raw = await fs.readFile(ownershipFile, 'utf8'), ownership = JSON.parse(raw);
+    let bad: string;
+    switch (variant) {
+      case 'corrupt': bad = '{'; break;
+      case 'duplicate-key': bad = raw.replace('"schema":1', '"schema":2,"schema":1'); break;
+      case 'unknown-schema': ownership.schema = 99; bad = JSON.stringify(ownership); break;
+      case 'unknown-field': ownership.extra = true; bad = JSON.stringify(ownership); break;
+      case 'foreign-store': ownership.storeId = '0'.repeat(32); bad = JSON.stringify(ownership); break;
+      case 'foreign-folder': ownership.outputFolder = 'Synthetic other folder'; bad = JSON.stringify(ownership); break;
+      case 'other-transaction': ownership.transaction = 'e'.repeat(32); bad = JSON.stringify(ownership); break;
+      case 'traversal': ownership.artifacts['../../Synthetic original.md'] = sha(original); bad = JSON.stringify(ownership); break;
+      case 'bad-hash': ownership.artifacts['next.json'] = 'not-a-hash'; bad = JSON.stringify(ownership); break;
+      case 'reclaimed-human-edit': {
+        await fs.appendFile(path.join(dir, 'stage-0.bin'), '\nSynthetic human amendment.');
+        ownership.artifacts['stage-0.bin'] = sha(await fs.readFile(path.join(dir, 'stage-0.bin')));
+        bad = JSON.stringify(ownership); break;
+      }
+      default: ownership.authentication = '0'.repeat(64); bad = JSON.stringify(ownership);
+    }
+    await fs.writeFile(ownershipFile, bad);
+    const names = (await fs.readdir(dir)).sort();
+    const bytes = await Promise.all(names.map(name => fs.readFile(path.join(dir, name))));
+    await new OwnedStore(root, folder).recover();
+    expect((await fs.readdir(dir)).sort()).toEqual(names);
+    for (let i = 0; i < names.length; i++) expect(await fs.readFile(path.join(dir, names[i]))).toEqual(bytes[i]);
+    expect(await new OwnedStore(root, folder).load()).toEqual(old);
+  });
+  it('cannot replay a real ownership receipt into another hex directory to claim manual files', async () => {
+    const old = await fixture(); await new OwnedStore(root, folder).commit(old);
+    const staged = new OwnedStore(root, folder, { io: e => { if (e.phase === 'staged') throw new Error('Synthetic pre-journal interruption'); } });
+    await expect(staged.commit(changed(old))).rejects.toThrow('pre-journal');
+    const [tx] = await fs.readdir(meta('transactions'));
+    const from = meta(`transactions/${tx}`), to = meta(`transactions/${'e'.repeat(32)}`);
+    await fs.cp(from, to, { recursive: true });
+    const ownershipFile = path.join(to, 'ownership.json');
+    const ownership = JSON.parse(await fs.readFile(ownershipFile, 'utf8'));
+    ownership.transaction = 'e'.repeat(32); // Right binding and hashes, but not an authentic claim.
+    await fs.writeFile(ownershipFile, JSON.stringify(ownership));
+    const names = (await fs.readdir(to)).sort();
+    const bytes = await Promise.all(names.map(name => fs.readFile(path.join(to, name))));
+    await new OwnedStore(root, folder).recover();
+    expect(await absent(from)).toBe(true);
+    expect((await fs.readdir(to)).sort()).toEqual(names);
+    for (let i = 0; i < names.length; i++) expect(await fs.readFile(path.join(to, names[i]))).toEqual(bytes[i]);
+  });
+  it('preserves finalization-time human staging edits and unclaimed generated-looking artifacts', async () => {
+    const old = await fixture(); await new OwnedStore(root, folder).commit(old);
+    let dir = '', edited: Buffer | undefined;
+    const store = new OwnedStore(root, folder, { io: async e => {
+      if (e.phase !== 'before-finalize') return;
+      const [tx] = await fs.readdir(meta('transactions')); dir = meta(`transactions/${tx}`);
+      await fs.appendFile(path.join(dir, 'stage-0.bin'), '\nSynthetic human finalization edit.');
+      edited = await fs.readFile(path.join(dir, 'stage-0.bin'));
+      await fs.writeFile(path.join(dir, 'unknown.bin'), 'Synthetic unknown file');
+      await fs.writeFile(path.join(dir, 'work-forward-999.bin'), 'Synthetic unclaimed work name');
+    } });
+    await store.commit(changed(old));
+    await new OwnedStore(root, folder).recover();
+    expect(await fs.readFile(path.join(dir, 'stage-0.bin'))).toEqual(edited);
+    expect(await fs.readFile(path.join(dir, 'unknown.bin'), 'utf8')).toBe('Synthetic unknown file');
+    expect(await fs.readFile(path.join(dir, 'work-forward-999.bin'), 'utf8')).toBe('Synthetic unclaimed work name');
+    expect(await absent(path.join(dir, 'next.json'))).toBe(true);
+    expect(await absent(path.join(dir, 'ownership.json'))).toBe(false);
+    expect(await new OwnedStore(root, folder).load()).toEqual(changed(old));
+  });
+  it('recovers a real crash after journal removal using durable authenticated staging ownership', async () => {
+    const old = await fixture(); await new OwnedStore(root, folder).commit(old);
+    const next = changed(old), moduleURL = pathToFileURL(path.resolve('src/runtime/store.ts')).href;
+    const script = `import {OwnedStore} from ${JSON.stringify(moduleURL)};
+      await new OwnedStore(${JSON.stringify(root)},${JSON.stringify(folder)},{io:e=>{
+        if(e.phase==='after-finalize') process.exit(73);
+      }}).commit(${JSON.stringify(next)}); process.exit(0);`;
+    const child = spawn(process.execPath, ['--no-deprecation', '--import', 'tsx', '--input-type', 'module', '--eval', script], { cwd: process.cwd(), windowsHide: true, stdio: ['ignore', 'ignore', 'pipe'] });
+    let stderr = ''; child.stderr.on('data', b => { stderr += b.toString(); });
+    const code = await new Promise<number | null>((resolve, reject) => { child.once('error', reject); child.once('exit', resolve); });
+    expect(stderr).toBe(''); expect(code).toBe(73);
+    expect(await absent(meta('journal.json'))).toBe(true);
+    expect((await fs.readdir(meta('transactions'))).length).toBe(1);
+    expect(await new OwnedStore(root, folder).load()).toEqual(next);
+    expect(await fs.readdir(meta('transactions'))).toEqual([]);
+    expect(await absent(meta('write.lock'))).toBe(true);
+    expect(await fs.readFile(absolute(sourcePath), 'utf8')).toBe(original);
+  });
+  it('keeps legacy unverifiable orphans while cleaning live commits and validated journal recovery', async () => {
+    const old = await fixture(); await new OwnedStore(root, folder).commit(old);
+    const marker = JSON.parse(await fs.readFile(meta('marker.json'), 'utf8'));
+    delete marker.stagingKey; await fs.writeFile(meta('marker.json'), JSON.stringify(marker));
+    const dead = meta(`transactions/${'e'.repeat(32)}`); await fs.mkdir(dead);
+    await fs.writeFile(path.join(dead, 'next.json'), 'Synthetic legacy unclaimed stage');
+    const next = { ...changed(old), signature: 'synthetic-legacy-commit' };
+    await new OwnedStore(root, folder).commit(next);
+    expect(await fs.readdir(meta('transactions'))).toEqual(['e'.repeat(32)]);
+    await pending(old);
+    await new OwnedStore(root, folder).recover();
+    expect(await fs.readdir(meta('transactions'))).toEqual(['e'.repeat(32)]);
+    expect(await fs.readFile(path.join(dead, 'next.json'), 'utf8')).toBe('Synthetic legacy unclaimed stage');
+    expect(await new OwnedStore(root, folder).load()).toEqual(next);
   });
 });

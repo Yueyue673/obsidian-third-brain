@@ -82,8 +82,45 @@ export async function buildIndex(inputs: SourceSnapshot[], options: RunOptions):
       reusable.set(fragment.id,fragment);
     }
     let vocabulary = currentVocabulary(safeVocabulary(options.vocabulary),options.previous,reusable);
-    for (const fragment of reusable.values()) vocabulary = extendVocabulary(vocabulary,fragment.facets);
-    for (const snapshot of sources) if (eligible.has(snapshot.id)) vocabulary = extendVocabulary(vocabulary,sourceFacets(snapshot));
+    // One independent source-grounded proof per canonical label is enough to
+    // supply that label. A merged fragment's proof still requires ALL donors:
+    // v1 cannot attribute its unioned editorial labels to individual evidence.
+    // This avoids rereading an entire library for every common duplicate tag.
+    const proofs = new Map<string,SourceSnapshot[]>();
+    const remember = (facets: Facets, donors: SourceSnapshot[]): void => {
+      const safe = safeVocabulary(facets);
+      for (const key of FACET_KEYS) for (const value of safe[key]) {
+        const label = `${key}:${facetKey(value)}`;
+        if (!proofs.has(label)) proofs.set(label,donors);
+      }
+    };
+    for (const fragment of reusable.values()) {
+      vocabulary = extendVocabulary(vocabulary,fragment.facets);
+      remember(fragment.facets,[...new Set(fragment.evidence.map(evidence => evidence.relativePath))].map(path => current.get(path)!));
+    }
+    for (const snapshot of sources) if (eligible.has(snapshot.id)) {
+      const facets = sourceFacets(snapshot);
+      vocabulary = extendVocabulary(vocabulary,facets); remember(facets,[snapshot]);
+    }
+    const beforeRequest = options.recheck || options.beforeRequest ? async (active: SourceSnapshot, requestVocabulary: Facets): Promise<void> => {
+      await options.beforeRequest?.(active,requestVocabulary);
+      checkAbort(options.signal);
+      if (!options.recheck) return;
+      const donors = new Map<string,SourceSnapshot>();
+      for (const key of FACET_KEYS) for (const value of requestVocabulary[key]) {
+        for (const donor of proofs.get(`${key}:${facetKey(value)}`) ?? []) if (donor.path !== active.path) donors.set(donor.path,donor);
+      }
+      // Read dictionary proofs first, then the current text last. In particular,
+      // an asynchronous donor read must not invalidate an earlier body check.
+      donors.set(active.path,active);
+      for (const original of donors.values()) {
+        checkAbort(options.signal);
+        const fresh = await options.recheck(original);
+        checkAbort(options.signal);
+        if (!fresh || fresh.id !== original.id || fresh.path !== original.path || fresh.format !== original.format ||
+            fresh.hash !== original.hash || fresh.privacy !== original.privacy || fresh.text !== original.text) throw new CoreError('Source notes changed during processing');
+      }
+    } : undefined;
     // Vocabulary is an incremental editorial hint, not a generation parameter.
     // Learned dictionary growth must not re-request unchanged originals. A
     // deliberate re-edit is requested by changing the caller's signature.
@@ -107,21 +144,13 @@ export async function buildIndex(inputs: SourceSnapshot[], options: RunOptions):
         // AI facets retain their own verified source revision; they do not
         // depend on today's bounded request dictionary or explicit tags.
       } else {
-        // A model request may carry this note's text. Re-read it immediately
-        // before the request: a note that became private, changed or vanished
-        // after listing fails closed and is never sent.
-        if (options.recheck) {
-          const fresh = await options.recheck(snapshot);
-          checkAbort(options.signal);
-          if (!fresh || fresh.hash !== snapshot.hash || fresh.privacy !== snapshot.privacy) throw new CoreError('Source notes changed during processing');
-        }
-        const result = await analyzeSource(snapshot,{ ...options,vocabulary,now });
+        const result = await analyzeSource(snapshot,{ ...options,vocabulary,now,beforeRequest });
         status=result.status; fragments=result.fragments;
         if (status === 'error') throw new CoreError('Source analysis failed');
       }
       checkAbort(options.signal);
       records[snapshot.path] = { hash:snapshot.hash,status,fragmentIds:[] };
-      for (const fragment of fragments) vocabulary = extendVocabulary(vocabulary,fragment.facets);
+      for (const fragment of fragments) { vocabulary = extendVocabulary(vocabulary,fragment.facets); remember(fragment.facets,[snapshot]); }
       collected.push(...fragments); completed++; progress('processing');
     }
     const merged = mergeFragments(collected), fragments: Record<string,Fragment> = Object.create(null);

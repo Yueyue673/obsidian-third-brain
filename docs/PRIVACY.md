@@ -20,7 +20,9 @@ Supported source frontmatter includes `privacy: local`, `privacy: private`, `sen
 
 This policy is prospective. Changing a previously ordinary note to private cannot recall content already sent to a provider. A loopback model service may independently forward traffic; endpoint validation does not audit that separate process.
 
-Cloud requests are re-checked **at the request boundary**, not only at the last refresh: every donor note is re-read and re-verified immediately before an interpreted query is sent, a note that changed or became private while indexing was still running is never sent, and a newly excluded folder or the owned derived layer stops contributing vocabulary immediately — even before the next refresh. This narrows the check-to-send window; it cannot eliminate it on a filesystem another process can edit at any moment.
+Cloud requests are re-checked **at each request boundary**, not only at the last refresh or once per note. Every paragraph and oversized-paragraph chunk is a separate extraction request. Before it, the live source proof for each vocabulary label is checked again, including metadata, cached and newly inferred labels; the active note is read last, after asynchronous dictionary checks. A missing, excluded, edited or newly protected required source aborts the run before that request. An independently grounded ordinary source can supply a shared label; a merged fragment's unioned labels still require all of its evidence donors. Local excerpts make no model requests and do not need these outgoing-request checks.
+
+For interpreted queries, candidate dictionary donors are re-read and re-verified before sending. Newly excluded folders and the owned derived layer stop contributing immediately. These checks narrow the check-to-send window; they cannot eliminate it on a filesystem another process can edit at any moment. They also cannot recall previously authorised data sent before a policy change.
 
 ## Sensitive content
 
