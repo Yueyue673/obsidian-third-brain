@@ -2,9 +2,9 @@
 
 ## First run
 
-This is a development source preview; no public downloadable release has been verified yet. Clone the repository, use Node 22.12+ to run `npm ci --ignore-scripts` and `npm run build`, then copy `dist/main.js`, `dist/manifest.json` and `dist/styles.css` into `.obsidian/plugins/third-brain/` of a disposable desktop vault. Enable the plugin, open its ribbon/command entry, and refresh notes once. The default mode does not contact a model.
+The [`0.1.0` preview release](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.1.0) provides a downloadable ZIP — verify it against `SHA256SUMS` before installing. Alternatively, clone the repository, use Node 22.12+ to run `npm ci --ignore-scripts` and `npm run build`, then copy `dist/main.js`, `dist/manifest.json` and `dist/styles.css` into `.obsidian/plugins/third-brain/` of a disposable desktop vault. Enable the plugin, open its ribbon/command entry, and refresh notes once. The default mode does not contact a model. The published package's assets were anonymously downloaded and hash-verified; its full click-driven installation journey on a native host has not yet been re-run.
 
-当前为源码开发预览。按 README 的命令构建后，把 `dist/` 中上述三个文件复制到测试库的插件目录。无需配置模型接口即可使用本地摘录；公开安装包会单独核验，不把源码构建冒充下载安装。
+可从 [0.1.0 预览发布](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.1.0)下载 ZIP（先用 `SHA256SUMS` 校验）；或按 README 的命令从源码构建后，把 `dist/` 中三个文件复制到测试库的插件目录。无需配置模型接口即可使用本地摘录。公开包资产已无凭据下载并校验哈希；其在原生宿主的完整点击安装旅程尚未重跑，不把源码构建冒充下载安装。
 
 Try the authored synthetic sample notes, then enter `留白` or `Change one variable at a time`. Inspect a quotation and open its exact original. These are controlled examples, not evidence of universal retrieval accuracy. A source with too little context can produce no fragment.
 

@@ -4,13 +4,15 @@ Reconnect a half-formed idea with notes you already wrote — with explanations 
 
 [中文说明](README.zh-CN.md) · [Getting started](docs/GETTING-STARTED.md) · [Privacy](docs/PRIVACY.md) · [Architecture](docs/ARCHITECTURE.md)
 
-**Development preview:** the repaired local-excerpt build passed native Obsidian acceptance in an isolated synthetic vault (see the precise [verification scope](docs/VERIFICATION.md)). Build from source below; a public downloadable release and its installation are still pending. Live AI-provider compatibility and semantic quality have not been verified.
+**Development preview:** the [`0.1.0` release](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.1.0) is published as a preview. The repaired local-excerpt build passed native Obsidian acceptance in an isolated synthetic vault, and the published assets were re-downloaded anonymously and verified byte-identical to the tagged CI artifacts (see the precise [verification scope](docs/VERIFICATION.md)). Live AI-provider compatibility and semantic quality have not been verified.
 
 ## Install
 
 Desktop Obsidian **1.11.5 or newer**. This plugin is not yet listed in the Community directory.
 
-For this source preview, use Node **22.12+** and npm:
+**From the [`0.1.0` preview release](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.1.0):** download `third-brain-0.1.0.zip`, check it against `SHA256SUMS`, then in a **disposable test vault first** create `.obsidian/plugins/third-brain/` and place `main.js`, `manifest.json`, `styles.css` and `LICENSE` directly inside. Enable the plugin in Settings → Community plugins, open **Third Brain**, and choose **Refresh notes**. The same files are also published as loose assets.
+
+**From source:** use Node **22.12+** and npm:
 
 ```sh
 git clone https://github.com/Yueyue673/obsidian-third-brain.git
@@ -19,10 +21,9 @@ npm ci --ignore-scripts
 npm run build
 ```
 
-1. In a **disposable test vault first**, create `.obsidian/plugins/third-brain/` and copy `dist/main.js`, `dist/manifest.json` and `dist/styles.css` into it.
-2. Enable the plugin in Settings → Community plugins, open **Third Brain**, and choose **Refresh notes**.
+Then copy `dist/main.js`, `dist/manifest.json` and `dist/styles.css` into the same plugin folder and enable it the same way.
 
-When a downloadable release is published, its tag must match the manifest version. Source builds and tested native-host behaviour are separate from public download/install evidence.
+The release tag matches the manifest version. The published package was downloaded anonymously, hash-verified, installed into an isolated synthetic vault and loaded in native Obsidian; the full click-driven journey on that exact package has not yet been re-run. Source builds and tested native-host behaviour are separate from public download/install evidence.
 
 No account, proprietary server or API key is needed for the default local-excerpt mode. Obsidian community plugins execute with broad access; review the code and use a backup before enabling any plugin in an important vault.
 

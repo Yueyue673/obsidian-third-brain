@@ -10,7 +10,7 @@ The parent reran typecheck, the full test suite, production build, filesystem sm
 - Four new executable packaging tests fail against an isolated archive of `084d211` and pass after the repair. They exercise the actual scripts, exact notice content, escaped comment terminators, ZIP/hash inventory, deterministic repeat packaging and CI upload scope.
 - Parent byte verification confirms that removing only the new licence banner restores the native-tested executable bundle exactly (payload SHA-256 `305cfdfc2c9186fb22975a4b271b6b0957798c7ca3f2b48dfcf306a215050f96`). A comment-only byte comparison is not a new host-installation test.
 - Short Chinese queries are tested against the actual shipped synthetic fixture, not a fabricated smaller example. The existing implementation already passed these cases; no retrieval or tokenisation repair was needed.
-- Exact-candidate hosted CI, public exposure audit and public downloadable-install acceptance are still separate gates. Local results above used Node 26.7.0 on Windows; hosted Node 22/24 results must be read back before publication.
+- The separate publication gates were then executed: tagged commit `b596ef344db28c9c1525a76346ef14e84d7beeac` passed all four hosted CI jobs; the read-only exposure audit over all reachable history, Actions logs and artifacts passed with zero unresolved findings; the repository was made public and the `0.1.0` preview release published. All six release assets were subsequently downloaded anonymously and verified byte-identical to the hosted artifacts. Local results above used Node 26.7.0 on Windows.
 
 ## Previous repaired-code full gates — 2026-10-05
 
@@ -98,7 +98,7 @@ The marker is a local trust anchor, not a defence against an actor able to rewri
 ## Boundaries still pending
 
 - Live configured AI-provider compatibility and output quality: pending. No private notes or existing credentials were used. Deterministic adapters are not real-provider evidence.
-- Public GitHub release, CI artifacts downloaded from that release, and installation from the downloaded files: pending. Local ZIP/hash checks and private-repository CI do not establish that final delivery path.
+- Public downloadable-package acceptance: partial. The `0.1.0` release assets were anonymously downloaded and hash-verified, installed into the approved isolated synthetic vault and loaded in native Obsidian 1.13.7 (the panel rendered). The click-driven refresh/search journey on that exact downloaded package was **not** re-run in this cycle: the GUI click approval timed out without consent and was not retried or routed around. No real personal vault is involved in any of these steps.
 
 ## Acceptance requirements
 

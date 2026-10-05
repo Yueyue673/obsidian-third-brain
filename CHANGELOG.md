@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased — 0.1.0 in preparation
+## 0.1.0 — 2026-10-05 (preview)
 
 Initial source-grounded activation slice: one sidebar, separate owned derived layer, local-excerpt baseline and optional explicitly configured model modes. The implementation includes source revision/evidence checks, bounded privacy policy and transaction recovery; release acceptance is tracked in `docs/VERIFICATION.md`.
 
@@ -19,4 +19,4 @@ Initial source-grounded activation slice: one sidebar, separate owned derived la
 - README and first-run instructions distinguish the buildable development preview, native acceptance and the still-pending public download path. Local Obsidian/runtime state is ignored even outside `.local/`.
 - Standalone `main.js` retains the full MIT notice; ZIP, loose assets and hash inventory carry `LICENSE`. Four executable packaging regressions fail on the previous version and pass after the repair; removing the comment banner leaves the native-tested executable bytes unchanged.
 
-This draft does not establish a public release. The completed native-host journey and its limits are recorded in `docs/VERIFICATION.md`; GitHub publication, exact-commit CI and downloaded-release installation must be verified before this entry is promoted to a dated release.
+Published as a preview release after: full local gates (459 tests), four hosted CI jobs on the tagged commit, a read-only exposure audit of all reachable history and Actions data with zero unresolved findings, and an anonymous re-download of all six assets matching the tagged CI artifacts byte-for-byte. The completed native-host journey and its limits — including the not-yet-re-run click journey on the published package — are recorded in `docs/VERIFICATION.md`.
