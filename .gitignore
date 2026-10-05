@@ -1,0 +1,16 @@
+node_modules/
+main.js
+*.map
+dist/
+coverage/
+playwright-report/
+test-results/
+.local/
+.private/
+.env
+.env.*
+!.env.example
+*.log
+*.tsbuildinfo
+.DS_Store
+Thumbs.db

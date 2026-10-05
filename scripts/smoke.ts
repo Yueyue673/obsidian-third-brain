@@ -1,0 +1,26 @@
+import assert from 'node:assert/strict';
+import { promises as fs } from 'node:fs';
+import path from 'node:path';
+import { ThirdBrainController } from '../src/controller';
+import { FileSources, hash } from '../src/sources';
+import { OwnedStore } from '../src/runtime/store';
+import { defaults } from '../src/settings';
+await fs.mkdir('.local', { recursive: true }); const root = await fs.mkdtemp(path.resolve('.local/smoke-'));
+await fs.cp('fixtures/sample-vault', root, { recursive: true });
+const settings = { ...defaults };
+const store = new OwnedStore(root, settings.outputFolder);
+const sources = new FileSources(root, () => settings, () => store.managedSourcePaths());
+const before = await sources.list(); const original = new Map<string, { hash: string; mtime: number }>();
+for (const source of before) original.set(source.path, { hash: source.hash, mtime: (await fs.stat(path.join(root, source.path))).mtimeMs });
+const controller = new ThirdBrainController(sources, store, () => settings, () => undefined, async when => { settings.lastIndexedAt = when; });
+await controller.initialize(); const started = performance.now(); await controller.refresh();
+assert(controller.status().fragmentCount > 0);
+const initial = await store.load(); assert(initial);
+const results = await controller.find('留白', 'medium'); assert(results.length > 0, 'Chinese idea should retrieve actual quoted fragments.');
+for (const result of results) for (const evidence of result.fragment.evidence) await controller.verifyOpen(evidence);
+const misses = await controller.find('qzxv-unrelated-astronomy-quark', 'high'); assert.equal(misses.length, 0, 'No answer must stay no answer.');
+await controller.refresh(); const again = await store.load(); assert(again);
+assert.deepEqual(Object.keys(again.fragments).sort(), Object.keys(initial.fragments).sort(), 'Unchanged notes must not duplicate fragments.');
+for (const [relative, old] of original) { assert.equal(hash(await fs.readFile(path.join(root, relative))), old.hash); assert.equal((await fs.stat(path.join(root, relative))).mtimeMs, old.mtime); }
+console.log(JSON.stringify({ originalNotes: original.size, fragments: controller.status().fragmentCount, chineseIdeaResults: results.length, unrelatedIdeaResults: misses.length, originalsHashAndMtimeUnchanged: true, unchangedRerunStableIds: true, durationMs: Math.round(performance.now() - started), mode: 'local-excerpts', caveat: 'Local lexical/facet baseline; no real AI provider used in this smoke.' }, null, 2));
+controller.dispose();

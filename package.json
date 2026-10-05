@@ -1,0 +1,26 @@
+{
+  "name": "third-brain",
+  "version": "0.1.0",
+  "description": "Source-grounded note fragments and explainable connections for Obsidian.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "engines": { "node": ">=22.12.0" },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "build": "node scripts/build.mjs",
+    "smoke": "tsx scripts/smoke.ts",
+    "privacy:check": "node scripts/privacy-check.mjs",
+    "demo": "tsx scripts/demo-server.ts",
+    "release": "node scripts/release.mjs"
+  },
+  "devDependencies": {
+    "@types/node": "22.18.10",
+    "esbuild": "0.28.2",
+    "obsidian": "1.13.1",
+    "tsx": "4.20.6",
+    "typescript": "5.9.3",
+    "vitest": "4.1.11"
+  }
+}

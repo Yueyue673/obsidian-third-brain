@@ -1,0 +1,11 @@
+import { describe, expect, it } from 'vitest';
+import { defaults, generationSignature, isDue, loadSettings, safeFolder } from '../src/settings';
+describe('settings and app-open-only maintenance', () => {
+  it('starts with zero-model, manual, no-cloud-consent defaults', () => { expect(loadSettings(null)).toEqual(defaults); expect(defaults.mode).toBe('local-excerpts'); expect(defaults.schedule).toBe('manual'); expect(defaults.cloudConsent).toBe(false); });
+  it('drops unknown settings including plaintext secret fields', () => { const result = loadSettings({ apiKey: 'synthetic-only', password: 'synthetic-only', mode: 'unknown', cloudConsent: 'true' }); expect(result).not.toHaveProperty('apiKey'); expect(result).not.toHaveProperty('password'); expect(result.cloudConsent).toBe(false); });
+  it('accepts nested generated paths and rejects destructive or ambiguous ones', () => { expect(safeFolder('Third Brain/Fragments')).toBe('Third Brain/Fragments'); for (const p of ['', '/', '../Originals', 'Generated/../Originals', '.obsidian', 'Generated//Fragments', 'Generated/NUL.md', 'Generated/name.', 'Generated/name ', 'Generated/name:stream']) expect(() => safeFolder(p)).toThrow(); });
+  it('does not schedule any request in manual mode', () => { expect(isDue({ ...defaults, lastIndexedAt: '' }, Date.parse('2026-01-08T12:00:00Z'))).toBe(false); });
+  it('catches up one overdue daily or weekly refresh', () => { const now = Date.parse('2026-01-08T12:00:00Z'); expect(isDue({ ...defaults, schedule: 'daily', lastIndexedAt: '2026-01-07T12:00:00Z' }, now)).toBe(true); expect(isDue({ ...defaults, schedule: 'daily', lastIndexedAt: '2026-01-08T11:59:00Z' }, now)).toBe(false); expect(isDue({ ...defaults, schedule: 'weekly', lastIndexedAt: '2026-01-01T12:00:00Z' }, now)).toBe(true); expect(isDue({ ...defaults, schedule: 'weekly', lastIndexedAt: '2026-01-02T12:00:00Z' }, now)).toBe(false); });
+  it('keeps secret IDs out of generation signatures', () => { expect(generationSignature({ ...defaults, secretId: 'key-one' })).toBe(generationSignature({ ...defaults, secretId: 'key-two' })); });
+  it('reconciles generation when the configured model changes', () => { expect(generationSignature({ ...defaults, mode: 'local-model', model: 'one' })).not.toBe(generationSignature({ ...defaults, mode: 'local-model', model: 'two' })); });
+});
