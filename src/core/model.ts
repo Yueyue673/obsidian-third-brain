@@ -1,6 +1,6 @@
 import type { Facets, Fragment, ModelPort, SourceSnapshot } from './types';
 import { emptyFacets } from './types';
-import { CoreError, FACET_KEYS, boundedString, cancellable, checkAbort, exactKeys, facetKey, parseResponse, stringList } from './util';
+import { CoreError, EDITED_SUMMARY_LIMIT, EXACT_SUMMARY_LIMIT, EXTRACTION_FACET_LIMIT, FACET_KEYS, INTERPRETATION_FACET_LIMIT, boundedString, cancellable, checkAbort, exactKeys, facetKey, parseResponse, stringList } from './util';
 import { extendVocabulary, hasCredentials, mapped, redact, safeFacet, safeVocabulary, type MappedText } from './privacy';
 import { AI_EDITOR_CAVEAT, CANVAS_OFFSET_CAVEAT, fragmentId, quotations } from './fragments';
 import { meaningful } from './sources';
@@ -14,7 +14,7 @@ function controlledFacets(object: Record<string,unknown>, vocabulary: Facets, di
   const result = emptyFacets();
   for (const key of FACET_KEYS) {
     const known = new Map(vocabulary[key].map(item => [facetKey(item),item]));
-    for (const value of stringList(object[key],discover ? 6 : 24)) {
+    for (const value of stringList(object[key],discover ? EXTRACTION_FACET_LIMIT : INTERPRETATION_FACET_LIMIT)) {
       const normalized = facetKey(value), canonical = known.get(normalized) ?? (discover ? normalized : undefined);
       if (!canonical || !safeFacet(value) || !safeFacet(canonical)) throw new CoreError('Model returned an unknown or unsafe facet');
       result[key].push(canonical);
@@ -35,7 +35,7 @@ export function parseExtraction(response: unknown, snapshot: SourceSnapshot, inp
   let known = safeVocabulary(vocabulary);
   return object.fragments.map(item => {
     exactKeys(item,FRAGMENT_KEYS);
-    const title = boundedString(item.title,160), summary = boundedString(item.summary,6000), rawKind = boundedString(item.kind,32), kind = KINDS.get(rawKind);
+    const title = boundedString(item.title,160), summary = boundedString(item.summary,EXACT_SUMMARY_LIMIT), rawKind = boundedString(item.kind,32), kind = KINDS.get(rawKind);
     if (!kind) throw new CoreError('Unknown fragment kind');
     safeModelText(title); safeModelText(summary);
     const quotes = stringList(item.quotes,24,6000), conditions = stringList(item.conditions,12,500), caveats = stringList(item.caveats,12,500);
@@ -45,7 +45,7 @@ export function parseExtraction(response: unknown, snapshot: SourceSnapshot, inp
     // of the source fragment's kind. Only evidence.quote is a literal quotation.
     // Semantic entailment is not claimed: exact evidence is verified below,
     // and the program supplies uncertainty for summaries and inferred facets.
-    if (!excerpt && summary.length > 800) throw new CoreError('Edited summary must be short');
+    if (!excerpt && summary.length > EDITED_SUMMARY_LIMIT) throw new CoreError('Edited summary must be short');
     for (const value of [...conditions,...caveats]) { safeModelText(value); if (!input.text.includes(value)) throw new CoreError('Conditions and caveats must be source-grounded'); }
     const evidence = quotes.flatMap(quote => { safeModelText(quote); return quotations(snapshot,input,quote); });
     const facets = controlledFacets(item,known,true);

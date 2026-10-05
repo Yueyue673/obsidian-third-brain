@@ -172,6 +172,80 @@ describe('real OpenAI-compatible request and strict output schema', () => {
     const { endpoint } = await listen((_req, res) => json(res, value));
     expect(await createModelPort(options(endpoint)).request(input())).toEqual(value);
   });
+  describe('editorial wire-policy parity with core', () => {
+    it.each([3001, 6000])('accepts a %i-character exact excerpt through the real transport and core', async length => {
+      const text = 'Synthetic original quotation preserves its source context. '.repeat(120).slice(0, length - 1) + 'Z';
+      const { endpoint } = await listen((_req, res) => {
+        const value = extract() as { fragments: Record<string, unknown>[] };
+        value.fragments[0].summary = text; value.fragments[0].quotes = [text];
+        json(res, value);
+      });
+      const result = await analyzeSource({ id: 'synthetic-literal-source', path: 'Synthetic/literal.md', text,
+        hash: createHash('sha256').update(text).digest('hex'), privacy: 'normal', format: 'markdown' },
+        { mode: 'local-model', cloudConsent: false, model: createModelPort(options(endpoint)), now: '2026-01-01T00:00:00.000Z' });
+      expect(result.fragments).toHaveLength(1);
+      expect(result.fragments[0].summary).toBe(text);
+      expect(result.fragments[0].evidence[0].quote).toBe(text);
+      expect(text.slice(result.fragments[0].evidence[0].start, result.fragments[0].evidence[0].end)).toBe(text);
+    });
+    it('accepts an 800-character edited summary and advertises the actual extraction limits', async () => {
+      const edited = 'Synthetic faithful editorial interpretation. '.repeat(20).slice(0, 799) + 'Z';
+      let prompt = '';
+      const { endpoint } = await listen((req, res) => {
+        let body = ''; req.on('data', chunk => { body += chunk.toString('utf8'); });
+        req.on('end', () => {
+          prompt = JSON.parse(body).messages[0].content;
+          const value = extract() as { fragments: Record<string, unknown>[] };
+          value.fragments[0].summary = edited; json(res, value);
+        });
+      });
+      const result = await analyzeSource({ id: 'synthetic-edited-source', path: 'Synthetic/edited.md', text: source,
+        hash: createHash('sha256').update(source).digest('hex'), privacy: 'normal', format: 'markdown' },
+        { mode: 'local-model', cloudConsent: false, model: createModelPort(options(endpoint)), now: '2026-01-01T00:00:00.000Z' });
+      expect(result.fragments[0].summary).toBe(edited);
+      expect(result.fragments[0].evidence[0].quote).toBe(summary);
+      expect(result.fragments[0].caveats.join(' ')).toContain('editorial interpretations, not verified facts');
+      expect(prompt).toContain('edited summary 800 chars');
+      expect(prompt).toContain('exact excerpt summary 6000 chars');
+      expect(prompt).toContain('at most 6 strings of 120 chars per facet');
+      expect(prompt).not.toContain('summary 3000');
+    });
+    it.each(['idea', 'excerpt', 'quote'])('rejects an 801-character nonliteral %s summary at the transport boundary', async kind => {
+      const value = extract() as { fragments: Record<string, unknown>[] };
+      value.fragments[0].summary = 'Synthetic edited interpretation. '.repeat(30).slice(0, 800) + 'Z';
+      value.fragments[0].kind = kind;
+      const { endpoint } = await listen((_req, res) => json(res, value));
+      await expect(createModelPort(options(endpoint)).request(input())).rejects.toThrow('Invalid model response');
+    });
+    it('does not treat a long summary found outside the supplied quotations as a literal excerpt', async () => {
+      const text = 'Synthetic different source paragraph. '.repeat(30).slice(0, 800) + 'Z';
+      const value = extract() as { fragments: Record<string, unknown>[] };
+      value.fragments[0].summary = text;
+      const { endpoint } = await listen((_req, res) => json(res, value));
+      await expect(createModelPort(options(endpoint)).request({ ...input(), text: `${source}\n\n${text}` })).rejects.toThrow('Invalid model response');
+    });
+    it.each(['topics', 'concepts', 'mechanisms', 'atmosphere'])('rejects seven distinct inferred %s at the transport boundary', async channel => {
+      const value = extract() as { fragments: Record<string, unknown>[] };
+      value.fragments[0][channel] = Array.from({ length: 7 }, (_, i) => `synthetic facet ${i}`);
+      const { endpoint } = await listen((_req, res) => json(res, value));
+      await expect(createModelPort(options(endpoint)).request(input())).rejects.toThrow('Invalid model response');
+    });
+    it('accepts six safe inferred labels per extraction channel', async () => {
+      const value = extract() as { fragments: Record<string, unknown>[] };
+      for (const channel of ['topics', 'concepts', 'mechanisms', 'atmosphere']) {
+        value.fragments[0][channel] = Array.from({ length: 6 }, (_, i) => `synthetic facet ${i}`);
+      }
+      const { endpoint } = await listen((_req, res) => json(res, value));
+      expect(await createModelPort(options(endpoint)).request(input())).toEqual(value);
+    });
+    it('keeps interpretation separate: up to 24 existing labels, never new labels', async () => {
+      const labels = Array.from({ length: 24 }, (_, i) => `synthetic facet ${i}`);
+      const value = { version: 1, ...emptyFacets(), mechanisms: labels };
+      const { endpoint } = await listen((_req, res) => json(res, value));
+      const request = { ...input('interpret'), vocabulary: { ...emptyFacets(), mechanisms: labels } };
+      expect(await createModelPort(options(endpoint)).request(request)).toEqual(value);
+    });
+  });
   it.each(['unknown-key', 'wrong-version', 'missing-field', 'invented-quote', 'invalid-summary', 'unsafe-facet', 'unsupported-condition', 'unsupported-caveat', 'conflicting-decision', 'empty-extract', 'oversized-facet', 'duplicate-key', 'trailing-prose', 'fenced-json', 'deep-nesting'])('fails closed on %s model content', async variant => {
     const good = extract() as { version: number; decision: string; fragments: Record<string, unknown>[] };
     let value: unknown = good;

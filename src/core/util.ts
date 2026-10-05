@@ -4,6 +4,12 @@ import { emptyFacets } from './types';
 export const FACET_KEYS = ['topics', 'concepts', 'mechanisms', 'atmosphere'] as const;
 export const CORE_REVISION = 'editorial-core-2';
 export const MODEL_TEXT_LIMIT = 6000;
+// Shared by core validation and transport prompts/validation. Editorial
+// summaries are short; longer summaries must be literal quotation excerpts.
+export const EXACT_SUMMARY_LIMIT = 6000;
+export const EDITED_SUMMARY_LIMIT = 800;
+export const EXTRACTION_FACET_LIMIT = 6;
+export const INTERPRETATION_FACET_LIMIT = 24;
 export const RESPONSE_LIMIT = 160_000;
 export const LOCAL_LABEL = 'Local excerpt · lexical baseline';
 

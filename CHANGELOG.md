@@ -12,5 +12,6 @@ Initial source-grounded activation slice: one sidebar, separate owned derived la
 - Send-boundary privacy: cloud donors and pending indexing sources are re-verified immediately before each model request; newly excluded folders stop contributing cloud/local vocabulary at once; a source that became private, changed or vanished inside the request window fails closed instead of being sent.
 - A completed commit removes its own transaction staging directory (dead state copies, staged and work files); recovery prunes leftovers from an interrupted finalization, while unrecognised files inside those directories are never deleted.
 - Native acceptance on Obsidian 1.13.7: install → refresh → idea → open original exercised against an isolated synthetic vault, with zero renderer network requests and unchanged originals.
+- Extraction prompt, transport and core share one policy: edited summaries up to 800 characters, exact quoted excerpts up to 6000, and at most six inferred labels per channel. Real HTTP regressions retain the separate existing-vocabulary interpretation boundary.
 
-No release or completed native-host verification is implied by this draft entry. GitHub publication, exact-commit CI and downloaded-asset checks must be recorded before this is promoted to a dated release.
+This draft does not establish a public release. The completed native-host journey and its limits are recorded in `docs/VERIFICATION.md`; GitHub publication, exact-commit CI and downloaded-release installation must be verified before this entry is promoted to a dated release.

@@ -4,7 +4,7 @@
 
 [English](README.md) · [上手与模型配置](docs/GETTING-STARTED.md) · [隐私边界](docs/PRIVACY.md) · [架构](docs/ARCHITECTURE.md)
 
-**发布候选版：**已在隔离合成设置库完成原生 Obsidian 验收（见[验证范围](docs/VERIFICATION.md)）；真实 AI 服务验证、公开 Release 与下载安装验收仍待完成。
+**发布候选版：**已在隔离合成笔记库完成原生 Obsidian 验收（见[验证范围](docs/VERIFICATION.md)）；真实 AI 服务验证、公开 Release 与下载安装验收仍待完成。
 
 ## 安装
 

@@ -5,7 +5,7 @@ This file records evidence, not feature aspirations. Release acceptance must ref
 ## Current build evidence — 2026-10-05
 
 - Typecheck, production build, filesystem smoke, publication pattern scan and release preparation all exited 0 on the current working tree.
-- Full unit/integration suite: **387 passed across 14 files**, exit 0. Includes AI editorial/facet discovery through deterministic synthetic adapters, source decoding, freshness/privacy, request-boundary race regressions, transaction-staging cleanup, settings snapshots, filesystem ownership/CAS/recovery, real loopback HTTP and synthetic process-crash cases. A count does not establish real-model semantic quality.
+- Full unit/integration suite: **400 passed across 14 files**, exit 0. Includes AI editorial/facet discovery through deterministic synthetic adapters, source decoding, freshness/privacy, request-boundary race regressions, transaction-staging cleanup, extraction wire-policy parity, settings snapshots, filesystem ownership/CAS/recovery, real loopback HTTP and synthetic process-crash cases. A count does not establish real-model semantic quality.
 - Filesystem smoke: 8 originals, 14 fragments, 4 idea matches and 0 unrelated matches. Original SHA-256 hashes and modification times stayed unchanged; an unchanged rerun preserved IDs. No real AI provider was used.
 - Publication scan: passed on the working tree. This is a conservative pattern scan, not comprehensive personal-information detection. Screenshots were manually inspected for publication scope too.
 - Local release preparation: deterministic ZIP with only `main.js`, `manifest.json` and `styles.css`, plus individual assets and `SHA256SUMS`. Local archive-entry, CRC and hash validation passed; this is not GitHub delivery evidence.
@@ -44,6 +44,12 @@ An independent read-only review found three send-boundary race gaps in the previ
 - A folder excluded after indexing no longer contributes labels to a cloud vocabulary request, even before the next refresh.
 - Cloud donors are re-read and re-verified immediately before the request; a note changed or made private while later notes were still being checked is dropped.
 - During incremental indexing, a pending note re-read at its request boundary that became private, changed or disappeared fails closed before any model request carries its text.
+
+## Editorial extraction handoff regressions
+
+The production transport, its prompt and the pure core now share the extraction limits: edited summaries at most 800 characters, exact excerpt summaries at most 6000 characters only when contained in a verified quotation, and at most six inferred labels per channel. Query interpretation remains separate: at most 24 labels selected from existing safe vocabulary, not newly invented labels.
+
+Thirteen new real-loopback HTTP regressions cover those boundaries, including 3001/6000-character literal excerpts through transport and core, 800/801-character editorial summaries, all four facet channels, and the interpretation limit. Eleven failed on the old transport before the fix; all thirteen pass after it. The complete transport suite passes 88 tests. The server responses are explicitly deterministic synthetic fixtures: this validates the production network/schema handoff, not live-provider compatibility or semantic quality.
 
 ## Boundaries still pending
 
