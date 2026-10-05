@@ -11,7 +11,7 @@ const snapshot = (text: string): SourceSnapshot => prepareSource('synthetic.md',
 async function setup() {
   const settings: Settings = { ...defaults, excludes: [] };
   let live: SourceSnapshot | null = snapshot(original), index: IndexState | null = null;
-  const sources: SourcePort = { list: async () => live ? [live] : [], read: async () => live, verify: async () => undefined };
+  const sources: SourcePort = { list: async () => live ? [live] : [], read: async () => live, verify: async () => undefined, excluded: async () => new Set<string>() };
   const store: StorePort = { recover: async () => undefined, load: async () => index,
     commit: async (next, verify) => { await verify?.(); index = structuredClone(next); } };
   const request = vi.fn(async () => ({ version: 1, ...emptyFacets() }));

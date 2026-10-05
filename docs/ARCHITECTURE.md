@@ -8,7 +8,7 @@ One desktop Obsidian plugin, one activation surface, no companion service.
 - `src/sources.ts`: byte-level source snapshots and SHA-256 revisions; canonical vault-relative paths; symlink rejection; source-set compare-and-swap. Originals are read-only.
 - `src/runtime/store.ts`: ownership-protected derived Markdown, strict persisted state, staged writes, a validated recovery journal and generated-history handling. A folder name cannot establish ownership.
 - `src/runtime/transport.ts`: bounded native HTTP(S), explicit model/endpoint selection, loopback/cloud policy, no redirects, cancellation and timeout. No implicit service or model starts.
-- `src/controller.ts`: single-flight refresh/search, snapshot/config coordination, live-evidence checks and visible safe status. No model reranking of private fragments.
+- `src/controller.ts`: single-flight refresh/search, snapshot/config coordination, live-evidence checks and visible safe status. No model reranking of private fragments. Before a model request may carry note text, each pending source is re-read at that request boundary; cloud vocabulary is collected, re-verified and re-checked against current exclusions/donor revisions immediately before it is sent.
 - `src/main.ts`: Obsidian view, settings, secret selector, source opening and app-open-only schedule.
 - `src/ui.ts`: text-only DOM rendering shared by the host and a labelled synthetic browser harness. Source/model strings are not interpreted as HTML.
 

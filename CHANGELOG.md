@@ -9,5 +9,6 @@ Initial source-grounded activation slice: one sidebar, separate owned derived la
 - Stale or newly private evidence invalidates the entire merged suggestion until refresh, preventing another source from inheriting unsupported labels.
 - Chinese presentation translates only program-owned explanations; author/model text and original quotes remain literal.
 - Settings snapshots and cancellation prevent a mid-run consent/configuration change from silently changing the model boundary.
+- Send-boundary privacy: cloud donors and pending indexing sources are re-verified immediately before each model request; newly excluded folders stop contributing cloud/local vocabulary at once; a source that became private, changed or vanished inside the request window fails closed instead of being sent.
 
 No release or completed native-host verification is implied by this draft entry. GitHub publication, exact-commit CI and downloaded-asset checks must be recorded before this is promoted to a dated release.

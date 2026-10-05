@@ -9,6 +9,8 @@ export interface SourcePort {
   list(): Promise<SourceSnapshot[]>;
   read(relativePath: string): Promise<SourceSnapshot | null>;
   verify(snapshots: SourceSnapshot[]): Promise<void>;
+  /** Paths that no longer qualify as current sources: excluded folders and the owned derived layer. */
+  excluded(relativePaths: string[]): Promise<Set<string>>;
 }
 export function hash(value: string | Buffer): string { return createHash('sha256').update(value).digest('hex'); }
 export function canonicalPath(value: string): string {
@@ -67,6 +69,10 @@ export class FileSources implements SourcePort {
     for (const name of names) { const s = await this.read(name); if (s) { totalBytes += Buffer.byteLength(s.text); if (totalBytes > 100 * 1024 * 1024) throw new Error('This batch exceeds 100 MiB. Add source exclusions before retrying.'); snapshots.push(s); } }
     return snapshots;
   }
+  async excluded(relativePaths: string[]): Promise<Set<string>> {
+    const managed = await this.managed(), excludes = this.settings().excludes;
+    return new Set(relativePaths.filter(relative => managed.has(relative) || excludes.some(x => relative === x || relative.startsWith(`${x}/`))));
+  }
   async verify(snapshots: SourceSnapshot[]): Promise<void> {
     const current = await this.list();
     const expected = new Map(snapshots.map(x => [x.path, x.hash]));
@@ -77,8 +83,8 @@ export function contextPrivacy(original: SourceSnapshot, fullDraft: string): Pri
   const draft = prepareSource(original.path, fullDraft, hash(fullDraft), original.id);
   return original.privacy === 'private' || draft.privacy === 'private' ? 'private' : original.privacy === 'local' || draft.privacy === 'local' ? 'local' : 'normal';
 }
-export async function currentEvidence(evidence: Evidence[], sources: SourcePort): Promise<Evidence[]> {
-  const result: Evidence[] = []; const cache = new Map<string, SourceSnapshot | null>();
+export async function currentEvidence(evidence: Evidence[], sources: SourcePort, cache = new Map<string, SourceSnapshot | null>()): Promise<Evidence[]> {
+  const result: Evidence[] = [];
   for (const item of evidence) {
     if (!cache.has(item.relativePath)) cache.set(item.relativePath, await sources.read(item.relativePath));
     const live = cache.get(item.relativePath);

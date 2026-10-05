@@ -16,6 +16,8 @@ Supported source frontmatter includes `privacy: local`, `privacy: private`, `sen
 
 This policy is prospective. Changing a previously ordinary note to private cannot recall content already sent to a provider. A loopback model service may independently forward traffic; endpoint validation does not audit that separate process.
 
+Cloud requests are re-checked **at the request boundary**, not only at the last refresh: every donor note is re-read and re-verified immediately before an interpreted query is sent, a note that changed or became private while indexing was still running is never sent, and a newly excluded folder or the owned derived layer stops contributing vocabulary immediately — even before the next refresh. This narrows the check-to-send window; it cannot eliminate it on a filesystem another process can edit at any moment.
+
 ## Sensitive content
 
 Recognised credential-bearing input blocks a model request. Common identifiable information is redacted where safe evidence mapping is possible. This is a conservative pattern-based measure: it does **not** recognise every secret, identity or confidential situation. Mark sensitive notes local/private or exclude their folder before first indexing.

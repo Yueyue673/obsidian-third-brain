@@ -107,6 +107,14 @@ export async function buildIndex(inputs: SourceSnapshot[], options: RunOptions):
         // AI facets retain their own verified source revision; they do not
         // depend on today's bounded request dictionary or explicit tags.
       } else {
+        // A model request may carry this note's text. Re-read it immediately
+        // before the request: a note that became private, changed or vanished
+        // after listing fails closed and is never sent.
+        if (options.recheck) {
+          const fresh = await options.recheck(snapshot);
+          checkAbort(options.signal);
+          if (!fresh || fresh.hash !== snapshot.hash || fresh.privacy !== snapshot.privacy) throw new CoreError('Source notes changed during processing');
+        }
         const result = await analyzeSource(snapshot,{ ...options,vocabulary,now });
         status=result.status; fragments=result.fragments;
         if (status === 'error') throw new CoreError('Source analysis failed');

@@ -14,7 +14,7 @@ describe('merged claim freshness at activation', () => {
       ['a.md', snapshot('a.md', `---\nmechanisms: [feedback loop]\n---\n${sentence}`)],
       ['b.md', snapshot('b.md', sentence)],
     ]);
-    const sources: SourcePort = { list: async () => [...inputs.values()], read: async path => inputs.get(path) ?? null, verify: async () => undefined };
+    const sources: SourcePort = { list: async () => [...inputs.values()], read: async path => inputs.get(path) ?? null, verify: async () => undefined, excluded: async () => new Set<string>() };
     let state: IndexState | null = null;
     const store: StorePort = { recover: async () => undefined, load: async () => state, commit: async next => { state = structuredClone(next); } };
     const settings = { ...defaults, excludes: [] };

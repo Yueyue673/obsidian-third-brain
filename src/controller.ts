@@ -1,6 +1,6 @@
 import { buildIndex, interpretQuery, searchFragments, vocabularyOf } from './core/index';
 import { emptyIndex } from './core/types';
-import type { Breadth, Evidence, IndexState, ModelPort, Privacy, RunProgress, SearchResult, SourceSnapshot, StorePort } from './core/types';
+import type { Breadth, Evidence, Fragment, IndexState, ModelPort, Privacy, RunProgress, SearchResult, SourceSnapshot, StorePort } from './core/types';
 import { currentEvidence, type SourcePort } from './sources';
 import { generationSignature, type Settings } from './settings';
 export interface Status {
@@ -40,7 +40,10 @@ export class ThirdBrainController {
     try {
       const model = this.model(options);
       const sources = await this.sources.list();
-      const next = await buildIndex(sources, { mode: options.mode, cloudConsent: options.cloudConsent, model, previous: this.indexState, signature: generationSignature(options), signal: task.signal, onProgress: p => this.update('indexing', p) });
+      const next = await buildIndex(sources, { mode: options.mode, cloudConsent: options.cloudConsent, model, previous: this.indexState, signature: generationSignature(options), signal: task.signal, onProgress: p => this.update('indexing', p),
+        // Only modes that may send source text re-read the note at its request
+        // boundary; local excerpts never leave the process.
+        recheck: options.mode === 'local-excerpts' ? undefined : snapshot => this.sources.read(snapshot.path) });
       if (task.signal.aborted) throw new Error('Cancelled.');
       await this.store.commit(next, () => this.sources.verify(sources), task.signal);
       this.indexState = next;
@@ -61,22 +64,27 @@ export class ThirdBrainController {
       const fragments = Object.values(this.indexState.fragments);
       let facets;
       if (settings.mode !== 'local-excerpts' && !(settings.mode === 'cloud-model' && privacy !== 'normal')) {
-        let vocabularyFragments = fragments;
-        if (settings.mode === 'cloud-model') {
-          const live = new Map<string, SourceSnapshot | null>(); vocabularyFragments = [];
-          for (const fragment of fragments) {
-            if (fragment.privacy !== 'normal' || !fragment.evidence.length) continue;
-            let safe = true;
-            for (const evidence of fragment.evidence) {
-              if (task.signal.aborted) throw new Error('Cancelled.');
-              if (!live.has(evidence.relativePath)) live.set(evidence.relativePath, await this.sources.read(evidence.relativePath));
-              const source = live.get(evidence.relativePath);
-              if (!source || source.privacy !== 'normal' || source.id !== evidence.sourceId || source.hash !== evidence.sourceHash) { safe = false; break; }
-            }
-            if (safe && (await currentEvidence(fragment.evidence, this.sources)).length === fragment.evidence.length) vocabularyFragments.push(fragment);
+        const port = this.model(settings);
+        if (port) {
+          const blocked = await this.sources.excluded([...new Set(fragments.flatMap(fragment => fragment.evidence.map(item => item.relativePath)))]);
+          if (task.signal.aborted) throw new Error('Cancelled.');
+          let vocabularyFragments: Fragment[];
+          if (settings.mode === 'cloud-model') {
+            const live = new Map<string, SourceSnapshot | null>(); const candidates: Fragment[] = [];
+            for (const fragment of fragments) if (await this.cloudSafe(fragment, blocked, live, task.signal)) candidates.push(fragment);
+            // Re-verify every donor immediately before sending: a source that
+            // became private, changed or was excluded while later fragments
+            // were being read must not enter the request. This narrows the
+            // check-to-send window; it cannot eliminate it.
+            const recheck = new Map<string, SourceSnapshot | null>(); vocabularyFragments = [];
+            for (const fragment of candidates) if (await this.cloudSafe(fragment, blocked, recheck, task.signal)) vocabularyFragments.push(fragment);
+          } else {
+            // A locally configured model is a live library lookup: labels from a
+            // currently excluded folder or the derived layer are no longer sources.
+            vocabularyFragments = fragments.filter(fragment => !fragment.evidence.some(item => blocked.has(item.relativePath)));
           }
+          facets = await interpretQuery(query, port, vocabularyOf(vocabularyFragments, settings.mode === 'cloud-model'), task.signal);
         }
-        const port = this.model(settings); if (port) facets = await interpretQuery(query, port, vocabularyOf(vocabularyFragments, settings.mode === 'cloud-model'), task.signal);
       }
       const ranked = searchFragments(fragments, query, { breadth, limit: 30, facets });
       const results: SearchResult[] = [];
@@ -92,6 +100,18 @@ export class ThirdBrainController {
       this.update('idle'); return results;
     } catch { this.update(task.signal.aborted ? 'cancelled' : 'error', undefined, task.signal.aborted ? undefined : 'operation-failed'); throw new Error(task.signal.aborted ? 'Cancelled.' : 'Search did not complete. Check the configured model or switch to local excerpts.'); }
     finally { this.task = null; }
+  }
+  /** A cloud dictionary entry is only usable while its exact donors are current, ordinary and part of the live library. */
+  private async cloudSafe(fragment: Fragment, blocked: Set<string>, live: Map<string, SourceSnapshot | null>, signal: AbortSignal): Promise<boolean> {
+    if (fragment.privacy !== 'normal' || !fragment.evidence.length) return false;
+    for (const evidence of fragment.evidence) {
+      if (signal.aborted) throw new Error('Cancelled.');
+      if (blocked.has(evidence.relativePath)) return false;
+      if (!live.has(evidence.relativePath)) live.set(evidence.relativePath, await this.sources.read(evidence.relativePath));
+      const source = live.get(evidence.relativePath);
+      if (!source || source.privacy !== 'normal' || source.id !== evidence.sourceId || source.hash !== evidence.sourceHash) return false;
+    }
+    return (await currentEvidence(fragment.evidence, this.sources, live)).length === fragment.evidence.length;
   }
   async verifyOpen(evidence: Evidence): Promise<void> {
     if (!(await currentEvidence([evidence], this.sources)).length) throw new Error('This source changed or is no longer available. Refresh the index before opening this quotation.');
