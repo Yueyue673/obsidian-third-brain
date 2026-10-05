@@ -343,6 +343,33 @@ export class OwnedStore implements StorePort {
     await fs.unlink(await this.guard(rel));
     await this.syncDir(path.posix.dirname(rel));
   }
+  /** Best-effort removal of a finalized transaction's own staging directory.
+   * Only artifact names this store creates there are unlinked; anything else is
+   * left untouched and simply keeps the directory non-empty. Cleanup never
+   * invalidates an already-finalized commit. */
+  private async discardTransaction(tx: string): Promise<void> {
+    if (!TOKEN.test(tx)) return;
+    const dir = `${this.reserved}/transactions/${tx}`;
+    try {
+      let names: string[];
+      try { names = await fs.readdir(await this.guard(dir)); } catch (error) { if (missing(error)) return; throw error; }
+      for (const name of names) {
+        if (!/^(?:previous\.json|next\.json|(?:backup|stage|work-(?:forward|rollback))-\d+\.bin)$/.test(name)) continue;
+        try { await fs.unlink(await this.guard(`${dir}/${name}`)); } catch { /* keep trying the rest */ }
+      }
+      try { await fs.rmdir(await this.guard(dir)); } catch { /* an unrecognised remnant keeps the directory */ }
+      await this.syncDir(`${this.reserved}/transactions`);
+    } catch { /* cleanup is best effort */ }
+  }
+  /** Dead transaction directories have no journal; a crash can leave them after
+   * the journal was already removed. They are pruned on the next locked run. */
+  private async sweepTransactions(): Promise<void> {
+    try {
+      let names: string[];
+      try { names = await fs.readdir(await this.guard(`${this.reserved}/transactions`)); } catch (error) { if (missing(error)) return; throw error; }
+      for (const name of names) if (TOKEN.test(name)) await this.discardTransaction(name);
+    } catch { /* best effort */ }
+  }
   private async getMarker(create: boolean): Promise<Marker | null> {
     await this.rootGuard();
     const metadata = await this.guard(this.reserved);
@@ -535,7 +562,7 @@ export class OwnedStore implements StorePort {
   }
   private async recoverLocked(marker: Marker): Promise<void> {
     const pending = await this.getJournal(marker);
-    if (!pending) { await this.getState(marker); return; }
+    if (!pending) { await this.getState(marker); await this.sweepTransactions(); return; }
     const current = await this.read(`${this.reserved}/state.json`);
     const committed = current !== null && hash(current) === pending.journal.next;
     const ops = pending.journal.operations;
@@ -546,6 +573,8 @@ export class OwnedStore implements StorePort {
     await this.getState(marker);
     await this.event('before-finalize');
     await this.remove(`${this.reserved}/journal.json`, hash(pending.bytes));
+    await this.discardTransaction(pending.journal.transaction);
+    await this.sweepTransactions();
   }
   async load(): Promise<IndexState | null> {
     return await this.locked(false, async marker => {
@@ -636,6 +665,8 @@ export class OwnedStore implements StorePort {
         await this.getState(marker);
         await this.event('before-finalize');
         await this.remove(`${this.reserved}/journal.json`, hash(journalBytes));
+        await this.discardTransaction(tx);
+        await this.sweepTransactions();
       } catch (error) {
         // The state swap may have happened even if an after-write hook failed.
         const current = await this.read(`${this.reserved}/state.json`, STATE_LIMIT, true);

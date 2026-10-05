@@ -4,7 +4,7 @@
 
 [English](README.md) · [上手与模型配置](docs/GETTING-STARTED.md) · [隐私边界](docs/PRIVACY.md) · [架构](docs/ARCHITECTURE.md)
 
-**发布候选版：**已有本地检查和合成测试库验收；原生 Obsidian 安装验收、真实 AI 服务验证仍待完成。详见[验证范围](docs/VERIFICATION.md)。
+**发布候选版：**已在隔离合成设置库完成原生 Obsidian 验收（见[验证范围](docs/VERIFICATION.md)）；真实 AI 服务验证、公开 Release 与下载安装验收仍待完成。
 
 ## 安装
 
@@ -23,6 +23,10 @@
 <img src="docs/images/test-harness-activation-zh.png" alt="真实合成库浏览器测试界面，非 Obsidian 截图，非真实 AI 演示" width="540">
 
 *这是使用生产界面、协调层和文件适配器的合成库测试。不是原生 Obsidian 截图；示例已有明确属性，运行的是本地摘录，不代表真实 AI 自动分类质量。*
+
+<img src="docs/images/native-obsidian-activation-zh.png" alt="原生 Obsidian 1.13.7 运行本插件，隔离合成库" width="540">
+
+*原生 Obsidian 1.13.7 加载发布产物，在隔离合成库中实测：更新笔记 → 输入想法 → 关联解释 → 打开原文。全程零网络请求，原稿哈希不变。*
 
 - **原稿与编辑层分开。** 原始笔记只读。提炼出的 Markdown 与索引放在独立位置，已有手写文件和人工改过的生成文件受到保护。
 - **关系有依据。** 文字、主题、概念、共同机制分开解释。发散度只选低 / 中 / 高；高发散仍需要出处，并标出类比边界。

@@ -26,7 +26,7 @@ Before displaying or opening a quotation, check the current source revision, sou
 
 Derived Markdown is visible; reserved state and history are hidden. The validated **index state swap** is atomic; generated Markdown files are journaled and applied individually. A file browser or sync tool may therefore observe a mixture while commit/recovery is in progress. This is not an atomic swap of the entire folder. Recovery failure blocks the plugin rather than reporting success.
 
-Portable Node file APIs do not provide compare-and-rename against every hostile filesystem race. Windows directory fsync is skipped; the journal/crash tests do not establish immunity to all power-loss or external-process interference. Retired history/staging artifacts are not automatically compacted.
+Portable Node file APIs do not provide compare-and-rename against every hostile filesystem race. Windows directory fsync is skipped; the journal/crash tests do not establish immunity to all power-loss or external-process interference. A finalized transaction's own staging directory is removed after finalization and pruned on the next locked run if a crash intervened; unrecognised files inside it are never deleted. Retired fragment history is retained and not automatically compacted.
 
 Secret values are held by Obsidian, with only their IDs in plugin settings. Hidden state is not encryption. Generated excerpts and history may contain note text, so users must review their sync/backup boundaries.
 

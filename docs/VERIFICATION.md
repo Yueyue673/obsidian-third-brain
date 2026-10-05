@@ -5,7 +5,7 @@ This file records evidence, not feature aspirations. Release acceptance must ref
 ## Current build evidence — 2026-10-05
 
 - Typecheck, production build, filesystem smoke, publication pattern scan and release preparation all exited 0 on the current working tree.
-- Full unit/integration suite: **384 passed across 14 files**, exit 0. Includes AI editorial/facet discovery through deterministic synthetic adapters, source decoding, freshness/privacy, request-boundary race regressions, settings snapshots, filesystem ownership/CAS/recovery, real loopback HTTP and synthetic process-crash cases. A count does not establish real-model semantic quality.
+- Full unit/integration suite: **387 passed across 14 files**, exit 0. Includes AI editorial/facet discovery through deterministic synthetic adapters, source decoding, freshness/privacy, request-boundary race regressions, transaction-staging cleanup, settings snapshots, filesystem ownership/CAS/recovery, real loopback HTTP and synthetic process-crash cases. A count does not establish real-model semantic quality.
 - Filesystem smoke: 8 originals, 14 fragments, 4 idea matches and 0 unrelated matches. Original SHA-256 hashes and modification times stayed unchanged; an unchanged rerun preserved IDs. No real AI provider was used.
 - Publication scan: passed on the working tree. This is a conservative pattern scan, not comprehensive personal-information detection. Screenshots were manually inspected for publication scope too.
 - Local release preparation: deterministic ZIP with only `main.js`, `manifest.json` and `styles.css`, plus individual assets and `SHA256SUMS`. Local archive-entry, CRC and hash validation passed; this is not GitHub delivery evidence.
@@ -23,6 +23,20 @@ The current production renderer/controller/core/filesystem was exercised using s
 
 Screenshots in `docs/images/test-harness-*.png` are real captures, explicitly labelled **not native Obsidian**. Their sample facets are declared in synthetic notes; they do not demonstrate automatic live-model discovery.
 
+## Native Obsidian acceptance — 2026-10-05
+
+Real Obsidian **1.13.7** (the exact version the host reports), launched with an isolated profile against a fresh synthetic vault; the plugin folder was populated only from the release assets, which were byte-identical to the local build.
+
+- First launch showed the host's own trust prompt; after approving it, the plugin registered and the activation panel mounted (`third-brain` 0.1.0).
+- **Refresh notes** indexed the synthetic vault: `8 篇来源笔记 · 14 个片段`, status `可以使用 · 本地摘录 · 不调用 AI`.
+- The vague idea returned four explained candidates from the dialogue and music notes; the visible explanations named the facet-keyword channel.
+- **Open original** switched the real workspace to `创作/对话留下的空隙.md`, which is the exact expected synthetic source.
+- The renderer made **zero network requests** and raised no JavaScript errors during the journey.
+- All eight originals kept identical SHA-256 hashes; the owned derived layer (`Third Brain/Fragments`, including the hidden `.third-brain` state) was created inside the vault.
+- The window was closed immediately after the run; no Obsidian process was left behind.
+
+Screenshots `docs/images/native-obsidian-*.png` are captures of that run. This is real-host evidence for local excerpts; it is not live-AI evidence.
+
 ## Request-boundary privacy regressions
 
 An independent read-only review found three send-boundary race gaps in the previous revision; each now has a regression test that was confirmed to fail on that revision and pass after the fix:
@@ -33,9 +47,8 @@ An independent read-only review found three send-boundary race gaps in the previ
 
 ## Boundaries still pending
 
-- Native Obsidian disposable-vault enable → refresh → idea → open original: pending. Visible-window permission has not been assumed; an isolated directory or launch attempt is not native acceptance.
 - Live configured AI-provider compatibility and output quality: pending. No private notes or existing credentials were used. Deterministic adapters are not real-provider evidence.
-- Exact-commit GitHub CI, public release publication and downloaded-asset/native-install checks: pending. Local ZIP/hash checks do not establish delivery.
+- Public GitHub release, CI artifacts downloaded from that release, and installation from the downloaded files: pending. Local ZIP/hash checks and private-repository CI do not establish that final delivery path.
 
 ## Acceptance requirements
 

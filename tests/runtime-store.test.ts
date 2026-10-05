@@ -479,4 +479,36 @@ describe('OwnedStore actual transactions, CAS, cancellation and recovery', () =>
     expect(await absent(meta('journal.json'))).toBe(true);
     expect(await fs.readFile(absolute(sourcePath), 'utf8')).toBe(original);
   });
+  it('removes its own transaction staging after a fully finalized commit', async () => {
+    const old = await fixture();
+    await new OwnedStore(root, folder).commit(old);
+    expect(await fs.readdir(meta('transactions'))).toEqual([]);
+    await new OwnedStore(root, folder).commit(changed(old));
+    expect(await fs.readdir(meta('transactions'))).toEqual([]);
+    expect(await new OwnedStore(root, folder).load()).toEqual(changed(old));
+    expect(await fs.readFile(absolute(`${folder}/${outputName()}`), 'utf8')).toContain('Synthetic revised title');
+  });
+  it('keeps an interrupted transaction until recovery finishes, then prunes it', async () => {
+    const old = await fixture(); await new OwnedStore(root, folder).commit(old);
+    const store = new OwnedStore(root, folder, { io: e => { if (e.phase === 'before-finalize') throw new Error('Synthetic finalize failure'); } });
+    await expect(store.commit(changed(old))).rejects.toThrow('recovery required');
+    expect((await fs.readdir(meta('transactions'))).length).toBe(1);
+    await new OwnedStore(root, folder).recover();
+    expect(await fs.readdir(meta('transactions'))).toEqual([]);
+    expect(await new OwnedStore(root, folder).load()).toEqual(changed(old));
+    expect(await fs.readFile(absolute(sourcePath), 'utf8')).toBe(original);
+  });
+  it('prunes recognised stale staging during recovery but never removes unknown artifacts', async () => {
+    const old = await fixture(); await new OwnedStore(root, folder).commit(old);
+    const dead = `${meta('transactions')}/${'a'.repeat(32)}`;
+    await fs.mkdir(dead, { recursive: true });
+    await fs.writeFile(`${dead}/stage-0.bin`, 'Synthetic stale stage');
+    await fs.writeFile(`${dead}/work-forward-0.bin`, 'Synthetic stale work file');
+    await fs.writeFile(`${dead}/unknown.bin`, 'Synthetic unrecognised artifact');
+    const store = new OwnedStore(root, folder);
+    await store.recover();
+    expect(await fs.readdir(dead)).toEqual(['unknown.bin']);
+    expect(await fs.readFile(`${dead}/unknown.bin`, 'utf8')).toBe('Synthetic unrecognised artifact');
+    expect(await store.load()).toEqual(old);
+  });
 });

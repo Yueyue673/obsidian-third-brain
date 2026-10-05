@@ -4,7 +4,7 @@ Reconnect a half-formed idea with notes you already wrote — with explanations 
 
 [中文说明](README.zh-CN.md) · [Getting started](docs/GETTING-STARTED.md) · [Privacy](docs/PRIVACY.md) · [Architecture](docs/ARCHITECTURE.md)
 
-**Release candidate:** local gates and synthetic-harness checks are available; native Obsidian acceptance and live AI-provider checks are still pending. See the precise [verification scope](docs/VERIFICATION.md).
+**Release candidate:** native Obsidian acceptance passed on an isolated synthetic vault (see the precise [verification scope](docs/VERIFICATION.md)); live AI-provider checks and the public release with downloaded-asset installation are still pending.
 
 ## Install
 
@@ -23,6 +23,10 @@ Type an idea, choose an association breadth if needed, and select **Find connect
 <img src="docs/images/test-harness-activation-zh.png" alt="Actual synthetic-vault browser harness, not an Obsidian screenshot or live AI demonstration" width="540">
 
 *Actual synthetic-vault harness using the production renderer, controller and file adapters. Not a native Obsidian screenshot; declared sample facets and local excerpts, not live AI.*
+
+<img src="docs/images/native-obsidian-activation-zh.png" alt="Native Obsidian 1.13.7 running the plugin against an isolated synthetic vault" width="540">
+
+*Native Obsidian 1.13.7 with the released plugin and an isolated synthetic vault: refresh → idea → explained candidates → open original. Verified with zero network requests and unchanged originals.*
 
 - **Separate editing layer.** Originals remain read-only. Generated Markdown and its index live under the configured generated folder; existing user-authored or edited files are protected.
 - **Explainable connections.** Content, topics, concepts and shared mechanisms are separate retrieval signals. High breadth permits analogies with caveats; it does not relax evidence validation.

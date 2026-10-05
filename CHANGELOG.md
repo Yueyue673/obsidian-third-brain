@@ -10,5 +10,7 @@ Initial source-grounded activation slice: one sidebar, separate owned derived la
 - Chinese presentation translates only program-owned explanations; author/model text and original quotes remain literal.
 - Settings snapshots and cancellation prevent a mid-run consent/configuration change from silently changing the model boundary.
 - Send-boundary privacy: cloud donors and pending indexing sources are re-verified immediately before each model request; newly excluded folders stop contributing cloud/local vocabulary at once; a source that became private, changed or vanished inside the request window fails closed instead of being sent.
+- A completed commit removes its own transaction staging directory (dead state copies, staged and work files); recovery prunes leftovers from an interrupted finalization, while unrecognised files inside those directories are never deleted.
+- Native acceptance on Obsidian 1.13.7: install → refresh → idea → open original exercised against an isolated synthetic vault, with zero renderer network requests and unchanged originals.
 
 No release or completed native-host verification is implied by this draft entry. GitHub publication, exact-commit CI and downloaded-asset checks must be recorded before this is promoted to a dated release.
