@@ -1,5 +1,9 @@
 # Changelog
 
+## Unreleased
+
+- The activation controller is now covered directly for its cancellation, overlap and readiness states: a cancelled refresh keeps the previous complete revision and a retry commits, a cancelled search reports `cancelled`, overlapping or not-yet-ready calls surface their documented messages, and empty or over-bound ideas are guarded without starting a task. All assertions reproduce existing behaviour; no runtime code changed.
+
 ## 0.1.0 — 2026-10-05 (preview)
 
 Initial source-grounded activation slice: one sidebar, separate owned derived layer, local-excerpt baseline and optional explicitly configured model modes. The implementation includes source revision/evidence checks, bounded privacy policy and transaction recovery; release acceptance is tracked in `docs/VERIFICATION.md`.

@@ -2,6 +2,10 @@
 
 This file records evidence, not feature aspirations. Release acceptance must refer to the exact reviewed commit and downloaded assets.
 
+## Controller state coverage — 2026-10-05
+
+Five new tests exercise the activation controller directly for states that its previous, privacy-focused tests covered only indirectly: refresh cancellation preserves the previous complete revision and a retry commits; a cancelled search reports `cancelled`; overlapping refresh/search calls and calls before initialization or after failed recovery return their documented messages; empty ideas return no results and ideas above the 20,000-character bound are rejected, both without starting a task. All assertions reproduce existing behaviour; no runtime code changed in this cycle. Full local gates passed (Windows, Node 26.7.0): typecheck, **464 tests across 17 files**, production build, filesystem smoke (8 originals, 14 fragments, 4 idea matches, 0 unrelated matches, unchanged original hashes and mtimes, stable IDs on an unchanged rerun), publication pattern scan, release preparation and diff check. Exact-commit hosted CI is reported separately for this commit; no native-host or real-model claim is made here.
+
 ## Latest local preview gates — 2026-10-05, licensed distribution candidate
 
 The parent reran typecheck, the full test suite, production build, filesystem smoke, publication pattern scan, release preparation and diff checks after reviewing the short-Chinese fixture coverage and licence packaging repair. All exited 0: **459 tests passed across 16 files**. The native-tested `src/`, manifest and stylesheet were unchanged.
