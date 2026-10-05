@@ -39,13 +39,19 @@ Real Obsidian **1.13.7** (the exact version the host reports), launched with an 
 
 Screenshots `docs/images/native-obsidian-*.png` are captures of that run. This is real-host evidence for local excerpts; it is not live-AI evidence.
 
-## Renewed native install attempt — 2026-10-05, repaired code
+## Renewed native acceptance — 2026-10-05, repaired code
 
-The exact Windows/Node 22 ZIP downloaded from CI `37260195565` was installed into the previously approved isolated synthetic vault. A parent readback verified that all three installed files are byte-identical to the ZIP and local build; all eight originals still have identical SHA-256 hashes and modification times.
+The exact Windows/Node 22 ZIP downloaded from CI `37260195565` was installed into the previously approved isolated synthetic vault (desktop Obsidian 1.13.7, isolated profile, background launch; no real vault). All three installed files were read back byte-identical to the ZIP and the local build. The repaired build then completed the native journey:
 
-The renewed **runtime journey remains unverified**. The desktop automation policy rejected remote-debugging launch parameters, so no alternate shell launch or unapproved debugging route was used. A subsequent native-UI-only launch also refused minimized startup because Windows could not provide the foreground lock needed to prevent activation. No test app instance was started. No permission was obtained for a foreground switch.
+- **Incremental commit:** a ninth synthetic note was added on purpose; refresh indexed it (`9 篇来源笔记 · 16 个片段`). After the commit, the transaction staging was cleaned: the hidden `.third-brain` inventory stayed at its pre-run size (17 files), with only the pre-existing unverifiable legacy transaction retained, as designed.
+- **Idempotent second refresh:** no new fragments, no new transaction directories and no new files; fragment count stayed at 16.
+- **Idea → grounded result:** the two-character idea `留白` returned 6 explained candidates, including fragments from the newly added note.
+- **Open original:** expanding `来源证据 · 1` and choosing `查看原文 · 创作/音乐中的停顿.md` switched the real workspace to that exact synthetic source (the window title became `音乐中的停顿 - …`).
+- **Originals:** all eight pre-existing originals kept identical SHA-256 hashes and modification times; the ninth note is the intentional test addition.
+- **Network:** no TCP connections from the app pid were observed at sampled moments (netstat sampling, not a renderer-level monitor). Renderer console output was not observable without DevTools and is therefore not claimed.
+- The window was closed gracefully afterwards; no Obsidian process remained.
 
-These attempts establish installation-byte correctness only, not the new runtime version, refresh/search/source-open journey, renderer errors/network activity, unchanged-rerun IDs or post-commit staging cleanup. The earlier host screenshots and the passing filesystem/process tests do not replace this pending renewed native gate. Publication remains on hold.
+Local screenshots of this run are kept outside the published tree (`native-repair-*.png` in local verification storage). Driving limits, recorded so later runs start from a truthful baseline: remote-debugging flags are rejected by the automation policy; keyboard/text input into the Chromium surface required a momentary foreground activation with automatic restoral; the accessibility tree needed `--force-renderer-accessibility`; and window rendering under full occlusion needed `--disable-features=CalculateNativeWinOcclusion`.
 
 ## Request-boundary privacy regressions
 
@@ -77,7 +83,7 @@ The two request-boundary repairs now check every paragraph/chunk and the current
 
 Storage cleanup now requires a store/folder/transaction-bound authenticated inventory and an unchanged hash for each staged artifact. It retains unknown or edited files, invalid/forged/replayed inventories and unverifiable legacy orphans. Six selected regressions fail against an isolated cc12fb6 copy; the repaired store suite passes 74 tests. A follow-up found that prospective work filenames must not be claimed just because their bytes match a plan: that regression failed against the first repair and passes after work names were excluded from orphan cleanup. A real child-process exit after journal removal verifies forward state recovery and cleanup of authenticated unchanged staging. Tests use synthetic data only and hide child-process windows.
 
-The marker is a local trust anchor, not a defence against an actor able to rewrite all metadata. Hash checks cannot eliminate concurrent check-to-unlink races. Exact-commit CI and artifact verification are complete for a0169ed. Renewed native/downloaded-install acceptance is still pending. The older process-interruption sweep alone does not establish the new cleanup repair's correctness.
+The marker is a local trust anchor, not a defence against an actor able to rewrite all metadata. Hash checks cannot eliminate concurrent check-to-unlink races. Exact-commit CI and artifact verification are complete for a0169ed, and the repaired build passed renewed native acceptance on the isolated synthetic vault (previous section). Installation from a public GitHub Release remains pending. The older process-interruption sweep alone does not establish the new cleanup repair's correctness.
 
 ## Boundaries still pending
 
