@@ -2,7 +2,17 @@
 
 This file records evidence, not feature aspirations. Release acceptance must refer to the exact reviewed commit and downloaded assets.
 
-## Latest completed full gates — 2026-10-05, repaired release candidate
+## Latest local preview gates — 2026-10-05, licensed distribution candidate
+
+The parent reran typecheck, the full test suite, production build, filesystem smoke, publication pattern scan, release preparation and diff checks after reviewing the short-Chinese fixture coverage and licence packaging repair. All exited 0: **459 tests passed across 16 files**. The native-tested `src/`, manifest and stylesheet were unchanged.
+
+- The standalone `main.js` now retains the complete project MIT grant as an escaped comment; the ZIP and loose asset/hash inventories also include `LICENSE`.
+- Four new executable packaging tests fail against an isolated archive of `084d211` and pass after the repair. They exercise the actual scripts, exact notice content, escaped comment terminators, ZIP/hash inventory, deterministic repeat packaging and CI upload scope.
+- Parent byte verification confirms that removing only the new licence banner restores the native-tested executable bundle exactly (payload SHA-256 `305cfdfc2c9186fb22975a4b271b6b0957798c7ca3f2b48dfcf306a215050f96`). A comment-only byte comparison is not a new host-installation test.
+- Short Chinese queries are tested against the actual shipped synthetic fixture, not a fabricated smaller example. The existing implementation already passed these cases; no retrieval or tokenisation repair was needed.
+- Exact-candidate hosted CI, public exposure audit and public downloadable-install acceptance are still separate gates. Local results above used Node 26.7.0 on Windows; hosted Node 22/24 results must be read back before publication.
+
+## Previous repaired-code full gates — 2026-10-05
 
 - Typecheck, production build, filesystem smoke, publication pattern scan, release preparation and diff checks all exited 0 after the three release-blocker repairs and the additional prospective-work ownership regression.
 - Full unit/integration suite: **446 passed across 15 files**, exit 0. Includes AI editorial/facet discovery through deterministic synthetic adapters, source decoding, freshness/privacy, per-paragraph/chunk request-boundary races, authenticated staging ownership, extraction wire-policy parity, settings snapshots, filesystem ownership/CAS/recovery, real loopback HTTP and synthetic process-crash cases. A count does not establish real-model semantic quality.

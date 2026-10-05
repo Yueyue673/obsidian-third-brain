@@ -40,6 +40,7 @@ jobs:
             dist/main.js
             dist/manifest.json
             dist/styles.css
+            dist/LICENSE
             dist/third-brain-*.zip
             dist/SHA256SUMS
           if-no-files-found: error

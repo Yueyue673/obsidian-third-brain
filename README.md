@@ -4,15 +4,25 @@ Reconnect a half-formed idea with notes you already wrote — with explanations 
 
 [中文说明](README.zh-CN.md) · [Getting started](docs/GETTING-STARTED.md) · [Privacy](docs/PRIVACY.md) · [Architecture](docs/ARCHITECTURE.md)
 
-**Release candidate:** native Obsidian acceptance passed on an isolated synthetic vault (see the precise [verification scope](docs/VERIFICATION.md)); live AI-provider checks and the public release with downloaded-asset installation are still pending.
+**Development preview:** the repaired local-excerpt build passed native Obsidian acceptance in an isolated synthetic vault (see the precise [verification scope](docs/VERIFICATION.md)). Build from source below; a public downloadable release and its installation are still pending. Live AI-provider compatibility and semantic quality have not been verified.
 
 ## Install
 
 Desktop Obsidian **1.11.5 or newer**. This plugin is not yet listed in the Community directory.
 
-1. Download `main.js`, `manifest.json` and `styles.css` from a GitHub release whose tag matches the manifest version.
-2. In a **disposable test vault first**, create `.obsidian/plugins/third-brain/` and place the three files there.
-3. Enable the plugin in Settings → Community plugins, open **Third Brain**, and choose **Refresh notes**.
+For this source preview, use Node **22.12+** and npm:
+
+```sh
+git clone https://github.com/Yueyue673/obsidian-third-brain.git
+cd obsidian-third-brain
+npm ci --ignore-scripts
+npm run build
+```
+
+1. In a **disposable test vault first**, create `.obsidian/plugins/third-brain/` and copy `dist/main.js`, `dist/manifest.json` and `dist/styles.css` into it.
+2. Enable the plugin in Settings → Community plugins, open **Third Brain**, and choose **Refresh notes**.
+
+When a downloadable release is published, its tag must match the manifest version. Source builds and tested native-host behaviour are separate from public download/install evidence.
 
 No account, proprietary server or API key is needed for the default local-excerpt mode. Obsidian community plugins execute with broad access; review the code and use a backup before enabling any plugin in an important vault.
 
@@ -26,7 +36,7 @@ Type an idea, choose an association breadth if needed, and select **Find connect
 
 <img src="docs/images/native-obsidian-activation-zh.png" alt="Native Obsidian 1.13.7 running the plugin against an isolated synthetic vault" width="540">
 
-*Native Obsidian 1.13.7 with the released plugin and an isolated synthetic vault: refresh → idea → explained candidates → open original. Verified with zero network requests and unchanged originals.*
+*Native Obsidian 1.13.7 running an earlier built baseline in an isolated synthetic vault: refresh → idea → explained candidates → open original. This screenshot is not a public-release installation. The repaired build's separate acceptance and narrower network-observation limits are recorded in the verification document.*
 
 - **Separate editing layer.** Originals remain read-only. Generated Markdown and its index live under the configured generated folder; existing user-authored or edited files are protected.
 - **Explainable connections.** Content, topics, concepts and shared mechanisms are separate retrieval signals. High breadth permits analogies with caveats; it does not relax evidence validation.

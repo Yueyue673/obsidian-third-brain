@@ -7,6 +7,8 @@ playwright-report/
 test-results/
 .local/
 .private/
+.obsidian/
+.third-brain/
 .env
 .env.*
 !.env.example

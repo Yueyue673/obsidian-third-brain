@@ -4,15 +4,25 @@
 
 [English](README.md) · [上手与模型配置](docs/GETTING-STARTED.md) · [隐私边界](docs/PRIVACY.md) · [架构](docs/ARCHITECTURE.md)
 
-**发布候选版：**已在隔离合成笔记库完成原生 Obsidian 验收（见[验证范围](docs/VERIFICATION.md)）；真实 AI 服务验证、公开 Release 与下载安装验收仍待完成。
+**开发预览版：**修复后的本地摘录版本已在隔离合成笔记库完成原生 Obsidian 验收（见[验证范围](docs/VERIFICATION.md)）。目前可按下方说明从源码安装；公开安装包与下载安装验收仍待完成。真实 AI 服务兼容性与语义效果尚未验证。
 
 ## 安装
 
 需要桌面版 Obsidian **1.11.5 或更新版本**。目前不宣称已进入社区插件目录。
 
-1. 从 GitHub Release 下载 `main.js`、`manifest.json`、`styles.css`。Release 标签必须与 manifest 版本一致。
-2. **先使用可丢弃的测试库**，在其中创建 `.obsidian/plugins/third-brain/`，放入这三个文件。
-3. 在 Obsidian 设置 → 第三方插件中启用，打开「第三大脑」，点「更新笔记」。
+源码预览安装需要 Node **22.12+** 和 npm：
+
+```sh
+git clone https://github.com/Yueyue673/obsidian-third-brain.git
+cd obsidian-third-brain
+npm ci --ignore-scripts
+npm run build
+```
+
+1. **先使用可丢弃的测试库**，在其中创建 `.obsidian/plugins/third-brain/`，把 `dist/main.js`、`dist/manifest.json`、`dist/styles.css` 复制进去。
+2. 在 Obsidian 设置 → 第三方插件中启用，打开「第三大脑」，点「更新笔记」。
+
+公开安装包发布后，Release 标签必须与 manifest 版本一致。源码构建、原生运行、公开下载是三种独立证据，不相互冒充。
 
 默认本地摘录不需要账户、服务器或密钥。第三方插件具有广泛访问权限；在重要资料库启用前，请先审阅代码并保留备份。
 
@@ -26,7 +36,7 @@
 
 <img src="docs/images/native-obsidian-activation-zh.png" alt="原生 Obsidian 1.13.7 运行本插件，隔离合成库" width="540">
 
-*原生 Obsidian 1.13.7 加载发布产物，在隔离合成库中实测：更新笔记 → 输入想法 → 关联解释 → 打开原文。全程零网络请求，原稿哈希不变。*
+*这是原生 Obsidian 1.13.7 加载较早构建版本的隔离合成库截图：更新笔记 → 输入想法 → 关联解释 → 打开原文。它不是公开 Release 的安装证据。修复后版本的独立验收，以及较窄的网络观测范围，详见验证文档。*
 
 - **原稿与编辑层分开。** 原始笔记只读。提炼出的 Markdown 与索引放在独立位置，已有手写文件和人工改过的生成文件受到保护。
 - **关系有依据。** 文字、主题、概念、共同机制分开解释。发散度只选低 / 中 / 高；高发散仍需要出处，并标出类比边界。

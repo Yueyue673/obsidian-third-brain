@@ -5,7 +5,7 @@ const manifest = JSON.parse(await fs.readFile('manifest.json', 'utf8'));
 const pkg = JSON.parse(await fs.readFile('package.json', 'utf8'));
 if (manifest.id !== 'third-brain' || manifest.version !== pkg.version || !/^\d+\.\d+\.\d+$/.test(manifest.version)) throw new Error('Release metadata is inconsistent.');
 execFileSync(process.execPath, ['scripts/privacy-check.mjs'], { stdio: 'inherit', windowsHide: true });
-const names = ['main.js', 'manifest.json', 'styles.css'];
+const names = ['main.js', 'manifest.json', 'styles.css', 'LICENSE'];
 const files = [];
 for (const name of names) files.push({ name, body: await fs.readFile(`dist/${name}`) });
 function crc32(body) { let crc = 0xffffffff; for (const byte of body) { crc ^= byte; for (let bit = 0; bit < 8; bit++) crc = (crc >>> 1) ^ ((crc & 1) ? 0xedb88320 : 0); } return (crc ^ 0xffffffff) >>> 0; }
