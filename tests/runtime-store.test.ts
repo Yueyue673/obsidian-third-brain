@@ -270,6 +270,25 @@ describe('OwnedStore actual transactions, CAS, cancellation and recovery', () =>
     await store.commit(repeated, () => reader.verify(snapshots));
     expect(await store.load()).toEqual(next);
   });
+  it('blocks owned derived files and currently excluded folders at the live vocabulary boundary while user originals stay eligible', async () => {
+    const old = await fixture(); await fs.mkdir(absolute(folder), { recursive: true });
+    const manualPath = `${folder}/Synthetic manual original.md`;
+    await fs.writeFile(absolute(manualPath), 'Synthetic user-authored note inside the generated folder.');
+    const store = new OwnedStore(root, folder); await store.commit(old);
+    const settings = { ...defaults, outputFolder: folder, excludes: [] as string[] };
+    const reader = new FileSources(root, () => settings, () => store.managedSourcePaths());
+    const owned = `${folder}/${outputName()}`;
+    const listed = (await reader.list()).map(snapshot => snapshot.path);
+    expect(listed).toContain(manualPath); expect(listed).not.toContain(owned);
+    const candidates = [owned, manualPath, sourcePath, 'Synthetic notes extra/other.md', 'Other/kept.md'];
+    expect(await reader.excluded(candidates)).toEqual(new Set([owned]));
+    // An exclusion added after indexing applies immediately, and only at the exact folder boundary.
+    settings.excludes = ['Synthetic notes'];
+    expect(await reader.excluded(candidates)).toEqual(new Set([owned, sourcePath]));
+    // A file-level exclusion matches exactly that path, nothing else.
+    settings.excludes = ['Other/kept.md'];
+    expect(await reader.excluded(candidates)).toEqual(new Set([owned, 'Other/kept.md']));
+  });
   it('rolls back when the source changes between initial CAS and the atomic state swap', async () => {
     const old = await fixture(); await new OwnedStore(root, folder).commit(old);
     const before = await fs.readFile(absolute(`${folder}/${outputName()}`));

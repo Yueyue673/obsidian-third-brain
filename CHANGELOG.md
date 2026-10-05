@@ -3,6 +3,7 @@
 ## Unreleased
 
 - The activation controller is now covered directly for its cancellation, overlap and readiness states: a cancelled refresh keeps the previous complete revision and a retry commits, a cancelled search reports `cancelled`, overlapping or not-yet-ready calls surface their documented messages, and empty or over-bound ideas are guarded without starting a task. All assertions reproduce existing behaviour; no runtime code changed.
+- The live vocabulary boundary now has direct integration coverage: the production file-source reader is exercised against a real owned store, pinning that owned derived files are blocked from model vocabulary, a user-authored original inside the generated folder stays eligible, folder exclusions apply immediately at the exact folder boundary, and a file-level exclusion matches only its exact path. All assertions reproduce existing behaviour; no runtime code changed.
 
 ## 0.1.0 — 2026-10-05 (preview)
 
