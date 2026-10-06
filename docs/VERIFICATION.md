@@ -1,5 +1,15 @@
 # Verification status
 
+## 0.3.1 preview — visible network suggestions without rank displacement
+
+The current main seven results are preserved for the same corpus/query; high breadth can expose at most two additional source-verified targets in an explicitly separate section. A target may have weak lexical reasons plus an indirect explanation, or be purely indirect. Both types are retained before the ordinary 30-candidate cutoff. Low/medium, default core limits, direct scores, stored schema/render-v2, generation policy and prompts are unchanged.
+
+- Seven behavioral regression assertions failed on the isolated unchanged 33a7612 baseline (not new-API import failures); the candidate passes its 67 focused tests, typecheck, privacy pattern scan and diff checks. Parent integration passes **562 tests across 22 files**, typecheck, production build, real filesystem smoke, privacy pattern scan, packaging and diff checks. Exact-commit CI/public distribution remain pending at this snapshot.
+- Parent re-evaluation of the unchanged actual synthetic Sol query/facets and original empty-facet interference passes production retrieval → Controller → mountPanel in Chinese/English. With 0 / 5 / 28 added excerpts, the visible main/extra counts are respectively 3/0, 7/1 and 7/1. Main IDs, order, scores and reasons exactly match the same enlarged-corpus isolated baseline. This does not require scores to equal the pre-enlargement corpus, because corpus IDF can change.
+- All endpoint quotations/hash/IDs/positions are exact; 33 cache, original and interference-file hashes plus the query/facets hash remain unchanged. Twenty-four original-source callbacks go through verifyOpen; fresh model requests and HTTP attempts are zero. The original controlled Open fragment action is retained and checked for both result sections in the real renderer tests.
+- Stale or excluded anchors cannot leave content-only cards in the extra section; stale targets disappear. Complete endpoint membership/revision/identity/privacy/exclusion/quotation checks run before display and either original-source button, with bounded transient WeakMap proof bindings. Cancellation rejects late suggestions; no new control, telemetry, persistent schema or model request is introduced.
+- **Still unverified:** native Obsidian loading/clicks of this changed executable, configured production HTTP/Codex compatibility, broad semantic quality and causal/query-mechanism equivalence. The event chain is a DOM harness, not native acceptance. Repeated source checks are not atomic; check-to-use races remain possible.
+
 ## 0.3.0 preview — bounded indirect network activation
 
 High breadth now connects direct mechanism/analogy matches to the existing same-privacy shared-mechanism network for bounded one-hop **indirect suggestions**. Low/medium behaviour, direct scores, persisted schema/render-v2 bytes, generation policies and prompts are unchanged.

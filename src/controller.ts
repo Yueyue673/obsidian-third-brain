@@ -1,6 +1,7 @@
 import { buildIndex, interpretQuery, searchFragments, vocabularyOf } from './core/index';
 import { emptyIndex } from './core/types';
-import type { Breadth, Evidence, Fragment, IndexState, ModelPort, Privacy, RelationEndpoint, RelationReason, RunProgress, SearchResult, SourceSnapshot, StorePort } from './core/types';
+import type { Breadth, Evidence, Fragment, IndexState, IndirectMechanism, ModelPort, Privacy, RelationEndpoint, RelationReason, RunProgress, SearchResult, SourceSnapshot, StorePort } from './core/types';
+import { facetKey } from './core/util';
 import { currentEvidence, type SourcePort } from './sources';
 import { generationSignature, type Settings } from './settings';
 export interface Status {
@@ -14,6 +15,9 @@ export class ThirdBrainController {
   private ready = false;
   private taskMode: Settings['mode'] = 'local-excerpts';
   private listeners = new Set<() => void>();
+  // Bind the exact rendered quotation objects to complete query-time traces.
+  // Weak keys also protect still-visible old cards during a cancelled new search.
+  private readonly openTraces = new WeakMap<Evidence, IndirectMechanism[]>();
   private state: Status;
   constructor(private readonly sources: SourcePort, private readonly store: StorePort,
     private readonly settings: () => Settings, private readonly model: (settings: Readonly<Settings>) => ModelPort | undefined,
@@ -86,22 +90,22 @@ export class ThirdBrainController {
           facets = await interpretQuery(query, port, vocabularyOf(vocabularyFragments, settings.mode === 'cloud-model'), task.signal);
         }
       }
-      const ranked = searchFragments(fragments, query, { breadth, limit: 30, facets, index: this.indexState });
+      const ranked = searchFragments(fragments, query, { breadth, limit: 30, facets, index: this.indexState, retainIndirectCandidates: breadth === 'high' });
       const results: SearchResult[] = [];
-      for (const result of ranked) {
+      const validate = async (result: SearchResult, suggestion = false): Promise<SearchResult | null> => {
         if (task.signal.aborted) throw new Error('Cancelled.');
         const evidence = await currentEvidence(result.fragment.evidence, this.sources);
         // Facets and editorial text are unioned without per-donor attribution.
         // Partial provenance cannot establish that the remaining donor supports
         // every cached label, so stale merged claims wait for a full refresh.
-        if (evidence.length !== result.fragment.evidence.length) continue;
+        if (evidence.length !== result.fragment.evidence.length) return null;
         const traceTarget = result.reasons.find(r => r.kind === 'indirect-mechanism')?.indirect?.target;
-        if (traceTarget && !(await this.currentEndpoint(traceTarget, task.signal))) continue;
+        if (traceTarget && !(await this.currentEndpoint(traceTarget, task.signal))) return null;
         const reasons: RelationReason[] = []; let targetCurrent = true;
         for (const reason of result.reasons) {
           if (reason.kind !== 'indirect-mechanism') { reasons.push(reason); continue; }
           const trace = reason.indirect;
-          if (!trace || trace.target.fragmentId !== result.fragment.id || trace.anchor.privacy !== trace.target.privacy) continue;
+          if (!trace || trace.target.fragmentId !== result.fragment.id || !this.traceMembers(trace)) continue;
           // Read both complete donors again for each suggestion. Do not reuse
           // earlier ranking/cloud reads across asynchronous source changes.
           const anchorCurrent = await this.currentEndpoint(trace.anchor, task.signal);
@@ -114,12 +118,42 @@ export class ThirdBrainController {
         if (task.signal.aborted) throw new Error('Cancelled.');
         // Indirect explanations add no bonus to direct scores. Pure indirect
         // results disappear if their anchor failed, rather than keeping a score.
-        if (targetCurrent && reasons.length) results.push({ ...result,reasons,fragment:{ ...result.fragment,evidence } });
+        if (!targetCurrent || !reasons.length || (suggestion && !reasons.some(r => r.kind === 'indirect-mechanism'))) return null;
+        return { ...result,reasons,fragment:{ ...result.fragment,evidence },...(suggestion ? { group:'indirect-suggestion' as const } : {}) };
+      };
+      for (const result of ranked) {
+        const current = await validate(result); if (current) results.push(current);
         if (results.length >= 7) break;
       }
-      this.update('idle'); return results;
+      const shown = new Set(results.map(r => r.fragment.id)); let suggestions = 0;
+      for (const result of ranked.indirectCandidates ?? []) {
+        if (shown.has(result.fragment.id)) continue;
+        const current = await validate(result,true);
+        if (!current) continue;
+        results.push(current); shown.add(current.fragment.id);
+        if (++suggestions >= 2) break;
+      }
+      if (task.signal.aborted) throw new Error('Cancelled.');
+      const bindings = new Map<Evidence, IndirectMechanism[]>();
+      for (const result of results) for (const reason of result.reasons) if (reason.indirect) {
+        const trace = structuredClone(reason.indirect);
+        for (const e of [...reason.indirect.anchor.evidence,...reason.indirect.target.evidence,...result.fragment.evidence]) {
+          bindings.set(e,[...(bindings.get(e) ?? []),trace]);
+        }
+      }
+      for (const [e,traces] of bindings) this.openTraces.set(e,traces);
+      this.update('idle');
+      if (task.signal.aborted) throw new Error('Cancelled.');
+      return results;
     } catch { this.update(task.signal.aborted ? 'cancelled' : 'error', undefined, task.signal.aborted ? undefined : 'operation-failed'); throw new Error(task.signal.aborted ? 'Cancelled.' : 'Search did not complete. Check the configured model or switch to local excerpts.'); }
     finally { this.task = null; }
+  }
+  private traceMembers(trace: IndirectMechanism): boolean {
+    if (trace.steps !== 1 || trace.anchor.privacy !== trace.target.privacy || trace.anchor.fragmentId === trace.target.fragmentId || !trace.sharedMechanisms.length) return false;
+    return [trace.anchor,trace.target].every(e => {
+      const f = this.indexState.fragments[e.fragmentId];
+      return !!f && trace.sharedMechanisms.every(m => f.facets.mechanisms.some(v => facetKey(v) === facetKey(m)));
+    });
   }
   private async currentEndpoint(endpoint: RelationEndpoint, signal: AbortSignal): Promise<boolean> {
     const fragment = this.indexState.fragments[endpoint.fragmentId];
@@ -134,7 +168,8 @@ export class ThirdBrainController {
       const record = this.indexState.sources[evidence.relativePath];
       if (blocked.has(evidence.relativePath) || record?.status !== 'indexed' || record.hash !== evidence.sourceHash || !record.fragmentIds.includes(endpoint.fragmentId)) return false;
       if (!live.has(evidence.relativePath)) live.set(evidence.relativePath, await this.sources.read(evidence.relativePath));
-      if (live.get(evidence.relativePath)?.privacy !== endpoint.privacy) return false;
+      const source = live.get(evidence.relativePath);
+      if (source?.privacy !== endpoint.privacy || source.path !== evidence.relativePath) return false;
     }
     const evidence = await currentEvidence(endpoint.evidence, this.sources, live);
     const excluded = await this.sources.excluded(paths);
@@ -154,6 +189,13 @@ export class ThirdBrainController {
     return (await currentEvidence(fragment.evidence, this.sources, live)).length === fragment.evidence.length;
   }
   async verifyOpen(evidence: Evidence): Promise<void> {
+    const signal = new AbortController().signal;
+    for (const trace of this.openTraces.get(evidence) ?? []) {
+      if (!this.traceMembers(trace) || !(await this.currentEndpoint(trace.anchor,signal)) || !(await this.currentEndpoint(trace.target,signal))
+        || !(await this.currentEndpoint(trace.anchor,signal)) || !(await this.currentEndpoint(trace.target,signal))) {
+        throw new Error('This source changed or is no longer available. Refresh the index before opening this quotation.');
+      }
+    }
     const paths = [evidence.relativePath];
     const blocked = await this.sources.excluded(paths);
     if (blocked.has(evidence.relativePath) || !(await currentEvidence([evidence], this.sources)).length

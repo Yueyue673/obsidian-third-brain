@@ -1,7 +1,7 @@
 {
   "id": "third-brain",
   "name": "Third Brain",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "minAppVersion": "1.11.5",
   "description": "Reconnect scattered notes through source-grounded fragments and explained associations.",
   "author": "Yueyue",

@@ -46,8 +46,16 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
     if (!hasSearched && !busy) { if (!state.fragmentCount) stateBlock(t.first, t.firstBody); else stateBlock(t.initial, ''); }
   };
   const showResults = (items: SearchResult[]): void => {
-    results.replaceChildren(); summary.textContent = `${items.length} ${t.results}`;
+    results.replaceChildren();
+    const suggestions = items.filter(item => item.group === 'indirect-suggestion');
+    summary.textContent = `${items.length - suggestions.length} ${t.results}${suggestions.length ? ` · ${suggestions.length} ${presentExplanation('Additional indirect suggestions',locale)}` : ''}`;
     if (!items.length) { stateBlock(t.empty, t.emptyBody); return; }
+    const main = element('div','tb-main-results'); results.append(main);
+    const indirect = element('section','tb-suggestions');
+    if (suggestions.length) {
+      indirect.append(element('hr'),element('h3','tb-small-heading',presentExplanation('Indirect suggestions via the existing network',locale)),element('p','tb-muted',presentExplanation('At most two additional one-hop suggestions; not query-mechanism equivalence. Compare both sources and conditions.',locale)));
+      results.append(indirect);
+    }
     for (const item of items) {
       const fragment = item.fragment; const article = element('article', 'tb-result');
       const top = element('div', 'tb-result-top'); top.append(element('h3', 'tb-result-title', fragment.title), element('span', 'tb-kind', fragment.mode === 'ai' ? t.ai : t.excerpt));
@@ -94,7 +102,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
         const row = element('div', 'tb-evidence-row'); row.append(element('blockquote', 'tb-quote', source.quote));
         const open = element('button', 'tb-source', `${t.source} · ${source.relativePath}`); open.type = 'button'; open.addEventListener('click', () => { void port.open(source).catch(() => alert(t.failure)); }); row.append(open); evidence.append(row);
       }
-      article.append(evidence); results.append(article);
+      article.append(evidence); (item.group === 'indirect-suggestion' ? indirect : main).append(article);
     }
   };
   const executeSearch = async (): Promise<void> => {

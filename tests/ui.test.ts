@@ -50,3 +50,35 @@ it('translates only program-owned uncertainty, leaving source/model text intact'
   expect(presentExplanation(INDIRECT_MECHANISM_CAVEAT,'zh')).toContain('不代表它与查询机制等价');
   expect(presentExplanation('原作者：只在冷却后比较','zh')).toBe('原作者：只在冷却后比较');
 });
+
+it.each(['zh','en'] as const)('separates additional suggestions with no extra search control in %s', async locale => {
+  const a=fragment('anchor',['needle','bridge']), b=fragment('target',['bridge']), index=emptyIndex();
+  for(const f of [a,b]){index.fragments[f.id]=f;index.sources[f.evidence[0].relativePath]={hash:'a'.repeat(64),status:'indexed',fragmentIds:[f.id]};}
+  const hits=searchFragments([a,b],'needle',{breadth:'high',index});
+  hits[1]={...hits[1],group:'indirect-suggestion'};
+  vi.stubGlobal('document',{createElement:(tag:string)=>new NodeStub(tag)});
+  const root=new NodeStub('main'), open=vi.fn(async()=>{}), openFragment=vi.fn(async()=>{});
+  const dispose=mountPanel(root as unknown as HTMLElement,{status:()=>({phase:'idle',sourceCount:2,fragmentCount:2,updatedAt:'',mode:'local-excerpts'}),subscribe:()=>()=>{},refresh:async()=>{},find:async()=>hits,cancel:()=>{},open,openFragment},locale);
+  const input=root.all().find(n=>n.tag==='textarea')!;input.value='needle';await input.fire('input');await root.all().find(n=>n.className==='tb-primary')!.fire('click');
+  const main=root.all().find(n=>n.className==='tb-main-results')!, lane=root.all().find(n=>n.className==='tb-suggestions')!;
+  expect(main.all().filter(n=>n.className==='tb-result')).toHaveLength(1);expect(lane.all().filter(n=>n.className==='tb-result')).toHaveLength(1);
+  expect(lane.all().map(n=>n.textContent).join('\n')).toContain(presentExplanation('Indirect suggestions via the existing network',locale));
+  expect(root.all().filter(n=>n.tag==='select')).toHaveLength(1);expect(lane.all().some(n=>n.tag==='hr')).toBe(true);
+  expect(main.all().filter(n=>n.tag==='button'&&n.className==='tb-secondary')).toHaveLength(1);expect(lane.all().filter(n=>n.tag==='button'&&n.className==='tb-secondary')).toHaveLength(1);
+  await main.all().find(n=>n.tag==='button'&&n.className==='tb-secondary')!.fire('click');
+  await lane.all().find(n=>n.tag==='button'&&n.className==='tb-secondary')!.fire('click');
+  expect(openFragment.mock.calls).toEqual([[a.id],[b.id]]);
+  const trace=lane.all().find(n=>n.className==='tb-indirect-evidence')!;
+  for(const button of trace.all().filter(n=>n.tag==='button'))await button.fire('click');
+  expect(open.mock.calls).toEqual([[a.evidence[0]],[b.evidence[0]]]);dispose();
+});
+
+it('ignores late results from a cancelled renderer search', async () => {
+  vi.stubGlobal('document',{createElement:(tag:string)=>new NodeStub(tag)});
+  let resolve!: (r: any[])=>void;
+  const root=new NodeStub('main'), cancel=vi.fn(), pending=new Promise<any[]>(r=>{resolve=r;});
+  const dispose=mountPanel(root as unknown as HTMLElement,{status:()=>({phase:'idle',sourceCount:1,fragmentCount:1,updatedAt:'',mode:'local-excerpts'}),subscribe:()=>()=>{},refresh:async()=>{},find:()=>pending,cancel,open:async()=>{}},'en');
+  const input=root.all().find(n=>n.tag==='textarea')!;input.value='needle';await input.fire('input');await root.all().find(n=>n.className==='tb-primary')!.fire('click');
+  await root.all().find(n=>n.textContent==='Cancel')!.fire('click');resolve([{fragment:fragment('late',[]),score:1,reasons:[],group:'indirect-suggestion'}]);
+  for(let i=0;i<12;i++)await Promise.resolve();expect(cancel).toHaveBeenCalledOnce();expect(root.all().filter(n=>n.className==='tb-result')).toEqual([]);dispose();
+});

@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.3.1 — 2026-10-06 (preview)
+
+- Fix high-breadth network suggestions disappearing behind lexical candidates at the unified 30-candidate and seven-card cutoffs. Preserve the same-corpus original main seven IDs, order, scores and reasons, and show up to two extra source-verified targets in a separate section without score boosts or displaced main results.
+- Cover both weak lexical results with indirect explanations and purely indirect targets; retain 3 seeds / 3 inspected neighbors / 6 targets / one hop / same privacy. Low/medium and default core limit semantics remain unchanged.
+- Show main/extra counts and bilingual section labels. Preserve both original-source buttons and the existing controlled Open fragment action. Rendered quotation objects carry transient paired proof bindings; opposite-side changes invalidate either original-source click, and cancellation cannot return late suggestions.
+- Re-evaluate unchanged actual Sol cache with the original zero-facet synthetic interference. No fresh inference or HTTP requests; this is not a native-host, broad semantic-quality or causality claim. Stored schema, render-v2 network, generation policies and model adapters are unchanged.
+
 ## 0.3.0 — 2026-10-06 (preview)
 
 - Connect high-breadth query activation to the existing same-privacy fragment network: bounded one-hop indirect suggestions from direct mechanism/analogy seeds, not query-mechanism equivalence or verified causality. Low/medium behaviour and direct scores are unchanged.

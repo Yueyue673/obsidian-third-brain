@@ -86,6 +86,15 @@ describe('bounded query activation of the existing mechanism network', () => {
     index.fragments = Object.fromEntries(Object.entries(index.fragments).reverse()); expect(search(index,'needle','high',{ limit:200 })).toEqual(results);
     expect(search(index,'needle','high',{ limit:1 })).toHaveLength(1);
   });
+  it('retains the same controlled targets before a caller limit without changing ordinary limit semantics', () => {
+    const index = indexOf(fragment('anchor',['needle','bridge']),fragment('target',['bridge']));
+    const original = search(index,'needle','high',{limit:1});
+    const retained = searchFragments(Object.values(index.fragments),'needle',{breadth:'high',index,limit:1,facets:{mechanisms:['needle']},retainIndirectCandidates:true});
+    expect([...retained]).toEqual(original); expect(retained.indirectCandidates?.map(r=>r.fragment.id)).toEqual(['target']);
+    expect(original).not.toHaveProperty('indirectCandidates');
+    for (const breadth of ['low','medium'] as const) expect(searchFragments(Object.values(index.fragments),'needle',{breadth,index,retainIndirectCandidates:true})).not.toHaveProperty('indirectCandidates');
+    expect(searchFragments(Object.values(index.fragments),'needle',{breadth:'high',index,limit:0,retainIndirectCandidates:true})).toEqual([]);
+  });
 });
 
 const cache = '.local/live-ai/direct/index.json';

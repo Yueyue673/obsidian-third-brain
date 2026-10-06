@@ -17,6 +17,9 @@ const prefixes: [string, string][] = [
   ['Facet-based suggestion, not a verified causal relationship; applicability may differ.', '这是基于属性的关联建议，因果关系未经验证；适用条件可能不同。'],
 ];
 const fixed = new Map<string, string>([
+  ['Additional indirect suggestions', '额外间接建议'],
+  ['Indirect suggestions via the existing network', '沿已有网络的间接建议'],
+  ['At most two additional one-hop suggestions; not query-mechanism equivalence. Compare both sources and conditions.', '最多两条额外一跳建议，不代表与查询机制等价；请核对两端原文及适用条件。'],
   [INDIRECT_MECHANISM_CAVEAT, '这是沿片段间已有共同机制的一跳间接关联建议，不代表它与查询机制等价，也不是已证明的因果关系；请分别核对两端原文及适用条件。'],
   ['Compare both original sources', '分别核对两端原文'],
   [LOCAL_LABEL, '本地原文摘录，按文字与已有属性检索。'],

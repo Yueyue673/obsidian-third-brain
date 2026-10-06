@@ -19,8 +19,10 @@ export interface AnalyzeOptions { mode: Mode; cloudConsent: boolean; model?: Mod
 export interface RelationEndpoint { fragmentId: string; title: string; privacy: Privacy; evidence: Evidence[]; conditions: string[]; caveats: string[]; }
 export interface IndirectMechanism { steps: 1; sharedMechanisms: string[]; anchor: RelationEndpoint; target: RelationEndpoint; }
 export interface RelationReason { kind: 'content' | 'topic' | 'concept' | 'mechanism' | 'analogy' | 'atmosphere' | 'indirect-mechanism'; label: string; quotes: string[]; caveat?: string; indirect?: IndirectMechanism; }
-export interface SearchResult { fragment: Fragment; score: number; reasons: RelationReason[]; }
-export interface SearchOptions { breadth: Breadth; limit?: number; facets?: Partial<Facets>; excludeSource?: string; index?: IndexState; }
+export interface SearchResult { fragment: Fragment; score: number; reasons: RelationReason[]; group?: 'indirect-suggestion'; }
+// Query-only side channel: retained before the ordinary ranked limit, never stored.
+export type SearchResults = SearchResult[] & { indirectCandidates?: SearchResult[] };
+export interface SearchOptions { breadth: Breadth; limit?: number; facets?: Partial<Facets>; excludeSource?: string; index?: IndexState; retainIndirectCandidates?: boolean; }
 export interface StorePort { load(): Promise<IndexState | null>; commit(next: IndexState, verifySources?: () => Promise<void>, signal?: AbortSignal): Promise<void>; recover(): Promise<void>; }
 export interface TransportOptions { mode: 'local-model' | 'cloud-model'; endpoint: string; model: string; secret?: string; cloudConsent: boolean; timeoutMs?: number; maxResponseBytes?: number; }
 export interface RunProgress { completed: number; total: number; phase: 'reading' | 'processing' | 'committing' | 'done' | 'cancelled'; }

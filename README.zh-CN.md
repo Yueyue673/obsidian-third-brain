@@ -2,20 +2,20 @@
 
 从一个想法找回自己笔记中的知识片段，在 Obsidian 里读关联理由、打开原文。
 
-**[下载 0.3.0 预览版](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.0/third-brain-0.3.0.zip)** · [安装](#安装) · [English](README.md) · [隐私边界](docs/PRIVACY.md)
+**[下载 0.3.1 预览版](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.1/third-brain-0.3.1.zip)** · [安装](#安装) · [English](README.md) · [隐私边界](docs/PRIVACY.md)
 
 <img src="docs/images/native-obsidian-source-open-zh.png" alt="原生 Obsidian 中打开合成来源笔记，旁边显示第三大脑的本地摘录、关联理由和原文引用" width="680">
 
 *原生 Obsidian，较早构建、合成笔记、本地摘录；不是公开包安装或真实 AI 演示。*
 
-> **0.3.0 预览版 · 桌面 Obsidian 1.11.5+ · 尚未进入社区插件目录。**
+> **0.3.1 预览版 · 桌面 Obsidian 1.11.5+ · 尚未进入社区插件目录。**
 > 默认本地摘录不需要密钥或网络，不是 AI 语义检索。已做小范围真实模型与缓存激活检查；生产接口兼容性、广泛语义效果和本版原生点击仍未验收。
 
 ## 安装
 
 先用可丢弃的测试库。安装插件**不需要 Node.js**。
 
-1. 从 [0.3.0 预览发布](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.0)下载[插件 ZIP](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.0/third-brain-0.3.0.zip) 和 [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.0/SHA256SUMS)，[核对 ZIP 的 SHA-256](docs/GETTING-STARTED.md#check-the-download) 后解压。
+1. 从 [0.3.1 预览发布](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.1)下载[插件 ZIP](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.1/third-brain-0.3.1.zip) 和 [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.1/SHA256SUMS)，[核对 ZIP 的 SHA-256](docs/GETTING-STARTED.md#check-the-download) 后解压。
 2. 在测试库内创建 `.obsidian/plugins/third-brain/`，把 **`main.js`、`manifest.json`、`styles.css`、`LICENSE`** 直接放进去，不要多套一层文件夹。
 3. 重新加载 Obsidian，在**设置 → 第三方插件**中按提示允许第三方插件，并启用 **Third Brain**。点侧栏的脑形图标打开「第三大脑」，再点「更新笔记」。
 
@@ -35,7 +35,7 @@
 
 选择 **高** 发散度后，直接命中的机制 / 类比片段可沿同隐私的已有片段网络走一跳。卡片明确写出 **间接关联建议**、经由哪个片段及共同机制；展开 **分别核对两端原文**，可读两端引文、条件并分别打开来源。这不代表建议与查询机制等价，也不证明因果关系。低 / 中的行为保持不变。
 
-扩展有固定上限：3 个起点、每起点检查 3 个邻居、最多 6 个目标。纯间接结果排在直接匹配之后，可能超出面板的 7 条结果上限；高发散不保证一定增加卡片。
+扩展有固定上限：3 个起点、每起点检查 3 个邻居、最多 6 个目标。原主列表最多 7 条，顺序和分数保持不变；高发散可在 **沿已有网络的间接建议** 下另显示最多 2 条经来源复核的目标，结果摘要会显示额外数量。建议不抢主列表的位置、不提高其分数；没有合格路径时不显示额外区段。两端原文和既有「打开片段」入口仍可使用。
 
 ## 顺着片段继续找
 
@@ -57,7 +57,7 @@
 - 来源变化后，旧证据会失效；缺失来源不会继续作为可打开的推荐。修改笔记后请更新。
 - 引文证明出处，不证明每个解释正确；不保证普遍检索准确、改善记忆或判断掌握程度。
 - 脱敏不能识别全部机密。启用云端**之前**，请把敏感笔记标为 local/private 或排除来源。生成历史不加密，删除来源也不保证抹除所有派生副本。
-- 新版持久关联及旧库升级已用合成文件库实测；“打开片段”和双端原文入口已接入原生面板，并经 DOM 测试工具检查；0.3.0 的宿主点击和广泛真实 AI 质量仍未验收。[验证范围](docs/VERIFICATION.md)单独记录较早版本的原生检查。
+- 新版持久关联及旧库升级已用合成文件库实测；“打开片段”和双端原文入口已接入原生面板，并经 DOM 测试工具检查；0.3.1 的宿主点击和广泛真实 AI 质量仍未验收。[验证范围](docs/VERIFICATION.md)单独记录较早版本的原生检查。
 
 [兼容与限制](docs/COMPATIBILITY.md) · [排障](docs/TROUBLESHOOTING.md)
 

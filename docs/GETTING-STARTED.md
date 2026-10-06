@@ -2,9 +2,9 @@
 
 [English README](../README.md) · [中文 README](../README.zh-CN.md) · [Install](#install-the-preview) · [Models](#optional-model-setup) · [Build from source](#build-from-source)
 
-**0.3.0 is a prerelease for desktop Obsidian 1.11.5+.** It is not in the Community directory. Default local excerpts work without an account, key or network; they are not AI semantic search. A small real-model synthetic check and cached-result activation check are documented; production-provider compatibility, broad semantic quality and native clicks for this version remain unverified.
+**0.3.1 is a prerelease for desktop Obsidian 1.11.5+.** It is not in the Community directory. Default local excerpts work without an account, key or network; they are not AI semantic search. A small real-model synthetic check and cached-result activation check are documented; production-provider compatibility, broad semantic quality and native clicks for this version remain unverified.
 
-**0.3.0 是桌面预览版，需要 Obsidian 1.11.5+，尚未进入社区插件目录。** 默认本地摘录无需账户、密钥或网络，不是 AI 语义检索；已记录小范围真实模型与缓存激活检查；生产接口兼容性、广泛语义效果和本版原生点击仍未验收。
+**0.3.1 是桌面预览版，需要 Obsidian 1.11.5+，尚未进入社区插件目录。** 默认本地摘录无需账户、密钥或网络，不是 AI 语义检索；已记录小范围真实模型与缓存激活检查；生产接口兼容性、广泛语义效果和本版原生点击仍未验收。
 
 ## Install the preview
 
@@ -12,7 +12,7 @@ Use a disposable test vault first. You do **not** need Node.js for release insta
 
 先用可丢弃的测试库，Release 安装**不需要 Node.js**。第三方插件具有广泛访问权限；用于重要笔记库前请保留备份。
 
-1. Download [third-brain-0.3.0.zip](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.0/third-brain-0.3.0.zip) and [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.0/SHA256SUMS) from the [0.3.0 prerelease](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.0). [Check the ZIP's hash](#check-the-download), then extract it. Use this plugin ZIP, **not** GitHub's “Source code” archive.
+1. Download [third-brain-0.3.1.zip](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.1/third-brain-0.3.1.zip) and [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.1/SHA256SUMS) from the [0.3.1 prerelease](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.1). [Check the ZIP's hash](#check-the-download), then extract it. Use this plugin ZIP, **not** GitHub's “Source code” archive.
    下载插件 ZIP 与校验文件，核对后解压；不要下载 GitHub 自动生成的「Source code」源码包来安装。
 2. Create `.obsidian/plugins/third-brain/` inside your test vault and put all four extracted files directly inside:
    在测试库内创建插件目录，把四个文件直接放入，不要多套一层文件夹：
@@ -34,26 +34,26 @@ If the plugin is missing, check the exact folder and `manifest.json` placement, 
 
 ### Check the download
 
-Run one command in the folder containing your downloaded ZIP. Compare its hash with the line for `third-brain-0.3.0.zip` in `SHA256SUMS`; if they differ, do not install it.
+Run one command in the folder containing your downloaded ZIP. Compare its hash with the line for `third-brain-0.3.1.zip` in `SHA256SUMS`; if they differ, do not install it.
 
 在下载目录运行适合你系统的一条命令，与 `SHA256SUMS` 中 ZIP 对应行的哈希比较；不一致就不要安装。
 
 **Windows — PowerShell**
 
 ```powershell
-Get-FileHash .\third-brain-0.3.0.zip -Algorithm SHA256
+Get-FileHash .\third-brain-0.3.1.zip -Algorithm SHA256
 ```
 
 **macOS**
 
 ```sh
-shasum -a 256 third-brain-0.3.0.zip
+shasum -a 256 third-brain-0.3.1.zip
 ```
 
 **Linux**
 
 ```sh
-sha256sum third-brain-0.3.0.zip
+sha256sum third-brain-0.3.1.zip
 ```
 
 ## First connection
@@ -167,16 +167,16 @@ Copy **`dist/main.js`, `dist/manifest.json`, `dist/styles.css` and `dist/LICENSE
 
 ## Preview evidence
 
-The earlier 0.1.0 public package was downloaded, hash-checked and loaded in native Obsidian, but its full click journey was not rerun. The 0.2.x packages have separate CI/download checks. Neither establishes native clicks for 0.3.0. Exact-version distribution and cached/model checks are tracked in [verification scope](VERIFICATION.md).
+The earlier 0.1.0 public package was downloaded, hash-checked and loaded in native Obsidian, but its full click journey was not rerun. The 0.2.x packages have separate CI/download checks. Neither establishes native clicks for 0.3.1. Exact-version distribution and cached/model checks are tracked in [verification scope](VERIFICATION.md).
 
-较早的 0.1.0 公开包已下载、校验并在原生 Obsidian 中加载，完整点击旅程未重跑；0.2.x 包另有 CI 与公开下载检查。它们均不证明 0.3.0 的原生点击。确切版本的分发、模型和缓存检查见[验证范围](VERIFICATION.md)。
+较早的 0.1.0 公开包已下载、校验并在原生 Obsidian 中加载，完整点击旅程未重跑；0.2.x 包另有 CI 与公开下载检查。它们均不证明 0.3.1 的原生点击。确切版本的分发、模型和缓存检查见[验证范围](VERIFICATION.md)。
 ## High-breadth indirect suggestions / 高发散间接建议
 
 Select **High / 高** before searching. When a direct mechanism/analogy match has an eligible shared-mechanism neighbor, its card identifies an **Indirect association suggestion / 间接关联建议**. Expand **Compare both original sources / 分别核对两端原文** to compare the anchor and suggested source, their exact quotes, conditions and limits, then open either original. A stale or excluded endpoint invalidates the corresponding suggestion.
 
-Only one hop and the same privacy partition are allowed. At most 3 anchors, 3 inspected neighbors per anchor and 6 targets participate. Pure indirect candidates remain below direct results and may be outside the seven visible cards. This feature makes no new extraction/model request, does not change low/medium behaviour, and cannot guarantee query-mechanism equivalence, correct causality or a new recommendation for every idea. An already enabled model may still interpret your submitted query as before.
+Only one hop and the same privacy partition are allowed. At most 3 anchors, 3 inspected neighbors per anchor and 6 targets participate. The main list keeps up to seven results and its original order/scores. High can separately show at most two not-yet-visible, verified targets under **Indirect suggestions via the existing network**; the result summary includes their count. Targets can have weak lexical reasons or be purely indirect. They do not displace the main list or receive a score bonus. Both original-source controls and the existing Open fragment action work in this section. This feature makes no new extraction/model request, does not change low/medium behaviour, and cannot guarantee query-mechanism equivalence, correct causality or a new recommendation for every idea. An already enabled model may still interpret your submitted query as before.
 
-选择「高」后查询，满足条件时会显示明确的间接建议。展开双端原文，先比较两条材料的引文、条件和限制，再分别打开来源。只走一跳，不跨隐私等级，不新提炼标签、不保证一定出现额外卡片；既有模型模式仍可能按原规则解释本次查询。
+选择「高」后查询，主列表最多 7 条并保持原排序；合格的未显示目标在独立间接建议区额外显示最多 2 条，结果摘要会写明数量。可展开双端原文，也可沿既有「打开片段」入口继续查看保存的关系。只走一跳，不跨隐私等级，不新提炼标签、不为凑数补卡片；既有模型模式仍可能按原规则解释本次查询。
 
 ## Follow stored fragment links
 

@@ -1,4 +1,4 @@
-import type { Facets, Fragment, RelationReason, SearchOptions, SearchResult } from './types';
+import type { Facets, Fragment, RelationReason, SearchOptions, SearchResult, SearchResults } from './types';
 import { emptyFacets } from './types';
 import { CoreError, FACET_KEYS, facetKey, unionFacets } from './util';
 import { safeVocabulary } from './privacy';
@@ -43,7 +43,7 @@ export function vocabularyOf(fragments: Fragment[], cloudSafe = false): Facets {
   for (const key of FACET_KEYS) output[key] = output[key].slice(0,256);
   return safeVocabulary(output);
 }
-export function searchFragments(fragments: Fragment[], query: string, options: SearchOptions): SearchResult[] {
+export function searchFragments(fragments: Fragment[], query: string, options: SearchOptions): SearchResults {
   if (typeof query !== 'string' || query.length > 20_000 || !['low','medium','high'].includes(options.breadth)) throw new CoreError('Invalid search options');
   const limit = options.limit ?? 20;
   if (!Number.isInteger(limit) || limit < 0 || limit > 200) throw new CoreError('Invalid result limit');
@@ -102,6 +102,7 @@ export function searchFragments(fragments: Fragment[], query: string, options: S
     if (score > 0 && reasons.length) results.push({ fragment,score,reasons });
   }
   const ranked = results.sort((a,b) => b.score - a.score || a.fragment.id.localeCompare(b.fragment.id));
+  const indirectCandidates: SearchResult[] = [];
   // Freeze direct seeds before walking. A neighbor never becomes a new seed.
   if (options.breadth === 'high' && options.index) {
     const eligible = new Map(candidates.filter(f => {
@@ -128,11 +129,15 @@ export function searchFragments(fragments: Fragment[], query: string, options: S
           // Existing direct results get an explanation, never a score boost.
           // Pure neighbors stay below every direct match; invalid anchors can
           // remove the whole suggestion without leaving a hidden score bonus.
-          if (existing) existing.reasons.push(reason);
-          else { const result = { fragment:target,score:weakScore,reasons:[reason] }; byId.set(target.id,result); ranked.push(result); }
+          if (existing) { existing.reasons.push(reason); indirectCandidates.push(existing); }
+          else { const result = { fragment:target,score:weakScore,reasons:[reason] }; byId.set(target.id,result); ranked.push(result); indirectCandidates.push(result); }
         }
       }
     }
   }
-  return ranked.sort((a,b) => b.score - a.score || a.fragment.id.localeCompare(b.fragment.id)).slice(0,limit);
+  const output: SearchResults = ranked.sort((a,b) => b.score - a.score || a.fragment.id.localeCompare(b.fragment.id)).slice(0,limit);
+  if (options.breadth === 'high' && options.retainIndirectCandidates) {
+    output.indirectCandidates = indirectCandidates.sort((a,b) => b.score - a.score || a.fragment.id.localeCompare(b.fragment.id));
+  }
+  return output;
 }
