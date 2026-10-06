@@ -2,20 +2,20 @@
 
 从一个想法找回自己笔记中的知识片段，在 Obsidian 里读关联理由、打开原文。
 
-**[下载 0.3.1 预览版](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.1/third-brain-0.3.1.zip)** · [安装](#安装) · [English](README.md) · [隐私边界](docs/PRIVACY.md)
+**[下载 0.3.2 预览版](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.2/third-brain-0.3.2.zip)** · [安装](#安装) · [English](README.md) · [隐私边界](docs/PRIVACY.md)
 
 <img src="docs/images/native-obsidian-source-open-zh.png" alt="原生 Obsidian 中打开合成来源笔记，旁边显示第三大脑的本地摘录、关联理由和原文引用" width="680">
 
 *原生 Obsidian，较早构建、合成笔记、本地摘录；不是公开包安装或真实 AI 演示。*
 
-> **0.3.1 预览版 · 桌面 Obsidian 1.11.5+ · 尚未进入社区插件目录。**
+> **0.3.2 预览版 · 桌面 Obsidian 1.11.5+ · 尚未进入社区插件目录。**
 > 默认本地摘录不需要密钥或网络，不是 AI 语义检索。已做小范围真实模型与缓存激活检查；生产接口兼容性、广泛语义效果和本版原生点击仍未验收。
 
 ## 安装
 
 先用可丢弃的测试库。安装插件**不需要 Node.js**。
 
-1. 从 [0.3.1 预览发布](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.1)下载[插件 ZIP](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.1/third-brain-0.3.1.zip) 和 [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.1/SHA256SUMS)，[核对 ZIP 的 SHA-256](docs/GETTING-STARTED.md#check-the-download) 后解压。
+1. 从 [0.3.2 预览发布](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.2)下载[插件 ZIP](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.2/third-brain-0.3.2.zip) 和 [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.2/SHA256SUMS)，[核对 ZIP 的 SHA-256](docs/GETTING-STARTED.md#check-the-download) 后解压。
 2. 在测试库内创建 `.obsidian/plugins/third-brain/`，把 **`main.js`、`manifest.json`、`styles.css`、`LICENSE`** 直接放进去，不要多套一层文件夹。
 3. 重新加载 Obsidian，在**设置 → 第三方插件**中按提示允许第三方插件，并启用 **Third Brain**。点侧栏的脑形图标打开「第三大脑」，再点「更新笔记」。
 
@@ -51,13 +51,17 @@
 
 [模型配置](docs/GETTING-STARTED.md#optional-model-setup) · [隐私边界](docs/PRIVACY.md)
 
+## 更新停住时
+
+面板会显示阻塞的库内来源、读取／解码／解析／分析阶段和受控原因，并保留最后进度。初次失败会明确尚未建立完整索引；提交前失败且已有旧版本时保留完整旧索引，但已变或不可读来源仍须重新核验。读取期间可取消，后续来源不再开始；这不保证硬中断系统 I/O。处理完成与真正提交分开显示。可修正提示的来源或在既有来源排除设置中排除它，再重试；插件不跳过未知隐私或非法模型输出来提交半轮结果。
+
 ## 范围与限制
 
 - 仅桌面端，处理可读 Markdown 和 Canvas 文本节点；不支持移动端。
 - 来源变化后，旧证据会失效；缺失来源不会继续作为可打开的推荐。修改笔记后请更新。
 - 引文证明出处，不证明每个解释正确；不保证普遍检索准确、改善记忆或判断掌握程度。
 - 脱敏不能识别全部机密。启用云端**之前**，请把敏感笔记标为 local/private 或排除来源。生成历史不加密，删除来源也不保证抹除所有派生副本。
-- 新版持久关联及旧库升级已用合成文件库实测；“打开片段”和双端原文入口已接入原生面板，并经 DOM 测试工具检查；0.3.1 的宿主点击和广泛真实 AI 质量仍未验收。[验证范围](docs/VERIFICATION.md)单独记录较早版本的原生检查。
+- 新版持久关联及旧库升级已用合成文件库实测；“打开片段”和双端原文入口已接入原生面板，并经 DOM 测试工具检查；0.3.2 的宿主点击和广泛真实 AI 质量仍未验收。[验证范围](docs/VERIFICATION.md)单独记录较早版本的原生检查。
 
 [兼容与限制](docs/COMPATIBILITY.md) · [排障](docs/TROUBLESHOOTING.md)
 

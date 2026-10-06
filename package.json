@@ -1,6 +1,6 @@
 {
   "name": "third-brain",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "Source-grounded note fragments and explainable connections for Obsidian.",
   "private": true,
   "type": "module",

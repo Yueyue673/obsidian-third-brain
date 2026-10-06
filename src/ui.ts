@@ -36,12 +36,23 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   const renderState = (): void => {
     if (disposed) return;
     const state = port.status(); const busy = ['indexing', 'searching', 'loading'].includes(state.phase);
+    if (busy || state.phase === 'idle') notice.hidden = true;
     find.disabled = busy || !input.value.trim() || !state.fragmentCount; find.hidden = !state.fragmentCount; refresh.className = state.fragmentCount ? 'tb-secondary' : 'tb-primary'; refresh.disabled = busy; current.disabled = busy; breadth.disabled = busy; cancel.hidden = !busy || state.phase === 'loading';
     const mode = state.mode === 'local-excerpts' ? t.local : state.mode === 'local-model' ? t.localModel : t.cloud;
-    let line = t[state.phase]; if (state.progress?.total) line += ` ${state.progress.completed} / ${state.progress.total}`;
+    let line = t[state.phase];
+    if (state.progress) line += ` · ${t.lastStep}: ${t[state.progress.phase]}${state.progress.total ? ` ${state.progress.completed} / ${state.progress.total}` : ''}${state.progress.relativePath ? ` · ${state.progress.relativePath}` : ''}`;
     status.textContent = `${line} · ${mode}`;
     stats.textContent = `${state.sourceCount} ${t.sources} · ${state.fragmentCount} ${t.fragments}${state.updatedAt ? ` · ${t.updated} ${new Date(state.updatedAt).toLocaleString()}` : ''}`;
-    if (state.phase === 'error') alert(state.errorCode === 'index-unavailable' ? t.unavailable : t.failure);
+    if (state.phase === 'error') {
+      const d = state.sourceDiagnostic;
+      const reasons = { 'read-failed':t.readFailed,'decode-failed':t.decodeFailed,'parse-failed':t.parseFailed,'size-limit':t.sizeLimit,'analysis-failed':t.analysisFailed,'model-output-rejected':t.outputRejected };
+      let text = state.errorCode === 'index-unavailable' ? t.unavailable : d ? `${d.relativePath} · ${t[d.stage]} · ${reasons[d.reason]}.` : t.failure;
+      if (state.commitOutcome === 'unknown') text += ` ${t.commitUnknown}`;
+      else if (d && state.commitOutcome === 'not-started') text += ` ${t.notCommitted} ${state.hasCompleteIndex ? t.retainedIndex : t.noCompleteIndex}`;
+      else if (state.hasCompleteIndex === false) text += ` ${t.noCompleteIndex}`;
+      alert(text);
+    }
+    if (state.phase === 'cancelled') alert(`${t.cancelled}.${state.commitOutcome === 'unknown' ? ` ${t.commitUnknown}` : state.hasCompleteIndex === false ? ` ${t.noCompleteIndex}` : ''}`);
     if (state.warningCode === 'schedule-not-saved') alert(t.scheduleWarning);
     if (!hasSearched && !busy) { if (!state.fragmentCount) stateBlock(t.first, t.firstBody); else stateBlock(t.initial, ''); }
   };
@@ -109,13 +120,13 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
     if (!input.value.trim()) { stateBlock(t.contextMissing, ''); return; }
     const id = ++searchId; notice.hidden = true; hasSearched = true;
     try { const items = await port.find(input.value.trim(), breadth.value as Breadth, queryPrivacy); if (!disposed && id === searchId) showResults(items); }
-    catch { if (!disposed) alert(port.status().phase === 'cancelled' ? t.cancelled : t.failure); }
+    catch { if (!disposed && !['error','cancelled'].includes(port.status().phase)) alert(t.failure); }
     finally { renderState(); }
   };
   input.addEventListener('input', () => { renderState(); });
   input.addEventListener('keydown', e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); if (!find.disabled) void executeSearch(); } });
   find.addEventListener('click', () => void executeSearch()); breadth.addEventListener('change', () => { if (hasSearched && input.value.trim()) void executeSearch(); });
-  refresh.addEventListener('click', () => { notice.hidden = true; void port.refresh().then(() => { hasSearched = false; summary.textContent = ''; renderState(); }).catch(() => alert(port.status().phase === 'cancelled' ? t.cancelled : t.failure)); });
+  refresh.addEventListener('click', () => { notice.hidden = true; void port.refresh().then(() => { hasSearched = false; summary.textContent = ''; renderState(); }).catch(() => { if (!disposed) { if (!['error','cancelled'].includes(port.status().phase)) alert(t.failure); renderState(); } }); });
   cancel.addEventListener('click', () => { ++searchId; port.cancel(); });
   current.addEventListener('click', () => { void port.current?.().then(context => { if (!context?.text.trim()) { alert(t.contextMissing); return; } input.value = context.text; queryPrivacy = context.privacy; privacyHint.textContent = t.private; privacyHint.hidden = queryPrivacy === 'normal'; renderState(); input.focus(); }).catch(() => alert(t.contextMissing)); });
   const unsubscribe = port.subscribe(renderState); renderState();

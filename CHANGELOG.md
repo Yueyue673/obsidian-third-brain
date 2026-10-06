@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.3.2 — 2026-10-06 (preview)
+
+- Locate source reading, decoding, parsing and analysis failures in the existing bilingual panel using controlled vault-relative path/stage/reason and last progress. Unknown exceptions/model bodies and forged same-name diagnostic properties are never echoed; known donor faults are not relabelled as the active note.
+- Add per-source reading progress and cooperative cancellation. Stop before the next source, reject late adapter results/progress, and distinguish core processing completion from host committing. No OS I/O hard-interruption guarantee.
+- Distinguish first unsuccessful indexing from a retained prior complete revision, and treat post-commit-start failures conservatively. Remove unconditional previous-index-available cancellation/failure claims; keep transaction, privacy/schema/provenance/CAS/ownership guards unchanged. No fault skipping or partial commits.
+- Preserve structured notices across real refresh/find callbacks; clear old failures after a controller-driven repaired refresh. Validate complete repaired rerun and unchanged idempotency with synthetic files. Stored schema, generation policy, model transport and original-source guards are unchanged.
+
 ## 0.3.1 — 2026-10-06 (preview)
 
 - Fix high-breadth network suggestions disappearing behind lexical candidates at the unified 30-candidate and seven-card cutoffs. Preserve the same-corpus original main seven IDs, order, scores and reasons, and show up to two extra source-verified targets in a separate section without score boosts or displaced main results.

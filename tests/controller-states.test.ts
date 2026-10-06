@@ -50,7 +50,7 @@ describe('controller cancellation, overlap and readiness states', () => {
         cancelled = true; h.controller.cancel();
       }
     });
-    await expect(h.controller.refresh()).rejects.toThrow('Cancelled. The previous complete index remains available.');
+    await expect(h.controller.refresh()).rejects.toMatchObject({ name: 'AbortError', message: 'Cancelled.' });
     unsubscribe();
 
     expect(cancelled).toBe(true);

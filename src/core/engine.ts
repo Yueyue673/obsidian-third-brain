@@ -4,6 +4,7 @@ import { extendVocabulary, hasCredentials, safeFacet, safeVocabulary } from './p
 import { checkedSource, sourceFacets, textBlocks } from './sources';
 import { analyzeSource } from './extraction';
 import { fragmentId, mergeFragments } from './fragments';
+import { bindSourceDiagnostic, markGlobalSourceFailure } from './source-diagnostics';
 
 const STATUSES: SourceStatus[] = ['indexed','empty','insufficient-context','sensitive','local-only'];
 function validatePrevious(state: IndexState): void {
@@ -60,7 +61,7 @@ function currentEvidence(fragment: Fragment, snapshot: SourceSnapshot): Fragment
 /** Pure staging: throws on any failed source; the host commits only a returned complete state. */
 export async function buildIndex(inputs: SourceSnapshot[], options: RunOptions): Promise<IndexState> {
   const total = inputs.length; let completed = 0;
-  const progress = (phase: 'reading' | 'processing' | 'done' | 'cancelled') => options.onProgress?.({ completed,total,phase });
+  const progress = (phase: 'reading' | 'processing' | 'done' | 'cancelled', path?: string) => options.onProgress?.({ completed,total,phase,...(path ? { relativePath:path } : {}) });
   try {
     checkAbort(options.signal);
     if (typeof options.signature !== 'string' || !options.signature || options.signature.length > 4096) throw new CoreError('Generation signature is required');
@@ -103,6 +104,7 @@ export async function buildIndex(inputs: SourceSnapshot[], options: RunOptions):
       vocabulary = extendVocabulary(vocabulary,facets); remember(facets,[snapshot]);
     }
     const beforeRequest = options.recheck || options.beforeRequest ? async (active: SourceSnapshot, requestVocabulary: Facets): Promise<void> => {
+      try {
       await options.beforeRequest?.(active,requestVocabulary);
       checkAbort(options.signal);
       if (!options.recheck) return;
@@ -120,6 +122,7 @@ export async function buildIndex(inputs: SourceSnapshot[], options: RunOptions):
         if (!fresh || fresh.id !== original.id || fresh.path !== original.path || fresh.format !== original.format ||
             fresh.hash !== original.hash || fresh.privacy !== original.privacy || fresh.text !== original.text) throw new CoreError('Source notes changed during processing');
       }
+      } catch (error) { markGlobalSourceFailure(error); throw error; }
     } : undefined;
     // Vocabulary is an incremental editorial hint, not a generation parameter.
     // Learned dictionary growth must not re-request unchanged originals. A
@@ -127,7 +130,7 @@ export async function buildIndex(inputs: SourceSnapshot[], options: RunOptions):
     const signature = `${CORE_REVISION}:${digest(JSON.stringify({ generation:options.signature,mode:options.mode,cloudConsent:options.cloudConsent }))}`;
     const sameGeneration = options.previous?.signature === signature, now = timestamp(options.now);
     const records: Record<string,SourceRecord> = Object.create(null), collected: Fragment[] = [];
-    progress('processing');
+    progress('processing',sources[0]?.path);
     for (const snapshot of sources) {
       checkAbort(options.signal);
       if (completed % 16 === 0) await yieldToHost(options.signal);
@@ -144,14 +147,23 @@ export async function buildIndex(inputs: SourceSnapshot[], options: RunOptions):
         // AI facets retain their own verified source revision; they do not
         // depend on today's bounded request dictionary or explicit tags.
       } else {
-        const result = await analyzeSource(snapshot,{ ...options,vocabulary,now,beforeRequest });
+        const model = options.model ? { request:async (...args: Parameters<NonNullable<RunOptions['model']>['request']>) => {
+          try { return await options.model!.request(...args); }
+          catch (error) { if (!options.signal?.aborted && !(error instanceof Error && error.name === 'AbortError')) bindSourceDiagnostic(error,{ relativePath:snapshot.path,stage:'analysis',reason:'analysis-failed' }); throw error; }
+        } } : undefined;
+        let result;
+        try { result = await analyzeSource(snapshot,{ ...options,model,vocabulary,now,beforeRequest }); }
+        catch (error) {
+          if (!options.signal?.aborted && !(error instanceof Error && error.name === 'AbortError')) bindSourceDiagnostic(error,{ relativePath:snapshot.path,stage:'analysis',reason:options.mode !== 'local-excerpts' && !!options.model && error instanceof CoreError ? 'model-output-rejected' : 'analysis-failed' });
+          throw error;
+        }
         status=result.status; fragments=result.fragments;
         if (status === 'error') throw new CoreError('Source analysis failed');
       }
       checkAbort(options.signal);
       records[snapshot.path] = { hash:snapshot.hash,status,fragmentIds:[] };
       for (const fragment of fragments) { vocabulary = extendVocabulary(vocabulary,fragment.facets); remember(fragment.facets,[snapshot]); }
-      collected.push(...fragments); completed++; progress('processing');
+      collected.push(...fragments); completed++; progress('processing',sources[completed]?.path);
     }
     const merged = mergeFragments(collected), fragments: Record<string,Fragment> = Object.create(null);
     for (const fragment of merged) {

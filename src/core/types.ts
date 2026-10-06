@@ -25,7 +25,7 @@ export type SearchResults = SearchResult[] & { indirectCandidates?: SearchResult
 export interface SearchOptions { breadth: Breadth; limit?: number; facets?: Partial<Facets>; excludeSource?: string; index?: IndexState; retainIndirectCandidates?: boolean; }
 export interface StorePort { load(): Promise<IndexState | null>; commit(next: IndexState, verifySources?: () => Promise<void>, signal?: AbortSignal): Promise<void>; recover(): Promise<void>; }
 export interface TransportOptions { mode: 'local-model' | 'cloud-model'; endpoint: string; model: string; secret?: string; cloudConsent: boolean; timeoutMs?: number; maxResponseBytes?: number; }
-export interface RunProgress { completed: number; total: number; phase: 'reading' | 'processing' | 'committing' | 'done' | 'cancelled'; }
+export interface RunProgress { completed: number; total: number; phase: 'reading' | 'processing' | 'committing' | 'done' | 'cancelled'; relativePath?: string; }
 export interface RunOptions extends AnalyzeOptions { signature: string; previous: IndexState | null; onProgress?: (progress: RunProgress) => void; recheck?: (snapshot: SourceSnapshot) => Promise<SourceSnapshot | null>; }
 export const emptyFacets = (): Facets => ({ topics: [], concepts: [], mechanisms: [], atmosphere: [] });
 export const emptyIndex = (): IndexState => ({ version: 1, signature: '', updatedAt: '', sources: {}, fragments: {} });
