@@ -10,6 +10,10 @@ export interface PanelPort {
   open(evidence: Evidence): Promise<void>;
   openFragment?(id: string): Promise<void>;
 }
+// A host-owned recovery signal. Never classify failures by external names/messages.
+export class CurrentNoteTooLongError extends Error {
+  constructor() { super('Select a shorter excerpt before using current-note context.'); this.name = 'CurrentNoteTooLongError'; }
+}
 function element<K extends keyof HTMLElementTagNameMap>(tag: K, className?: string, text?: string): HTMLElementTagNameMap[K] {
   const el = document.createElement(tag); if (className) el.className = className; if (text !== undefined) el.textContent = text; return el;
 }
@@ -168,7 +172,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   find.addEventListener('click', () => void executeSearch()); breadth.addEventListener('change', () => { if (hasSearched && input.value.trim()) void executeSearch(); });
   refresh.addEventListener('click', () => { notice.hidden = true; void port.refresh().catch(() => { if (!disposed) { if (!['error','cancelled'].includes(port.status().phase)) alert(t.failure); renderState(); } }); });
   cancel.addEventListener('click', () => { ++searchId; port.cancel(); });
-  current.addEventListener('click', () => { markPreviousResults(); selection = undefined; const id = ++searchId; renderState(); void port.current?.().then(context => { if (disposed || id !== searchId) return; if (!context?.text.trim()) { alert(t.contextMissing); return; } input.value = context.text; queryPrivacy = context.privacy; privacyHint.textContent = t.private; privacyHint.hidden = queryPrivacy === 'normal'; renderState(); input.focus(); }).catch(() => { if (!disposed && id === searchId) alert(t.contextMissing); }); });
+  current.addEventListener('click', () => { markPreviousResults(); selection = undefined; const id = ++searchId; renderState(); void port.current?.().then(context => { if (disposed || id !== searchId) return; if (!context?.text.trim()) { alert(t.contextMissing); return; } input.value = context.text; queryPrivacy = context.privacy; privacyHint.textContent = t.private; privacyHint.hidden = queryPrivacy === 'normal'; renderState(); input.focus(); }).catch(error => { if (!disposed && id === searchId) alert(error instanceof CurrentNoteTooLongError ? t.contextTooLong : t.contextMissing); }); });
   const unsubscribe = port.subscribe(renderState); renderState();
   return () => { disposed = true; ++searchId; unsubscribe(); root.remove(); };
 }

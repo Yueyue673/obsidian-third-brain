@@ -87,7 +87,7 @@ async function fixture(locale: 'en' | 'zh' = 'en', seeded = true) {
   };
   const cleanup = async () => { controller.cancel(); await Promise.allSettled([...queries, ...opens, ...contexts]); await Promise.resolve(); dispose(); controller.dispose(); };
   if (seeded) { type('AlphaNeedle'); search(); await settleQuery(); expect(cards()).toEqual(['AlphaCard']); expect(get('tb-result-summary').textContent).toBe(`1 ${t.results}`); }
-  return { root, sources, controller, port, container, get, button, cards, type, search, settleQuery, find, findSpy, queries, opens, contexts, hostOpen, assertUnchanged, cleanup, t, previous };
+  return { root, sources, controller, port, container, get, button, cards, type, search, settleQuery, find, findSpy, queries, opens, contexts, hostOpen, assertUnchanged, cleanup, t, previous, editor: view.editor, current, dispose };
 }
 
 for (const edit of ['BetaNeedle', ''] as const) it.each(['en', 'zh'] as const)(`editing the idea to ${edit || '(blank)'} labels retained results without a new search in %s`, async locale => {
@@ -186,4 +186,88 @@ it('previous-search marking never bypasses changed-source refusal', async () => 
     oldSource.fire('click'); await expect(h.opens.at(-1)!).rejects.toThrow(); expect(h.hostOpen).toHaveBeenCalledOnce();
     expect.soft(h.get('tb-result-summary').textContent).toBe(`${h.previous} · 1 ${h.t.results}`);
   } finally { await h.cleanup(); }
+});
+
+for (const oversized of ['draft', 'selection'] as const) it.each(['en', 'zh'] as const)(`overlong current-note ${oversized} offers shorter-selection recovery in %s`, async locale => {
+  const h = await fixture(locale);
+  try {
+    // First load a private selection so the failed replacement must keep its privacy.
+    h.button(h.t.current).fire('click'); await h.contexts.at(-1)!; await Promise.resolve();
+    h.search(); await h.settleQuery(); expect(h.cards()).toEqual(['BetaCard']);
+    const oldSource = h.get('tb-source');
+    const longText = 'BetaNeedle'.padEnd(20001, 'x');
+    vi.spyOn(h.editor, 'getValue').mockReturnValue('---\nprivacy: private\n---\n' + longText);
+    const selected = vi.spyOn(h.editor, 'getSelection').mockReturnValue(oversized === 'selection' ? longText : '');
+    const snapshot = vi.spyOn(h.controller, 'snapshot');
+    h.button(h.t.current).fire('click');
+    await expect(h.contexts.at(-1)!).rejects.toThrow(); await Promise.resolve();
+    const recovery = locale === 'zh'
+      ? '当前笔记或选区太长。请在笔记中选中较短片段，再点“使用当前笔记”；也可以直接在这里写一个想法。'
+      : 'The current note or selection is too long. Select a shorter excerpt in the note, then choose Use current note again, or type an idea here.';
+    expect.soft(h.get('tb-notice').textContent).toBe(recovery);
+    expect(h.get('tb-notice').hidden).toBe(false);
+    expect(h.get('tb-idea').value).toBe('BetaNeedle'); expect(h.get('tb-privacy').hidden).toBe(false);
+    expect(h.cards()).toEqual(['BetaCard']); expect(h.get('tb-result-summary').textContent).toBe(`${h.previous} · 1 ${h.t.results}`);
+    expect(h.findSpy).toHaveBeenCalledTimes(2); expect(snapshot).not.toHaveBeenCalled();
+    oldSource.fire('click'); await h.opens.at(-1)!; expect(h.hostOpen.mock.calls.at(-1)?.[0].path).toBe('beta.md');
+    // Follow the actual recovery: select only body text, keeping private FULL draft metadata.
+    selected.mockReturnValue('BetaNeedle');
+    h.button(h.t.current).fire('click'); const context = await h.contexts.at(-1)!; await Promise.resolve();
+    expect(context).toEqual({ text: 'BetaNeedle', privacy: 'private' }); expect(h.get('tb-notice').hidden).toBe(true);
+    expect(h.findSpy).toHaveBeenCalledTimes(2); h.search(); const items = await h.settleQuery();
+    expect(h.findSpy.mock.calls.at(-1)).toEqual(['BetaNeedle', 'medium', 'private']); expect(h.cards()).toEqual(['BetaCard']);
+    for (const e of items[0].fragment.evidence) { const source = await h.sources.read(e.relativePath); expect(source!.hash).toBe(e.sourceHash); expect(source!.text.slice(e.start, e.end)).toBe(e.quote); }
+    await h.assertUnchanged();
+  } finally { await h.cleanup(); }
+});
+
+it.each(['draft', 'selection'] as const)('keeps the existing inclusive current-note limit for a %s without truncation or automatic search', async from => {
+  const h = await fixture();
+  try {
+    const text = '---\nprivacy: local\n---\nBetaNeedle'.padEnd(20000, 'x');
+    vi.spyOn(h.editor, 'getValue').mockReturnValue(text);
+    vi.spyOn(h.editor, 'getSelection').mockReturnValue(from === 'selection' ? text : '');
+    h.button(h.t.current).fire('click'); const context = await h.contexts.at(-1)!; await Promise.resolve();
+    expect(context).toEqual({ text, privacy: 'local' }); expect(h.get('tb-idea').value).toBe(text);
+    expect(h.get('tb-notice').hidden).toBe(true); expect(h.get('tb-privacy').hidden).toBe(false);
+    expect(h.findSpy).toHaveBeenCalledOnce(); expect(h.cards()).toEqual(['AlphaCard']);
+    await h.assertUnchanged();
+  } finally { await h.cleanup(); }
+});
+
+it.each(['en', 'zh'] as const)('keeps blank context and unrelated failures distinct from the size recovery in %s', async locale => {
+  const h = await fixture(locale);
+  try {
+    const value = vi.spyOn(h.editor, 'getValue').mockReturnValue('');
+    vi.spyOn(h.editor, 'getSelection').mockReturnValue('');
+    h.button(h.t.current).fire('click'); await h.contexts.at(-1)!; await Promise.resolve();
+    expect(h.get('tb-notice').textContent).toBe(h.t.contextMissing);
+    // A same-named foreign error cannot acquire the host-owned recovery identity.
+    const foreign = Object.assign(new Error('SYNTHETIC_ERROR_BODY_NOT_FOR_DISPLAY'), { name: 'CurrentNoteTooLongError' });
+    value.mockImplementationOnce(() => { throw foreign; });
+    h.button(h.t.current).fire('click'); await expect(h.contexts.at(-1)!).rejects.toBe(foreign); await Promise.resolve();
+    expect(h.get('tb-notice').textContent).toBe(h.t.contextMissing);
+    expect(h.container.all().map(node => node.textContent).join('\n')).not.toContain(foreign.message);
+    expect(h.get('tb-idea').value).toBe('AlphaNeedle'); expect(h.cards()).toEqual(['AlphaCard']);
+    expect(h.findSpy).toHaveBeenCalledOnce(); await h.assertUnchanged();
+  } finally { await h.cleanup(); }
+});
+
+it.each(['edit', 'close'] as const)('ignores a controlled late current-note size rejection after %s', async intent => {
+  const h = await fixture(), entered = latch(), gate = latch();
+  try {
+    vi.spyOn(h.editor, 'getValue').mockReturnValue('Synthetic long draft'.padEnd(20001, 'x'));
+    vi.spyOn(h.editor, 'getSelection').mockReturnValue('');
+    vi.spyOn(h.port, 'current').mockImplementationOnce(() => {
+      // Delay delivery of an actual Main rejection; not a native I/O timing claim.
+      const operation = (async () => { try { return await h.current(); } catch (error) { entered.release(); await gate.promise; throw error; } })();
+      h.contexts.push(operation); return operation;
+    });
+    h.button(h.t.current).fire('click'); await entered.promise;
+    if (intent === 'edit') h.type('Newer unsent idea'); else h.dispose();
+    gate.release(); await expect(h.contexts.at(-1)!).rejects.toThrow(); await Promise.resolve();
+    expect(h.get('tb-notice').hidden).toBe(true);
+    expect(h.get('tb-idea').value).toBe(intent === 'edit' ? 'Newer unsent idea' : 'AlphaNeedle');
+    expect(h.cards()).toEqual(['AlphaCard']); expect(h.findSpy).toHaveBeenCalledOnce(); await h.assertUnchanged();
+  } finally { gate.release(); await h.cleanup(); }
 });

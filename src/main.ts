@@ -6,7 +6,7 @@ import { OwnedStore } from './runtime/store';
 import { createModelPort } from './runtime/transport';
 import { contextPrivacy, FileSources } from './sources';
 import { defaults, isDue, loadSettings, type Settings } from './settings';
-import { mountPanel, type PanelPort } from './ui';
+import { CurrentNoteTooLongError, mountPanel, type PanelPort } from './ui';
 const VIEW = 'third-brain-activation';
 export default class ThirdBrainPlugin extends Plugin {
   settings: Settings = { ...defaults };
@@ -67,7 +67,7 @@ export default class ThirdBrainPlugin extends Plugin {
         const view = leaf?.view as MarkdownView | undefined;
         const fullDraft = view ? view.editor.getValue() : await this.app.vault.read(file);
         const text = view?.editor.getSelection() || fullDraft;
-        if (text.length > 20000) throw new Error('Select a shorter excerpt before using current-note context.');
+        if (text.length > 20000) throw new CurrentNoteTooLongError();
         const original = await this.controller.snapshot(file.path); if (!original) return null;
         return { text, privacy: contextPrivacy(original, fullDraft) };
       },
