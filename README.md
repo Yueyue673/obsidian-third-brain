@@ -1,18 +1,63 @@
 # Third Brain
 
-Reconnect a half-formed idea with notes you already wrote — with explanations and original quotations, inside Obsidian.
+Reconnect an idea with fragments from your own notes, see why they match, and open the original — inside Obsidian.
 
-[中文说明](README.zh-CN.md) · [Getting started](docs/GETTING-STARTED.md) · [Privacy](docs/PRIVACY.md) · [Architecture](docs/ARCHITECTURE.md)
+**[Download 0.2.0 preview](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.2.0/third-brain-0.2.0.zip)** · [Install](#install) · [中文](README.zh-CN.md) · [Privacy](docs/PRIVACY.md)
 
-**Development preview:** the [`0.1.0` release](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.1.0) is published as a preview. The repaired local-excerpt build passed native Obsidian acceptance in an isolated synthetic vault, and the published assets were re-downloaded anonymously and verified byte-identical to the tagged CI artifacts (see the precise [verification scope](docs/VERIFICATION.md)). Live AI-provider compatibility and semantic quality have not been verified.
+<img src="docs/images/native-obsidian-source-open-zh.png" alt="Native Obsidian showing a synthetic source note beside Third Brain's local-excerpt explanation and source quotation" width="680">
+
+*Native Obsidian, earlier build, synthetic notes and local excerpts. Not a public-package installation or live-AI demo.*
+
+> **0.2.0 preview · desktop Obsidian 1.11.5+ · not in the Community directory.**
+> Default local excerpts need no key or network; they are not AI semantic search. Live AI-provider compatibility and semantic quality remain unverified.
 
 ## Install
 
-Desktop Obsidian **1.11.5 or newer**. This plugin is not yet listed in the Community directory.
+Start in a disposable test vault. Node.js is **not** needed to install the plugin.
 
-**From the [`0.1.0` preview release](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.1.0):** download `third-brain-0.1.0.zip`, check it against `SHA256SUMS`, then in a **disposable test vault first** create `.obsidian/plugins/third-brain/` and place `main.js`, `manifest.json`, `styles.css` and `LICENSE` directly inside. Enable the plugin in Settings → Community plugins, open **Third Brain**, and choose **Refresh notes**. The same files are also published as loose assets.
+1. Download the [plugin ZIP](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.2.0/third-brain-0.2.0.zip) and [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.2.0/SHA256SUMS) from the [0.2.0 prerelease](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.2.0). [Compare the ZIP's SHA-256](docs/GETTING-STARTED.md#check-the-download), then extract it.
+2. Create `.obsidian/plugins/third-brain/` inside that vault. Put **`main.js`, `manifest.json`, `styles.css` and `LICENSE`** directly inside — no extra nested folder.
+3. Reload Obsidian, allow Community plugins if prompted, and enable **Third Brain** in **Settings → Community plugins**. Open the brain ribbon icon, then select **Refresh notes**.
 
-**From source:** use Node **22.12+** and npm:
+Community plugins have broad access. Review the code and keep a backup before using an important vault. [Installation help](docs/TROUBLESHOOTING.md).
+
+## Find your first connection
+
+Describe an idea → **Find connections** → read the explanation → expand **Source evidence** → **Open original**. You do not need to find an old note or know a tag first.
+
+- **Keep originals separate.** Generated Markdown and its index live in `Third Brain/Fragments` by default. Originals stay read-only; user-authored or edited output is protected.
+- **Inspect the reason, not just the result.** Cards distinguish text and facet matches, show source quotations, and label analogy limits. Click a facet to explore; low/medium/high breadth changes the search scope, not evidence requirements.
+- **Refresh on your terms.** Manual by default, with optional daily/weekly refresh while Obsidian is open. No automatic insertion, keystroke stream, click/dwell tracking or telemetry.
+
+Need notes to try it? Copy the explicitly synthetic [sample notes](fixtures/sample-vault) into your test vault, refresh once, and search for `留白` or `Change one variable at a time`. An empty vault or insufficient context can produce no results; nothing is invented to fill the list. [First-run guide](docs/GETTING-STARTED.md#first-connection).
+
+## Follow a saved connection
+
+From a search result, choose **Open fragment**. Its **Related fragments** section links to generated fragments with specific shared topics, concepts or mechanisms; each fragment keeps its original quotations and source links. Human-readable title aliases are included. These are bounded same-privacy suggestions from existing attributes, not proof of semantic or causal equivalence.
+
+## Local excerpts or a model?
+
+| Mode | What it does | What you need |
+| --- | --- | --- |
+| Local excerpts — default | Extracts passages and retrieves text/existing-facet matches; **not AI semantic understanding** | No account, key or network |
+| Local model — optional | Uses a configured OpenAI-compatible model to edit grounded fragments and interpret queries | Your own loopback service and model name |
+| Cloud model — optional | May send ordinary note text and your query to the chosen provider; local/private sources and their vocabulary are excluded | HTTPS endpoint, host-managed secret and explicit consent |
+
+[Model setup](docs/GETTING-STARTED.md#optional-model-setup) · [Privacy boundaries](docs/PRIVACY.md)
+
+## Scope and limits
+
+- Desktop only; readable Markdown and Canvas text nodes. No mobile support.
+- Source changes invalidate old evidence. Missing sources are not kept as live recommendations; refresh after editing notes.
+- Quotes prove provenance, not the truth of every interpretation. Recall improvement, knowledge mastery and universal relevance are not established.
+- Redaction cannot identify every confidential detail. Mark sensitive notes local/private or exclude them **before** enabling cloud processing. Generated history is not encrypted or guaranteed to be erased when a source is removed.
+- Stored fragment links and legacy upgrades are checked on synthetic filesystem fixtures. The new Open fragment button is wired into the native panel, but native-host clicks and live AI quality are not yet verified for 0.2.0. [Verification scope](docs/VERIFICATION.md) distinguishes earlier native checks.
+
+[Compatibility and limits](docs/COMPATIBILITY.md) · [Troubleshooting](docs/TROUBLESHOOTING.md)
+
+## Develop
+
+Source builds require Node **22.12+** and npm; installation from the release does not.
 
 ```sh
 git clone https://github.com/Yueyue673/obsidian-third-brain.git
@@ -21,71 +66,10 @@ npm ci --ignore-scripts
 npm run build
 ```
 
-Then copy `dist/main.js`, `dist/manifest.json` and `dist/styles.css` into the same plugin folder and enable it the same way.
+Copy **`dist/main.js`, `dist/manifest.json`, `dist/styles.css` and `dist/LICENSE`** to the plugin folder above. [Contributing](CONTRIBUTING.md) covers development checks; `npm run demo` is a synthetic browser harness, not an Obsidian window or live-AI demonstration.
 
-The release tag matches the manifest version. The published package was downloaded anonymously, hash-verified, installed into an isolated synthetic vault and loaded in native Obsidian; the full click-driven journey on that exact package has not yet been re-run. Source builds and tested native-host behaviour are separate from public download/install evidence.
-
-No account, proprietary server or API key is needed for the default local-excerpt mode. Obsidian community plugins execute with broad access; review the code and use a backup before enabling any plugin in an important vault.
-
-## One useful path
-
-Type an idea, choose an association breadth if needed, and select **Find connections**. Results show the fragment, why it was retrieved, its original quotation and **Open original**. You do not need to know a tag or find an old note first.
-
-<img src="docs/images/test-harness-activation-zh.png" alt="Actual synthetic-vault browser harness, not an Obsidian screenshot or live AI demonstration" width="540">
-
-*Actual synthetic-vault harness using the production renderer, controller and file adapters. Not a native Obsidian screenshot; declared sample facets and local excerpts, not live AI.*
-
-<img src="docs/images/native-obsidian-activation-zh.png" alt="Native Obsidian 1.13.7 running the plugin against an isolated synthetic vault" width="540">
-
-*Native Obsidian 1.13.7 running an earlier built baseline in an isolated synthetic vault: refresh → idea → explained candidates → open original. This screenshot is not a public-release installation. The repaired build's separate acceptance and narrower network-observation limits are recorded in the verification document.*
-
-- **Separate editing layer.** Originals remain read-only. Generated Markdown and its index live under the configured generated folder; existing user-authored or edited files are protected.
-- **Explainable connections.** Content, topics, concepts and shared mechanisms are separate retrieval signals. High breadth permits analogies with caveats; it does not relax evidence validation.
-- **Quiet maintenance.** Manual by default; optional daily/weekly refresh only while Obsidian is open. No automatic insertion, keystroke stream, click learning or telemetry.
-
-The plugin cannot create useful personal knowledge from an empty vault. Start with your own notes, or try the explicitly synthetic [sample vault](fixtures/sample-vault).
-
-## Choose the processing boundary
-
-| Mode | What happens | Requirements |
-| --- | --- | --- |
-| Local excerpts — default | Extracts readable passages; searches lexical signals and existing facets. **This is not AI semantic understanding.** | No network or key |
-| Local model | An OpenAI-compatible model edits grounded fragments and interprets your query. | Explicit loopback endpoint and model name |
-| Cloud model | Ordinary notes and your query may go to your configured provider. local/private sources and their vocabulary are excluded. | HTTPS endpoint, host-managed secret, explicit consent |
-
-AI can make mistakes. Source validation proves that an attached quotation exists, not that every interpretation is true. Common-PII redaction is not a comprehensive privacy guarantee. See [privacy boundaries](docs/PRIVACY.md), [model setup](docs/GETTING-STARTED.md) and [known limits](docs/COMPATIBILITY.md).
-
-## How it stays bounded
-
-```text
-Read immutable sources → check privacy → extract or ask the configured model
-    → validate schema and exact quotes → reconcile fragments
-    → verify sources again → commit owned derived files
-
-Idea → optional bounded facet interpretation → local ranking
-    → verify live source evidence → show explanation → open original
-```
-
-Source changes invalidate old evidence. Missing sources do not remain clickable recommendations. The plugin does not decide whether your old knowledge is still correct or whether you have mastered a subject.
-
-## Develop
-
-Node **22.12+**, npm, no real personal vault required:
-
-```sh
-npm ci --ignore-scripts
-npm run typecheck
-npm test
-npm run build
-npm run smoke
-npm run privacy:check
-npm run release
-```
-
-`npm run demo` serves a **synthetic-only test harness** on loopback. It shares the real renderer/controller/filesystem path; it is not an Obsidian window and is never presented as one. `.local/` is ignored by git.
-
-[Architecture](docs/ARCHITECTURE.md) · [Verification scope](docs/VERIFICATION.md) · [Troubleshooting](docs/TROUBLESHOOTING.md) · [Research](docs/RESEARCH.md) · [Contributing](CONTRIBUTING.md) · [Security](SECURITY.md) · [Changelog](CHANGELOG.md)
+[Architecture](docs/ARCHITECTURE.md) · [Research](docs/RESEARCH.md) · [Security](SECURITY.md) · [Changelog](CHANGELOG.md)
 
 ## Licence
 
-MIT. Independent implementation; no competitor or private-vault code is copied. The Obsidian host is a separate product. Dependency details are in [third-party notices](THIRD-PARTY-NOTICES.md).
+[MIT](LICENSE). Independently implemented; no private-vault or competitor code is copied. Obsidian is a separate product. See [third-party notices](THIRD-PARTY-NOTICES.md).

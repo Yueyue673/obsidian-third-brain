@@ -12,6 +12,7 @@ export default class ThirdBrainPlugin extends Plugin {
   settings: Settings = { ...defaults };
   controller!: ThirdBrainController;
   private configuredFolder = '';
+  private store!: OwnedStore;
   private destroyed = false;
   async onload(): Promise<void> {
     this.settings = loadSettings(await this.loadData());
@@ -35,7 +36,7 @@ export default class ThirdBrainPlugin extends Plugin {
     if (this.configuredFolder === this.settings.outputFolder && this.controller) return;
     this.controller?.dispose();
     const root = (this.app.vault.adapter as FileSystemAdapter).getBasePath();
-    const store = new OwnedStore(root, this.settings.outputFolder);
+    const store = this.store = new OwnedStore(root, this.settings.outputFolder);
     const sources = new FileSources(root, () => this.settings, () => store.managedSourcePaths(), async () => this.app.vault.getFiles().map(f => f.path));
     this.controller = new ThirdBrainController(sources, store, () => this.settings, settings => this.model(settings), async when => { this.settings.lastIndexedAt = when; await this.saveData(this.settings); });
     this.configuredFolder = this.settings.outputFolder;
@@ -69,6 +70,11 @@ export default class ThirdBrainPlugin extends Plugin {
         if (text.length > 20000) throw new Error('Select a shorter excerpt before using current-note context.');
         const original = await this.controller.snapshot(file.path); if (!original) return null;
         return { text, privacy: contextPrivacy(original, fullDraft) };
+      },
+      openFragment: async id => {
+        const target = await this.store.fragmentPath(id);
+        const file = this.app.vault.getFileByPath(target); if (!file) throw new Error('Generated fragment no longer exists.');
+        await this.app.workspace.getLeaf(false).openFile(file);
       },
       open: async evidence => {
         await this.controller.verifyOpen(evidence);

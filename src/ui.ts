@@ -7,6 +7,7 @@ export interface PanelPort {
   refresh(): Promise<void>; find(query: string, breadth: Breadth, privacy?: Privacy): Promise<SearchResult[]>;
   cancel(): void; current?(): Promise<{ text: string; privacy: Privacy } | null>;
   open(evidence: Evidence): Promise<void>;
+  openFragment?(id: string): Promise<void>;
 }
 function element<K extends keyof HTMLElementTagNameMap>(tag: K, className?: string, text?: string): HTMLElementTagNameMap[K] {
   const el = document.createElement(tag); if (className) el.className = className; if (text !== undefined) el.textContent = text; return el;
@@ -51,6 +52,11 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
       const fragment = item.fragment; const article = element('article', 'tb-result');
       const top = element('div', 'tb-result-top'); top.append(element('h3', 'tb-result-title', fragment.title), element('span', 'tb-kind', fragment.mode === 'ai' ? t.ai : t.excerpt));
       article.append(top, element('p', 'tb-fragment', fragment.summary));
+      if (port.openFragment) {
+        const open = element('button', 'tb-secondary', t.openFragment); open.type = 'button';
+        open.addEventListener('click', () => { void port.openFragment!(fragment.id).catch(() => alert(t.failure)); });
+        article.append(open);
+      }
       if (item.reasons.length) {
         const why = element('div', 'tb-reasons'); why.append(element('h4', 'tb-small-heading', t.related));
         for (const reason of item.reasons) { why.append(element('p', 'tb-reason', presentExplanation(reason.label, locale))); if (reason.caveat) why.append(element('p', 'tb-caveat', `${t.caveat}: ${presentExplanation(reason.caveat, locale)}`)); }

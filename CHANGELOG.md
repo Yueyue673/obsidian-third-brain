@@ -2,6 +2,14 @@
 
 ## Unreleased
 
+## 0.2.0 — 2026-10-06 (preview)
+
+- Persist a bounded fragment network with actual same-privacy Markdown targets and shared-topic/concept/mechanism explanations. Generic/common facets abstain; relationships are suggestions, not verified AI semantics.
+- Add an Open fragment action to native search cards and title aliases to generated notes, connecting search → fragment → related fragment → original evidence. Native-host clicks for this version remain unverified.
+- Preserve the 0.1.0 renderer contract for existing owned files; refresh upgrades to render version 2 with recovery and human-edit protection.
+- Provide direct preview downloads and a short four-file installation route in both READMEs.
+- Default processing remains local excerpts with zero model requests. Live model compatibility and semantic editing quality remain pending.
+
 - The activation controller is now covered directly for its cancellation, overlap and readiness states: a cancelled refresh keeps the previous complete revision and a retry commits, a cancelled search reports `cancelled`, overlapping or not-yet-ready calls surface their documented messages, and empty or over-bound ideas are guarded without starting a task. All assertions reproduce existing behaviour; no runtime code changed.
 - The live vocabulary boundary now has direct integration coverage: the production file-source reader is exercised against a real owned store, pinning that owned derived files are blocked from model vocabulary, a user-authored original inside the generated folder stays eligible, folder exclusions apply immediately at the exact folder boundary, and a file-level exclusion matches only its exact path. All assertions reproduce existing behaviour; no runtime code changed.
 

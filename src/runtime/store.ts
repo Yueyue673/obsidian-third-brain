@@ -5,6 +5,7 @@ import * as path from 'node:path';
 import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
 import { AsyncLocalStorage } from 'node:async_hooks';
 import type { Facets, Fragment, IndexState, StorePort } from '../core/types';
+import { buildFragmentNetwork, type FragmentNetwork } from '../core/connections';
 
 const OWNER = 'third-brain';
 const STATE_LIMIT = 32 * 1024 * 1024;
@@ -145,7 +146,8 @@ function validateIndex(v: unknown): IndexState {
 }
 
 interface Marker { schema: 1; owner: 'third-brain'; storeId: string; outputFolder: string; stagingKey?: string; }
-interface Manifest { schema: 1; owner: 'third-brain'; storeId: string; outputFolder: string; index: IndexState; owned: Record<string, string>; }
+// Absence means the exact 0.1.0 renderer; never reinterpret its owned hashes.
+interface Manifest { schema: 1; owner: 'third-brain'; storeId: string; outputFolder: string; index: IndexState; owned: Record<string, string>; renderVersion?: 2; }
 interface Loaded { value: Manifest; bytes: Buffer; hash: string; }
 interface Operation { target: string; before: string | null; after: string | null; backup: string | null; stage: string | null; }
 interface Journal { schema: 1; owner: 'third-brain'; storeId: string; outputFolder: string; transaction: string; previous: string | null; next: string; operations: Operation[]; }
@@ -178,7 +180,7 @@ export interface StoreTestHooks {
 
 function filename(id: string): string { return `fragment-${hash(id)}.md`; }
 function escapeMD(s: string): string { return s.replace(/[\\`*_{}\[\]()<>#+!|]/g, '\\$&'); }
-function render(fragment: Fragment, marker: Marker): Buffer {
+function renderLegacy(fragment: Fragment, marker: Marker): Buffer {
   const lines = [
     '---', 'third_brain_owned: true', 'third_brain_schema: 1', `third_brain_store: ${marker.storeId}`,
     `fragment_id: ${JSON.stringify(fragment.id)}`, `privacy: ${fragment.privacy}`,
@@ -204,24 +206,49 @@ function render(fragment: Fragment, marker: Marker): Buffer {
   if (bytes.length > FILE_LIMIT) fail('Generated fragment exceeds size limit');
   return bytes;
 }
-function makeManifest(index: IndexState, marker: Marker): Manifest {
+function render(fragment: Fragment, marker: Marker, index: IndexState, network: FragmentNetwork): Buffer {
+  const inline = (s: string): string => escapeMD(s.replace(/[\r\n\x00-\x1f\x7f]/g, ' '));
+  const lines = ['', '## Related fragments', '',
+    'Suggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.',
+    'Same-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.', ''];
+  for (const connection of network.connections.get(fragment.id) ?? []) {
+    const target = index.fragments[connection.targetId];
+    // Targets come only from the complete index rendered in this transaction.
+    if (!target || target.id === fragment.id || target.privacy !== fragment.privacy) fail('Invalid fragment connection target');
+    const shared = connection.shared.map(s => `${s.channel}: ${inline(s.value)}`).join('; ');
+    lines.push(`- [${inline(target.title)}](<${filename(target.id)}>) — Shared ${shared}.`);
+    if (connection.shared.some(s => s.channel === 'mechanisms')) lines.push('  Suggested mechanism connection; check the target evidence and its conditions/caveats, not a verified causal relationship.');
+  }
+  if (!(network.connections.get(fragment.id)?.length)) lines.push('No sufficiently specific shared facets within the bounded network.');
+  const legacy = renderLegacy(fragment, marker).toString('utf8');
+  const bytes = Buffer.from(legacy.replace(/^---\n/, `---\nthird_brain_render: 2\naliases: ${JSON.stringify([fragment.title])}\n`) + lines.join('\n') + '\n', 'utf8');
+  if (bytes.length > FILE_LIMIT) fail('Generated fragment exceeds size limit');
+  return bytes;
+}
+function makeManifest(index: IndexState, marker: Marker, renderVersion: 1 | 2 = 2): Manifest {
   const owned: Record<string, string> = {};
   const sourceNames = new Set(Object.keys(index.sources).map(p => p.toLowerCase()));
   const reserved = `${marker.outputFolder}/.third-brain`.toLowerCase();
+  const network = renderVersion === 2 ? buildFragmentNetwork(index) : null;
   for (const p of sourceNames) if (p === reserved || p.startsWith(`${reserved}/`)) fail('Reserved state cannot be an original source');
   for (const f of Object.values(index.fragments).sort((a, b) => a.id.localeCompare(b.id))) {
     const name = filename(f.id);
     if (sourceNames.has(`${marker.outputFolder}/${name}`.toLowerCase())) fail('A generated target is an original source');
-    owned[name] = hash(render(f, marker));
+    owned[name] = hash(network ? render(f, marker, index, network) : renderLegacy(f, marker));
   }
-  return { schema: 1, owner: OWNER, storeId: marker.storeId, outputFolder: marker.outputFolder, index, owned };
+  return { schema: 1, owner: OWNER, storeId: marker.storeId, outputFolder: marker.outputFolder, index, owned,
+    ...(renderVersion === 2 ? { renderVersion: 2 as const } : {}) };
 }
 function manifest(bytes: Buffer, marker: Marker): Loaded {
-  const v = keys(parse(bytes), ['schema', 'owner', 'storeId', 'outputFolder', 'index', 'owned']);
+  const parsed = record(parse(bytes));
+  const v = keys(parsed, ['schema', 'owner', 'storeId', 'outputFolder', 'index', 'owned', ...(own(parsed, 'renderVersion') ? ['renderVersion'] : [])]);
   if (v.schema !== 1 || v.owner !== OWNER || v.storeId !== marker.storeId || v.outputFolder !== marker.outputFolder) fail('Unknown or unowned store state');
+  if (own(v, 'renderVersion') && v.renderVersion !== 2) fail('Unknown store render version');
   const index = validateIndex(v.index);
   const owned = record(v.owned);
-  const expected = makeManifest(index, marker).owned;
+  // Recovery validates previous and next independently; legacy journals may
+  // contain two legacy manifests, upgrade journals one of each, or two v2s.
+  const expected = makeManifest(index, marker, own(v, 'renderVersion') ? 2 : 1).owned;
   if (Object.keys(owned).sort().join('\0') !== Object.keys(expected).sort().join('\0')) fail();
   for (const [name, h] of Object.entries(owned)) {
     if (!/^fragment-[a-f0-9]{64}\.md$/.test(name) || digest(h) !== expected[name]) fail('Invalid owned manifest');
@@ -629,6 +656,11 @@ export class OwnedStore implements StorePort {
       return (await this.getState(marker))?.value.index ?? null;
     });
   }
+  async fragmentPath(id: string): Promise<string> {
+    const index = await this.load();
+    if (!index || !Object.prototype.hasOwnProperty.call(index.fragments, id)) fail('Fragment is not in the current owned layer');
+    return `${this.folder}/${filename(id)}`;
+  }
   async managedSourcePaths(): Promise<Set<string>> {
     const scope = this.verification.getStore();
     if (scope?.active) return new Set(scope.paths);
@@ -683,6 +715,7 @@ export class OwnedStore implements StorePort {
       if (previous) await this.exclusive(`${txRoot}/previous.json`, previous.bytes);
       const outputOps = ops.filter(o => o.target.startsWith(`${this.folder}/fragment-`));
       const fragmentsByPath = new Map(Object.values(index.fragments).map(f => [`${this.folder}/${filename(f.id)}`, f]));
+      const network = buildFragmentNetwork(index);
       for (const o of outputOps) {
         aborted(signal);
         if (o.backup) {
@@ -693,7 +726,7 @@ export class OwnedStore implements StorePort {
         if (o.stage) {
           const f = fragmentsByPath.get(o.target);
           if (!f) fail();
-          await this.exclusive(`${txRoot}/${o.stage}`, render(f, marker));
+          await this.exclusive(`${txRoot}/${o.stage}`, render(f, marker, index, network));
         }
       }
       await this.event('staged');
