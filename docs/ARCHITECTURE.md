@@ -22,6 +22,8 @@ A natural-language idea is the primary input. Optional authorised model interpre
 
 Before displaying or opening a quotation, check the current source revision, source identity and exact quotation span. Missing or changed evidence is not presented as an active reference. Multiple provenance is preserved when exact excerpts merge.
 
+High breadth can reuse the existing render-v2 network calculation for a bounded, same-privacy one-hop suggestion from a direct mechanism/analogy seed: at most 3 seeds, 3 inspected neighbors each and 6 targets. Only shared mechanism edges qualify; neighbors cannot become seeds. Direct scores receive no bonus, and pure indirect scores stay below all direct matches. Both full endpoints carry source evidence, conditions and caveats and are rechecked for indexed membership, revision, identity, exact quotation, privacy and exclusions. The UI provides separate source buttons. Query-only metadata is not persisted; network/render bytes, schema and generation policies are unchanged. The seven-result panel can omit low-ranked indirect candidates. Repeated checks narrow but cannot eliminate check-to-use races because SourcePort does not offer atomic pair reads.
+
 ## Storage and sync
 
 Derived Markdown is visible; reserved state and history are hidden. The validated **index state swap** is atomic; generated Markdown files are journaled and applied individually. A file browser or sync tool may therefore observe a mixture while commit/recovery is in progress. This is not an atomic swap of the entire folder. Recovery failure blocks the plugin rather than reporting success.

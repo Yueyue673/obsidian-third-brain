@@ -15,9 +15,12 @@ export interface SourceContext { heading: string; before: string; }
 export interface ModelRequest { task: 'extract' | 'interpret'; text: string; vocabulary: Facets; context?: SourceContext; }
 export interface ModelPort { request(input: ModelRequest, signal?: AbortSignal): Promise<unknown>; }
 export interface AnalyzeOptions { mode: Mode; cloudConsent: boolean; model?: ModelPort; vocabulary?: Facets; now?: string; signal?: AbortSignal; beforeRequest?: (source: SourceSnapshot, vocabulary: Facets) => Promise<void>; }
-export interface RelationReason { kind: 'content' | 'topic' | 'concept' | 'mechanism' | 'analogy' | 'atmosphere'; label: string; quotes: string[]; caveat?: string; }
+// Query-only explanation metadata; never persisted in the index or generated layer.
+export interface RelationEndpoint { fragmentId: string; title: string; privacy: Privacy; evidence: Evidence[]; conditions: string[]; caveats: string[]; }
+export interface IndirectMechanism { steps: 1; sharedMechanisms: string[]; anchor: RelationEndpoint; target: RelationEndpoint; }
+export interface RelationReason { kind: 'content' | 'topic' | 'concept' | 'mechanism' | 'analogy' | 'atmosphere' | 'indirect-mechanism'; label: string; quotes: string[]; caveat?: string; indirect?: IndirectMechanism; }
 export interface SearchResult { fragment: Fragment; score: number; reasons: RelationReason[]; }
-export interface SearchOptions { breadth: Breadth; limit?: number; facets?: Partial<Facets>; excludeSource?: string; }
+export interface SearchOptions { breadth: Breadth; limit?: number; facets?: Partial<Facets>; excludeSource?: string; index?: IndexState; }
 export interface StorePort { load(): Promise<IndexState | null>; commit(next: IndexState, verifySources?: () => Promise<void>, signal?: AbortSignal): Promise<void>; recover(): Promise<void>; }
 export interface TransportOptions { mode: 'local-model' | 'cloud-model'; endpoint: string; model: string; secret?: string; cloudConsent: boolean; timeoutMs?: number; maxResponseBytes?: number; }
 export interface RunProgress { completed: number; total: number; phase: 'reading' | 'processing' | 'committing' | 'done' | 'cancelled'; }

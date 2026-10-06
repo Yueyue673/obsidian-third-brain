@@ -1,5 +1,15 @@
 # Verification status
 
+## 0.3.0 preview — bounded indirect network activation
+
+High breadth now connects direct mechanism/analogy matches to the existing same-privacy shared-mechanism network for bounded one-hop **indirect suggestions**. Low/medium behaviour, direct scores, persisted schema/render-v2 bytes, generation policies and prompts are unchanged.
+
+- The new synthetic one-hop and cached-Sol regressions both failed on the unchanged f16d06 baseline. The candidate passes its focused suite (169 tests across 9 files). Parent full integration passes **534 tests across 21 files**, typecheck, production build, filesystem smoke, privacy pattern scan, packaging and diff checks. Exact-commit CI/public distribution checks are pending at this documentation snapshot.
+- Read-only re-evaluation of the actual earlier Sol cache now gives the rehearsal result a traceable indirect reason via the kiln result’s shared one-factor-at-a-time mechanism. Seven exact quotations match source hash/ID/positions; both originals and index/query-cache hashes are unchanged. This run made zero fresh model or network requests.
+- The actual Controller and mountPanel DOM harness check both endpoints and all four source-button callbacks; conditions and uncertainty are visible in Chinese/English tests. Stale anchors drop indirect reasons and pure indirect results, without leaving score bonuses; stale targets disappear. Endpoint checks cover revision, identity, exact evidence, membership, privacy and exclusions.
+- At most 3 seeds, 3 inspected neighbors per seed and 6 targets; no cascading, topic/atmosphere substitution, cross-privacy edges or top-K filler. Pure indirect scores stay below all direct matches and can be omitted by the seven-result panel.
+- **Not established:** query-mechanism equivalence, verified causality, broad corpus quality, fresh model improvement, production HTTP/Codex compatibility or native clicks on this changed executable. SourcePort lacks atomic pair reads; repeated checks narrow, not eliminate, concurrent check-to-use races. The cache is synthetic, not a personal vault.
+
 ## 0.2.1 preview — bounded editing context
 
 AI extraction now receives redacted, bounded same-source section/preceding context (heading up to 160 characters, prior prose up to 400) while exact quotations, conditions and caveats remain primary-text-only. The policy versions AI generations once; local excerpts and later unchanged cache hits are unchanged.
@@ -128,7 +138,7 @@ The marker is a local trust anchor, not a defence against an actor able to rewri
 
 ## Boundaries still pending
 
-- Live configured AI-provider compatibility and output quality: pending. No private notes or existing credentials were used. Deterministic adapters are not real-provider evidence.
+- Live configured production-provider compatibility and broad output quality: pending. The small real authenticated-SDK synthetic check and cached activation check above do not establish these. No private notes were used; deterministic adapters and cached evaluations are not fresh provider inference.
 - Public downloadable-package acceptance: partial. The `0.1.0` release assets were anonymously downloaded and hash-verified, installed into the approved isolated synthetic vault and loaded in native Obsidian 1.13.7 (the panel rendered). The click-driven refresh/search journey on that exact downloaded package was **not** re-run in this cycle: the GUI click approval timed out without consent and was not retried or routed around. No real personal vault is involved in any of these steps.
 
 ## Acceptance requirements

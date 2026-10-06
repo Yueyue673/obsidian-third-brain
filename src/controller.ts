@@ -1,6 +1,6 @@
 import { buildIndex, interpretQuery, searchFragments, vocabularyOf } from './core/index';
 import { emptyIndex } from './core/types';
-import type { Breadth, Evidence, Fragment, IndexState, ModelPort, Privacy, RunProgress, SearchResult, SourceSnapshot, StorePort } from './core/types';
+import type { Breadth, Evidence, Fragment, IndexState, ModelPort, Privacy, RelationEndpoint, RelationReason, RunProgress, SearchResult, SourceSnapshot, StorePort } from './core/types';
 import { currentEvidence, type SourcePort } from './sources';
 import { generationSignature, type Settings } from './settings';
 export interface Status {
@@ -86,7 +86,7 @@ export class ThirdBrainController {
           facets = await interpretQuery(query, port, vocabularyOf(vocabularyFragments, settings.mode === 'cloud-model'), task.signal);
         }
       }
-      const ranked = searchFragments(fragments, query, { breadth, limit: 30, facets });
+      const ranked = searchFragments(fragments, query, { breadth, limit: 30, facets, index: this.indexState });
       const results: SearchResult[] = [];
       for (const result of ranked) {
         if (task.signal.aborted) throw new Error('Cancelled.');
@@ -94,12 +94,52 @@ export class ThirdBrainController {
         // Facets and editorial text are unioned without per-donor attribution.
         // Partial provenance cannot establish that the remaining donor supports
         // every cached label, so stale merged claims wait for a full refresh.
-        if (evidence.length === result.fragment.evidence.length) results.push({ ...result, fragment: { ...result.fragment, evidence } });
+        if (evidence.length !== result.fragment.evidence.length) continue;
+        const traceTarget = result.reasons.find(r => r.kind === 'indirect-mechanism')?.indirect?.target;
+        if (traceTarget && !(await this.currentEndpoint(traceTarget, task.signal))) continue;
+        const reasons: RelationReason[] = []; let targetCurrent = true;
+        for (const reason of result.reasons) {
+          if (reason.kind !== 'indirect-mechanism') { reasons.push(reason); continue; }
+          const trace = reason.indirect;
+          if (!trace || trace.target.fragmentId !== result.fragment.id || trace.anchor.privacy !== trace.target.privacy) continue;
+          // Read both complete donors again for each suggestion. Do not reuse
+          // earlier ranking/cloud reads across asynchronous source changes.
+          const anchorCurrent = await this.currentEndpoint(trace.anchor, task.signal);
+          if (!(await this.currentEndpoint(trace.target, task.signal))) { targetCurrent = false; break; }
+          // A target read can invalidate an earlier anchor. Recheck the anchor
+          // before accepting its explanation; no source port offers atomic reads.
+          if (anchorCurrent && await this.currentEndpoint(trace.anchor, task.signal)) reasons.push(reason);
+        }
+        if (traceTarget && !(await this.currentEndpoint(traceTarget, task.signal))) targetCurrent = false;
+        if (task.signal.aborted) throw new Error('Cancelled.');
+        // Indirect explanations add no bonus to direct scores. Pure indirect
+        // results disappear if their anchor failed, rather than keeping a score.
+        if (targetCurrent && reasons.length) results.push({ ...result,reasons,fragment:{ ...result.fragment,evidence } });
         if (results.length >= 7) break;
       }
       this.update('idle'); return results;
     } catch { this.update(task.signal.aborted ? 'cancelled' : 'error', undefined, task.signal.aborted ? undefined : 'operation-failed'); throw new Error(task.signal.aborted ? 'Cancelled.' : 'Search did not complete. Check the configured model or switch to local excerpts.'); }
     finally { this.task = null; }
+  }
+  private async currentEndpoint(endpoint: RelationEndpoint, signal: AbortSignal): Promise<boolean> {
+    const fragment = this.indexState.fragments[endpoint.fragmentId];
+    if (!fragment || !endpoint.evidence.length || fragment.privacy !== endpoint.privacy || fragment.title !== endpoint.title
+      || JSON.stringify(fragment.conditions) !== JSON.stringify(endpoint.conditions) || JSON.stringify(fragment.caveats) !== JSON.stringify(endpoint.caveats)
+      || JSON.stringify(fragment.evidence) !== JSON.stringify(endpoint.evidence)) return false;
+    const paths = [...new Set(endpoint.evidence.map(e => e.relativePath))];
+    const blocked = await this.sources.excluded(paths);
+    const live = new Map<string, SourceSnapshot | null>();
+    for (const evidence of endpoint.evidence) {
+      if (signal.aborted) throw new Error('Cancelled.');
+      const record = this.indexState.sources[evidence.relativePath];
+      if (blocked.has(evidence.relativePath) || record?.status !== 'indexed' || record.hash !== evidence.sourceHash || !record.fragmentIds.includes(endpoint.fragmentId)) return false;
+      if (!live.has(evidence.relativePath)) live.set(evidence.relativePath, await this.sources.read(evidence.relativePath));
+      if (live.get(evidence.relativePath)?.privacy !== endpoint.privacy) return false;
+    }
+    const evidence = await currentEvidence(endpoint.evidence, this.sources, live);
+    const excluded = await this.sources.excluded(paths);
+    if (signal.aborted) throw new Error('Cancelled.');
+    return evidence.length === endpoint.evidence.length && !paths.some(p => excluded.has(p));
   }
   /** A cloud dictionary entry is only usable while its exact donors are current, ordinary and part of the live library. */
   private async cloudSafe(fragment: Fragment, blocked: Set<string>, live: Map<string, SourceSnapshot | null>, signal: AbortSignal): Promise<boolean> {
@@ -114,7 +154,10 @@ export class ThirdBrainController {
     return (await currentEvidence(fragment.evidence, this.sources, live)).length === fragment.evidence.length;
   }
   async verifyOpen(evidence: Evidence): Promise<void> {
-    if (!(await currentEvidence([evidence], this.sources)).length) throw new Error('This source changed or is no longer available. Refresh the index before opening this quotation.');
+    const paths = [evidence.relativePath];
+    const blocked = await this.sources.excluded(paths);
+    if (blocked.has(evidence.relativePath) || !(await currentEvidence([evidence], this.sources)).length
+      || (await this.sources.excluded(paths)).has(evidence.relativePath)) throw new Error('This source changed or is no longer available. Refresh the index before opening this quotation.');
   }
   async snapshot(path: string): Promise<SourceSnapshot | null> { return this.sources.read(path); }
   dispose(): void { this.cancel(); this.ready = false; this.listeners.clear(); }

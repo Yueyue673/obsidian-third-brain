@@ -1,6 +1,7 @@
 import { AI_EDITOR_CAVEAT, CANVAS_OFFSET_CAVEAT } from './core/fragments';
 import { LOCAL_LABEL } from './core/util';
 import { messages } from './i18n';
+import { INDIRECT_MECHANISM_CAVEAT } from './core/retrieval';
 
 // Translate only program-owned explanation grammar. Preserve author/model text.
 const prefixes: [string, string][] = [
@@ -9,10 +10,15 @@ const prefixes: [string, string][] = [
   ['Shared topic facet: ', '共同主题：'],
   ['Shared concept facet: ', '共同概念：'],
   ['Suggested shared mechanism: ', '可能的共同机制：'],
+  ['Indirect association suggestion via: ', '间接关联建议，经由：'],
+  ['Anchor source: ', '直接命中的来源：'],
+  ['Suggested source: ', '间接建议的来源：'],
   ['Shared atmosphere facet: ', '共同氛围：'],
   ['Facet-based suggestion, not a verified causal relationship; applicability may differ.', '这是基于属性的关联建议，因果关系未经验证；适用条件可能不同。'],
 ];
 const fixed = new Map<string, string>([
+  [INDIRECT_MECHANISM_CAVEAT, '这是沿片段间已有共同机制的一跳间接关联建议，不代表它与查询机制等价，也不是已证明的因果关系；请分别核对两端原文及适用条件。'],
+  ['Compare both original sources', '分别核对两端原文'],
   [LOCAL_LABEL, '本地原文摘录，按文字与已有属性检索。'],
   [AI_EDITOR_CAVEAT, '摘要和语义属性是 AI 的编辑判断，尚未证实；本地只核验了原文引用。'],
   [CANVAS_OFFSET_CAVEAT, 'Canvas 文本经过解码，无法映射连续原文位置；已核验解码后的文本引用。'],

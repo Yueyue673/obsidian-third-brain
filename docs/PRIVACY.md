@@ -24,6 +24,12 @@ Cloud requests are re-checked **at each request boundary**, not only at the last
 
 For interpreted queries, candidate dictionary donors are re-read and re-verified before sending. Newly excluded folders and the owned derived layer stop contributing immediately. These checks narrow the check-to-send window; they cannot eliminate it on a filesystem another process can edit at any moment. They also cannot recall previously authorised data sent before a policy change.
 
+## Indirect suggestions
+
+High-breadth one-hop network expansion is local and introduces no additional model request. It stays within one privacy partition and checks both complete endpoint proofs against live sources and exclusions; source buttons recheck revision, quotation and exclusion before opening. Existing query interpretation follows the mode and consent rules above. Relation explanations contain excerpts from both sources, rendered locally and never sent as a new relation-analysis request. Repeated reads are not atomic and cannot eliminate concurrent check-to-use races.
+
+高发散的网络扩展在本地完成，不新增模型请求，不跨隐私等级。两端完整来源均需复核；打开原文前再次检查版本、引文及排除规则。重复检查不是原子读取，仍有并发变化窗口。
+
 ## Sensitive content
 
 Recognised credential-bearing input blocks a model request. Common identifiable information is redacted where safe evidence mapping is possible. This is a conservative pattern-based measure: it does **not** recognise every secret, identity or confidential situation. Mark sensitive notes local/private or exclude their folder before first indexing.

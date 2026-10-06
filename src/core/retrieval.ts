@@ -2,6 +2,10 @@ import type { Facets, Fragment, RelationReason, SearchOptions, SearchResult } fr
 import { emptyFacets } from './types';
 import { CoreError, FACET_KEYS, facetKey, unionFacets } from './util';
 import { safeVocabulary } from './privacy';
+import { buildFragmentNetwork } from './connections';
+
+export const ACTIVATION_LIMITS = Object.freeze({ seeds: 3, neighborsPerSeed: 3, targets: 6, steps: 1 });
+export const INDIRECT_MECHANISM_CAVEAT = 'Indirect association suggestion via an existing shared mechanism between fragments, not equivalence to the query mechanism or a verified causal relationship; compare both sources and their conditions.';
 
 const LATIN_STOP = new Set('a an and are as at be been but by can could do does for from had has have how i if in is it its just may me my not of on or our should so some than that the their them there these they this to us was we were what when where which who why will with would you your'.split(' '));
 const HAN_STOP = new Set(['一下','一个','一些','这个','那个','这些','那些','什么','怎么','如何','可以','可能','有没有','有没','没有','想要','我想','想法','事情','东西','知道','感觉','请问','一下','因为','所以','但是','然后','就是','这样','那样','自己','我们','他们']);
@@ -97,5 +101,38 @@ export function searchFragments(fragments: Fragment[], query: string, options: S
     }
     if (score > 0 && reasons.length) results.push({ fragment,score,reasons });
   }
-  return results.sort((a,b) => b.score - a.score || a.fragment.id.localeCompare(b.fragment.id)).slice(0,limit);
+  const ranked = results.sort((a,b) => b.score - a.score || a.fragment.id.localeCompare(b.fragment.id));
+  // Freeze direct seeds before walking. A neighbor never becomes a new seed.
+  if (options.breadth === 'high' && options.index) {
+    const eligible = new Map(candidates.filter(f => {
+      const indexed = options.index!.fragments[f.id];
+      return indexed && JSON.stringify(indexed) === JSON.stringify(f);
+    }).map(f => [f.id,f]));
+    const seeds = ranked.filter(r => eligible.has(r.fragment.id) && r.reasons.some(reason => reason.kind === 'mechanism' || reason.kind === 'analogy')).slice(0,ACTIVATION_LIMITS.seeds);
+    if (seeds.length) {
+      // Reuse the render-v2 network unchanged, including its generic/dense guards.
+      const network = buildFragmentNetwork(options.index), byId = new Map(ranked.map(r => [r.fragment.id,r]));
+      const seedIds = new Set(seeds.map(r => r.fragment.id)), visited = new Set<string>();
+      const weakScore = Math.min(0.12, Math.min(...ranked.map(r => r.score)) / 2);
+      const endpoint = (f: Fragment) => ({ fragmentId:f.id,title:f.title,privacy:f.privacy,evidence:f.evidence.map(e => ({ ...e })),conditions:[...f.conditions],caveats:[...f.caveats] });
+      for (const seed of seeds) {
+        for (const edge of (network.connections.get(seed.fragment.id) ?? []).slice(0,ACTIVATION_LIMITS.neighborsPerSeed)) {
+          if (visited.size >= ACTIVATION_LIMITS.targets) break;
+          const target = eligible.get(edge.targetId), mechanisms = edge.shared.filter(s => s.channel === 'mechanisms').map(s => s.value);
+          if (!target || target.privacy !== seed.fragment.privacy || seedIds.has(target.id) || visited.has(target.id) || !mechanisms.length) continue;
+          visited.add(target.id);
+          const reason: RelationReason = { kind:'indirect-mechanism',label:`Indirect association suggestion via: ${seed.fragment.title} → ${mechanisms.join(' · ')}`,
+            quotes:[...new Set([...seed.fragment.evidence,...target.evidence].map(e => e.quote))],caveat:INDIRECT_MECHANISM_CAVEAT,
+            indirect:{ steps:1,sharedMechanisms:mechanisms,anchor:endpoint(seed.fragment),target:endpoint(target) } };
+          const existing = byId.get(target.id);
+          // Existing direct results get an explanation, never a score boost.
+          // Pure neighbors stay below every direct match; invalid anchors can
+          // remove the whole suggestion without leaving a hidden score bonus.
+          if (existing) existing.reasons.push(reason);
+          else { const result = { fragment:target,score:weakScore,reasons:[reason] }; byId.set(target.id,result); ranked.push(result); }
+        }
+      }
+    }
+  }
+  return ranked.sort((a,b) => b.score - a.score || a.fragment.id.localeCompare(b.fragment.id)).slice(0,limit);
 }

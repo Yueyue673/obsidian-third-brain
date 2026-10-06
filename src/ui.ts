@@ -59,7 +59,27 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
       }
       if (item.reasons.length) {
         const why = element('div', 'tb-reasons'); why.append(element('h4', 'tb-small-heading', t.related));
-        for (const reason of item.reasons) { why.append(element('p', 'tb-reason', presentExplanation(reason.label, locale))); if (reason.caveat) why.append(element('p', 'tb-caveat', `${t.caveat}: ${presentExplanation(reason.caveat, locale)}`)); }
+        for (const reason of item.reasons) {
+          why.append(element('p', 'tb-reason', presentExplanation(reason.label, locale)));
+          if (reason.caveat) why.append(element('p', 'tb-caveat', `${t.caveat}: ${presentExplanation(reason.caveat, locale)}`));
+          if (reason.kind === 'indirect-mechanism' && reason.indirect) {
+            const trace = element('details', 'tb-indirect-evidence');
+            trace.append(element('summary', '', presentExplanation('Compare both original sources', locale)));
+            for (const [role, endpoint] of [['Anchor source: ', reason.indirect.anchor], ['Suggested source: ', reason.indirect.target]] as const) {
+              const side = element('div', 'tb-evidence-row');
+              side.append(element('h4', 'tb-small-heading', presentExplanation(role, locale) + endpoint.title));
+              if (endpoint.conditions.length) side.append(element('p', 'tb-muted', `${t.conditions}: ${endpoint.conditions.join(' · ')}`));
+              for (const caveat of endpoint.caveats) side.append(element('p', 'tb-caveat', `${t.caveat}: ${presentExplanation(caveat, locale)}`));
+              for (const source of endpoint.evidence) {
+                side.append(element('blockquote', 'tb-quote', source.quote));
+                const open = element('button', 'tb-source', `${t.source} · ${source.relativePath}`); open.type = 'button';
+                open.addEventListener('click', () => { void port.open(source).catch(() => alert(t.failure)); }); side.append(open);
+              }
+              trace.append(side);
+            }
+            why.append(trace);
+          }
+        }
         article.append(why);
       }
       if (fragment.conditions.length) article.append(element('p', 'tb-muted', `${t.conditions}: ${fragment.conditions.join(' · ')}`));

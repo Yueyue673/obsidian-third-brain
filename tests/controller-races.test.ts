@@ -1,7 +1,8 @@
 import { describe, expect, it, vi } from 'vitest';
 import { ThirdBrainController } from '../src/controller';
 import { analyzeSource, buildIndex, prepareSource } from '../src/core';
-import type { IndexState, ModelRequest, SourceSnapshot, StorePort } from '../src/core/types';
+import { emptyFacets, emptyIndex, type Fragment, type IndexState, type ModelRequest, type SourceSnapshot, type StorePort } from '../src/core/types';
+import { searchFragments } from '../src/core/retrieval';
 import { defaults, type Settings } from '../src/settings';
 import { hash, type SourcePort } from '../src/sources';
 
@@ -25,6 +26,84 @@ async function harness(options: { list: () => SourceSnapshot[]; read: (path: str
   return { controller, settings, request, commits: () => commits };
 }
 const vocabularyOfCall = (request: ReturnType<typeof vi.fn>, index: number) => (request.mock.calls[index][0] as ModelRequest).vocabulary;
+
+function activationFixture(directTarget = false) {
+  const files = new Map(['anchor','target'].map(id => [id, snapshot(`Synthetic/${id}.md`, `Exact synthetic quotation for ${id}.`)]));
+  const state = emptyIndex();
+  for (const [id, source] of files) {
+    const f: Fragment = { id,privacy:'normal',title:`Title ${id}`,summary:directTarget && id === 'target' ? 'needle' : `Summary ${id}`,kind:'method',mode:'ai',updatedAt:'2026-01-01',conditions:[`${id} condition`],caveats:[],
+      facets:{ ...emptyFacets(),mechanisms:id === 'anchor' ? ['needle','bridge'] : ['bridge'] },
+      evidence:[{ sourceId:source.id,relativePath:source.path,sourceHash:source.hash,quote:source.text,start:0,end:source.text.length }] };
+    state.fragments[id] = f; state.sources[source.path] = { hash:source.hash,status:'indexed',fragmentIds:[id] };
+  }
+  return { files,state };
+}
+
+describe('both source endpoints at indirect activation', () => {
+  it('returns a trace whose two original references both pass verifyOpen without a model call', async () => {
+    const f = activationFixture();
+    const h = await harness({ state:f.state,list:() => [...f.files.values()],read:async path => [...f.files.values()].find(s => s.path === path) ?? null });
+    try {
+      const hits = await h.controller.find('needle','high'), trace = hits.find(r => r.fragment.id === 'target')!.reasons[0].indirect!;
+      expect(trace.anchor.conditions).toEqual(['anchor condition']); expect(trace.target.conditions).toEqual(['target condition']);
+      for (const e of [...trace.anchor.evidence,...trace.target.evidence]) await expect(h.controller.verifyOpen(e)).resolves.toBeUndefined();
+      expect(h.request).not.toHaveBeenCalled();
+    } finally { h.controller.dispose(); }
+  });
+  it.each(['anchor','target'] as const)('rejects excluded %s endpoint', async id => {
+    const f = activationFixture(), h = await harness({ state:f.state,list:() => [...f.files.values()],read:async path => [...f.files.values()].find(s => s.path === path) ?? null });
+    try { h.settings.excludes = [`Synthetic/${id}.md`]; const hits = await h.controller.find('needle','high'); expect(hits.find(r => r.fragment.id === 'target')).toBeUndefined(); }
+    finally { h.controller.dispose(); }
+  });
+  for (const id of ['anchor','target'] as const) it.each(['deleted','changed','privacy','quote','identity'])(`rejects ${id} endpoint with %s provenance`, async variant => {
+    const f = activationFixture(), original = f.files.get(id)!;
+    if (variant === 'deleted') f.files.delete(id);
+    else if (variant === 'changed') f.files.set(id,snapshot(original.path,'An entirely changed synthetic original.'));
+    else if (variant === 'privacy') f.files.set(id,{ ...original,privacy:'private' });
+    else if (variant === 'quote') f.files.set(id,{ ...original,text:'No readable quotation here.' });
+    else f.files.set(id,{ ...original,id:'different-source' });
+    const h = await harness({ state:f.state,list:() => [...f.files.values()],read:async path => [...f.files.values()].find(s => s.path === path) ?? null });
+    try { const hits = await h.controller.find('needle','high'); expect(hits.find(r => r.fragment.id === 'target')).toBeUndefined(); }
+    finally { h.controller.dispose(); }
+  });
+  it('removes a late-invalidated anchor explanation without retaining an indirect score bonus on a direct target', async () => {
+    const f = activationFixture(true), original = f.files.get('anchor')!; let targetReads = 0;
+    const directScore = searchFragments(Object.values(f.state.fragments),'needle',{ breadth:'high' }).find(r => r.fragment.id === 'target')!.score;
+    const h = await harness({ state:f.state,list:() => [...f.files.values()],read:async path => {
+      if (path.endsWith('/target.md') && ++targetReads === 3) f.files.set('anchor',snapshot(original.path,'Edited while target evidence was being read.'));
+      return [...f.files.values()].find(s => s.path === path) ?? null;
+    } });
+    try {
+      const target = (await h.controller.find('needle','high')).find(r => r.fragment.id === 'target')!;
+      expect(targetReads).toBeGreaterThanOrEqual(3); expect(target.reasons.every(r => r.kind !== 'indirect-mechanism')).toBe(true); expect(target.score).toBe(directScore);
+    } finally { h.controller.dispose(); }
+  });
+  it('drops even a directly matched target if it becomes stale during its anchor check', async () => {
+    const f = activationFixture(true), original = f.files.get('target')!; let anchorReads = 0;
+    const h = await harness({ state:f.state,list:() => [...f.files.values()],read:async path => {
+      if (path.endsWith('/anchor.md') && ++anchorReads === 2) f.files.set('target',snapshot(original.path,'Edited during anchor verification.'));
+      return [...f.files.values()].find(s => s.path === path) ?? null;
+    } });
+    try { expect((await h.controller.find('needle','high')).find(r => r.fragment.id === 'target')).toBeUndefined(); }
+    finally { h.controller.dispose(); }
+  });
+  it('rejects either original click after its source is excluded following activation', async () => {
+    const f = activationFixture(), h = await harness({ state:f.state,list:() => [...f.files.values()],read:async path => [...f.files.values()].find(s => s.path === path) ?? null });
+    try {
+      const target = (await h.controller.find('needle','high')).find(r => r.fragment.id === 'target')!, trace = target.reasons[0].indirect!;
+      for (const e of [...trace.anchor.evidence,...trace.target.evidence]) {
+        h.settings.excludes = [e.relativePath]; await expect(h.controller.verifyOpen(e)).rejects.toThrow('no longer available');
+      }
+    } finally { h.controller.dispose(); }
+  });
+  it('fails cancelled endpoint verification instead of returning partial suggestions', async () => {
+    const f = activationFixture(); let cancel = () => {};
+    const h = await harness({ state:f.state,list:() => [...f.files.values()],read:async path => { if (path.endsWith('/target.md')) cancel(); return [...f.files.values()].find(s => s.path === path) ?? null; } });
+    cancel = () => h.controller.cancel();
+    try { await expect(h.controller.find('needle','high')).rejects.toThrow('Cancelled'); expect(h.controller.status().phase).toBe('cancelled'); }
+    finally { h.controller.dispose(); }
+  });
+});
 
 describe('privacy at the exact moment of a model request', () => {
   it('stops using cloud vocabulary from a folder excluded after indexing', async () => {

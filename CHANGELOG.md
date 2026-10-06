@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.3.0 — 2026-10-06 (preview)
+
+- Connect high-breadth query activation to the existing same-privacy fragment network: bounded one-hop indirect suggestions from direct mechanism/analogy seeds, not query-mechanism equivalence or verified causality. Low/medium behaviour and direct scores are unchanged.
+- Show the anchor, shared mechanism, both sources, exact quotations, conditions and limits in the real panel renderer; provide separately verified original-source buttons. Stale/excluded endpoints remove invalid explanations or pure indirect results.
+- Preserve existing render-v2 network bytes, persisted schema, AI generation policy, prompts and model adapters. No new extraction or relation-analysis request. Keep the existing seven-result display cap; pure indirect candidates may be omitted behind direct matches.
+- Re-evaluate the unchanged actual Sol synthetic cache through production retrieval, controller and a DOM harness with zero fresh model/network requests. This is not new inference, a semantic-equivalence proof, production-provider compatibility or native-host click evidence.
+
 ## 0.2.1 — 2026-10-06 (preview)
 
 - Preserve bounded section/preceding context for AI paragraph and long-block editing, instead of clearing headings and isolating every request. Context is same-source, redacted before clipping, and never replaces primary quotation evidence.
