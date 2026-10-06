@@ -5,6 +5,7 @@ import { safeFacet } from './core/privacy';
 import { abortError, cancellable, checkAbort, facetKey, isPrivacy, relativePath, restrictive } from './core/util';
 import { SourceEvidenceUnavailableError, sourceDiagnostic, type SourceDiagnostic } from './core/source-diagnostics';
 import { generatedFileDiagnostic } from './core/generated-diagnostics';
+import { storeDiagnostic } from './core/store-diagnostics';
 import { currentEvidence, type SourcePort } from './sources';
 import { generationSignature, type Settings } from './settings';
 export interface Status {
@@ -14,6 +15,7 @@ export interface Status {
   hasCompleteIndex?: boolean;
   sourceDiagnostic?: SourceDiagnostic;
   generatedFileDiagnostic?: ReturnType<typeof generatedFileDiagnostic>;
+  storeDiagnostic?: ReturnType<typeof storeDiagnostic>;
   commitOutcome?: 'not-started' | 'unknown';
 }
 export class ThirdBrainController {
@@ -35,15 +37,15 @@ export class ThirdBrainController {
   }
   status(): Status { return { ...this.state, ...(this.state.progress ? { progress:{ ...this.state.progress } } : {}), ...(this.state.sourceDiagnostic ? { sourceDiagnostic:{ ...this.state.sourceDiagnostic } } : {}), mode: this.task ? this.taskMode : this.settings().mode }; }
   subscribe(listener: () => void): () => void { this.listeners.add(listener); return () => this.listeners.delete(listener); }
-  private update(phase: Status['phase'], progress?: RunProgress, errorCode?: Status['errorCode'], warningCode?: Status['warningCode'], diagnostic?: SourceDiagnostic, commitOutcome?: Status['commitOutcome'], generated?: Status['generatedFileDiagnostic']): void {
-    this.state = { phase, sourceCount: Object.keys(this.indexState.sources).length, fragmentCount: Object.keys(this.indexState.fragments).length, updatedAt: this.indexState.updatedAt, mode: this.task ? this.taskMode : this.settings().mode, progress, errorCode, warningCode, hasCompleteIndex:this.hasCompleteIndex, sourceDiagnostic:diagnostic, commitOutcome, generatedFileDiagnostic:generated };
+  private update(phase: Status['phase'], progress?: RunProgress, errorCode?: Status['errorCode'], warningCode?: Status['warningCode'], diagnostic?: SourceDiagnostic, commitOutcome?: Status['commitOutcome'], generated?: Status['generatedFileDiagnostic'], store?: Status['storeDiagnostic']): void {
+    this.state = { phase, sourceCount: Object.keys(this.indexState.sources).length, fragmentCount: Object.keys(this.indexState.fragments).length, updatedAt: this.indexState.updatedAt, mode: this.task ? this.taskMode : this.settings().mode, progress, errorCode, warningCode, hasCompleteIndex:this.hasCompleteIndex, sourceDiagnostic:diagnostic, commitOutcome, generatedFileDiagnostic:generated, storeDiagnostic:store };
     this.listeners.forEach(listener => listener());
   }
   async initialize(): Promise<void> {
     this.ready = false;
     try { await this.store.recover(); const loaded = await this.store.load(); this.hasCompleteIndex = loaded !== null; this.indexState = loaded ?? emptyIndex(); this.ready = true; this.update('idle'); }
     catch (error) {
-      this.update('error', undefined, 'index-unavailable', undefined, undefined, undefined, generatedFileDiagnostic(error));
+      this.update('error', undefined, 'index-unavailable', undefined, undefined, undefined, generatedFileDiagnostic(error), storeDiagnostic(error));
       throw error;
     }
   }
@@ -84,7 +86,8 @@ export class ThirdBrainController {
       const cancelled = task.signal.aborted || (error instanceof Error && error.name === 'AbortError');
       const diagnostic = cancelled ? undefined : sourceDiagnostic(error);
       const generated = cancelled || diagnostic ? undefined : generatedFileDiagnostic(error);
-      this.update(cancelled ? 'cancelled' : 'error',this.state.progress,cancelled ? undefined : 'operation-failed',undefined,diagnostic,commitStarted ? 'unknown' : diagnostic || generated ? 'not-started' : undefined,generated);
+      const store = cancelled || diagnostic || generated ? undefined : storeDiagnostic(error);
+      this.update(cancelled ? 'cancelled' : 'error',this.state.progress,cancelled ? undefined : 'operation-failed',undefined,diagnostic,commitStarted ? 'unknown' : diagnostic || generated || store ? 'not-started' : undefined,generated,store);
       if (cancelled) { const stopped = abortError(); stopped.message = 'Cancelled.'; throw stopped; }
       throw error;
     }
@@ -212,8 +215,9 @@ export class ThirdBrainController {
     } catch (error) {
       const diagnostic = task.signal.aborted ? undefined : sourceDiagnostic(error);
       const generated = task.signal.aborted || diagnostic ? undefined : generatedFileDiagnostic(error);
+      const store = task.signal.aborted || diagnostic || generated ? undefined : storeDiagnostic(error);
       // A managed-layer refusal is not a source failure or proof of a usable index.
-      this.update(task.signal.aborted ? 'cancelled' : 'error',this.state.progress,task.signal.aborted ? undefined : 'operation-failed',undefined,diagnostic,undefined,generated);
+      this.update(task.signal.aborted ? 'cancelled' : 'error',this.state.progress,task.signal.aborted ? undefined : 'operation-failed',undefined,diagnostic,undefined,generated,store);
       if (task.signal.aborted) { const stopped = abortError(); stopped.message = 'Cancelled.'; throw stopped; }
       throw error;
     }

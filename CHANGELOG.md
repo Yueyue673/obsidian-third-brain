@@ -4,6 +4,8 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Explain temporary generated-layer contention when retrying a cancelled search, refreshing, or opening a previous result: wait and retry without deleting lock/index files. Clear the notice after a successful explicit retry. Trusted lock refusals stay distinct from missing, edited or invalid files; no automatic retry, early unlock or weaker evidence checks. English/Chinese guidance is verified with synthetic file-open latches and host-API shells, not native clicks or actual stalled disks.
+
 - Let Cancel finish an idea, attribute or type search while it waits for local generated-layer checks, including the pre-request vocabulary check. Ignore late replies without releasing the store's lock, skipping validation or changing ranking. The underlying file check may still finish and temporarily block a retry. Verified with synthetic file-open latches and host-API shells, not native clicks or real stalled disks.
 
 - Explain known missing or protected generated files when Find connections is blocked, including attribute and type searches. Preserve the idea and previous results without treating them as a new answer; reuse English/Chinese recovery guidance without exposing raw errors or claiming the saved index is safe. Search ranking and ownership/source checks are unchanged. Verified with synthetic files and host-API shells, not native clicks.

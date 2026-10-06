@@ -163,6 +163,75 @@ it.each(['resolve', 'reject'] as const)('late managed %s cannot change or unlock
   } finally { sourceGate.release(); gate.release(); await h.cleanup(); gate.restore(); }
 });
 
+const busyCopy = (locale: 'en' | 'zh') => locale === 'zh'
+  ? '另一个文件操作仍在使用提炼层。请稍候再重试；取消只停止等待，不会强制中断底层文件操作。不要删除锁文件或索引。'
+  : 'Another file operation is still using the generated layer. Wait briefly, then retry. Cancelling stops waiting, not the underlying file operation. Do not remove lock or index files.';
+
+for (const locale of ['en', 'zh'] as const) for (const entry of ['idea', 'topics', 'kind'] as const) {
+  it(`${locale} immediate ${entry} retry explains the pending store operation without weakening its lock`, async () => {
+    const h = await fixture(locale), gate = blockManagedFile(h, 1);
+    try {
+      const running = h.start().catch(error => error); await gate.entered;
+      h.button(h.t.cancel).fire('click'); expect(await running).toMatchObject({ name: 'AbortError' }); await nextTurn();
+      const lockPath = path.join(h.root, 'Derived/.third-brain/write.lock'), lockBytes = await fs.readFile(lockPath);
+      const error = await h.start(entry).catch(error => error); await nextTurn();
+      expect(error).toBeInstanceOf(Error);
+      expect.soft(h.controller.status()).toMatchObject({ phase: 'error', storeDiagnostic: 'busy' });
+      expect.soft(h.get('tb-notice').textContent).toBe(busyCopy(locale));
+      expect(h.get('tb-notice').textContent).not.toContain(h.t.generatedFileChanged);
+      expect(h.get('tb-result-summary').textContent).toContain(h.t.previousResults);
+      expect(h.get('tb-result-title').textContent).toBe(h.baseline[0].fragment.title);
+      expect(h.get('tb-idea').value).toBe(entry === 'idea' ? 'SearchNeedle' : entry === 'kind' ? h.t.kind_excerpt : h.baseline[0].fragment.facets.topics[0]);
+      expect(h.button(h.t.find).disabled).toBe(false); expect(h.button(h.t.index).disabled).toBe(false);
+      expect(await fs.readFile(lockPath)).toEqual(lockBytes); await expect(h.store.load()).rejects.toThrow('Another store operation is in progress');
+      const refused = h.controller.status(), searches = h.find.mock.calls.length;
+      gate.release(); await h.drainManaged(); gate.restore();
+      expect(h.controller.status()).toEqual(refused); expect(h.find.mock.calls).toHaveLength(searches);
+      expect(h.commit).not.toHaveBeenCalled(); expect(h.saved).not.toHaveBeenCalled(); expect(h.model).not.toHaveBeenCalled(); await h.unchanged();
+      h.get('tb-idea').value = 'SearchNeedle'; h.get('tb-idea').fire('input');
+      expect(await h.start()).toEqual(h.baseline); await nextTurn(); expect(h.get('tb-notice').hidden).toBe(true);
+      await h.store.load(); await h.port.open(h.baseline[0].fragment.evidence[0]); await h.port.openFragment!(h.fragment.id);
+      expect(h.hostOpen).toHaveBeenCalledTimes(2);
+      await h.controller.refresh(); await h.controller.initialize(); await h.controller.refresh();
+      await h.unchanged(); expect(await fs.readFile(h.target)).toEqual(h.targetBytes);
+    } finally { gate.release(); await h.cleanup(); gate.restore(); }
+  });
+}
+
+for (const locale of ['en', 'zh'] as const) for (const action of ['open', 'openFragment'] as const) {
+  it(`${locale} cancelled-card ${action} explains busy and clears it after an explicit successful retry`, async () => {
+    const h = await fixture(locale), gate = blockManagedFile(h, 1), open = vi.spyOn(h.port, action);
+    const click = () => h.button(action === 'open' ? `${h.t.source} · note.md` : h.t.openFragment).fire('click');
+    try {
+      const running = h.start().catch(error => error); await gate.entered;
+      h.button(h.t.cancel).fire('click'); expect(await running).toMatchObject({ name: 'AbortError' }); await nextTurn();
+      click(); await expect(open.mock.results.at(-1)!.value).rejects.toThrow(); await nextTurn();
+      expect.soft(h.get('tb-notice').textContent).toBe(busyCopy(locale)); expect(h.hostOpen).not.toHaveBeenCalled();
+      expect(h.controller.status().phase).toBe('cancelled');
+      gate.release(); await h.drainManaged(); gate.restore();
+      expect(open).toHaveBeenCalledTimes(1); click(); await open.mock.results.at(-1)!.value; await nextTurn();
+      expect.soft(h.get('tb-notice').hidden).toBe(true); expect(h.hostOpen).toHaveBeenCalledTimes(1);
+      expect(h.commit).not.toHaveBeenCalled(); await h.unchanged();
+    } finally { gate.release(); await h.cleanup(); gate.restore(); }
+  });
+}
+
+it.each(['en', 'zh'] as const)('%s refresh immediately after search cancel keeps busy guidance and does not commit', async locale => {
+  const h = await fixture(locale), gate = blockManagedFile(h, 1), refresh = vi.spyOn(h.port, 'refresh');
+  try {
+    const running = h.start().catch(error => error); await gate.entered;
+    h.button(h.t.cancel).fire('click'); expect(await running).toMatchObject({ name: 'AbortError' }); await nextTurn();
+    h.button(h.t.index).fire('click'); await expect(refresh.mock.results.at(-1)!.value).rejects.toThrow(); await nextTurn();
+    expect.soft(h.controller.status()).toMatchObject({ phase: 'error', storeDiagnostic: 'busy', commitOutcome: 'not-started' });
+    expect.soft(h.get('tb-notice').textContent).toBe(`${busyCopy(locale)} ${h.t.notCommitted}`);
+    expect(h.get('tb-notice').textContent).not.toContain(h.t.retainedIndex); expect(h.commit).not.toHaveBeenCalled();
+    gate.release(); await h.drainManaged(); gate.restore();
+    expect(refresh).toHaveBeenCalledTimes(1); await h.unchanged();
+    h.button(h.t.index).fire('click'); await refresh.mock.results.at(-1)!.value; await nextTurn();
+    expect(h.get('tb-notice').hidden).toBe(true); expect(h.controller.status().phase).toBe('idle'); await h.unchanged();
+  } finally { gate.release(); await h.cleanup(); gate.restore(); }
+});
+
 it('cancelling never licenses human-edited output or stale source evidence', async () => {
   const h = await fixture(), gate = blockManagedFile(h, 1);
   try {

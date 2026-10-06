@@ -2,6 +2,7 @@ import type { Breadth, Evidence, QuerySelection, Privacy, SearchResult } from '.
 import { QUERY_KINDS } from './core/types';
 import { SourceEvidenceUnavailableError } from './core/source-diagnostics';
 import { generatedFileDiagnostic } from './core/generated-diagnostics';
+import { storeDiagnostic } from './core/store-diagnostics';
 import type { Status } from './controller';
 import { messages } from './i18n';
 import { presentExplanation, presentFailure } from './presentation';
@@ -60,12 +61,12 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
     };
     void operation().then(() => {
       // Opening saved Markdown does not prove that its original evidence recovered.
-      if (canReport() && recoveredNotices.includes(notice.textContent ?? '')) notice.hidden = true;
+      if (canReport() && [...recoveredNotices,t.storeBusy].includes(notice.textContent ?? '')) notice.hidden = true;
     }).catch(error => {
       // Keep current task diagnostics; a late old-card reply cannot replace them.
       // Only program-owned diagnostics/classes select recovery copy, never messages.
       const generated = generatedFileDiagnostic(error);
-      if (canReport()) alert(generated ? generatedCopy[generated] : error instanceof SourceEvidenceUnavailableError ? t.sourceEvidenceUnavailable : error instanceof SourceLocationUnavailableError ? t.sourceLocationUnavailable : t.failure);
+      if (canReport()) alert(generated ? generatedCopy[generated] : storeDiagnostic(error) === 'busy' ? t.storeBusy : error instanceof SourceEvidenceUnavailableError ? t.sourceEvidenceUnavailable : error instanceof SourceLocationUnavailableError ? t.sourceLocationUnavailable : t.failure);
     });
   };
   const openSource = (source: Evidence): void => openResult(() => port.open(source), [t.sourceLocationUnavailable, t.sourceEvidenceUnavailable]);

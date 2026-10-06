@@ -7,6 +7,7 @@ import { AsyncLocalStorage } from 'node:async_hooks';
 import type { Facets, Fragment, IndexState, StorePort } from '../core/types';
 import { buildFragmentNetwork, type FragmentNetwork } from '../core/connections';
 import { generatedFileError } from '../core/generated-diagnostics';
+import { storeBusyError } from '../core/store-diagnostics';
 
 const OWNER = 'third-brain';
 const STATE_LIMIT = 32 * 1024 * 1024;
@@ -465,7 +466,7 @@ export class OwnedStore implements StorePort {
     return m as unknown as Marker;
   }
   private async locked<T>(create: boolean, fn: (marker: Marker | null) => Promise<T>): Promise<T> {
-    if (writers.has(this.writerKey)) fail('Another store operation is in progress');
+    if (writers.has(this.writerKey)) throw storeBusyError('operation');
     writers.add(this.writerKey);
     let lockBytes: Buffer | undefined;
     let lockRel: string | undefined;
@@ -480,7 +481,7 @@ export class OwnedStore implements StorePort {
             !Number.isSafeInteger(lock.pid) || (lock.pid as number) <= 0 || typeof lock.nonce !== 'string' || !TOKEN.test(lock.nonce)) fail('Invalid writer lock');
         let alive = true;
         try { process.kill(lock.pid as number, 0); } catch (error) { if ((error as NodeJS.ErrnoException).code === 'ESRCH') alive = false; }
-        if (alive) fail('Another store writer is active');
+        if (alive) throw storeBusyError('writer');
         await this.remove(lockRel, hash(existing));
       }
       lockBytes = Buffer.from(JSON.stringify({ schema: 1, owner: OWNER, storeId: marker.storeId, pid: process.pid, nonce: randomBytes(16).toString('hex') }));

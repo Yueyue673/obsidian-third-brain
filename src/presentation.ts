@@ -9,16 +9,17 @@ import type { Status } from './controller';
 export function presentFailure(state: Status, locale: 'auto' | 'en' | 'zh'): string {
   const t = messages(locale);
   if (state.phase !== 'error') return t.failure;
-  const d = state.sourceDiagnostic, generated = state.generatedFileDiagnostic;
+  const d = state.sourceDiagnostic, generated = state.generatedFileDiagnostic, busy = state.storeDiagnostic === 'busy';
   const reasons = { 'read-failed':t.readFailed,'decode-failed':t.decodeFailed,'parse-failed':t.parseFailed,'size-limit':t.sizeLimit,'analysis-failed':t.analysisFailed,'model-output-rejected':t.outputRejected };
   const generatedCopy = { missing:t.generatedFileMissing,changed:t.generatedFileChanged,unavailable:t.generatedFileUnavailable };
-  let text = d ? `${d.relativePath} · ${t[d.stage]} · ${reasons[d.reason]}.` : generated ? generatedCopy[generated] : state.errorCode === 'index-unavailable' ? t.unavailable : t.failure;
+  let text = d ? `${d.relativePath} · ${t[d.stage]} · ${reasons[d.reason]}.` : generated ? generatedCopy[generated] : busy ? t.storeBusy : state.errorCode === 'index-unavailable' ? t.unavailable : t.failure;
+  if (busy && !d && !generated && state.errorCode === 'index-unavailable') text += ` ${t.storeBusyLoading}`;
   if (state.commitOutcome === 'unknown') text += ` ${t.commitUnknown}`;
-  else if ((d || generated) && state.commitOutcome === 'not-started') {
+  else if ((d || generated || busy) && state.commitOutcome === 'not-started') {
     text += ` ${t.notCommitted}`;
     // Keeping old state bytes does not establish ownership or safe disk loading.
     if (d) text += ` ${state.hasCompleteIndex ? t.retainedIndex : t.noCompleteIndex}`;
-  } else if (!generated && state.errorCode !== 'index-unavailable' && state.hasCompleteIndex === false) text += ` ${t.noCompleteIndex}`;
+  } else if (!generated && !busy && state.errorCode !== 'index-unavailable' && state.hasCompleteIndex === false) text += ` ${t.noCompleteIndex}`;
   return text;
 }
 
