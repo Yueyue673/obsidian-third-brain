@@ -6,7 +6,7 @@ import { OwnedStore } from './runtime/store';
 import { createModelPort } from './runtime/transport';
 import { contextPrivacy, FileSources } from './sources';
 import { defaults, isDue, loadSettings, type Settings } from './settings';
-import { CurrentNoteTooLongError, mountPanel, type PanelPort } from './ui';
+import { CurrentNoteTooLongError, SourceLocationUnavailableError, mountPanel, type PanelPort } from './ui';
 const VIEW = 'third-brain-activation';
 export default class ThirdBrainPlugin extends Plugin {
   settings: Settings = { ...defaults };
@@ -79,7 +79,27 @@ export default class ThirdBrainPlugin extends Plugin {
       open: async evidence => {
         await this.controller.verifyOpen(evidence);
         const file = this.app.vault.getFileByPath(evidence.relativePath); if (!file) throw new Error('Source no longer exists.');
-        await this.app.workspace.getLeaf(false).openFile(file);
+        const leaf = this.app.workspace.getLeaf(false);
+        // Canvas evidence can refer to decoded JSON, not a Markdown span.
+        if (file.extension?.toLowerCase() !== 'md') { await leaf.openFile(file); return; }
+        const source = await this.controller.snapshot(evidence.relativePath);
+        if (!source || source.format !== 'markdown' || source.path !== evidence.relativePath
+          || source.id !== evidence.sourceId || source.hash !== evidence.sourceHash
+          || source.text.slice(evidence.start, evidence.end) !== evidence.quote) throw new Error('Source changed before navigation.');
+        const normalize = (text: string): string => text.replace(/\r\n?/g, '\n');
+        const position = (offset: number): { line: number; ch: number } => {
+          const lines = normalize(source.text.slice(0, offset)).split('\n');
+          return { line: lines.length - 1, ch: lines[lines.length - 1].length };
+        };
+        const from = position(evidence.start), to = position(evidence.end);
+        await leaf.openFile(file, { state: { mode: 'source' } });
+        const view = leaf.view;
+        // No quote-text search: repeated passages have different owned offsets.
+        // Never select a disk position in a different/unsaved editor revision.
+        if (!(view instanceof MarkdownView) || view.file?.path !== file.path || view.getMode() !== 'source'
+          || normalize(view.editor.getValue()) !== normalize(source.text)) throw new SourceLocationUnavailableError();
+        view.editor.setSelection(from, to);
+        view.editor.scrollIntoView({ from, to }, true);
       },
     };
   }

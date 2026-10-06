@@ -9,6 +9,10 @@
 
 The Obsidian SDK package is pinned to 1.13.1; this is separate from the installed Obsidian app version.
 
+### Unreleased source navigation
+
+Source builds on `main` open a Markdown quotation in editing view, select its saved exact range and scroll it into view. This is navigation only: no text is inserted or replaced. If the editor has unsaved differences or cannot expose that range, the file can open without a selection and the panel explains the limitation. Canvas opens only the file, not a particular text node. The production callback has been tested with synthetic files and a host API shell; native Obsidian selection/scrolling has not been verified. Release 0.3.7 does not include this change.
+
 ## What still needs testing
 
 This preview's native Obsidian click flow, real provider compatibility and broader AI quality remain unverified. The [testing record](VERIFICATION.md) separates version-specific native checks, downloaded packages, model checks and local tests.
@@ -44,3 +48,4 @@ Generated history is not encrypted and may survive source removal or enter vault
 - 片段数量、索引大小和单轮正文都有上限。超限时更新会停止，不会只保存一部分。
 - 定时更新只在 Obsidian 打开时运行。生成文件逐个更新，过程中可能短暂混合新旧版本；恢复机制不能保证覆盖所有断电和并发修改情况。
 - 历史摘录没有加密，也不保证在移除来源后全部清除。来源引用真实，不代表模型解释一定正确。
+- **尚未发布的原文定位**：`main` 源码版会在编辑视图打开 Markdown，选中并滚动到已核验引文，不写入或替换正文。当前草稿有未保存差异或编辑器不支持定位时，只打开文件并提示限制；Canvas 仍只打开文件，不定位节点。合成文件与宿主接口测试已覆盖，原生 Obsidian 选区和滚动尚未验收；0.3.7 下载包不含此改动。

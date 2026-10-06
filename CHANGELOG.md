@@ -4,6 +4,8 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Open Markdown originals in editing view and select/scroll to the verified quotation, including later and repeated passages. Keep original text unchanged; do not apply saved offsets to a different unsaved draft. Explain when only file opening was possible. Canvas still opens at file level; native Obsidian navigation remains unverified.
+
 - Distinguish a completed refresh with no usable fragments from first use, including after reopening the panel. Explain whether no sources were included or included notes yielded no fragments, and suggest changing notes/settings before refreshing again. Failed or cancelled updates keep their own status; no extraction, privacy or source checks change.
 
 - Show a waiting status and the existing Cancel button while the current note is being read. Cancelling ignores its pending result and keeps the previous idea; the underlying local read may still finish. Editing, explicit search and refresh remain available, with no automatic search or change to full-draft privacy checks.

@@ -14,6 +14,9 @@ export interface PanelPort {
 export class CurrentNoteTooLongError extends Error {
   constructor() { super('Select a shorter excerpt before using current-note context.'); this.name = 'CurrentNoteTooLongError'; }
 }
+export class SourceLocationUnavailableError extends Error {
+  constructor() { super('The opened editor cannot locate this quotation.'); this.name = 'SourceLocationUnavailableError'; }
+}
 function element<K extends keyof HTMLElementTagNameMap>(tag: K, className?: string, text?: string): HTMLElementTagNameMap[K] {
   const el = document.createElement(tag); if (className) el.className = className; if (text !== undefined) el.textContent = text; return el;
 }
@@ -45,6 +48,11 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   const kindLabel = (value: string): string => t[`kind_${value}` as keyof typeof t];
   const selectionHint = (): string => !selection ? '' : selection.channel === 'mechanisms' && breadth.value === 'low' ? t.mechanismBreadth : selection.channel === 'atmosphere' && breadth.value !== 'high' ? t.atmosphereBreadth : '';
   const alert = (text: string): void => { notice.textContent = text; notice.hidden = false; };
+  const openSource = (source: Evidence): void => {
+    void port.open(source).then(() => {
+      if (!disposed && notice.textContent === t.sourceLocationUnavailable) notice.hidden = true;
+    }).catch(error => { if (!disposed) alert(error instanceof SourceLocationUnavailableError ? t.sourceLocationUnavailable : t.failure); });
+  };
   const stateBlock = (title: string, body: string): void => { facetButtons = []; results.replaceChildren(element('h3', 'tb-empty-title', title), element('p', 'tb-muted', body)); };
   // Keep readable evidence, but do not present it as a reply to the new intent.
   // Only transient display state is kept; no query text or input history is stored.
@@ -133,7 +141,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
               for (const source of endpoint.evidence) {
                 side.append(element('blockquote', 'tb-quote', source.quote));
                 const open = element('button', 'tb-source', `${t.source} · ${source.relativePath}`); open.type = 'button';
-                open.addEventListener('click', () => { void port.open(source).catch(() => alert(t.failure)); }); side.append(open);
+                open.addEventListener('click', () => openSource(source)); side.append(open);
               }
               trace.append(side);
             }
@@ -167,7 +175,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
       const evidence = element('details', 'tb-evidence'); evidence.append(element('summary', '', `${t.evidence} · ${fragment.evidence.length}`));
       for (const source of fragment.evidence) {
         const row = element('div', 'tb-evidence-row'); row.append(element('blockquote', 'tb-quote', source.quote));
-        const open = element('button', 'tb-source', `${t.source} · ${source.relativePath}`); open.type = 'button'; open.addEventListener('click', () => { void port.open(source).catch(() => alert(t.failure)); }); row.append(open); evidence.append(row);
+        const open = element('button', 'tb-source', `${t.source} · ${source.relativePath}`); open.type = 'button'; open.addEventListener('click', () => openSource(source)); row.append(open); evidence.append(row);
       }
       article.append(evidence); (item.group === 'indirect-suggestion' ? indirect : main).append(article);
     }
