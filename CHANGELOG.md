@@ -4,6 +4,8 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Keep cancelled note refreshes stopped: daily/weekly checks no longer restart them on the next tick, even after a search or settings save. Automatic updates pause for the current plugin session until a manual refresh succeeds; reloading the plugin still catches up overdue work. Cancelling a search does not pause maintenance. No success timestamp, source/ownership check or transaction outcome is fabricated. Verified through the real scheduler and synthetic filesystem/host-API tests, not native clicks.
+
 - Acknowledge Cancel immediately while a note refresh waits for file work or rollback. Keep the task busy and disable repeated cancellation until it settles; saving-stage feedback explicitly leaves the save outcome unconfirmed. Reopening the panel preserves that feedback. No early unlock, hard I/O interruption, automatic retry or transaction change. Verified in English/Chinese with synthetic commit-boundary latches, real files and host-API shells, not native clicks or actual stalled disks.
 
 - Explain temporary generated-layer contention when retrying a cancelled search, refreshing, or opening a previous result: wait and retry without deleting lock/index files. Clear the notice after a successful explicit retry. Trusted lock refusals stay distinct from missing, edited or invalid files; no automatic retry, early unlock or weaker evidence checks. English/Chinese guidance is verified with synthetic file-open latches and host-API shells, not native clicks or actual stalled disks.

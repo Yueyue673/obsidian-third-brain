@@ -95,6 +95,8 @@ privacy: local
 
 Refresh is manual by default. Daily and weekly schedules run only while Obsidian is open; reopening it catches up an overdue refresh once. Use **Cancel** to stop a running task.
 
+**Unreleased source builds:** cancelling a note refresh also pauses automatic updates for the current plugin session. A successful manual **Refresh notes**, or reloading the plugin, resumes them. Searches and settings saves do not undo this pause; cancelling a search does not pause maintenance. This fix is not included in the 0.3.7 download.
+
 Generated Markdown, the index and history are stored under `Third Brain/Fragments` by default. Original notes, user-written files and manually edited generated files are protected from overwriting. Disabling the plugin stops processing; it does not erase generated history. These files are not encrypted and may enter vault sync or backups.
 
 If a refresh fails, the panel reports the affected note and stage. Fix the reported problem or exclude that source, then try again. A failure before saving retains any previous complete index, but stale references remain unavailable. If saving itself fails, keep the generated folder intact and see [Troubleshooting](TROUBLESHOOTING.md).
@@ -176,6 +178,8 @@ privacy: local
 ### 更新与文件
 
 默认手动更新。每日、每周更新只在 Obsidian 打开时运行，重新打开后会补一次到期任务。运行中可点「取消」。
+
+**尚未发布的源码版本：**取消笔记更新后，本次插件运行期间的自动更新也会暂停。手动「更新笔记」成功，或重新加载插件后恢复。搜索和保存设置不会解除暂停；取消搜索不影响自动更新。0.3.7 下载包尚不包含此修复。
 
 生成片段、索引和历史默认保存在 `Third Brain/Fragments`。插件不覆盖原笔记、手写文件或人工改过的生成文件。停用插件会停止处理，但不会清空生成历史；这些文件没有加密，也可能进入同步和备份。
 

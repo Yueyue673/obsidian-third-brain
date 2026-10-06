@@ -17,6 +17,7 @@ export default class ThirdBrainPlugin extends Plugin {
   private configuredFolder = '';
   private store!: OwnedStore;
   private destroyed = false;
+  private scheduledRefreshPaused = false;
   async onload(): Promise<void> {
     this.settings = loadSettings(await this.loadData());
     if (!(this.app.vault.adapter instanceof FileSystemAdapter)) { new Notice('Third Brain requires a desktop filesystem vault.'); return; }
@@ -41,7 +42,16 @@ export default class ThirdBrainPlugin extends Plugin {
     const root = (this.app.vault.adapter as FileSystemAdapter).getBasePath();
     const store = this.store = new OwnedStore(root, this.settings.outputFolder);
     const sources = new FileSources(root, () => this.settings, () => store.managedSourcePaths(), async () => this.app.vault.getFiles().map(f => f.path));
-    this.controller = new ThirdBrainController(sources, store, () => this.settings, settings => this.model(settings), async when => { this.settings.lastIndexedAt = when; await this.saveData(this.settings); });
+    const controller = this.controller = new ThirdBrainController(sources, store, () => this.settings, settings => this.model(settings), async when => { this.settings.lastIndexedAt = when; await this.saveData(this.settings); });
+    let previousPhase = controller.status().phase;
+    controller.subscribe(() => {
+      const { phase, cancelRequested } = controller.status();
+      // Cancellation is not a completed refresh. Keep its schedule pause through
+      // searches/settings changes without changing the saved success timestamp.
+      if ((phase === 'indexing' && cancelRequested) || (previousPhase === 'indexing' && phase === 'cancelled')) this.scheduledRefreshPaused = true;
+      else if (previousPhase === 'indexing' && phase === 'idle') this.scheduledRefreshPaused = false;
+      previousPhase = phase;
+    });
     this.configuredFolder = this.settings.outputFolder;
     try { await this.controller.initialize(); } catch { new Notice(presentFailure(this.controller.status(), this.settings.locale)); }
     for (const leaf of this.app.workspace.getLeavesOfType(VIEW)) (leaf.view as ActivationView).redraw();
@@ -57,7 +67,7 @@ export default class ThirdBrainPlugin extends Plugin {
     void this.app.workspace.revealLeaf(leaf);
   }
   private async runScheduled(): Promise<void> {
-    if (this.destroyed || !this.controller || !['idle', 'cancelled'].includes(this.controller.status().phase) || !isDue(this.settings)) return;
+    if (this.destroyed || this.scheduledRefreshPaused || !this.controller || !['idle', 'cancelled'].includes(this.controller.status().phase) || !isDue(this.settings)) return;
     try { await this.controller.refresh(); } catch { /* Visible in the panel; no repeated popup or source-body logs. */ }
   }
   panelPort(): PanelPort {
@@ -125,7 +135,7 @@ class ThirdBrainSettings extends PluginSettingTab {
     const name = (en: string, cn: string): string => zh ? cn : en;
     const persist = (): void => { void this.plugin.persistSettings().catch(() => new Notice(name('Settings could not be saved. Check the generated folder.', '设置未保存，请检查提炼层路径。'))); };
     new Setting(el).setName(name('Processing mode', '处理方式')).setDesc(name('Local excerpts make no AI requests. Model modes use only the endpoint you configure.', '本地摘录不调用 AI；模型模式只连接你配置的接口。')).addDropdown(c => c.addOptions({ 'local-excerpts': name('Local excerpts', '本地摘录'), 'local-model': name('Local model', '本机模型'), 'cloud-model': name('Cloud model', '云端模型') }).setValue(this.plugin.settings.mode).onChange(value => { this.plugin.settings.mode = value as Settings['mode']; persist(); }));
-    new Setting(el).setName(name('Refresh schedule', '更新频率')).setDesc(name('Runs only while Obsidian is open. An overdue refresh is caught up once.', '仅在 Obsidian 打开时运行；重新打开后补一次到期更新。')).addDropdown(c => c.addOptions({ manual: name('Manual', '手动'), daily: name('Daily', '每天'), weekly: name('Weekly', '每周') }).setValue(this.plugin.settings.schedule).onChange(value => { this.plugin.settings.schedule = value as Settings['schedule']; persist(); }));
+    new Setting(el).setName(name('Refresh schedule', '更新频率')).setDesc(name('Runs only while Obsidian is open; catches up once when overdue. Cancelling a refresh pauses automatic updates until a successful manual refresh or plugin reload.', '仅在 Obsidian 打开时运行，到期补更一次。取消更新后暂停自动更新；手动更新成功或重新加载插件后恢复。')).addDropdown(c => c.addOptions({ manual: name('Manual', '手动'), daily: name('Daily', '每天'), weekly: name('Weekly', '每周') }).setValue(this.plugin.settings.schedule).onChange(value => { this.plugin.settings.schedule = value as Settings['schedule']; persist(); }));
     new Setting(el).setName(name('Language', '语言')).addDropdown(c => c.addOptions({ auto: name('System', '跟随系统'), en: 'English', zh: '中文' }).setValue(this.plugin.settings.locale).onChange(value => { this.plugin.settings.locale = value as Settings['locale']; persist(); }));
     new Setting(el).setName(name('Generated layer', '提炼层位置')).setDesc(name('Only owned generated files can change. Existing user files are protected.', '只更新已认领的生成文件，已有用户文件始终受保护。')).addText(c => { c.setValue(this.plugin.settings.outputFolder); c.inputEl.addEventListener('blur', () => { try { const next = loadSettings({ ...this.plugin.settings, outputFolder: c.getValue() }); if (next.outputFolder !== this.plugin.settings.outputFolder) { this.plugin.settings.outputFolder = next.outputFolder; persist(); } } catch { new Notice(name('Invalid generated folder. The previous folder is unchanged.', '提炼层路径无效，原位置保持不变。')); } }); });
     new Setting(el).setName(name('Source exclusions', '排除的原始文件夹')).setDesc(name('One vault-relative folder per line. No search syntax required.', '每行一个库内文件夹路径，不需要搜索语法。')).addTextArea(c => c.setValue(this.plugin.settings.excludes.join('\n')).onChange(value => { this.plugin.settings.excludes = value.split('\n').map(x => x.trim()).filter(Boolean); persist(); }));
