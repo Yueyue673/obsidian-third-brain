@@ -4,6 +4,8 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Keep Ctrl/Command+Enter from submitting unfinished text when the input method reports active composition. Finish composing and search explicitly; ordinary Enter, completed shortcuts, busy-search protection and current-note privacy stay unchanged. Verified with synthetic keyboard events through the real panel and local file pipeline, not native IME input.
+
 - Clarify the English/Chinese current-note instructions: fill the idea box, review it, then click Find connections. Documentation only; explicit search and full-draft privacy checks are unchanged.
 
 - Show why automatic updates remain paused after cancelling a refresh, including after searching or reopening the panel. The English/Chinese status names the existing Refresh notes action and clears after a successful manual refresh or plugin reload. Manual-only schedules show no pause hint; failed retries and pending file cleanup keep their own diagnostics. No new control, stored setting or scheduling behavior. Verified through synthetic filesystem and host-API tests, not native clicks.

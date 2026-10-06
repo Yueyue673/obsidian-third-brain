@@ -19,15 +19,15 @@ vi.mock('obsidian', () => ({ Plugin: class {}, ItemView: class {}, PluginSetting
 class NodeStub {
   className = ''; textContent = ''; value = ''; hidden = false; disabled = false;
   children: NodeStub[] = []; attrs: Record<string, string> = {};
-  handlers = new Map<string, Array<() => void>>();
+  handlers = new Map<string, Array<(event: unknown) => void>>();
   constructor(readonly tag: string) {}
   append(...nodes: NodeStub[]) { this.children.push(...nodes); }
   replaceChildren(...nodes: NodeStub[]) { this.children = nodes; }
   setAttribute(key: string, value: string) { this.attrs[key] = value; }
   remove() {} focus() {}
   get childElementCount() { return this.children.length; }
-  addEventListener(event: string, handler: () => void) { this.handlers.set(event, [...this.handlers.get(event) ?? [], handler]); }
-  fire(event: string) { for (const handler of this.handlers.get(event) ?? []) handler(); }
+  addEventListener(event: string, handler: (event: unknown) => void) { this.handlers.set(event, [...this.handlers.get(event) ?? [], handler]); }
+  fire(event: string, payload: unknown = {}) { for (const handler of this.handlers.get(event) ?? []) handler(payload); }
   all(): NodeStub[] { return [this, ...this.children.flatMap(node => node.all())]; }
 }
 function latch() {
@@ -93,6 +93,66 @@ async function fixture(locale: 'en' | 'zh' = 'en', seeded = true) {
   if (seeded) { type('AlphaNeedle'); search(); await settleQuery(); expect(cards()).toEqual(['AlphaCard']); expect(get('tb-result-summary').textContent).toBe(`1 ${t.results}`); }
   return { root, sources, controller, port, container, get, button, cards, type, search, settleQuery, find, findSpy, queries, opens, contexts, hostOpen, assertUnchanged, cleanup, t, previous, editor: view.editor, current, dispose, app, view };
 }
+
+// Synthetic keyboard payloads exercise the real event callback. They do not
+// emulate a native IME or prove any OS-specific composition event sequence.
+const enterKey = (modifier?: 'ctrlKey' | 'metaKey', isComposing = false) => ({
+  key: 'Enter', ctrlKey: modifier === 'ctrlKey', metaKey: modifier === 'metaKey', isComposing, preventDefault: vi.fn(),
+});
+
+for (const modifier of ['ctrlKey', 'metaKey'] as const)
+it.each(['en', 'zh'] as const)(`composing ${modifier}+Enter leaves the idea unsent until an explicit finished shortcut in %s`, async locale => {
+  const h = await fixture(locale);
+  try {
+    // Keep Main's full-draft privacy, even though only its body was selected.
+    h.button(h.t.current).fire('click'); await h.contexts.at(-1)!; await Promise.resolve();
+    h.type('BetaNeedle正在组词');
+    const input = h.get('tb-idea'), composing = enterKey(modifier, true);
+    const summary = h.get('tb-result-summary').textContent;
+    input.fire('keydown', composing);
+    expect.soft(h.findSpy).toHaveBeenCalledOnce();
+    expect.soft(composing.preventDefault).not.toHaveBeenCalled();
+    expect.soft(h.controller.status().phase).toBe('idle');
+    expect(input.value).toBe('BetaNeedle正在组词'); expect(h.get('tb-privacy').hidden).toBe(false);
+    expect(h.cards()).toEqual(['AlphaCard']); expect(h.get('tb-result-summary').textContent).toBe(summary);
+    // Completion/input and ordinary Enter must not auto-submit either.
+    input.fire('compositionend'); h.type('BetaNeedle');
+    const ordinary = enterKey(); input.fire('keydown', ordinary);
+    expect(ordinary.preventDefault).not.toHaveBeenCalled(); expect(h.findSpy).toHaveBeenCalledOnce();
+    const finished = enterKey(modifier); input.fire('keydown', finished);
+    expect(finished.preventDefault).toHaveBeenCalledOnce();
+    const items = await h.settleQuery();
+    expect(h.findSpy).toHaveBeenCalledTimes(2);
+    expect(h.findSpy.mock.calls.at(-1)).toEqual(['BetaNeedle', 'medium', 'private']);
+    expect(h.cards()).toEqual(['BetaCard']); expect(h.get('tb-result-summary').textContent).toBe(`1 ${h.t.results}`);
+    for (const e of items[0].fragment.evidence) {
+      const source = await h.sources.read(e.relativePath);
+      expect(source!.hash).toBe(e.sourceHash); expect(source!.text.slice(e.start, e.end)).toBe(e.quote);
+    }
+    h.get('tb-source').fire('click'); await h.opens.at(-1)!;
+    expect(h.hostOpen.mock.calls.at(-1)?.[0].path).toBe('beta.md');
+    await h.assertUnchanged();
+  } finally { await h.cleanup(); }
+});
+
+it.each(['ctrlKey', 'metaKey'] as const)('busy %s+Enter does not replace the accepted keyboard search', async modifier => {
+  const h = await fixture(), entered = latch(), gate = latch();
+  const read = h.sources.read.bind(h.sources); let held: ReturnType<FileSources['read']> | undefined;
+  vi.spyOn(h.sources, 'read').mockImplementationOnce((...args) => held = (async () => {
+    const source = await read(...args); entered.release(); await gate.promise; return source;
+  })());
+  try {
+    h.type('BetaNeedle'); h.get('tb-idea').fire('keydown', enterKey(modifier));
+    const pending = h.queries.at(-1)!; await entered.promise;
+    expect(h.controller.status().phase).toBe('searching'); expect(h.button(h.t.find).disabled).toBe(true);
+    h.get('tb-idea').fire('keydown', enterKey(modifier));
+    h.get('tb-idea').fire('keydown', enterKey(modifier, true));
+    expect(h.findSpy).toHaveBeenCalledTimes(2);
+    gate.release(); await pending; await held; await Promise.resolve();
+    expect(h.cards()).toEqual(['BetaCard']); expect(h.controller.status().phase).toBe('idle');
+    await h.assertUnchanged();
+  } finally { gate.release(); await held?.catch(() => {}); await h.cleanup(); }
+});
 
 for (const edit of ['BetaNeedle', ''] as const) it.each(['en', 'zh'] as const)(`editing the idea to ${edit || '(blank)'} labels retained results without a new search in %s`, async locale => {
   const h = await fixture(locale);
