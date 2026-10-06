@@ -4,6 +4,7 @@ import { ThirdBrainController } from './controller';
 import { SourceEvidenceUnavailableError } from './core/source-diagnostics';
 import { generatedFileError } from './core/generated-diagnostics';
 import { messages } from './i18n';
+import { presentFailure } from './presentation';
 import { OwnedStore } from './runtime/store';
 import { createModelPort } from './runtime/transport';
 import { contextPrivacy, FileSources } from './sources';
@@ -23,7 +24,7 @@ export default class ThirdBrainPlugin extends Plugin {
     this.addRibbonIcon('brain', 'Third Brain', () => { void this.openPanel(); });
     const t = messages(this.settings.locale);
     this.addCommand({ id: 'open-activation', name: t.find, callback: () => { void this.openPanel(); } });
-    this.addCommand({ id: 'refresh-derived-layer', name: t.index, callback: () => { void this.controller?.refresh().catch(() => new Notice(t.failure)); } });
+    this.addCommand({ id: 'refresh-derived-layer', name: t.index, callback: () => { void this.controller?.refresh().catch(() => new Notice(presentFailure(this.controller.status(), this.settings.locale))); } });
     this.addSettingTab(new ThirdBrainSettings(this.app, this));
     await this.configure();
     this.app.workspace.onLayoutReady(() => { void this.runScheduled(); });
@@ -42,7 +43,7 @@ export default class ThirdBrainPlugin extends Plugin {
     const sources = new FileSources(root, () => this.settings, () => store.managedSourcePaths(), async () => this.app.vault.getFiles().map(f => f.path));
     this.controller = new ThirdBrainController(sources, store, () => this.settings, settings => this.model(settings), async when => { this.settings.lastIndexedAt = when; await this.saveData(this.settings); });
     this.configuredFolder = this.settings.outputFolder;
-    try { await this.controller.initialize(); } catch { new Notice(messages(this.settings.locale).unavailable); }
+    try { await this.controller.initialize(); } catch { new Notice(presentFailure(this.controller.status(), this.settings.locale)); }
     for (const leaf of this.app.workspace.getLeavesOfType(VIEW)) (leaf.view as ActivationView).redraw();
   }
   async persistSettings(): Promise<void> {

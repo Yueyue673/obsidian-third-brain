@@ -3,6 +3,24 @@ import { LOCAL_LABEL } from './core/util';
 import { messages } from './i18n';
 import { INDIRECT_MECHANISM_CAVEAT } from './core/retrieval';
 import { QUERY_KINDS } from './core/types';
+import type { Status } from './controller';
+
+// The panel and host notices share bounded controller diagnostics, never raw errors.
+export function presentFailure(state: Status, locale: 'auto' | 'en' | 'zh'): string {
+  const t = messages(locale);
+  if (state.phase !== 'error') return t.failure;
+  const d = state.sourceDiagnostic, generated = state.generatedFileDiagnostic;
+  const reasons = { 'read-failed':t.readFailed,'decode-failed':t.decodeFailed,'parse-failed':t.parseFailed,'size-limit':t.sizeLimit,'analysis-failed':t.analysisFailed,'model-output-rejected':t.outputRejected };
+  const generatedCopy = { missing:t.generatedFileMissing,changed:t.generatedFileChanged,unavailable:t.generatedFileUnavailable };
+  let text = d ? `${d.relativePath} · ${t[d.stage]} · ${reasons[d.reason]}.` : generated ? generatedCopy[generated] : state.errorCode === 'index-unavailable' ? t.unavailable : t.failure;
+  if (state.commitOutcome === 'unknown') text += ` ${t.commitUnknown}`;
+  else if ((d || generated) && state.commitOutcome === 'not-started') {
+    text += ` ${t.notCommitted}`;
+    // Keeping old state bytes does not establish ownership or safe disk loading.
+    if (d) text += ` ${state.hasCompleteIndex ? t.retainedIndex : t.noCompleteIndex}`;
+  } else if (!generated && state.errorCode !== 'index-unavailable' && state.hasCompleteIndex === false) text += ` ${t.noCompleteIndex}`;
+  return text;
+}
 
 // Translate only program-owned explanation grammar. Preserve author/model text.
 const prefixes: [string, string][] = [

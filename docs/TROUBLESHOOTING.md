@@ -20,7 +20,9 @@ Timeouts, redirects, oversized responses and invalid output stop the request. Th
 
 ## Refresh fails or is cancelled
 
-The panel shows the affected note, stage and last progress. Fix the reported format or access problem, or explicitly exclude the note, then refresh again. The plugin does not rewrite the original to fix it.
+For a source failure, the panel shows the affected note, stage and last progress. Fix the reported format or access problem, or explicitly exclude the note, then refresh again. The plugin does not rewrite the original to fix it.
+
+Source builds also explain known missing or changed generated files at refresh or startup, without first opening a fragment. The refresh command uses the same guidance; scheduled failures stay in the panel without repeated popups. Follow the protected-file guidance below instead of repeatedly refreshing. Unknown I/O or corrupt metadata is not classified as a missing-file problem. This improvement is not yet in the 0.3.7 download.
 
 A failure before saving retains any previous complete index, but changed or unreadable source references are still unavailable. On a first failed update, there is no complete index yet. If saving itself fails, or a generated file was edited by hand, keep the folder intact; do not assume that the disk index is safe to reuse.
 
@@ -74,7 +76,9 @@ Include the plugin version, Obsidian version, processing mode, steps and a small
 
 ### 更新失败或取消
 
-查看面板提示的笔记、阶段和最后进度，处理文件格式或访问问题，也可以明确排除该来源后重试。插件不会替你修改原笔记。
+若是来源故障，查看面板提示的笔记、阶段和最后进度，处理文件格式或访问问题，也可以明确排除该来源后重试。插件不会替你修改原笔记。
+
+从源码构建的版本还会在更新或启动时直接说明已确认的生成文件缺失、改动，不必先打开片段。更新命令显示相同指引，定时更新失败只留在面板、不重复弹窗。请按下方受保护文件的指引处理，不要反复更新。未知读取异常或元数据损坏不会被当作文件缺失；这项改进尚未包含在 0.3.7 下载包中。
 
 保存前失败会保留已有完整索引，但过时或不可读的来源仍不能使用。第一次更新失败时，还没有可用索引。保存过程中出错或遇到人工修改的生成文件时，请保留目录，不要直接当作旧索引仍可用。
 

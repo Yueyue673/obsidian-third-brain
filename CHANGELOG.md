@@ -4,6 +4,8 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Explain missing or protected generated files directly when refreshing notes or loading the plugin, including command and quiet scheduled refreshes. Share safe English/Chinese recovery guidance across panel and host notices; preserve original error identity, source diagnostics and uncertain commit outcomes without claiming a damaged saved index is usable. Storage/ownership guards are unchanged. Verified with synthetic files and host-API shells, not native clicks.
+
 - Explain missing or protected generated files when Open fragment is refused, with English/Chinese guidance to preserve the folder and inspect a test copy rather than force a refresh. Keep ownership validation and human edits intact, distinguish unavailable old results from unknown failures, and prevent late fragment-open replies from replacing newer notices. Verified with synthetic files and host-API shells, not native clicks.
 
 - Explain when a displayed result's source evidence is no longer current or available: review source changes/exclusions, refresh notes, then search and open a new result. Keep full source checks and unknown error identities; old source-open replies no longer replace newer search or structured refresh notices. English/Chinese guidance is verified through synthetic filesystem and host-API tests, not native Obsidian clicks.

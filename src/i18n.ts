@@ -56,7 +56,7 @@ export const zh: Record<keyof typeof en, string> = {
   sourceLocationUnavailable: '已打开来源，但无法在当前编辑器中定位引文。请检查未保存的改动，并对照引文核验。',
   sourceEvidenceUnavailable: '这条结果的来源证据已变更或不再可用。请检查来源改动或排除设置，点“更新笔记”，再点“寻找关联”，从新结果查看原文。',
   generatedFileMissing: '提炼层有生成文件缺失。请保留生成目录及隐藏文件，在测试副本中核对并恢复备份里的对应版本，再重新打开插件；反复更新或清空索引不能安全修复此问题。',
-  generatedFileChanged: '提炼层有生成文件与已保存版本不一致，已停止打开以保护改动。请保留改动和生成目录，在测试副本中检查冲突；不要覆盖文件或清空索引来强行更新。',
+  generatedFileChanged: '提炼层有生成文件与已保存版本不一致，已停止本次操作以保护改动。请保留改动和生成目录，在测试副本中检查冲突；不要覆盖文件或清空索引来强行更新。',
   generatedFileUnavailable: '这个片段已不在当前提炼层或宿主文件列表中。请再次寻找关联，从新结果打开；若仍失败，请保留生成目录，在测试副本中排查。',
   excerpt: '本地摘录', ai: 'AI 编辑片段', private: '本地 / 私密上下文 · 不发到云端',
   contextMissing: '打开一篇有内容的笔记，或直接在这里写一个想法。',

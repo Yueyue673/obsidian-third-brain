@@ -4,7 +4,7 @@ import { SourceEvidenceUnavailableError } from './core/source-diagnostics';
 import { generatedFileDiagnostic } from './core/generated-diagnostics';
 import type { Status } from './controller';
 import { messages } from './i18n';
-import { presentExplanation } from './presentation';
+import { presentExplanation, presentFailure } from './presentation';
 export interface PanelPort {
   status(): Status; subscribe(listener: () => void): () => void;
   refresh(): Promise<void>; find(query: string, breadth: Breadth, privacy?: Privacy, selection?: QuerySelection): Promise<SearchResult[]>;
@@ -99,15 +99,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
     status.textContent = `${line} · ${mode}`;
     label.textContent = selection ? `${t.selectedFacet}: ${t[selection.channel]} · ${selection.channel === 'kind' ? kindLabel(selection.value) : selection.value}` : t.idea;
     stats.textContent = `${state.sourceCount} ${t.sources} · ${state.fragmentCount} ${t.fragments}${state.updatedAt ? ` · ${t.updated} ${new Date(state.updatedAt).toLocaleString()}` : ''}`;
-    if (state.phase === 'error') {
-      const d = state.sourceDiagnostic;
-      const reasons = { 'read-failed':t.readFailed,'decode-failed':t.decodeFailed,'parse-failed':t.parseFailed,'size-limit':t.sizeLimit,'analysis-failed':t.analysisFailed,'model-output-rejected':t.outputRejected };
-      let text = state.errorCode === 'index-unavailable' ? t.unavailable : d ? `${d.relativePath} · ${t[d.stage]} · ${reasons[d.reason]}.` : t.failure;
-      if (state.commitOutcome === 'unknown') text += ` ${t.commitUnknown}`;
-      else if (d && state.commitOutcome === 'not-started') text += ` ${t.notCommitted} ${state.hasCompleteIndex ? t.retainedIndex : t.noCompleteIndex}`;
-      else if (state.hasCompleteIndex === false) text += ` ${t.noCompleteIndex}`;
-      alert(text);
-    }
+    if (state.phase === 'error') alert(presentFailure(state, locale));
     if (state.phase === 'cancelled') alert(`${t.cancelled}.${state.commitOutcome === 'unknown' ? ` ${t.commitUnknown}` : state.hasCompleteIndex === false ? ` ${t.noCompleteIndex}` : ''}`);
     if (state.warningCode === 'schedule-not-saved') alert(t.scheduleWarning);
     if (!busy && state.phase === 'idle' && selectionHint()) alert(selectionHint());

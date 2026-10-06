@@ -105,7 +105,7 @@ describe('controller cancellation, overlap and readiness states', () => {
     h.controller.cancel(); // No task yet: a no-op, not an error.
 
     const broken = harness({ recoverFails: true });
-    await expect(broken.controller.initialize()).rejects.toThrow('The generated index needs review before it can be used.');
+    await expect(broken.controller.initialize()).rejects.toThrow('Synthetic damaged state');
     expect(broken.controller.status()).toMatchObject({ phase: 'error', errorCode: 'index-unavailable' });
     await expect(broken.controller.refresh()).rejects.toThrow('Review the generated index before refreshing.');
   });

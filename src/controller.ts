@@ -4,6 +4,7 @@ import type { Breadth, Evidence, Facets, QuerySelection, Fragment, IndexState, I
 import { safeFacet } from './core/privacy';
 import { abortError, cancellable, checkAbort, facetKey, isPrivacy, relativePath, restrictive } from './core/util';
 import { SourceEvidenceUnavailableError, sourceDiagnostic, type SourceDiagnostic } from './core/source-diagnostics';
+import { generatedFileDiagnostic } from './core/generated-diagnostics';
 import { currentEvidence, type SourcePort } from './sources';
 import { generationSignature, type Settings } from './settings';
 export interface Status {
@@ -12,6 +13,7 @@ export interface Status {
   progress?: RunProgress; errorCode?: 'operation-failed' | 'index-unavailable'; warningCode?: 'schedule-not-saved';
   hasCompleteIndex?: boolean;
   sourceDiagnostic?: SourceDiagnostic;
+  generatedFileDiagnostic?: ReturnType<typeof generatedFileDiagnostic>;
   commitOutcome?: 'not-started' | 'unknown';
 }
 export class ThirdBrainController {
@@ -33,14 +35,17 @@ export class ThirdBrainController {
   }
   status(): Status { return { ...this.state, ...(this.state.progress ? { progress:{ ...this.state.progress } } : {}), ...(this.state.sourceDiagnostic ? { sourceDiagnostic:{ ...this.state.sourceDiagnostic } } : {}), mode: this.task ? this.taskMode : this.settings().mode }; }
   subscribe(listener: () => void): () => void { this.listeners.add(listener); return () => this.listeners.delete(listener); }
-  private update(phase: Status['phase'], progress?: RunProgress, errorCode?: Status['errorCode'], warningCode?: Status['warningCode'], diagnostic?: SourceDiagnostic, commitOutcome?: Status['commitOutcome']): void {
-    this.state = { phase, sourceCount: Object.keys(this.indexState.sources).length, fragmentCount: Object.keys(this.indexState.fragments).length, updatedAt: this.indexState.updatedAt, mode: this.task ? this.taskMode : this.settings().mode, progress, errorCode, warningCode, hasCompleteIndex:this.hasCompleteIndex, sourceDiagnostic:diagnostic, commitOutcome };
+  private update(phase: Status['phase'], progress?: RunProgress, errorCode?: Status['errorCode'], warningCode?: Status['warningCode'], diagnostic?: SourceDiagnostic, commitOutcome?: Status['commitOutcome'], generated?: Status['generatedFileDiagnostic']): void {
+    this.state = { phase, sourceCount: Object.keys(this.indexState.sources).length, fragmentCount: Object.keys(this.indexState.fragments).length, updatedAt: this.indexState.updatedAt, mode: this.task ? this.taskMode : this.settings().mode, progress, errorCode, warningCode, hasCompleteIndex:this.hasCompleteIndex, sourceDiagnostic:diagnostic, commitOutcome, generatedFileDiagnostic:generated };
     this.listeners.forEach(listener => listener());
   }
   async initialize(): Promise<void> {
     this.ready = false;
     try { await this.store.recover(); const loaded = await this.store.load(); this.hasCompleteIndex = loaded !== null; this.indexState = loaded ?? emptyIndex(); this.ready = true; this.update('idle'); }
-    catch { this.update('error', undefined, 'index-unavailable'); throw new Error('The generated index needs review before it can be used. Original notes are untouched.'); }
+    catch (error) {
+      this.update('error', undefined, 'index-unavailable', undefined, undefined, undefined, generatedFileDiagnostic(error));
+      throw error;
+    }
   }
   cancel(): void { this.task?.abort(); }
   async refresh(): Promise<void> {
@@ -78,7 +83,8 @@ export class ThirdBrainController {
     } catch (error) {
       const cancelled = task.signal.aborted || (error instanceof Error && error.name === 'AbortError');
       const diagnostic = cancelled ? undefined : sourceDiagnostic(error);
-      this.update(cancelled ? 'cancelled' : 'error',this.state.progress,cancelled ? undefined : 'operation-failed',undefined,diagnostic,commitStarted ? 'unknown' : diagnostic ? 'not-started' : undefined);
+      const generated = cancelled || diagnostic ? undefined : generatedFileDiagnostic(error);
+      this.update(cancelled ? 'cancelled' : 'error',this.state.progress,cancelled ? undefined : 'operation-failed',undefined,diagnostic,commitStarted ? 'unknown' : diagnostic || generated ? 'not-started' : undefined,generated);
       if (cancelled) { const stopped = abortError(); stopped.message = 'Cancelled.'; throw stopped; }
       throw error;
     }
