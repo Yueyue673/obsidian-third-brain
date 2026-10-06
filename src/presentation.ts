@@ -2,9 +2,11 @@ import { AI_EDITOR_CAVEAT, CANVAS_OFFSET_CAVEAT } from './core/fragments';
 import { LOCAL_LABEL } from './core/util';
 import { messages } from './i18n';
 import { INDIRECT_MECHANISM_CAVEAT } from './core/retrieval';
+import { QUERY_KINDS } from './core/types';
 
 // Translate only program-owned explanation grammar. Preserve author/model text.
 const prefixes: [string, string][] = [
+  ['Same-type material: ', '同类型材料：'],
   ['Lexical baseline: ', '关键词重合：'],
   ['Facet keyword match: ', '属性关键词匹配：'],
   ['Shared topic facet: ', '共同主题：'],
@@ -17,6 +19,7 @@ const prefixes: [string, string][] = [
   ['Facet-based suggestion, not a verified causal relationship; applicability may differ.', '这是基于属性的关联建议，因果关系未经验证；适用条件可能不同。'],
 ];
 const fixed = new Map<string, string>([
+  ['Classification basis: the stored editorial type is equal; not objective truth, semantic equivalence or a causal connection.', '分类依据：已存编辑类型相等；这不是客观真理、含义等价或因果关联。'],
   ['Additional indirect suggestions', '额外间接建议'],
   ['Indirect suggestions via the existing network', '沿已有网络的间接建议'],
   ['At most two additional one-hop suggestions; not query-mechanism equivalence. Compare both sources and conditions.', '最多两条额外一跳建议，不代表与查询机制等价；请核对两端原文及适用条件。'],
@@ -32,6 +35,7 @@ const fixed = new Map<string, string>([
 export function presentExplanation(value: string, locale: 'auto' | 'en' | 'zh'): string {
   if (messages(locale) !== messages('zh')) return value;
   const exact = fixed.get(value); if (exact) return exact;
+  for (const kind of QUERY_KINDS) if (value === `Same-type material: ${kind}`) return `同类型材料：${messages('zh')[`kind_${kind}`]}`;
   for (const [prefix, translated] of prefixes) if (value.startsWith(prefix)) return translated + value.slice(prefix.length);
   return value;
 }

@@ -5,7 +5,7 @@ import { ThirdBrainController } from '../src/controller';
 import { FileSources } from '../src/sources';
 import { OwnedStore } from '../src/runtime/store';
 import { defaults } from '../src/settings';
-import type { Breadth, FacetSelection, Privacy } from '../src/core/types';
+import type { Breadth, QuerySelection, Privacy } from '../src/core/types';
 const root = path.resolve('.local/demo-vault'); const port = Number(process.env.THIRD_BRAIN_DEMO_PORT ?? 9460);
 if (!Number.isInteger(port) || port < 1024 || port > 65535) throw new Error('Invalid demo port.');
 await fs.mkdir(root, { recursive: true });
@@ -31,7 +31,7 @@ const server = createServer(async (req, res) => {
     const body = JSON.parse(raw || '{}') as Record<string, unknown>;
     if (url.pathname === '/api/index') { await controller.refresh(); response(res, 200, controller.status()); return; }
     if (url.pathname === '/api/cancel') { controller.cancel(); response(res, 200, { cancelled: true }); return; }
-    if (url.pathname === '/api/search') { if (typeof body.query !== 'string' || !['low', 'medium', 'high'].includes(String(body.breadth)) || !['normal', 'local', 'private'].includes(String(body.privacy))) throw new Error('Invalid query.'); response(res, 200, await (body.selection === undefined ? controller.find(body.query, body.breadth as Breadth, body.privacy as Privacy) : controller.find(body.query, body.breadth as Breadth, body.privacy as Privacy, body.selection as FacetSelection))); return; }
+    if (url.pathname === '/api/search') { if (typeof body.query !== 'string' || !['low', 'medium', 'high'].includes(String(body.breadth)) || !['normal', 'local', 'private'].includes(String(body.privacy))) throw new Error('Invalid query.'); response(res, 200, await (body.selection === undefined ? controller.find(body.query, body.breadth as Breadth, body.privacy as Privacy) : controller.find(body.query, body.breadth as Breadth, body.privacy as Privacy, body.selection as QuerySelection))); return; }
     if (url.pathname === '/api/current') { const source = await sources.read('创作/对话留下的空隙.md'); response(res, 200, source ? { text: source.text, privacy: source.privacy } : null); return; }
     if (url.pathname === '/api/open') { const evidence = body.evidence as import('../src/core/types').Evidence; await controller.verifyOpen(evidence); const source = await sources.read(evidence.relativePath); response(res, 200, source ? { path: source.path, text: source.text } : null); return; }
     response(res, 404, { error: 'Not found.' });

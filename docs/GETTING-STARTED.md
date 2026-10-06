@@ -2,9 +2,9 @@
 
 [English README](../README.md) · [中文 README](../README.zh-CN.md) · [Install](#install-the-preview) · [Models](#optional-model-setup) · [Build from source](#build-from-source)
 
-**0.3.3 is a prerelease for desktop Obsidian 1.11.5+.** It is not in the Community directory. Default local excerpts work without an account, key or network; they are not AI semantic search. A small real-model synthetic check and cached-result activation check are documented; production-provider compatibility, broad semantic quality and native clicks for this version remain unverified.
+**0.3.4 is a prerelease for desktop Obsidian 1.11.5+.** It is not in the Community directory. Default local excerpts work without an account, key or network; they are not AI semantic search. A small real-model synthetic check and cached-result activation check are documented; production-provider compatibility, broad semantic quality and native clicks for this version remain unverified.
 
-**0.3.3 是桌面预览版，需要 Obsidian 1.11.5+，尚未进入社区插件目录。** 默认本地摘录无需账户、密钥或网络，不是 AI 语义检索；已记录小范围真实模型与缓存激活检查；生产接口兼容性、广泛语义效果和本版原生点击仍未验收。
+**0.3.4 是桌面预览版，需要 Obsidian 1.11.5+，尚未进入社区插件目录。** 默认本地摘录无需账户、密钥或网络，不是 AI 语义检索；已记录小范围真实模型与缓存激活检查；生产接口兼容性、广泛语义效果和本版原生点击仍未验收。
 
 ## Install the preview
 
@@ -12,7 +12,7 @@ Use a disposable test vault first. You do **not** need Node.js for release insta
 
 先用可丢弃的测试库，Release 安装**不需要 Node.js**。第三方插件具有广泛访问权限；用于重要笔记库前请保留备份。
 
-1. Download [third-brain-0.3.3.zip](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.3/third-brain-0.3.3.zip) and [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.3/SHA256SUMS) from the [0.3.3 prerelease](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.3). [Check the ZIP's hash](#check-the-download), then extract it. Use this plugin ZIP, **not** GitHub's “Source code” archive.
+1. Download [third-brain-0.3.4.zip](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.4/third-brain-0.3.4.zip) and [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.4/SHA256SUMS) from the [0.3.4 prerelease](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.4). [Check the ZIP's hash](#check-the-download), then extract it. Use this plugin ZIP, **not** GitHub's “Source code” archive.
    下载插件 ZIP 与校验文件，核对后解压；不要下载 GitHub 自动生成的「Source code」源码包来安装。
 2. Create `.obsidian/plugins/third-brain/` inside your test vault and put all four extracted files directly inside:
    在测试库内创建插件目录，把四个文件直接放入，不要多套一层文件夹：
@@ -34,26 +34,26 @@ If the plugin is missing, check the exact folder and `manifest.json` placement, 
 
 ### Check the download
 
-Run one command in the folder containing your downloaded ZIP. Compare its hash with the line for `third-brain-0.3.3.zip` in `SHA256SUMS`; if they differ, do not install it.
+Run one command in the folder containing your downloaded ZIP. Compare its hash with the line for `third-brain-0.3.4.zip` in `SHA256SUMS`; if they differ, do not install it.
 
 在下载目录运行适合你系统的一条命令，与 `SHA256SUMS` 中 ZIP 对应行的哈希比较；不一致就不要安装。
 
 **Windows — PowerShell**
 
 ```powershell
-Get-FileHash .\third-brain-0.3.3.zip -Algorithm SHA256
+Get-FileHash .\third-brain-0.3.4.zip -Algorithm SHA256
 ```
 
 **macOS**
 
 ```sh
-shasum -a 256 third-brain-0.3.3.zip
+shasum -a 256 third-brain-0.3.4.zip
 ```
 
 **Linux**
 
 ```sh
-sha256sum third-brain-0.3.3.zip
+sha256sum third-brain-0.3.4.zip
 ```
 
 ## First connection
@@ -85,6 +85,14 @@ Card buttons show Topic / Concept / Mechanism / Atmosphere and their actual valu
 Topics/concepts work at Low/Medium/High; mechanisms need Medium/High; atmosphere needs High. At a lower scope, the existing notice explains how to change breadth without silently widening it. High can still show verified one-hop network neighbors: these are marked indirect suggestions, not exact selected-facet matches or a complete strict filter. Current source/identity/privacy/exclusion and whole-provenance checks remain required for results and original-source clicks; stale values cannot create a model request or a cached live link.
 
 中文：属性按钮保留主题／概念／机制／氛围类别和值，不再让模型重解释或把仅正文同词的内容当这次属性入口。输入标签显示当前选择；编辑文字或取当前笔记清掉选择。发散度变化保留选择：机制需中／高、氛围需高；过低会给出提示。高档的网络邻居仍为间接建议，不是严格相等筛选。
+
+## Continue from the existing type
+
+In the same attribute row, cards show their current Type / 类型 with readable names, retaining AI-edited or Local excerpt origin. Click the displayed type to retrieve currently verifiable materials whose stored canonical `kind` is exactly equal; this is not a search for the word “method” in note text. It never constructs a model, invokes interpretation or requests new classification. Existing parser classes are Excerpt, Idea, Method, Concept, Observation, Question, Quote and Reference; only the card’s actual current type is offered, not a preset tag directory.
+
+The same idea input and breadth control are reused. Text edits/current-note context clear the choice; breadth changes retain it. Type matching works at all three breadths, does not add network neighbors, and retains the existing display cap of seven, not an exhaustive listing. Same-type count/reason/empty-state copy distinguishes classification from semantic connections. A stored editorial class can be wrong; original source evidence must still be checked. Source identity/hash/privacy/exclusions, complete provenance, index membership and later type changes invalidate selected results or old source clicks.
+
+中文：同一属性行显示当前卡的“类型 · 方法／观察”等按钮；点击按已存类型严格相等找回材料，不是搜索正文同词，不让模型重新分类。编辑输入或取当前笔记清选择，改发散度保留选择。类型各档都可用，最多七条，不补网络邻居。类型属于编辑判断，不等于含义相同；来源或类型已变的旧卡不能继续打开为当前证据。
 
 ## When a source blocks refresh
 
@@ -188,9 +196,9 @@ Copy **`dist/main.js`, `dist/manifest.json`, `dist/styles.css` and `dist/LICENSE
 
 ## Preview evidence
 
-The earlier 0.1.0 public package was downloaded, hash-checked and loaded in native Obsidian, but its full click journey was not rerun. The 0.2.x packages have separate CI/download checks. Neither establishes native clicks for 0.3.3. Exact-version distribution and cached/model checks are tracked in [verification scope](VERIFICATION.md).
+The earlier 0.1.0 public package was downloaded, hash-checked and loaded in native Obsidian, but its full click journey was not rerun. The 0.2.x packages have separate CI/download checks. Neither establishes native clicks for 0.3.4. Exact-version distribution and cached/model checks are tracked in [verification scope](VERIFICATION.md).
 
-较早的 0.1.0 公开包已下载、校验并在原生 Obsidian 中加载，完整点击旅程未重跑；0.2.x 包另有 CI 与公开下载检查。它们均不证明 0.3.3 的原生点击。确切版本的分发、模型和缓存检查见[验证范围](VERIFICATION.md)。
+较早的 0.1.0 公开包已下载、校验并在原生 Obsidian 中加载，完整点击旅程未重跑；0.2.x 包另有 CI 与公开下载检查。它们均不证明 0.3.4 的原生点击。确切版本的分发、模型和缓存检查见[验证范围](VERIFICATION.md)。
 ## High-breadth indirect suggestions / 高发散间接建议
 
 Select **High / 高** before searching. When a direct mechanism/analogy match has an eligible shared-mechanism neighbor, its card identifies an **Indirect association suggestion / 间接关联建议**. Expand **Compare both original sources / 分别核对两端原文** to compare the anchor and suggested source, their exact quotes, conditions and limits, then open either original. A stale or excluded endpoint invalidates the corresponding suggestion.

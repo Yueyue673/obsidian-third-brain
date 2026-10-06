@@ -1,5 +1,5 @@
 import type { Facets, Fragment, RelationReason, SearchOptions, SearchResult, SearchResults } from './types';
-import { emptyFacets } from './types';
+import { emptyFacets, QUERY_KINDS } from './types';
 import { CoreError, FACET_KEYS, facetKey, unionFacets } from './util';
 import { safeVocabulary } from './privacy';
 import { buildFragmentNetwork } from './connections';
@@ -47,6 +47,14 @@ export function searchFragments(fragments: Fragment[], query: string, options: S
   if (typeof query !== 'string' || query.length > 20_000 || !['low','medium','high'].includes(options.breadth)) throw new CoreError('Invalid search options');
   const limit = options.limit ?? 20;
   if (!Number.isInteger(limit) || limit < 0 || limit > 200) throw new CoreError('Invalid result limit');
+  if (options.kind !== undefined) {
+    if (!QUERY_KINDS.includes(options.kind) || query !== '' || options.facets !== undefined) throw new CoreError('Invalid kind selection');
+    // Equality of stored editorial classification, not lexical or network relevance.
+    return fragments.filter(fragment => fragment.kind === options.kind).flatMap(fragment => {
+      const evidence = fragment.evidence.filter(item => item.quote.trim() && (!options.excludeSource || (item.sourceId !== options.excludeSource && item.relativePath !== options.excludeSource)));
+      return evidence.length ? [{ fragment:{ ...fragment,evidence },score:1,reasons:[{ kind:'kind' as const,label:`Same-type material: ${options.kind}`,quotes:[...new Set(evidence.map(e => e.quote))].slice(0,3),caveat:'Classification basis: the stored editorial type is equal; not objective truth, semantic equivalence or a causal connection.' }] }] : [];
+    }).sort((a,b) => a.fragment.id.localeCompare(b.fragment.id)).slice(0,limit);
+  }
   if (!limit) return [];
   const vocabulary = vocabularyOf(fragments), explicit = safeVocabulary(options.facets), intent = emptyFacets();
   for (const key of FACET_KEYS) intent[key] = [...new Set([...explicit[key],...mentioned(query,vocabulary[key])])];

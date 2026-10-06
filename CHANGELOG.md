@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 0.3.4 — 2026-10-06 (preview)
+
+- Make each card’s existing canonical editorial type clickable in the same attribute row. Method/Observation/etc. use strict stored-kind equality through the actual Main/Controller/retrieval/source-opening path, never body-word search or model reclassification.
+- Type selection works at all breadths, skips lexical/network expansion and model factory/interpretation, retains the main-seven/extra-two budgets without indirect/non-equal padding, and labels capped same-type material rather than semantic connections or a complete listing. Existing natural queries and four-facet results remain identical.
+- Preserve current full donor/source evidence, kind and owned source/fragment membership, identity/hash/privacy/exclusion guards; changed types/sources invalidate old original-source clicks. Reuse memory-only selection clearing/breadth retention/late/cancel controls. Chinese type reasons and type-empty copy use readable classification names. Known stale/excluded type entries are validated out before consuming the existing candidate budget; later current material remains reachable without changing ordinary/four-facet ranking. No persistent schema, generation signature, model prompt/wire, original-write, ranking or tracking change.
+
 ## 0.3.3 — 2026-10-06 (preview)
 
 - Preserve channel/value on existing facet buttons, resolve an existing current safe donor and use explicit local facets rather than reinterpreting a text query. Clicks do not construct a model or invoke interpretation; body-only lexical distractions cannot displace this attribute entry. Natural-query IDs/order/scores/reasons/groups, core scoring and main-seven/extra-two/network limits remain unchanged.

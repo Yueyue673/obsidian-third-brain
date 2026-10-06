@@ -1,6 +1,6 @@
 import { buildIndex, interpretQuery, searchFragments, vocabularyOf } from './core/index';
-import { emptyIndex } from './core/types';
-import type { Breadth, Evidence, Facets, FacetSelection, Fragment, IndexState, IndirectMechanism, ModelPort, Privacy, RelationEndpoint, RelationReason, RunProgress, SearchResult, SourceSnapshot, StorePort } from './core/types';
+import { emptyIndex, QUERY_KINDS } from './core/types';
+import type { Breadth, Evidence, Facets, QuerySelection, Fragment, IndexState, IndirectMechanism, ModelPort, Privacy, RelationEndpoint, RelationReason, RunProgress, SearchResult, SourceSnapshot, StorePort } from './core/types';
 import { safeFacet } from './core/privacy';
 import { abortError, cancellable, checkAbort, facetKey, relativePath } from './core/util';
 import { sourceDiagnostic, type SourceDiagnostic } from './core/source-diagnostics';
@@ -84,7 +84,7 @@ export class ThirdBrainController {
     }
     finally { this.task = null; }
   }
-  async find(query: string, breadth: Breadth, privacy: Privacy = 'normal', selection?: FacetSelection): Promise<SearchResult[]> {
+  async find(query: string, breadth: Breadth, privacy: Privacy = 'normal', selection?: QuerySelection): Promise<SearchResult[]> {
     if (!this.ready) throw new Error('Review the generated index before searching.');
     if (this.task) throw new Error('A task is already running.');
     const selected = selection === undefined ? undefined : this.checkedSelection(selection);
@@ -99,13 +99,22 @@ export class ThirdBrainController {
       };
       const fragments = Object.values(this.indexState.fragments);
       let facets: Partial<Facets> | undefined;
+      let kind: typeof QUERY_KINDS[number] | undefined;
+      let kindCandidates: Fragment[] | undefined;
       if (selected) {
         // An explicit existing attribute is not an idea for a model to reinterpret.
         // Authenticate a complete current donor before allowing its cached label.
-        for (const fragment of fragments) {
-          const canonical = fragment.facets[selected.channel].find(value => safeFacet(value) && facetKey(value) === facetKey(selected.value));
-          if (canonical && await this.currentEndpoint({ fragmentId:fragment.id,title:fragment.title,privacy:fragment.privacy,evidence:fragment.evidence,conditions:fragment.conditions,caveats:fragment.caveats },task.signal)) {
-            facets = { [selected.channel]:[canonical] }; break;
+        const donors = selected.channel === 'kind' ? fragments.filter(fragment => fragment.kind === selected.value).sort((a,b) => a.id.localeCompare(b.id)) : fragments;
+        for (const fragment of donors) {
+          const canonical = selected.channel === 'kind' ? (fragment.kind === selected.value ? selected.value : undefined) : fragment.facets[selected.channel].find(value => safeFacet(value) && facetKey(value) === facetKey(selected.value));
+          if (canonical && await this.currentEndpoint({ fragmentId:fragment.id,title:fragment.title,privacy:fragment.privacy,evidence:fragment.evidence,conditions:fragment.conditions,caveats:fragment.caveats,...(selected.channel === 'kind' ? { kind:selected.value } : {}) },task.signal)) {
+            if (selected.channel === 'kind') {
+              kind = selected.value;
+              (kindCandidates ??= []).push(fragment);
+              // Known stale/excluded entries cannot spend the existing candidate budget.
+              if (kindCandidates.length < 30) continue;
+            } else facets = { [selected.channel]:[canonical] };
+            break;
           }
         }
       } else if (settings.mode !== 'local-excerpts' && !(settings.mode === 'cloud-model' && privacy !== 'normal')) {
@@ -131,7 +140,7 @@ export class ThirdBrainController {
           facets = await interpretQuery(query, port, vocabularyOf(vocabularyFragments, settings.mode === 'cloud-model'), task.signal);
         }
       }
-      const ranked = searchFragments(fragments, selected ? '' : query, { breadth, limit: 30, facets, index: this.indexState, retainIndirectCandidates: breadth === 'high' });
+      const ranked = searchFragments(kindCandidates ?? fragments, selected ? '' : query, { breadth, limit: 30, facets, ...(kind ? { kind } : {}), index: this.indexState, retainIndirectCandidates: breadth === 'high' });
       const results: SearchResult[] = [];
       const validate = async (result: SearchResult, suggestion = false): Promise<SearchResult | null> => {
         if (task.signal.aborted) throw new Error('Cancelled.');
@@ -140,7 +149,7 @@ export class ThirdBrainController {
         // Partial provenance cannot establish that the remaining donor supports
         // every cached label, so stale merged claims wait for a full refresh.
         if (evidence.length !== result.fragment.evidence.length) return null;
-        if (selected && !(await this.currentEndpoint({ fragmentId:result.fragment.id,title:result.fragment.title,privacy:result.fragment.privacy,evidence:result.fragment.evidence,conditions:result.fragment.conditions,caveats:result.fragment.caveats },task.signal))) return null;
+        if (selected && !(await this.currentEndpoint({ fragmentId:result.fragment.id,title:result.fragment.title,privacy:result.fragment.privacy,evidence:result.fragment.evidence,conditions:result.fragment.conditions,caveats:result.fragment.caveats,...(selected.channel === 'kind' ? { kind:selected.value } : {}) },task.signal))) return null;
         const traceTarget = result.reasons.find(r => r.kind === 'indirect-mechanism')?.indirect?.target;
         if (traceTarget && !(await this.currentEndpoint(traceTarget, task.signal))) return null;
         const reasons: RelationReason[] = []; let targetCurrent = true;
@@ -185,7 +194,7 @@ export class ThirdBrainController {
       }
       for (const [e,traces] of bindings) this.openTraces.set(e,traces);
       if (selected) for (const result of results) {
-        const endpoint: RelationEndpoint = structuredClone({ fragmentId:result.fragment.id,title:result.fragment.title,privacy:result.fragment.privacy,evidence:result.fragment.evidence,conditions:result.fragment.conditions,caveats:result.fragment.caveats });
+        const endpoint: RelationEndpoint = structuredClone({ fragmentId:result.fragment.id,title:result.fragment.title,privacy:result.fragment.privacy,evidence:result.fragment.evidence,conditions:result.fragment.conditions,caveats:result.fragment.caveats,...(selected.channel === 'kind' ? { kind:selected.value } : {}) });
         for (const evidence of result.fragment.evidence) this.selectedOpenEndpoints.set(evidence,endpoint);
       }
       this.update('idle');
@@ -198,12 +207,16 @@ export class ThirdBrainController {
     }
     finally { this.task = null; }
   }
-  private checkedSelection(input: unknown): FacetSelection {
+  private checkedSelection(input: unknown): QuerySelection {
     // Reject inheritance, extra fields, symbols and getters before reading values.
     if (!input || typeof input !== 'object' || Object.getPrototypeOf(input) !== Object.prototype) throw new Error('Invalid facet selection.');
     const keys = Reflect.ownKeys(input), fields = Object.getOwnPropertyDescriptors(input);
     if (keys.length !== 2 || !keys.includes('channel') || !keys.includes('value') || !fields.channel || !fields.value || !('value' in fields.channel) || !('value' in fields.value)) throw new Error('Invalid facet selection.');
     const channel = fields.channel.value, value = fields.value.value;
+    if (channel === 'kind') {
+      if (typeof value !== 'string' || !QUERY_KINDS.includes(value as typeof QUERY_KINDS[number])) throw new Error('Invalid kind selection.');
+      return { channel,value:value as typeof QUERY_KINDS[number] };
+    }
     if (!['topics','concepts','mechanisms','atmosphere'].includes(channel) || typeof value !== 'string' || !safeFacet(value) || !safeFacet(facetKey(value))) throw new Error('Invalid facet selection.');
     return { channel,value };
   }
@@ -221,6 +234,7 @@ export class ThirdBrainController {
   }
   private async currentEndpoint(endpoint: RelationEndpoint, signal: AbortSignal): Promise<boolean> {
     const fragment = this.indexState.fragments[endpoint.fragmentId];
+    if (endpoint.kind !== undefined && (!Object.hasOwn(this.indexState.fragments,endpoint.fragmentId) || fragment?.id !== endpoint.fragmentId || fragment.kind !== endpoint.kind)) return false;
     if (!fragment || !endpoint.evidence.length || fragment.privacy !== endpoint.privacy || fragment.title !== endpoint.title
       || JSON.stringify(fragment.conditions) !== JSON.stringify(endpoint.conditions) || JSON.stringify(fragment.caveats) !== JSON.stringify(endpoint.caveats)
       || JSON.stringify(fragment.evidence) !== JSON.stringify(endpoint.evidence)) return false;
@@ -230,6 +244,7 @@ export class ThirdBrainController {
     for (const evidence of endpoint.evidence) {
       if (signal.aborted) throw new Error('Cancelled.');
       const record = this.indexState.sources[evidence.relativePath];
+      if (endpoint.kind !== undefined && !Object.hasOwn(this.indexState.sources,evidence.relativePath)) return false;
       if (blocked.has(evidence.relativePath) || record?.status !== 'indexed' || record.hash !== evidence.sourceHash || !record.fragmentIds.includes(endpoint.fragmentId)) return false;
       if (!live.has(evidence.relativePath)) live.set(evidence.relativePath, await this.readAtStep(evidence.relativePath,signal));
       const source = live.get(evidence.relativePath);

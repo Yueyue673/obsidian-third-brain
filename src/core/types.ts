@@ -4,6 +4,11 @@ export type Privacy = 'normal' | 'local' | 'private';
 export interface Facets { topics: string[]; concepts: string[]; mechanisms: string[]; atmosphere: string[]; }
 // Immediate query intent only; never persisted or sent to a model.
 export interface FacetSelection { channel: keyof Facets; value: string; }
+// Canonical parser classifications, for explicit query selection only.
+export const QUERY_KINDS = Object.freeze(['excerpt','idea','method','concept','observation','question','quote','reference'] as const);
+export type FragmentKind = typeof QUERY_KINDS[number];
+export interface KindSelection { channel: 'kind'; value: FragmentKind; }
+export type QuerySelection = FacetSelection | KindSelection;
 export interface SourceSnapshot { id: string; path: string; text: string; hash: string; privacy: Privacy; format: 'markdown' | 'canvas'; }
 export interface Evidence { sourceId: string; relativePath: string; sourceHash: string; quote: string; start: number; end: number; }
 export interface Fragment { id: string; privacy: Privacy; title: string; summary: string; kind: string; facets: Facets; evidence: Evidence[]; mode: 'local' | 'ai'; updatedAt: string; conditions: string[]; caveats: string[]; }
@@ -18,13 +23,13 @@ export interface ModelRequest { task: 'extract' | 'interpret'; text: string; voc
 export interface ModelPort { request(input: ModelRequest, signal?: AbortSignal): Promise<unknown>; }
 export interface AnalyzeOptions { mode: Mode; cloudConsent: boolean; model?: ModelPort; vocabulary?: Facets; now?: string; signal?: AbortSignal; beforeRequest?: (source: SourceSnapshot, vocabulary: Facets) => Promise<void>; }
 // Query-only explanation metadata; never persisted in the index or generated layer.
-export interface RelationEndpoint { fragmentId: string; title: string; privacy: Privacy; evidence: Evidence[]; conditions: string[]; caveats: string[]; }
+export interface RelationEndpoint { fragmentId: string; title: string; privacy: Privacy; evidence: Evidence[]; conditions: string[]; caveats: string[]; kind?: FragmentKind; }
 export interface IndirectMechanism { steps: 1; sharedMechanisms: string[]; anchor: RelationEndpoint; target: RelationEndpoint; }
-export interface RelationReason { kind: 'content' | 'topic' | 'concept' | 'mechanism' | 'analogy' | 'atmosphere' | 'indirect-mechanism'; label: string; quotes: string[]; caveat?: string; indirect?: IndirectMechanism; }
+export interface RelationReason { kind: 'content' | 'topic' | 'concept' | 'mechanism' | 'analogy' | 'atmosphere' | 'indirect-mechanism' | 'kind'; label: string; quotes: string[]; caveat?: string; indirect?: IndirectMechanism; }
 export interface SearchResult { fragment: Fragment; score: number; reasons: RelationReason[]; group?: 'indirect-suggestion'; }
 // Query-only side channel: retained before the ordinary ranked limit, never stored.
 export type SearchResults = SearchResult[] & { indirectCandidates?: SearchResult[] };
-export interface SearchOptions { breadth: Breadth; limit?: number; facets?: Partial<Facets>; excludeSource?: string; index?: IndexState; retainIndirectCandidates?: boolean; }
+export interface SearchOptions { breadth: Breadth; limit?: number; facets?: Partial<Facets>; kind?: FragmentKind; excludeSource?: string; index?: IndexState; retainIndirectCandidates?: boolean; }
 export interface StorePort { load(): Promise<IndexState | null>; commit(next: IndexState, verifySources?: () => Promise<void>, signal?: AbortSignal): Promise<void>; recover(): Promise<void>; }
 export interface TransportOptions { mode: 'local-model' | 'cloud-model'; endpoint: string; model: string; secret?: string; cloudConsent: boolean; timeoutMs?: number; maxResponseBytes?: number; }
 export interface RunProgress { completed: number; total: number; phase: 'reading' | 'processing' | 'committing' | 'done' | 'cancelled'; relativePath?: string; }

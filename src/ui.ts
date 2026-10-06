@@ -1,10 +1,11 @@
-import type { Breadth, Evidence, FacetSelection, Privacy, SearchResult } from './core/types';
+import type { Breadth, Evidence, QuerySelection, Privacy, SearchResult } from './core/types';
+import { QUERY_KINDS } from './core/types';
 import type { Status } from './controller';
 import { messages } from './i18n';
 import { presentExplanation } from './presentation';
 export interface PanelPort {
   status(): Status; subscribe(listener: () => void): () => void;
-  refresh(): Promise<void>; find(query: string, breadth: Breadth, privacy?: Privacy, selection?: FacetSelection): Promise<SearchResult[]>;
+  refresh(): Promise<void>; find(query: string, breadth: Breadth, privacy?: Privacy, selection?: QuerySelection): Promise<SearchResult[]>;
   cancel(): void; current?(): Promise<{ text: string; privacy: Privacy } | null>;
   open(evidence: Evidence): Promise<void>;
   openFragment?(id: string): Promise<void>;
@@ -31,7 +32,8 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   const results = element('div', 'tb-results'); const summary = element('p', 'tb-result-summary'); summary.setAttribute('aria-live', 'polite');
   root.append(heading, status, stats, label, input, options, privacyHint, actions, notice, summary, results); container.replaceChildren(root);
   let queryPrivacy: Privacy = 'normal'; let searchId = 0; let disposed = false; let hasSearched = false;
-  let selection: FacetSelection | undefined;
+  let selection: QuerySelection | undefined;
+  const kindLabel = (value: string): string => t[`kind_${value}` as keyof typeof t];
   const selectionHint = (): string => !selection ? '' : selection.channel === 'mechanisms' && breadth.value === 'low' ? t.mechanismBreadth : selection.channel === 'atmosphere' && breadth.value !== 'high' ? t.atmosphereBreadth : '';
   const alert = (text: string): void => { notice.textContent = text; notice.hidden = false; };
   const stateBlock = (title: string, body: string): void => { results.replaceChildren(element('h3', 'tb-empty-title', title), element('p', 'tb-muted', body)); };
@@ -44,7 +46,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
     let line = t[state.phase];
     if (state.progress) line += ` · ${t.lastStep}: ${t[state.progress.phase]}${state.progress.total ? ` ${state.progress.completed} / ${state.progress.total}` : ''}${state.progress.relativePath ? ` · ${state.progress.relativePath}` : ''}`;
     status.textContent = `${line} · ${mode}`;
-    label.textContent = selection ? `${t.selectedFacet}: ${t[selection.channel]} · ${selection.value}` : t.idea;
+    label.textContent = selection ? `${t.selectedFacet}: ${t[selection.channel]} · ${selection.channel === 'kind' ? kindLabel(selection.value) : selection.value}` : t.idea;
     stats.textContent = `${state.sourceCount} ${t.sources} · ${state.fragmentCount} ${t.fragments}${state.updatedAt ? ` · ${t.updated} ${new Date(state.updatedAt).toLocaleString()}` : ''}`;
     if (state.phase === 'error') {
       const d = state.sourceDiagnostic;
@@ -64,7 +66,8 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
     results.replaceChildren();
     const suggestions = items.filter(item => item.group === 'indirect-suggestion');
     summary.textContent = `${items.length - suggestions.length} ${t.results}${suggestions.length ? ` · ${suggestions.length} ${presentExplanation('Additional indirect suggestions',locale)}` : ''}`;
-    if (!items.length) { stateBlock(t.empty, t.emptyBody); return; }
+    if (selection?.channel === 'kind') summary.textContent = `${items.length} ${t.sameType} · ${t.kindBudget}`;
+    if (!items.length) { stateBlock(selection?.channel === 'kind' ? t.kindEmpty : t.empty, selection?.channel === 'kind' ? t.kindEmptyBody : t.emptyBody); return; }
     const main = element('div','tb-main-results'); results.append(main);
     const indirect = element('section','tb-suggestions');
     if (suggestions.length) {
@@ -108,6 +111,12 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
       if (fragment.conditions.length) article.append(element('p', 'tb-muted', `${t.conditions}: ${fragment.conditions.join(' · ')}`));
       for (const caveat of fragment.caveats) article.append(element('p', 'tb-caveat', `${t.caveat}: ${presentExplanation(caveat, locale)}`));
       const facets = element('div', 'tb-facets'); facets.setAttribute('aria-label', t.facets);
+      if (QUERY_KINDS.includes(fragment.kind as typeof QUERY_KINDS[number])) {
+        const chosen = { channel:'kind' as const,value:fragment.kind as typeof QUERY_KINDS[number] };
+        const button = element('button','tb-facet',`${t.kind} · ${kindLabel(chosen.value)}`); button.type = 'button';
+        button.setAttribute('data-channel','kind'); button.setAttribute('aria-label',`${t.facets}: ${t.kind} · ${kindLabel(chosen.value)}`);
+        button.addEventListener('click', () => { selection = chosen; input.value = kindLabel(chosen.value); queryPrivacy = fragment.privacy; privacyHint.textContent = t.private; privacyHint.hidden = queryPrivacy === 'normal'; void executeSearch(); }); facets.append(button);
+      }
       const terms = (['topics','concepts','mechanisms','atmosphere'] as const).flatMap(channel => [...new Set(fragment.facets[channel])].map(value => ({ channel,value })));
       for (const chosen of terms.slice(0, 12)) {
         const button = element('button', 'tb-facet', `${t[chosen.channel]} · ${chosen.value}`); button.type = 'button';
