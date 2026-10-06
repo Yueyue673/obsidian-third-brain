@@ -7,7 +7,8 @@ import type { Status } from './controller';
 import { messages } from './i18n';
 import { presentExplanation, presentFailure } from './presentation';
 export interface PanelPort {
-  status(): Status; subscribe(listener: () => void): () => void;
+  // Host-session feedback only; absent on adapters without automatic maintenance.
+  status(): Status & { scheduledRefreshPaused?: boolean }; subscribe(listener: () => void): () => void;
   refresh(): Promise<void>; find(query: string, breadth: Breadth, privacy?: Privacy, selection?: QuerySelection): Promise<SearchResult[]>;
   cancel(): void; current?(): Promise<{ text: string; privacy: Privacy } | null>;
   open(evidence: Evidence): Promise<void>;
@@ -99,7 +100,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
     cancel.disabled = cancelling;
     let line = cancelling ? (state.progress?.phase === 'committing' ? t.cancellingCommit : t.cancelling) : readingCurrent ? t.contextReading : t[state.phase];
     if (!readingCurrent && state.progress) line += ` · ${t.lastStep}: ${t[state.progress.phase]}${state.progress.total ? ` ${state.progress.completed} / ${state.progress.total}` : ''}${state.progress.relativePath ? ` · ${state.progress.relativePath}` : ''}`;
-    status.textContent = `${line} · ${mode}`;
+    status.textContent = `${line} · ${mode}${state.scheduledRefreshPaused ? ` · ${t.schedulePaused}` : ''}`;
     label.textContent = selection ? `${t.selectedFacet}: ${t[selection.channel]} · ${selection.channel === 'kind' ? kindLabel(selection.value) : selection.value}` : t.idea;
     stats.textContent = `${state.sourceCount} ${t.sources} · ${state.fragmentCount} ${t.fragments}${state.updatedAt ? ` · ${t.updated} ${new Date(state.updatedAt).toLocaleString()}` : ''}`;
     if (state.phase === 'error') alert(presentFailure(state, locale));

@@ -72,7 +72,7 @@ export default class ThirdBrainPlugin extends Plugin {
   }
   panelPort(): PanelPort {
     return {
-      status: () => this.controller.status(), subscribe: cb => this.controller.subscribe(cb),
+      status: () => ({ ...this.controller.status(), scheduledRefreshPaused: this.scheduledRefreshPaused === true && this.settings.schedule !== 'manual' }), subscribe: cb => this.controller.subscribe(cb),
       refresh: () => this.controller.refresh(), find: (q, b, p, s) => s === undefined ? this.controller.find(q, b, p) : this.controller.find(q, b, p, s), cancel: () => this.controller.cancel(),
       current: async () => {
         const file = this.app.workspace.getActiveFile(); if (!file || file.extension !== 'md') return null;

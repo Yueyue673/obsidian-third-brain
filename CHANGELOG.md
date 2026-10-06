@@ -4,6 +4,8 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Show why automatic updates remain paused after cancelling a refresh, including after searching or reopening the panel. The English/Chinese status names the existing Refresh notes action and clears after a successful manual refresh or plugin reload. Manual-only schedules show no pause hint; failed retries and pending file cleanup keep their own diagnostics. No new control, stored setting or scheduling behavior. Verified through synthetic filesystem and host-API tests, not native clicks.
+
 - Keep cancelled note refreshes stopped: daily/weekly checks no longer restart them on the next tick, even after a search or settings save. Automatic updates pause for the current plugin session until a manual refresh succeeds; reloading the plugin still catches up overdue work. Cancelling a search does not pause maintenance. No success timestamp, source/ownership check or transaction outcome is fabricated. Verified through the real scheduler and synthetic filesystem/host-API tests, not native clicks.
 
 - Acknowledge Cancel immediately while a note refresh waits for file work or rollback. Keep the task busy and disable repeated cancellation until it settles; saving-stage feedback explicitly leaves the save outcome unconfirmed. Reopening the panel preserves that feedback. No early unlock, hard I/O interruption, automatic retry or transaction change. Verified in English/Chinese with synthetic commit-boundary latches, real files and host-API shells, not native clicks or actual stalled disks.
