@@ -60,7 +60,7 @@ export default class ThirdBrainPlugin extends Plugin {
   panelPort(): PanelPort {
     return {
       status: () => this.controller.status(), subscribe: cb => this.controller.subscribe(cb),
-      refresh: () => this.controller.refresh(), find: (q, b, p) => this.controller.find(q, b, p), cancel: () => this.controller.cancel(),
+      refresh: () => this.controller.refresh(), find: (q, b, p, s) => s === undefined ? this.controller.find(q, b, p) : this.controller.find(q, b, p, s), cancel: () => this.controller.cancel(),
       current: async () => {
         const file = this.app.workspace.getActiveFile(); if (!file || file.extension !== 'md') return null;
         const leaf = this.app.workspace.getLeavesOfType('markdown').find(l => l.view instanceof MarkdownView && l.view.file?.path === file.path);

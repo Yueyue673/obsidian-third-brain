@@ -1,10 +1,10 @@
-import type { Breadth, Evidence, Privacy, SearchResult } from './core/types';
+import type { Breadth, Evidence, FacetSelection, Privacy, SearchResult } from './core/types';
 import type { Status } from './controller';
 import { messages } from './i18n';
 import { presentExplanation } from './presentation';
 export interface PanelPort {
   status(): Status; subscribe(listener: () => void): () => void;
-  refresh(): Promise<void>; find(query: string, breadth: Breadth, privacy?: Privacy): Promise<SearchResult[]>;
+  refresh(): Promise<void>; find(query: string, breadth: Breadth, privacy?: Privacy, selection?: FacetSelection): Promise<SearchResult[]>;
   cancel(): void; current?(): Promise<{ text: string; privacy: Privacy } | null>;
   open(evidence: Evidence): Promise<void>;
   openFragment?(id: string): Promise<void>;
@@ -31,6 +31,8 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   const results = element('div', 'tb-results'); const summary = element('p', 'tb-result-summary'); summary.setAttribute('aria-live', 'polite');
   root.append(heading, status, stats, label, input, options, privacyHint, actions, notice, summary, results); container.replaceChildren(root);
   let queryPrivacy: Privacy = 'normal'; let searchId = 0; let disposed = false; let hasSearched = false;
+  let selection: FacetSelection | undefined;
+  const selectionHint = (): string => !selection ? '' : selection.channel === 'mechanisms' && breadth.value === 'low' ? t.mechanismBreadth : selection.channel === 'atmosphere' && breadth.value !== 'high' ? t.atmosphereBreadth : '';
   const alert = (text: string): void => { notice.textContent = text; notice.hidden = false; };
   const stateBlock = (title: string, body: string): void => { results.replaceChildren(element('h3', 'tb-empty-title', title), element('p', 'tb-muted', body)); };
   const renderState = (): void => {
@@ -42,6 +44,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
     let line = t[state.phase];
     if (state.progress) line += ` · ${t.lastStep}: ${t[state.progress.phase]}${state.progress.total ? ` ${state.progress.completed} / ${state.progress.total}` : ''}${state.progress.relativePath ? ` · ${state.progress.relativePath}` : ''}`;
     status.textContent = `${line} · ${mode}`;
+    label.textContent = selection ? `${t.selectedFacet}: ${t[selection.channel]} · ${selection.value}` : t.idea;
     stats.textContent = `${state.sourceCount} ${t.sources} · ${state.fragmentCount} ${t.fragments}${state.updatedAt ? ` · ${t.updated} ${new Date(state.updatedAt).toLocaleString()}` : ''}`;
     if (state.phase === 'error') {
       const d = state.sourceDiagnostic;
@@ -54,6 +57,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
     }
     if (state.phase === 'cancelled') alert(`${t.cancelled}.${state.commitOutcome === 'unknown' ? ` ${t.commitUnknown}` : state.hasCompleteIndex === false ? ` ${t.noCompleteIndex}` : ''}`);
     if (state.warningCode === 'schedule-not-saved') alert(t.scheduleWarning);
+    if (!busy && state.phase === 'idle' && selectionHint()) alert(selectionHint());
     if (!hasSearched && !busy) { if (!state.fragmentCount) stateBlock(t.first, t.firstBody); else stateBlock(t.initial, ''); }
   };
   const showResults = (items: SearchResult[]): void => {
@@ -104,8 +108,11 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
       if (fragment.conditions.length) article.append(element('p', 'tb-muted', `${t.conditions}: ${fragment.conditions.join(' · ')}`));
       for (const caveat of fragment.caveats) article.append(element('p', 'tb-caveat', `${t.caveat}: ${presentExplanation(caveat, locale)}`));
       const facets = element('div', 'tb-facets'); facets.setAttribute('aria-label', t.facets);
-      for (const term of [...new Set(Object.values(fragment.facets).flat())].slice(0, 12)) {
-        const button = element('button', 'tb-facet', term); button.type = 'button'; button.addEventListener('click', () => { input.value = term; queryPrivacy = fragment.privacy; privacyHint.hidden = queryPrivacy === 'normal'; void executeSearch(); }); facets.append(button);
+      const terms = (['topics','concepts','mechanisms','atmosphere'] as const).flatMap(channel => [...new Set(fragment.facets[channel])].map(value => ({ channel,value })));
+      for (const chosen of terms.slice(0, 12)) {
+        const button = element('button', 'tb-facet', `${t[chosen.channel]} · ${chosen.value}`); button.type = 'button';
+        button.setAttribute('aria-label', `${t.facets}: ${t[chosen.channel]} · ${chosen.value}`); button.setAttribute('data-channel', chosen.channel);
+        button.addEventListener('click', () => { selection = chosen; input.value = chosen.value; queryPrivacy = fragment.privacy; privacyHint.textContent = t.private; privacyHint.hidden = queryPrivacy === 'normal'; void executeSearch(); }); facets.append(button);
       }
       if (facets.childElementCount) article.append(facets);
       const evidence = element('details', 'tb-evidence'); evidence.append(element('summary', '', `${t.evidence} · ${fragment.evidence.length}`));
@@ -119,16 +126,16 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   const executeSearch = async (): Promise<void> => {
     if (!input.value.trim()) { stateBlock(t.contextMissing, ''); return; }
     const id = ++searchId; notice.hidden = true; hasSearched = true;
-    try { const items = await port.find(input.value.trim(), breadth.value as Breadth, queryPrivacy); if (!disposed && id === searchId) showResults(items); }
-    catch { if (!disposed && !['error','cancelled'].includes(port.status().phase)) alert(t.failure); }
+    try { const items = await (selection ? port.find(input.value.trim(), breadth.value as Breadth, queryPrivacy, selection) : port.find(input.value.trim(), breadth.value as Breadth, queryPrivacy)); if (!disposed && id === searchId) showResults(items); }
+    catch { if (!disposed && id === searchId && !['error','cancelled'].includes(port.status().phase)) alert(t.failure); }
     finally { renderState(); }
   };
-  input.addEventListener('input', () => { renderState(); });
+  input.addEventListener('input', () => { selection = undefined; ++searchId; renderState(); });
   input.addEventListener('keydown', e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); if (!find.disabled) void executeSearch(); } });
   find.addEventListener('click', () => void executeSearch()); breadth.addEventListener('change', () => { if (hasSearched && input.value.trim()) void executeSearch(); });
   refresh.addEventListener('click', () => { notice.hidden = true; void port.refresh().then(() => { hasSearched = false; summary.textContent = ''; renderState(); }).catch(() => { if (!disposed) { if (!['error','cancelled'].includes(port.status().phase)) alert(t.failure); renderState(); } }); });
   cancel.addEventListener('click', () => { ++searchId; port.cancel(); });
-  current.addEventListener('click', () => { void port.current?.().then(context => { if (!context?.text.trim()) { alert(t.contextMissing); return; } input.value = context.text; queryPrivacy = context.privacy; privacyHint.textContent = t.private; privacyHint.hidden = queryPrivacy === 'normal'; renderState(); input.focus(); }).catch(() => alert(t.contextMissing)); });
+  current.addEventListener('click', () => { selection = undefined; const id = ++searchId; renderState(); void port.current?.().then(context => { if (disposed || id !== searchId) return; if (!context?.text.trim()) { alert(t.contextMissing); return; } input.value = context.text; queryPrivacy = context.privacy; privacyHint.textContent = t.private; privacyHint.hidden = queryPrivacy === 'normal'; renderState(); input.focus(); }).catch(() => { if (!disposed && id === searchId) alert(t.contextMissing); }); });
   const unsubscribe = port.subscribe(renderState); renderState();
   return () => { disposed = true; ++searchId; unsubscribe(); root.remove(); };
 }

@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 0.3.3 — 2026-10-06 (preview)
+
+- Preserve channel/value on existing facet buttons, resolve an existing current safe donor and use explicit local facets rather than reinterpreting a text query. Clicks do not construct a model or invoke interpretation; body-only lexical distractions cannot displace this attribute entry. Natural-query IDs/order/scores/reasons/groups, core scoring and main-seven/extra-two/network limits remain unchanged.
+- Show facet category and selected intent in the same controls; retain choice across breadth changes and explain mechanism/atmosphere scope in English/Chinese. Text edits/current-note activation clear the choice and block late rendering. High neighbors remain indirect, not strict facet equality.
+- Wire actual Main and both demo boundaries; reject malformed/prototype/accessor/credential choices and recheck complete donor/current-source identity/privacy/exclusion before selected results and original opening. No persistent schema, generation signature, prompt/wire, source writes, telemetry, new page or settings.
+
 ## 0.3.2 — 2026-10-06 (preview)
 
 - Locate source reading, decoding, parsing and analysis failures in the existing bilingual panel using controlled vault-relative path/stage/reason and last progress. Unknown exceptions/model bodies and forged same-name diagnostic properties are never echoed; known donor faults are not relabelled as the active note.

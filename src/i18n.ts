@@ -16,6 +16,9 @@ export const en = {
   contextMissing: 'Open a note with some context, or type an idea here.',
   results: 'connections', sources: 'source notes', fragments: 'fragments', updated: 'Updated',
   facets: 'Explore a facet', quote: 'Original quotation', state: 'Status', conditions: 'Applies when',
+  topics: 'Topic', concepts: 'Concept', mechanisms: 'Mechanism', atmosphere: 'Atmosphere', selectedFacet: 'Selected facet',
+  mechanismBreadth: 'This mechanism requires Medium or High breadth. Your selection is retained; change breadth to search again.',
+  atmosphereBreadth: 'This atmosphere requires High breadth. Your selection is retained; change breadth to search again.',
   noContext: 'No note context is available in this view.', settings: 'Settings', unknown: 'Not yet indexed',
 };
 export const zh: Record<keyof typeof en, string> = {
@@ -36,6 +39,9 @@ export const zh: Record<keyof typeof en, string> = {
   contextMissing: '打开一篇有内容的笔记，或直接在这里写一个想法。',
   results: '条关联', sources: '篇来源笔记', fragments: '个片段', updated: '更新于',
   facets: '按属性继续找', quote: '原文引用', state: '状态', conditions: '适用条件',
+  topics: '主题', concepts: '概念', mechanisms: '机制', atmosphere: '氛围', selectedFacet: '当前属性',
+  mechanismBreadth: '此机制需中或高关联发散度。已保留选择；调整发散度即可重新寻找。',
+  atmosphereBreadth: '此氛围需高关联发散度。已保留选择；调整发散度即可重新寻找。',
   noContext: '此界面没有当前笔记上下文。', settings: '设置', unknown: '尚未更新',
 };
 export function messages(locale: 'auto' | 'en' | 'zh'): typeof en {

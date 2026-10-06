@@ -1,6 +1,6 @@
 import { mountPanel, type PanelPort } from '../src/ui';
 import type { Status } from '../src/controller';
-import type { Breadth, Evidence, Privacy, SearchResult } from '../src/core/types';
+import type { Breadth, Evidence, FacetSelection, Privacy, SearchResult } from '../src/core/types';
 async function post<T>(route: string, body: unknown = {}): Promise<T> {
   const res = await fetch(`/api/${route}`, { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
   if (!res.ok) throw new Error('Operation failed.'); return res.json() as Promise<T>;
@@ -23,7 +23,7 @@ async function requested<T>(phase: 'indexing' | 'searching', run: () => Promise<
 const port: PanelPort = {
   status: () => currentStatus, subscribe: cb => { listeners.add(cb); return () => { listeners.delete(cb); }; },
   refresh: () => requested('indexing', () => post<void>('index')),
-  find: (query: string, breadth: Breadth, privacy: Privacy = 'normal') => requested('searching', () => post<SearchResult[]>('search', { query, breadth, privacy })),
+  find: (query: string, breadth: Breadth, privacy: Privacy = 'normal', selection?: FacetSelection) => requested('searching', () => post<SearchResult[]>('search', { query, breadth, privacy, ...(selection === undefined ? {} : { selection }) })),
   cancel: () => { void post('cancel').then(poll); },
   current: () => post<{ text: string; privacy: Privacy } | null>('current'),
   open: async (evidence: Evidence) => {

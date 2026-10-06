@@ -2,6 +2,8 @@ export type Mode = 'local-excerpts' | 'local-model' | 'cloud-model';
 export type Breadth = 'low' | 'medium' | 'high';
 export type Privacy = 'normal' | 'local' | 'private';
 export interface Facets { topics: string[]; concepts: string[]; mechanisms: string[]; atmosphere: string[]; }
+// Immediate query intent only; never persisted or sent to a model.
+export interface FacetSelection { channel: keyof Facets; value: string; }
 export interface SourceSnapshot { id: string; path: string; text: string; hash: string; privacy: Privacy; format: 'markdown' | 'canvas'; }
 export interface Evidence { sourceId: string; relativePath: string; sourceHash: string; quote: string; start: number; end: number; }
 export interface Fragment { id: string; privacy: Privacy; title: string; summary: string; kind: string; facets: Facets; evidence: Evidence[]; mode: 'local' | 'ai'; updatedAt: string; conditions: string[]; caveats: string[]; }

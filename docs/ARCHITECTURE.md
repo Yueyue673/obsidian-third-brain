@@ -37,3 +37,9 @@ No telemetry, click history, dwell model, per-keystroke inference, mastery profi
 ## Runtime compatibility
 
 The pure core can run in browsers, but production filesystem/network adapters require Node in desktop Obsidian. The manifest therefore declares `isDesktopOnly: true`; mobile support is not implied by a responsive sidebar or a browser test harness.
+
+## Explicit facet activation
+
+`FacetSelection` is a transient query-only channel/value, not a persisted state or model-wire field. Renderer, actual Main PanelPort and both demo boundaries forward it optionally; ordinary requests retain the previous three arguments. The controller rejects extra/inherited/accessor/symbol/unsafe fields, resolves the canonical safe label against a complete currently valid donor, skips model factory/interpretation and reuses unmodified retrieval with an empty lexical query plus that one facet channel. The natural-query branch and ranking/TF-IDF/network/display budgets are unchanged. Breadth limits still apply; high neighbors are suggestions, not strict equality.
+
+Selected results pass the existing full current-evidence/index-member/source-privacy/exclusion checks. Exact rendered evidence objects bind to a cloned endpoint through a short-lived WeakMap for original opening, including cancelled-search old cards; no click history/telemetry is stored. Editing/current-note activation clears the selection and invalidates pending renderer results; changing breadth keeps the choice and uses bilingual notices at inapplicable scope. These checks narrow existing check-to-open races, not make the SourcePort atomic.
