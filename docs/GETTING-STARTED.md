@@ -53,6 +53,8 @@ Local mode matches words and existing attributes; it does not infer meaning. An 
 
 Open a Markdown note. **Use current note** fills the idea box with the selected text, or the current draft if nothing is selected; it does not start a search. Review the text, then click **Find connections**. For long notes, select a shorter passage first. The plugin does not monitor typing or insert text into your note.
 
+While the idea box is focused, **Enter** adds a new line; **Ctrl + Enter** (**Command + Enter** on Mac) runs **Find connections**. Unreleased source builds show this hint below the box and associate it with the input for assistive technology; the 0.3.7 download has the shortcut but not the hint.
+
 ## Explore the results
 
 Click a topic, concept, mechanism or type on a result card to find more material with that attribute. This does not make another model request. Editing the search text returns to ordinary search.
@@ -149,6 +151,8 @@ Get-FileHash .\third-brain-0.3.7.zip -Algorithm SHA256
 本地模式按文字和已有属性匹配，不推断语义。空库、信息不足或无关搜索可以没有结果。原笔记改动后，请再点一次「更新笔记」。
 
 打开一篇 Markdown 笔记，点「使用当前笔记」，会把选中的文字填入想法输入框；没有选区时使用当前草稿，不会立即搜索。检查内容后，再点「寻找关联」。长笔记可以先选一段。插件不会持续监控输入，也不会自动写入原笔记。
+
+焦点在想法输入框内时，**Enter** 换行；**Ctrl + Enter**（Mac 上为 **Command + Enter**）寻找关联。尚未发布的源码版本会在框下显示这条提示，并将它关联为输入框的无障碍说明；0.3.7 下载包已有快捷键，尚不包含提示。
 
 ### 继续查找
 

@@ -1,6 +1,7 @@
 export const en = {
   title: 'Third Brain', subtitle: 'Reconnect an idea with notes you already wrote.',
   idea: 'Your idea', placeholder: 'A half-formed topic is enough. You do not need to know its tags.',
+  ideaHint: 'Enter for a new line. Ctrl + Enter (Command + Enter on Mac) to find connections.',
   find: 'Find connections', current: 'Use current note', index: 'Refresh notes', cancel: 'Cancel',
   breadth: 'Association breadth', low: 'Low · direct', medium: 'Medium · mechanisms', high: 'High · across domains',
   local: 'Local excerpts · no AI requests', localModel: 'Local model endpoint', cloud: 'Cloud model · consent required',
@@ -44,6 +45,7 @@ export const en = {
 export const zh: Record<keyof typeof en, string> = {
   title: '第三大脑', subtitle: '从一个想法，找回你已经写过的知识。',
   idea: '现在的想法', placeholder: '写一个朦胧的选题也可以，不需要先知道它有什么标签。',
+  ideaHint: 'Enter 换行；Ctrl + Enter（Mac 上为 Command + Enter）寻找关联。',
   find: '寻找关联', current: '使用当前笔记', index: '更新笔记', cancel: '取消',
   breadth: '关联发散度', low: '低 · 直接相关', medium: '中 · 相同机制', high: '高 · 跨领域',
   local: '本地摘录 · 不调用 AI', localModel: '本机模型接口', cloud: '云端模型 · 需要明确同意',

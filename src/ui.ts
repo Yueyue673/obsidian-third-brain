@@ -31,6 +31,8 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   const stats = element('p', 'tb-muted tb-stats');
   const label = element('label', 'tb-label', t.idea); const id = `tb-idea-${Math.random().toString(36).slice(2)}`; label.htmlFor = id;
   const input = element('textarea', 'tb-idea'); input.id = id; input.rows = 4; input.placeholder = t.placeholder; input.maxLength = 20000;
+  const ideaHint = element('p', 'tb-muted tb-idea-hint', t.ideaHint); ideaHint.id = `${id}-hint`;
+  input.setAttribute('aria-describedby', ideaHint.id); input.setAttribute('aria-keyshortcuts', 'Control+Enter Meta+Enter');
   const options = element('div', 'tb-options'); const breadthLabel = element('label', 'tb-breadth-label', t.breadth);
   const breadth = element('select', 'tb-select'); breadth.setAttribute('aria-label', t.breadth);
   for (const [value, text] of [['low', t.low], ['medium', t.medium], ['high', t.high]]) { const option = element('option', '', text); option.value = value; breadth.append(option); }
@@ -41,7 +43,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   const refresh = element('button', 'tb-secondary', t.index); refresh.type = 'button'; const cancel = element('button', 'tb-secondary', t.cancel); cancel.type = 'button'; cancel.hidden = true; actions.append(find, refresh, cancel);
   const notice = element('p', 'tb-notice'); notice.setAttribute('role', 'alert'); notice.hidden = true;
   const results = element('div', 'tb-results'); const summary = element('p', 'tb-result-summary'); summary.setAttribute('aria-live', 'polite');
-  root.append(heading, status, stats, label, input, options, privacyHint, actions, notice, summary, results); container.replaceChildren(root);
+  root.append(heading, status, stats, label, input, ideaHint, options, privacyHint, actions, notice, summary, results); container.replaceChildren(root);
   let queryPrivacy: Privacy = 'normal'; let searchId = 0; let disposed = false; let hasSearched = false; let resultsArePrevious = false;
   let currentReadId: number | undefined;
   let previousPhase: Status['phase'] | undefined;

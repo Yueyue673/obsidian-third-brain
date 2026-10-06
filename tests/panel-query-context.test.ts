@@ -17,6 +17,7 @@ import { sourceDiagnostic } from '../src/core/source-diagnostics';
 
 vi.mock('obsidian', () => ({ Plugin: class {}, ItemView: class {}, PluginSettingTab: class {}, MarkdownView: class {} }));
 class NodeStub {
+  id = ''; htmlFor = '';
   className = ''; textContent = ''; value = ''; hidden = false; disabled = false;
   children: NodeStub[] = []; attrs: Record<string, string> = {};
   handlers = new Map<string, Array<(event: unknown) => void>>();
@@ -98,6 +99,53 @@ async function fixture(locale: 'en' | 'zh' = 'en', seeded = true) {
 // emulate a native IME or prove any OS-specific composition event sequence.
 const enterKey = (modifier?: 'ctrlKey' | 'metaKey', isComposing = false, repeat = false) => ({
   key: 'Enter', ctrlKey: modifier === 'ctrlKey', metaKey: modifier === 'metaKey', isComposing, repeat, preventDefault: vi.fn(),
+});
+
+it.each(['en', 'zh'] as const)('makes the existing search shortcut visible and described at the idea input in %s', async locale => {
+  const h = await fixture(locale, false);
+  let disposeSecond: (() => void) | undefined;
+  try {
+    const input = h.get('tb-idea'), hint = h.get('tb-idea-hint');
+    expect(hint).toBeDefined();
+    expect(hint.textContent).toBe(locale === 'zh'
+      ? 'Enter 换行；Ctrl + Enter（Mac 上为 Command + Enter）寻找关联。'
+      : 'Enter for a new line. Ctrl + Enter (Command + Enter on Mac) to find connections.');
+    expect(hint.tag).toBe('p'); expect(hint.hidden).toBe(false);
+    expect(hint.attrs['aria-hidden']).not.toBe('true');
+    expect(hint.id).not.toBe(''); expect(input.attrs['aria-describedby']).toBe(hint.id);
+    expect(input.attrs['aria-keyshortcuts']).toBe('Control+Enter Meta+Enter');
+    const panel = h.get('third-brain-panel');
+    expect(panel.children[panel.children.indexOf(input) + 1]).toBe(hint);
+    expect(h.container.all().find(node => node.tag === 'label' && node.htmlFor === input.id)?.textContent).toBe(h.t.idea);
+    // Hint is not another control or an automatic search, and remains after text is filled.
+    expect(hint.children).toEqual([]); expect(h.findSpy).not.toHaveBeenCalled();
+    h.button(h.t.current).fire('click'); await h.contexts.at(-1)!; await Promise.resolve();
+    expect(input.value).toBe('BetaNeedle'); expect(h.get('tb-privacy').hidden).toBe(false);
+    expect(h.get('tb-idea-hint')).toBe(hint); expect(h.findSpy).not.toHaveBeenCalled();
+    const ordinary = enterKey(); input.fire('keydown', ordinary);
+    expect(ordinary.preventDefault).not.toHaveBeenCalled(); expect(h.findSpy).not.toHaveBeenCalled();
+    for (const modifier of ['ctrlKey', 'metaKey'] as const) {
+      const key = enterKey(modifier); input.fire('keydown', key);
+      expect(key.preventDefault).toHaveBeenCalledOnce();
+      const items = await h.settleQuery();
+      expect(h.findSpy.mock.calls.at(-1)).toEqual(['BetaNeedle', 'medium', 'private']);
+      expect(h.cards()).toEqual(['BetaCard']); expect(h.get('tb-idea-hint')).toBe(hint);
+      for (const e of items[0].fragment.evidence) {
+        const source = await h.sources.read(e.relativePath);
+        expect(source!.hash).toBe(e.sourceHash); expect(source!.text.slice(e.start, e.end)).toBe(e.quote);
+      }
+    }
+    expect(h.findSpy).toHaveBeenCalledTimes(2);
+    h.get('tb-source').fire('click'); await h.opens.at(-1)!;
+    expect(h.hostOpen.mock.calls.at(-1)?.[0].path).toBe('beta.md');
+    // A second sidebar must describe its own input, never the first sidebar's hint.
+    const second = new NodeStub('main'); disposeSecond = mountPanel(second as unknown as HTMLElement, h.port, locale);
+    const otherInput = second.all().find(node => node.tag === 'textarea')!;
+    const otherHint = second.all().find(node => node.id === otherInput.attrs['aria-describedby'])!;
+    expect(otherHint).toBeDefined(); expect(otherHint.id).not.toBe(hint.id);
+    expect(otherHint.textContent).toBe(hint.textContent); expect(otherHint.hidden).toBe(false);
+    expect(h.findSpy).toHaveBeenCalledTimes(2); await h.assertUnchanged();
+  } finally { disposeSecond?.(); await h.cleanup(); }
 });
 
 for (const modifier of ['ctrlKey', 'metaKey'] as const)
