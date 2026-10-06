@@ -334,6 +334,114 @@ it.each(['edit', 'cancel', 'close'] as const)('ignores a controlled late actual 
   } finally { gate.release(); await h.cleanup(); }
 });
 
+// Unlike holdCurrent, these latches stop the actual Main read BEFORE the host
+// read/snapshot completes. They are synthetic timing controls, not an OS hang.
+async function holdPendingCurrent(h: Awaited<ReturnType<typeof fixture>>, boundary: 'host-read' | 'snapshot', outcome: 'resolve' | 'reject' = 'resolve') {
+  const entered = latch(), gate = latch();
+  const error = Object.assign(new Error('SYNTHETIC_PENDING_CURRENT_FAILURE'), { code: 'EIO' });
+  if (boundary === 'host-read') {
+    vi.spyOn(h.app.workspace, 'getLeavesOfType').mockReturnValueOnce([]);
+    const read = h.app.vault.read.bind(h.app.vault);
+    vi.spyOn(h.app.vault, 'read').mockImplementationOnce(async file => {
+      entered.release(); await gate.promise;
+      if (outcome === 'reject') throw error;
+      return read(file);
+    });
+  } else {
+    const read = h.sources.read.bind(h.sources);
+    vi.spyOn(h.sources, 'read').mockImplementationOnce(async (...args) => {
+      entered.release(); await gate.promise;
+      if (outcome === 'reject') throw error;
+      return read(...args);
+    });
+  }
+  h.button(h.t.current).fire('click'); await entered.promise;
+  const pending = h.contexts.at(-1)!;
+  return {
+    release: gate.release,
+    settle: async () => {
+      gate.release();
+      if (outcome === 'reject') await expect(pending).rejects.toBe(error); else await pending;
+      await Promise.resolve();
+    },
+  };
+}
+const readingContext = (locale: 'en' | 'zh') => locale === 'zh'
+  ? '正在读取当前笔记… 取消后将忽略本次读取结果。'
+  : 'Reading current note… Cancel to ignore the pending result.';
+
+for (const boundary of ['host-read', 'snapshot'] as const)
+for (const outcome of ['resolve', 'reject'] as const)
+it.each(['en', 'zh'] as const)(`pending Main ${boundary} shows a cancellable wait and ignores late ${outcome} in %s`, async locale => {
+  const h = await fixture(locale), held = await holdPendingCurrent(h, boundary, outcome);
+  try {
+    expect(h.controller.status().phase).toBe('idle'); // No new controller/global task.
+    expect.soft(h.get('tb-status').textContent).toBe(`${readingContext(locale)} · ${h.t.local}`);
+    expect(h.get('tb-status').attrs).toMatchObject({ role: 'status', 'aria-live': 'polite' });
+    expect.soft(h.button(h.t.cancel).hidden).toBe(false);
+    expect(h.get('tb-idea').disabled).toBe(false); expect(h.get('tb-idea').value).toBe('AlphaNeedle');
+    expect(h.button(h.t.find).disabled).toBe(false); expect(h.button(h.t.index).disabled).toBe(false);
+    expect(h.cards()).toEqual(['AlphaCard']); expect(h.findSpy).toHaveBeenCalledOnce();
+    h.get('tb-source').fire('click'); await h.opens.at(-1)!;
+    expect(h.hostOpen.mock.calls.at(-1)?.[0].path).toBe('alpha.md');
+    h.button(h.t.cancel).fire('click');
+    expect(h.button(h.t.cancel).hidden).toBe(true);
+    expect(h.get('tb-status').textContent).toBe(`${h.t.idle} · ${h.t.local}`);
+    await held.settle();
+    expect(h.get('tb-idea').value).toBe('AlphaNeedle'); expect(h.get('tb-privacy').hidden).toBe(true);
+    expect(h.get('tb-notice').hidden).toBe(true); expect(h.button(h.t.cancel).hidden).toBe(true);
+    expect(h.container.all().map(node => node.textContent).join('\n')).not.toContain('SYNTHETIC_PENDING_CURRENT_FAILURE');
+    // A fresh explicit retry still merges full-draft privacy and searches only on request.
+    h.button(h.t.current).fire('click'); await h.contexts.at(-1)!; await Promise.resolve();
+    expect(h.get('tb-idea').value).toBe('BetaNeedle'); expect(h.get('tb-privacy').hidden).toBe(false);
+    expect(h.button(h.t.cancel).hidden).toBe(true); expect(h.findSpy).toHaveBeenCalledOnce();
+    h.search(); const items = await h.settleQuery();
+    expect(h.findSpy.mock.calls.at(-1)).toEqual(['BetaNeedle', 'medium', 'private']); expect(h.cards()).toEqual(['BetaCard']);
+    for (const e of items[0].fragment.evidence) {
+      const source = await h.sources.read(e.relativePath);
+      expect(source!.hash).toBe(e.sourceHash); expect(source!.text.slice(e.start, e.end)).toBe(e.quote);
+    }
+    h.get('tb-source').fire('click'); await h.opens.at(-1)!;
+    expect(h.hostOpen.mock.calls.at(-1)?.[0].path).toBe('beta.md'); await h.assertUnchanged();
+  } finally { held.release(); await h.cleanup(); }
+});
+
+for (const outcome of ['success', 'blank', 'failure'] as const)
+it.each(['en', 'zh'] as const)(`pending context ${outcome} clears only its own waiting state in %s`, async locale => {
+  const h = await fixture(locale);
+  if (outcome === 'blank') {
+    vi.spyOn(h.editor, 'getValue').mockReturnValue(''); vi.spyOn(h.editor, 'getSelection').mockReturnValue('');
+  }
+  const held = await holdPendingCurrent(h, 'snapshot', outcome === 'failure' ? 'reject' : 'resolve');
+  try {
+    expect.soft(h.button(h.t.cancel).hidden).toBe(false);
+    await held.settle();
+    expect(h.button(h.t.cancel).hidden).toBe(true);
+    expect(h.get('tb-status').textContent).toBe(`${h.t.idle} · ${h.t.local}`);
+    expect(h.get('tb-idea').value).toBe(outcome === 'success' ? 'BetaNeedle' : 'AlphaNeedle');
+    expect(h.get('tb-privacy').hidden).toBe(outcome !== 'success');
+    if (outcome === 'success') expect(h.get('tb-notice').hidden).toBe(true);
+    else { expect(h.get('tb-notice').hidden).toBe(false); expect(h.get('tb-notice').textContent).toBe(outcome === 'blank' ? h.t.contextMissing : unavailableContext(locale)); }
+    expect(h.findSpy).toHaveBeenCalledOnce(); expect(h.cards()).toEqual(['AlphaCard']); await h.assertUnchanged();
+  } finally { held.release(); await h.cleanup(); }
+});
+
+it('editing retires a pending read immediately; its late completion cannot hide a newer read wait', async () => {
+  const h = await fixture(), first = await holdPendingCurrent(h, 'snapshot');
+  let second: Awaited<ReturnType<typeof holdPendingCurrent>> | undefined;
+  try {
+    h.type('Newer unsent idea');
+    expect(h.button(h.t.cancel).hidden).toBe(true); expect(h.get('tb-status').textContent).toBe(`${h.t.idle} · ${h.t.local}`);
+    second = await holdPendingCurrent(h, 'snapshot');
+    await first.settle();
+    expect.soft(h.get('tb-status').textContent).toBe(`${readingContext('en')} · ${h.t.local}`);
+    expect.soft(h.button(h.t.cancel).hidden).toBe(false); expect(h.get('tb-idea').value).toBe('Newer unsent idea');
+    await second.settle();
+    expect(h.get('tb-idea').value).toBe('BetaNeedle'); expect(h.get('tb-privacy').hidden).toBe(false);
+    expect(h.button(h.t.cancel).hidden).toBe(true); expect(h.findSpy).toHaveBeenCalledOnce(); await h.assertUnchanged();
+  } finally { first.release(); second?.release(); await h.cleanup(); }
+});
+
 // A pending actual Main response is held only at the PanelPort delivery boundary.
 // Faults below are injected synthetic errors; no native timing or cloud claim.
 async function holdCurrent(h: Awaited<ReturnType<typeof fixture>>, outcome: 'resolve' | 'reject') {

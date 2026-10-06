@@ -58,7 +58,8 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
     const state = port.status(); const busy = isBusy(state.phase);
     // Current-note reads are outside the controller's task. New work retires
     // their delivery token, without invalidating the accepted search itself.
-    if (busy) currentReadId = undefined;
+    if (busy || currentReadId !== searchId) currentReadId = undefined;
+    const readingCurrent = currentReadId !== undefined;
     // Every refresh entry (panel, command or schedule) reports completion here.
     // Clear only on success, not processing progress, cancellation or failure.
     if (previousPhase === 'indexing' && state.phase === 'idle') {
@@ -67,10 +68,10 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
     previousPhase = state.phase;
     if (busy || state.phase === 'idle') notice.hidden = true;
     for (const button of facetButtons) button.disabled = busy;
-    find.disabled = busy || !input.value.trim() || !state.fragmentCount; find.hidden = !state.fragmentCount; refresh.className = state.fragmentCount ? 'tb-secondary' : 'tb-primary'; refresh.disabled = busy; current.disabled = busy; breadth.disabled = busy; cancel.hidden = !busy || state.phase === 'loading';
+    find.disabled = busy || !input.value.trim() || !state.fragmentCount; find.hidden = !state.fragmentCount; refresh.className = state.fragmentCount ? 'tb-secondary' : 'tb-primary'; refresh.disabled = busy; current.disabled = busy; breadth.disabled = busy; cancel.hidden = !readingCurrent && (!busy || state.phase === 'loading');
     const mode = state.mode === 'local-excerpts' ? t.local : state.mode === 'local-model' ? t.localModel : t.cloud;
-    let line = t[state.phase];
-    if (state.progress) line += ` · ${t.lastStep}: ${t[state.progress.phase]}${state.progress.total ? ` ${state.progress.completed} / ${state.progress.total}` : ''}${state.progress.relativePath ? ` · ${state.progress.relativePath}` : ''}`;
+    let line = readingCurrent ? t.contextReading : t[state.phase];
+    if (!readingCurrent && state.progress) line += ` · ${t.lastStep}: ${t[state.progress.phase]}${state.progress.total ? ` ${state.progress.completed} / ${state.progress.total}` : ''}${state.progress.relativePath ? ` · ${state.progress.relativePath}` : ''}`;
     status.textContent = `${line} · ${mode}`;
     label.textContent = selection ? `${t.selectedFacet}: ${t[selection.channel]} · ${selection.channel === 'kind' ? kindLabel(selection.value) : selection.value}` : t.idea;
     stats.textContent = `${state.sourceCount} ${t.sources} · ${state.fragmentCount} ${t.fragments}${state.updatedAt ? ` · ${t.updated} ${new Date(state.updatedAt).toLocaleString()}` : ''}`;
@@ -175,15 +176,22 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   input.addEventListener('keydown', e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); if (!find.disabled) void executeSearch(); } });
   find.addEventListener('click', () => void executeSearch()); breadth.addEventListener('change', () => { if (hasSearched && input.value.trim()) void executeSearch(); });
   refresh.addEventListener('click', () => { notice.hidden = true; void port.refresh().catch(() => { if (!disposed) { if (!['error','cancelled'].includes(port.status().phase)) alert(t.failure); renderState(); } }); });
-  cancel.addEventListener('click', () => { ++searchId; port.cancel(); });
+  // A current-note read is not a controller task. Cancel retires its delivery;
+  // an underlying host/OS read may still finish, without replacing the idea.
+  cancel.addEventListener('click', () => { ++searchId; port.cancel(); renderState(); });
   current.addEventListener('click', () => {
+    if (disposed || isBusy(port.status().phase)) return;
     markPreviousResults(); selection = undefined; const id = ++searchId; currentReadId = id; renderState();
     void port.current?.().then(context => {
       if (disposed || id !== searchId || id !== currentReadId) return;
-      if (!context?.text.trim()) { alert(t.contextMissing); return; }
+      currentReadId = undefined;
+      if (!context?.text.trim()) { renderState(); alert(t.contextMissing); return; }
       input.value = context.text; queryPrivacy = context.privacy; privacyHint.textContent = t.private; privacyHint.hidden = queryPrivacy === 'normal'; renderState(); input.focus();
     }).catch(error => {
-      if (!disposed && id === searchId && id === currentReadId) alert(error instanceof CurrentNoteTooLongError ? t.contextTooLong : t.contextUnavailable);
+      if (!disposed && id === searchId && id === currentReadId) {
+        currentReadId = undefined; renderState();
+        alert(error instanceof CurrentNoteTooLongError ? t.contextTooLong : t.contextUnavailable);
+      }
     });
   });
   const unsubscribe = port.subscribe(renderState); renderState();
