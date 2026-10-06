@@ -4,6 +4,8 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Distinguish a completed refresh with no usable fragments from first use, including after reopening the panel. Explain whether no sources were included or included notes yielded no fragments, and suggest changing notes/settings before refreshing again. Failed or cancelled updates keep their own status; no extraction, privacy or source checks change.
+
 - Show a waiting status and the existing Cancel button while the current note is being read. Cancelling ignores its pending result and keeps the previous idea; the underlying local read may still finish. Editing, explicit search and refresh remain available, with no automatic search or change to full-draft privacy checks.
 
 - Ignore late current-note replies once a newer search or index refresh has begun. A delayed read can no longer replace the idea/privacy state during refresh, or overwrite refresh failure/cancellation guidance. Retrying the current note remains explicit and preserves full-draft privacy checks.

@@ -129,7 +129,7 @@ it('successful refresh to an empty index removes stale cards and counts, without
     await h.change(' \n'); await h.runRefresh('command');
     expect(h.controller.status().fragmentCount).toBe(0);
     expect.soft(h.cards()).toEqual([]); expect.soft(h.get('tb-result-summary').textContent).toBe('');
-    expect.soft(h.get('tb-empty-title')?.textContent).toBe(h.t.first);
+    expect.soft(h.get('tb-empty-title')?.textContent).toBe(h.t.emptyIndex);
     await h.assertOriginal();
   } finally { await h.cleanup(); }
 });

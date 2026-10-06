@@ -87,7 +87,14 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
     if (state.phase === 'cancelled') alert(`${t.cancelled}.${state.commitOutcome === 'unknown' ? ` ${t.commitUnknown}` : state.hasCompleteIndex === false ? ` ${t.noCompleteIndex}` : ''}`);
     if (state.warningCode === 'schedule-not-saved') alert(t.scheduleWarning);
     if (!busy && state.phase === 'idle' && selectionHint()) alert(selectionHint());
-    if (!hasSearched && !busy) { if (!state.fragmentCount) stateBlock(t.first, t.firstBody); else stateBlock(t.initial, ''); }
+    if (!hasSearched && !busy) {
+      if (state.fragmentCount) stateBlock(t.initial, '');
+      else if (state.phase !== 'idle') stateBlock(t[state.phase], '');
+      // A complete, durably loaded/saved empty index is not a first-use state.
+      // Do not infer completion from counts, timestamps or processing progress.
+      else if (state.hasCompleteIndex === true) stateBlock(t.emptyIndex, state.sourceCount ? t.emptyIndexBody : t.noSourcesBody);
+      else stateBlock(t.first, t.firstBody);
+    }
   };
   const showResults = (items: SearchResult[]): void => {
     results.replaceChildren(); facetButtons = []; resultsArePrevious = false;
