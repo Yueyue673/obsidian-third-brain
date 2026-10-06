@@ -33,7 +33,10 @@ class NodeStub {
   replaceChildren(...nodes: NodeStub[]) { for (const node of this.children) node.parent = null; this.children = []; this.append(...nodes); }
   setAttribute() {}
   remove() { if (this.parent) this.parent.children = this.parent.children.filter(node => node !== this); this.parent = null; }
-  focus() { this.focusCalls++; this.ownerDocument.activeElement = this; }
+  focus() {
+    if (this.ownerDocument.activeElement !== this) this.ownerDocument.activeElement.fire('blur');
+    this.focusCalls++; this.ownerDocument.activeElement = this;
+  }
   get isConnected(): boolean { return this === this.ownerDocument.body || this.parent?.isConnected === true; }
   get childElementCount() { return this.children.length; }
   addEventListener(event: string, handler: (event: unknown) => void) { const handlers = this.handlers.get(event) ?? new Set(); handlers.add(handler); this.handlers.set(event, handlers); }
@@ -261,6 +264,118 @@ it('releases transient listeners on a failed reveal and allows a fresh explicit 
     expect(h.get('tb-idea').focusCalls).toBe(0);
     for (const handlers of h.editor.handlers.values()) expect(handlers.size).toBe(0);
     await h.enter(); expect(h.doc.activeElement === h.get('tb-idea')).toBe(true); await h.unchanged();
+  } finally { await h.cleanup(); }
+});
+
+// Delay a real Main.current -> Controller.snapshot -> FileSources read result.
+// This is a synthetic scheduling latch, not an actual slow disk or native click.
+async function delayedCurrent(h: Awaited<ReturnType<typeof fixture>>) {
+  const entered = latch(), gate = latch(), snapshot = h.plugin.controller.snapshot.bind(h.plugin.controller);
+  vi.spyOn(h.plugin.controller, 'snapshot').mockImplementationOnce(async name => {
+    const source = await snapshot(name); entered.release(); await gate.promise; return source;
+  });
+  h.button(h.t.current).fire('click'); const operation = h.contexts.at(-1)!; await entered.promise;
+  expect(h.get('tb-status').textContent).toContain(h.t.contextReading);
+  return { release: gate.release, settle: async () => { gate.release(); await operation; await nextTurn(); } };
+}
+
+it.each(['editor', 'other-control', 'away-and-back', 'window-blur', 'input', 'compositionstart'] as const)('late current-note fill does not reclaim focus after %s', async intent => {
+  const h = await fixture(intent === 'editor' ? 'zh' : 'en');
+  let pending: Awaited<ReturnType<typeof delayedCurrent>> | undefined;
+  try {
+    await h.restore(); const input = h.get('tb-idea'), current = h.button(h.t.current);
+    // Some hosts retain the editor's focus on a pointer activation. Continuing
+    // to compose in that same element must also revoke the delayed focus request.
+    if (intent !== 'input' && intent !== 'compositionstart') current.focus();
+    pending = await delayedCurrent(h);
+    if (intent === 'editor' || intent === 'away-and-back') h.editor.focus();
+    if (intent === 'other-control') h.get('tb-select').focus();
+    if (intent === 'away-and-back') current.focus();
+    if (intent === 'window-blur') h.doc.focused = false;
+    if (intent === 'input' || intent === 'compositionstart') h.editor.fire(intent);
+    const expected = h.doc.activeElement;
+    await pending.settle();
+    expect.soft(input.focusCalls).toBe(0); expect.soft(h.doc.activeElement === expected).toBe(true);
+    // Focus ownership is separate from the still-requested, read-only fill.
+    expect(input.value).toBe('FocusNeedle'); expect(h.get('tb-privacy').hidden).toBe(false);
+    expect(h.get('tb-status').textContent).not.toContain(h.t.contextReading);
+    expect(h.button(h.t.cancel).hidden).toBe(true); expect(h.searches).toHaveLength(0);
+    for (const name of ['blur', 'input', 'compositionstart']) expect(h.editor.handlers.get(name)?.size ?? 0).toBe(0);
+    h.doc.focused = true; input.focus();
+    h.button(h.t.find).fire('click'); const items = await h.searches.at(-1)!; await nextTurn();
+    expect(items).toHaveLength(1);
+    const e = items[0].fragment.evidence[0], source = await h.plugin.controller.snapshot(e.relativePath);
+    expect(source!.hash).toBe(e.sourceHash); expect(source!.text.slice(e.start, e.end)).toBe(e.quote);
+    h.get('tb-source').fire('click'); await h.opens.at(-1); await nextTurn();
+    expect(h.openFile).toHaveBeenCalledOnce(); expect(h.openedView.editor.setSelection).toHaveBeenCalledOnce();
+    await h.unchanged();
+  } finally { pending?.release(); await h.cleanup(); }
+});
+
+it.each(['button', 'retained-editor', 'idea'] as const)('current-note fill keeps deliberate focus handoff from %s without auto-search', async origin => {
+  const h = await fixture('zh'); let pending: Awaited<ReturnType<typeof delayedCurrent>> | undefined;
+  try {
+    await h.restore(); const input = h.get('tb-idea');
+    if (origin === 'button') h.button(h.t.current).focus();
+    if (origin === 'idea') input.focus();
+    const before = input.focusCalls; pending = await delayedCurrent(h); await pending.settle();
+    expect(h.doc.activeElement === input).toBe(true);
+    expect(input.focusCalls).toBe(before + (origin === 'idea' ? 0 : 1));
+    expect(input.value).toBe('FocusNeedle'); expect(h.get('tb-privacy').hidden).toBe(false);
+    expect(h.searches).toHaveLength(0); await h.unchanged();
+  } finally { pending?.release(); await h.cleanup(); }
+});
+
+it.each(['cancel', 'edit', 'close', 'redraw', 'search'] as const)('retiring a current-note read via %s also releases its transient focus guard', async intent => {
+  const h = await fixture(); let pending: Awaited<ReturnType<typeof delayedCurrent>> | undefined;
+  try {
+    await h.restore(); const input = h.get('tb-idea'), current = h.button(h.t.current);
+    input.value = 'FocusNeedle'; input.fire('input'); current.focus(); pending = await delayedCurrent(h);
+    if (intent === 'cancel') h.button(h.t.cancel).fire('click');
+    if (intent === 'edit') { input.value = 'New unsent idea'; input.fire('input'); }
+    if (intent === 'close') await h.leaves[0].view.onClose();
+    if (intent === 'redraw') h.leaves[0].view.redraw();
+    if (intent === 'search') { h.button(h.t.find).fire('click'); await h.searches.at(-1); await nextTurn(); }
+    // Do not wait for the possibly slow OS read to release the element listeners.
+    for (const name of ['blur', 'input', 'compositionstart']) expect(current.handlers.get(name)?.size ?? 0).toBe(0);
+    h.editor.focus(); await pending.settle();
+    expect(input.focusCalls).toBe(0); expect(h.doc.activeElement).toBe(h.editor);
+    expect(input.value).toBe(intent === 'edit' ? 'New unsent idea' : 'FocusNeedle');
+    if (intent !== 'close') expect(h.get('tb-privacy').hidden).toBe(true);
+    expect(h.searches).toHaveLength(intent === 'search' ? 1 : 0); await h.unchanged();
+  } finally { pending?.release(); await h.cleanup(); }
+});
+
+it('an older current-note completion cannot release the newer request focus guard', async () => {
+  const h = await fixture(); let first: Awaited<ReturnType<typeof delayedCurrent>> | undefined, second: typeof first;
+  try {
+    await h.restore(); const input = h.get('tb-idea'), current = h.button(h.t.current); current.focus();
+    first = await delayedCurrent(h); second = await delayedCurrent(h);
+    await first.settle();
+    expect(input.value).toBe(''); expect(input.focusCalls).toBe(0);
+    for (const name of ['blur', 'input', 'compositionstart']) expect(current.handlers.get(name)?.size).toBe(1);
+    h.editor.focus(); await second.settle();
+    expect(input.value).toBe('FocusNeedle'); expect(h.get('tb-privacy').hidden).toBe(false);
+    expect(h.doc.activeElement).toBe(h.editor); expect(input.focusCalls).toBe(0);
+    for (const name of ['blur', 'input', 'compositionstart']) expect(current.handlers.get(name)?.size).toBe(0);
+    expect(h.searches).toHaveLength(0); await h.unchanged();
+  } finally { first?.release(); second?.release(); await h.cleanup(); }
+});
+
+it('a failed current-note read releases its focus guard and a fresh explicit retry still works', async () => {
+  const h = await fixture();
+  try {
+    await h.restore(); const input = h.get('tb-idea'), current = h.button(h.t.current); current.focus();
+    const fault = new Error('SYNTHETIC_CONTEXT_FAILURE');
+    vi.spyOn(h.plugin.controller, 'snapshot').mockRejectedValueOnce(fault);
+    current.fire('click'); await expect(h.contexts.at(-1)).rejects.toBe(fault); await nextTurn();
+    expect(input.value).toBe(''); expect(input.focusCalls).toBe(0);
+    expect(h.get('tb-notice').textContent).toBe(h.t.contextUnavailable);
+    for (const name of ['blur', 'input', 'compositionstart']) expect(current.handlers.get(name)?.size).toBe(0);
+    current.fire('click'); await h.contexts.at(-1); await nextTurn();
+    expect(input.value).toBe('FocusNeedle'); expect(h.doc.activeElement === input).toBe(true);
+    expect(h.get('tb-privacy').hidden).toBe(false); expect(h.get('tb-notice').hidden).toBe(true);
+    expect(h.searches).toHaveLength(0); await h.unchanged();
   } finally { await h.cleanup(); }
 });
 

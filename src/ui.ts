@@ -46,6 +46,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   root.append(heading, status, stats, label, input, ideaHint, options, privacyHint, actions, notice, summary, results); container.replaceChildren(root);
   let queryPrivacy: Privacy = 'normal'; let searchId = 0; let disposed = false; let hasSearched = false; let resultsArePrevious = false;
   let currentReadId: number | undefined;
+  let releaseCurrentFocus: (() => void) | undefined;
   let previousPhase: Status['phase'] | undefined;
   let selection: QuerySelection | undefined;
   // Old cards remain readable during work, but cannot steal the active query/token.
@@ -87,7 +88,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
     const cancelling = busy && state.cancelRequested === true;
     // Current-note reads are outside the controller's task. New work retires
     // their delivery token, without invalidating the accepted search itself.
-    if (busy || currentReadId !== searchId) currentReadId = undefined;
+    if (busy || currentReadId !== searchId) { currentReadId = undefined; releaseCurrentFocus?.(); }
     const readingCurrent = currentReadId !== undefined;
     // Every refresh entry (panel, command or schedule) reports completion here.
     // Clear only on success, not processing progress, cancellation or failure.
@@ -212,19 +213,33 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   cancel.addEventListener('click', () => { ++searchId; port.cancel(); renderState(); });
   current.addEventListener('click', () => {
     if (disposed || isBusy(port.status().phase)) return;
+    releaseCurrentFocus?.();
     markPreviousResults(); selection = undefined; const id = ++searchId; currentReadId = id; renderState();
+    const doc = input.ownerDocument, previousFocus = doc?.activeElement;
+    let interrupted = false;
+    // Only this pending request's focus handoff: no text, history or global keys.
+    const interrupt = (): void => { interrupted = true; };
+    const focusEvents = ['blur', 'input', 'compositionstart'] as const;
+    const releaseFocus = (): void => {
+      for (const event of focusEvents) previousFocus?.removeEventListener(event, interrupt);
+      if (releaseCurrentFocus === releaseFocus) releaseCurrentFocus = undefined;
+    };
+    releaseCurrentFocus = releaseFocus;
+    for (const event of focusEvents) previousFocus?.addEventListener(event, interrupt);
     void port.current?.().then(context => {
       if (disposed || id !== searchId || id !== currentReadId) return;
       currentReadId = undefined;
       if (!context?.text.trim()) { renderState(); alert(t.contextMissing); return; }
-      input.value = context.text; queryPrivacy = context.privacy; privacyHint.textContent = t.private; privacyHint.hidden = queryPrivacy === 'normal'; renderState(); input.focus();
+      const mayFocus = !interrupted && input.isConnected && doc?.hasFocus() && doc.activeElement === previousFocus && previousFocus !== input;
+      input.value = context.text; queryPrivacy = context.privacy; privacyHint.textContent = t.private; privacyHint.hidden = queryPrivacy === 'normal'; renderState();
+      if (mayFocus) input.focus({ preventScroll: true });
     }).catch(error => {
       if (!disposed && id === searchId && id === currentReadId) {
         currentReadId = undefined; renderState();
         alert(error instanceof CurrentNoteTooLongError ? t.contextTooLong : t.contextUnavailable);
       }
-    });
+    }).finally(releaseFocus);
   });
   const unsubscribe = port.subscribe(renderState); renderState();
-  return () => { disposed = true; ++searchId; unsubscribe(); root.remove(); };
+  return () => { disposed = true; ++searchId; releaseCurrentFocus?.(); unsubscribe(); root.remove(); };
 }
