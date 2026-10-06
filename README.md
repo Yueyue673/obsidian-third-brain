@@ -23,7 +23,7 @@ No Node.js or API key is needed for local mode. [Download checks and installatio
 ## Usage
 
 1. Click **Refresh notes** to build the index.
-2. Type an idea and click **Find connections**. Use **Use current note** to search with your selection or current draft instead.
+2. Type an idea and click **Find connections**. To use your selection or current draft instead, click **Use current note**, review the filled-in idea, then click **Find connections**.
 3. Read the matching passages, expand **Source evidence**, and click **Open original**.
 
 For a quick trial, copy the [sample notes](fixtures/sample-vault) into your test vault and search for `留白` or `Change one variable at a time`.

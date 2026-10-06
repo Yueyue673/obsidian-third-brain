@@ -51,7 +51,7 @@ sha256sum third-brain-0.3.7.zip
 
 Local mode matches words and existing attributes; it does not infer meaning. An empty vault or unrelated search can return nothing. Refresh again after editing notes.
 
-**Use current note** searches with your selection or current draft once. For long notes, select a shorter passage. It does not monitor typing or insert text into your note.
+Open a Markdown note. **Use current note** fills the idea box with the selected text, or the current draft if nothing is selected; it does not start a search. Review the text, then click **Find connections**. For long notes, select a shorter passage first. The plugin does not monitor typing or insert text into your note.
 
 ## Explore the results
 
@@ -148,7 +148,7 @@ Get-FileHash .\third-brain-0.3.7.zip -Algorithm SHA256
 
 本地模式按文字和已有属性匹配，不推断语义。空库、信息不足或无关搜索可以没有结果。原笔记改动后，请再点一次「更新笔记」。
 
-「使用当前笔记」会读取一次选区或当前草稿，用它来搜索。长笔记可以先选一段，不会持续监控输入，也不会自动写入原笔记。
+打开一篇 Markdown 笔记，点「使用当前笔记」，会把选中的文字填入想法输入框；没有选区时使用当前草稿，不会立即搜索。检查内容后，再点「寻找关联」。长笔记可以先选一段。插件不会持续监控输入，也不会自动写入原笔记。
 
 ### 继续查找
 
