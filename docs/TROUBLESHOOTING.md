@@ -12,6 +12,8 @@ Run **Refresh notes** once. Check that the vault has readable notes and that you
 
 Local excerpts match words and existing attributes, not arbitrary meaning. A wider association range cannot create useful material from unrelated notes. Empty or sparse notes may produce no fragments.
 
+Source builds distinguish a search blocked by a known missing or changed generated file from an empty result. This also applies to attribute and type searches. Follow the protected-file guidance below; repeated searching or refreshing cannot repair the layer. Your idea remains in the panel, and retained cards are labelled as previous results. This guidance is not yet in the 0.3.7 download.
+
 ## A model request fails
 
 Check the processing mode, base URL, model name and selected API key. Cloud mode also needs HTTPS and **Allow cloud processing** enabled. This preview expects an OpenAI-compatible, non-streaming chat-completions API.
@@ -67,6 +69,8 @@ Include the plugin version, Obsidian version, processing mode, steps and a small
 先点一次「更新笔记」，确认库里有可读笔记，且没有被排除。可以用[示例笔记](../fixtures/sample-vault)在测试库里试。
 
 本地摘录按文字和已有属性匹配，不推断语义；提高发散度也不会凭空产生相关资料。空白或信息太少的笔记可以没有片段。
+
+从源码构建的版本会区分“没有结果”和“生成文件缺失或改动导致搜索被阻止”，点击属性或类型搜索时也会提示。请按下方受保护文件的指引处理，反复搜索或更新不能修复提炼层。想法仍保留在面板里，保留的旧卡片会标为上次搜索结果；这项指引尚未包含在 0.3.7 下载包中。
 
 ### 模型请求失败
 

@@ -4,6 +4,8 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Explain known missing or protected generated files when Find connections is blocked, including attribute and type searches. Preserve the idea and previous results without treating them as a new answer; reuse English/Chinese recovery guidance without exposing raw errors or claiming the saved index is safe. Search ranking and ownership/source checks are unchanged. Verified with synthetic files and host-API shells, not native clicks.
+
 - Explain missing or protected generated files directly when refreshing notes or loading the plugin, including command and quiet scheduled refreshes. Share safe English/Chinese recovery guidance across panel and host notices; preserve original error identity, source diagnostics and uncertain commit outcomes without claiming a damaged saved index is usable. Storage/ownership guards are unchanged. Verified with synthetic files and host-API shells, not native clicks.
 
 - Explain missing or protected generated files when Open fragment is refused, with English/Chinese guidance to preserve the folder and inspect a test copy rather than force a refresh. Keep ownership validation and human edits intact, distinguish unavailable old results from unknown failures, and prevent late fragment-open replies from replacing newer notices. Verified with synthetic files and host-API shells, not native clicks.

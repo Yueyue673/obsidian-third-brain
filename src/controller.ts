@@ -210,7 +210,10 @@ export class ThirdBrainController {
       if (task.signal.aborted) throw new Error('Cancelled.');
       return results;
     } catch (error) {
-      this.update(task.signal.aborted ? 'cancelled' : 'error',this.state.progress,task.signal.aborted ? undefined : 'operation-failed',undefined,task.signal.aborted ? undefined : sourceDiagnostic(error));
+      const diagnostic = task.signal.aborted ? undefined : sourceDiagnostic(error);
+      const generated = task.signal.aborted || diagnostic ? undefined : generatedFileDiagnostic(error);
+      // A managed-layer refusal is not a source failure or proof of a usable index.
+      this.update(task.signal.aborted ? 'cancelled' : 'error',this.state.progress,task.signal.aborted ? undefined : 'operation-failed',undefined,diagnostic,undefined,generated);
       if (task.signal.aborted) { const stopped = abortError(); stopped.message = 'Cancelled.'; throw stopped; }
       throw error;
     }
