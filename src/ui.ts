@@ -33,14 +33,18 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   root.append(heading, status, stats, label, input, options, privacyHint, actions, notice, summary, results); container.replaceChildren(root);
   let queryPrivacy: Privacy = 'normal'; let searchId = 0; let disposed = false; let hasSearched = false;
   let selection: QuerySelection | undefined;
+  // Old cards remain readable during work, but cannot steal the active query/token.
+  let facetButtons: HTMLButtonElement[] = [];
+  const isBusy = (phase: Status['phase']): boolean => ['indexing', 'searching', 'loading'].includes(phase);
   const kindLabel = (value: string): string => t[`kind_${value}` as keyof typeof t];
   const selectionHint = (): string => !selection ? '' : selection.channel === 'mechanisms' && breadth.value === 'low' ? t.mechanismBreadth : selection.channel === 'atmosphere' && breadth.value !== 'high' ? t.atmosphereBreadth : '';
   const alert = (text: string): void => { notice.textContent = text; notice.hidden = false; };
-  const stateBlock = (title: string, body: string): void => { results.replaceChildren(element('h3', 'tb-empty-title', title), element('p', 'tb-muted', body)); };
+  const stateBlock = (title: string, body: string): void => { facetButtons = []; results.replaceChildren(element('h3', 'tb-empty-title', title), element('p', 'tb-muted', body)); };
   const renderState = (): void => {
     if (disposed) return;
-    const state = port.status(); const busy = ['indexing', 'searching', 'loading'].includes(state.phase);
+    const state = port.status(); const busy = isBusy(state.phase);
     if (busy || state.phase === 'idle') notice.hidden = true;
+    for (const button of facetButtons) button.disabled = busy;
     find.disabled = busy || !input.value.trim() || !state.fragmentCount; find.hidden = !state.fragmentCount; refresh.className = state.fragmentCount ? 'tb-secondary' : 'tb-primary'; refresh.disabled = busy; current.disabled = busy; breadth.disabled = busy; cancel.hidden = !busy || state.phase === 'loading';
     const mode = state.mode === 'local-excerpts' ? t.local : state.mode === 'local-model' ? t.localModel : t.cloud;
     let line = t[state.phase];
@@ -63,7 +67,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
     if (!hasSearched && !busy) { if (!state.fragmentCount) stateBlock(t.first, t.firstBody); else stateBlock(t.initial, ''); }
   };
   const showResults = (items: SearchResult[]): void => {
-    results.replaceChildren();
+    results.replaceChildren(); facetButtons = [];
     const suggestions = items.filter(item => item.group === 'indirect-suggestion');
     summary.textContent = `${items.length - suggestions.length} ${t.results}${suggestions.length ? ` · ${suggestions.length} ${presentExplanation('Additional indirect suggestions',locale)}` : ''}`;
     if (selection?.channel === 'kind') summary.textContent = `${items.length} ${t.sameType} · ${t.kindBudget}`;
@@ -115,13 +119,13 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
         const chosen = { channel:'kind' as const,value:fragment.kind as typeof QUERY_KINDS[number] };
         const button = element('button','tb-facet',`${t.kind} · ${kindLabel(chosen.value)}`); button.type = 'button';
         button.setAttribute('data-channel','kind'); button.setAttribute('aria-label',`${t.facets}: ${t.kind} · ${kindLabel(chosen.value)}`);
-        button.addEventListener('click', () => { selection = chosen; input.value = kindLabel(chosen.value); queryPrivacy = fragment.privacy; privacyHint.textContent = t.private; privacyHint.hidden = queryPrivacy === 'normal'; void executeSearch(); }); facets.append(button);
+        button.addEventListener('click', () => { if (disposed || isBusy(port.status().phase)) return; selection = chosen; input.value = kindLabel(chosen.value); queryPrivacy = fragment.privacy; privacyHint.textContent = t.private; privacyHint.hidden = queryPrivacy === 'normal'; void executeSearch(); }); facetButtons.push(button); facets.append(button);
       }
       const terms = (['topics','concepts','mechanisms','atmosphere'] as const).flatMap(channel => [...new Set(fragment.facets[channel])].map(value => ({ channel,value })));
       for (const chosen of terms.slice(0, 12)) {
         const button = element('button', 'tb-facet', `${t[chosen.channel]} · ${chosen.value}`); button.type = 'button';
         button.setAttribute('aria-label', `${t.facets}: ${t[chosen.channel]} · ${chosen.value}`); button.setAttribute('data-channel', chosen.channel);
-        button.addEventListener('click', () => { selection = chosen; input.value = chosen.value; queryPrivacy = fragment.privacy; privacyHint.textContent = t.private; privacyHint.hidden = queryPrivacy === 'normal'; void executeSearch(); }); facets.append(button);
+        button.addEventListener('click', () => { if (disposed || isBusy(port.status().phase)) return; selection = chosen; input.value = chosen.value; queryPrivacy = fragment.privacy; privacyHint.textContent = t.private; privacyHint.hidden = queryPrivacy === 'normal'; void executeSearch(); }); facetButtons.push(button); facets.append(button);
       }
       if (facets.childElementCount) article.append(facets);
       const evidence = element('details', 'tb-evidence'); evidence.append(element('summary', '', `${t.evidence} · ${fragment.evidence.length}`));

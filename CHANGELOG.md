@@ -4,6 +4,7 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Keep old result attributes from replacing an in-progress idea search. Attribute buttons pause during search/indexing and become available after completion or cancellation; source links remain usable.
 - Rewrite the README, setup guide and release notes in plain language. No plugin behavior changes.
 
 ## 0.3.7 — 2026-10-06
