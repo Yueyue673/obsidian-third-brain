@@ -1,5 +1,14 @@
 # Verification status
 
+## 0.2.1 preview — bounded editing context
+
+AI extraction now receives redacted, bounded same-source section/preceding context (heading up to 160 characters, prior prose up to 400) while exact quotations, conditions and caveats remain primary-text-only. The policy versions AI generations once; local excerpts and later unchanged cache hits are unchanged.
+
+- Parent integration passed: **499 tests across 19 files**, typecheck, build, production-filesystem smoke, privacy pattern scan, packaging and diff checks.
+- The new context regression failed on the previous implementation (7 failed / 6 passed) and passes after the fix. Actual loopback HTTP covers the additional wire fields, request snapshots, bounds, unsafe context rejection and background-only evidence rejection; responses are explicitly synthetic.
+- **Still unverified:** live AI quality/provider compatibility and native-host clicks for this changed executable. The separate in-progress live-provider probe does not count as completed evidence.
+- Distribution checks are recorded after publishing.
+
 ## 0.2.0 preview — local integration
 
 The candidate adds a persisted, bounded same-privacy fragment network, human-readable title aliases, and an **Open fragment / 打开片段** action on native search cards. The opener resolves only IDs in the currently verified owned layer; it cannot accept a model-supplied file path.

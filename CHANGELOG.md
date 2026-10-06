@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.2.1 — 2026-10-06 (preview)
+
+- Preserve bounded section/preceding context for AI paragraph and long-block editing, instead of clearing headings and isolating every request. Context is same-source, redacted before clipping, and never replaces primary quotation evidence.
+- Keep source/dictionary rechecks, cancellation and immutable request snapshots; reject background-only quotations, conditions and caveats in both core and production HTTP parsing.
+- Version the AI editing generation once without changing the stored schema. Subsequent cache hits and local-excerpt generations are unchanged.
+- Document the actual additional wire fields and first-refresh cache effect. Live AI-provider/semantic quality and native-host clicks remain unverified for this preview.
+
 ## 0.2.0 — 2026-10-06 (preview)
 
 - Persist a bounded fragment network with actual same-privacy Markdown targets and shared-topic/concept/mechanism explanations. Generic/common facets abstain; relationships are suggestions, not verified AI semantics.

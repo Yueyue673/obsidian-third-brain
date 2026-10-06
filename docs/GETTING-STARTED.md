@@ -2,9 +2,9 @@
 
 [English README](../README.md) · [中文 README](../README.zh-CN.md) · [Install](#install-the-preview) · [Models](#optional-model-setup) · [Build from source](#build-from-source)
 
-**0.2.0 is a prerelease for desktop Obsidian 1.11.5+.** It is not in the Community directory. Default local excerpts work without an account, key or network; they are not AI semantic search. Live AI-provider compatibility and semantic quality remain unverified.
+**0.2.1 is a prerelease for desktop Obsidian 1.11.5+.** It is not in the Community directory. Default local excerpts work without an account, key or network; they are not AI semantic search. Live AI-provider compatibility and semantic quality remain unverified.
 
-**0.2.0 是桌面预览版，需要 Obsidian 1.11.5+，尚未进入社区插件目录。** 默认本地摘录无需账户、密钥或网络，不是 AI 语义检索；真实 AI 服务兼容性与语义效果尚未验证。
+**0.2.1 是桌面预览版，需要 Obsidian 1.11.5+，尚未进入社区插件目录。** 默认本地摘录无需账户、密钥或网络，不是 AI 语义检索；真实 AI 服务兼容性与语义效果尚未验证。
 
 ## Install the preview
 
@@ -12,7 +12,7 @@ Use a disposable test vault first. You do **not** need Node.js for release insta
 
 先用可丢弃的测试库，Release 安装**不需要 Node.js**。第三方插件具有广泛访问权限；用于重要笔记库前请保留备份。
 
-1. Download [third-brain-0.2.0.zip](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.2.0/third-brain-0.2.0.zip) and [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.2.0/SHA256SUMS) from the [0.2.0 prerelease](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.2.0). [Check the ZIP's hash](#check-the-download), then extract it. Use this plugin ZIP, **not** GitHub's “Source code” archive.
+1. Download [third-brain-0.2.1.zip](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.2.1/third-brain-0.2.1.zip) and [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.2.1/SHA256SUMS) from the [0.2.1 prerelease](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.2.1). [Check the ZIP's hash](#check-the-download), then extract it. Use this plugin ZIP, **not** GitHub's “Source code” archive.
    下载插件 ZIP 与校验文件，核对后解压；不要下载 GitHub 自动生成的「Source code」源码包来安装。
 2. Create `.obsidian/plugins/third-brain/` inside your test vault and put all four extracted files directly inside:
    在测试库内创建插件目录，把四个文件直接放入，不要多套一层文件夹：
@@ -34,26 +34,26 @@ If the plugin is missing, check the exact folder and `manifest.json` placement, 
 
 ### Check the download
 
-Run one command in the folder containing your downloaded ZIP. Compare its hash with the line for `third-brain-0.2.0.zip` in `SHA256SUMS`; if they differ, do not install it.
+Run one command in the folder containing your downloaded ZIP. Compare its hash with the line for `third-brain-0.2.1.zip` in `SHA256SUMS`; if they differ, do not install it.
 
 在下载目录运行适合你系统的一条命令，与 `SHA256SUMS` 中 ZIP 对应行的哈希比较；不一致就不要安装。
 
 **Windows — PowerShell**
 
 ```powershell
-Get-FileHash .\third-brain-0.2.0.zip -Algorithm SHA256
+Get-FileHash .\third-brain-0.2.1.zip -Algorithm SHA256
 ```
 
 **macOS**
 
 ```sh
-shasum -a 256 third-brain-0.2.0.zip
+shasum -a 256 third-brain-0.2.1.zip
 ```
 
 **Linux**
 
 ```sh
-sha256sum third-brain-0.2.0.zip
+sha256sum third-brain-0.2.1.zip
 ```
 
 ## First connection
@@ -173,3 +173,11 @@ The public assets were downloaded, hash-checked and loaded in native Obsidian. T
 ## Follow stored fragment links
 
 After searching, choose **Open fragment / 打开片段** on a result. Follow the **Related fragments** Markdown links, then compare the **Original evidence** sections on both notes. Targets are persisted, same-privacy generated files; shared facets explain the suggestion, not an established causal relationship. Native-host clicks on this preview remain unverified.
+
+## Bounded editing context / 有界提炼语境
+
+Optional AI editing receives the current section heading (up to 160 characters) and at most 400 characters of preceding same-section prose or the previous chunk. Context is redacted before bounding, does not cross section/Canvas-node boundaries, and cannot supply quotations, conditions or caveats for the current primary text. Already clipped headings are omitted. It does not send filenames or arbitrary frontmatter as titles.
+
+AI generations created before this editing policy are refreshed once on the next requested maintenance. Subsequent unchanged refreshes reuse the cache; local-excerpt generations are unchanged. This does not establish live AI quality.
+
+可选 AI 提炼可收到当前章节标题，以及同章节前段或同长段前块的有限语境；先脱敏，再限制长度。背景不能冒充当前片段的引文、条件或限制，也不代表已验证的语义效果。升级后旧 AI 提炼缓存会在下一次维护时更新一次；本地摘录缓存保持不变。

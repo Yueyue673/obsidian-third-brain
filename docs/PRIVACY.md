@@ -10,9 +10,9 @@ Local excerpts make no model requests. Processing mode is never silently upgrade
 
 Cloud mode needs explicit consent, HTTPS and a host-managed secret. Ordinary note text and explicitly submitted queries may be sent to that provider. The provider's retention and privacy terms are separate from this plugin.
 
-The user-message data supplied to the model contains only `task`, redacted `text` and bounded `vocabulary`. The plugin does not attach source identifiers, filenames or paths as metadata. Paths or filenames mentioned within the text are masked only when they match conservative patterns; some bare filenames, such as CSV or spreadsheet names, may remain in the body. This is not comprehensive filename/path anonymisation.
+The user-message data supplied to the model contains `task`, redacted primary `text`, bounded `vocabulary`, and optionally extraction-only `context` with `heading` and `before`. The heading is parsed from source prose, not a filename or arbitrary frontmatter; preceding prose stays within the same section/chunk. Context is redacted before bounding (160/400 characters), rechecked with the same source at each request, and cannot supply primary quotations, conditions or caveats. Already parser-clipped headings are omitted. The plugin does not attach source identifiers, filenames or paths as metadata. Paths or filenames mentioned within the text are masked only when they match conservative patterns; some bare filenames, such as CSV or spreadsheet names, may remain in the body. This is not comprehensive filename/path anonymisation.
 
-模型请求不附加来源 ID、文件名或路径元数据。正文里的路径和文件名仅按有限模式遮罩；例如某些 CSV、表格文件名仍可能原样发送。未识别的机密内容也可能保留，应在首次云端处理前标记 local/private 或排除来源。
+提炼请求还可附带有限的章节标题和前文语境，先脱敏再限长；背景不能作为当前片段的引用证据。模型请求不附加来源 ID、文件名或路径元数据。正文里的路径和文件名仅按有限模式遮罩；例如某些 CSV、表格文件名仍可能原样发送。未识别的机密内容也可能保留，应在首次云端处理前标记 local/private 或排除来源。
 
 ## local/private
 

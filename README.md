@@ -2,20 +2,20 @@
 
 Reconnect an idea with fragments from your own notes, see why they match, and open the original — inside Obsidian.
 
-**[Download 0.2.0 preview](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.2.0/third-brain-0.2.0.zip)** · [Install](#install) · [中文](README.zh-CN.md) · [Privacy](docs/PRIVACY.md)
+**[Download 0.2.1 preview](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.2.1/third-brain-0.2.1.zip)** · [Install](#install) · [中文](README.zh-CN.md) · [Privacy](docs/PRIVACY.md)
 
 <img src="docs/images/native-obsidian-source-open-zh.png" alt="Native Obsidian showing a synthetic source note beside Third Brain's local-excerpt explanation and source quotation" width="680">
 
 *Native Obsidian, earlier build, synthetic notes and local excerpts. Not a public-package installation or live-AI demo.*
 
-> **0.2.0 preview · desktop Obsidian 1.11.5+ · not in the Community directory.**
+> **0.2.1 preview · desktop Obsidian 1.11.5+ · not in the Community directory.**
 > Default local excerpts need no key or network; they are not AI semantic search. Live AI-provider compatibility and semantic quality remain unverified.
 
 ## Install
 
 Start in a disposable test vault. Node.js is **not** needed to install the plugin.
 
-1. Download the [plugin ZIP](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.2.0/third-brain-0.2.0.zip) and [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.2.0/SHA256SUMS) from the [0.2.0 prerelease](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.2.0). [Compare the ZIP's SHA-256](docs/GETTING-STARTED.md#check-the-download), then extract it.
+1. Download the [plugin ZIP](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.2.1/third-brain-0.2.1.zip) and [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.2.1/SHA256SUMS) from the [0.2.1 prerelease](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.2.1). [Compare the ZIP's SHA-256](docs/GETTING-STARTED.md#check-the-download), then extract it.
 2. Create `.obsidian/plugins/third-brain/` inside that vault. Put **`main.js`, `manifest.json`, `styles.css` and `LICENSE`** directly inside — no extra nested folder.
 3. Reload Obsidian, allow Community plugins if prompted, and enable **Third Brain** in **Settings → Community plugins**. Open the brain ribbon icon, then select **Refresh notes**.
 
@@ -51,7 +51,7 @@ From a search result, choose **Open fragment**. Its **Related fragments** sectio
 - Source changes invalidate old evidence. Missing sources are not kept as live recommendations; refresh after editing notes.
 - Quotes prove provenance, not the truth of every interpretation. Recall improvement, knowledge mastery and universal relevance are not established.
 - Redaction cannot identify every confidential detail. Mark sensitive notes local/private or exclude them **before** enabling cloud processing. Generated history is not encrypted or guaranteed to be erased when a source is removed.
-- Stored fragment links and legacy upgrades are checked on synthetic filesystem fixtures. The new Open fragment button is wired into the native panel, but native-host clicks and live AI quality are not yet verified for 0.2.0. [Verification scope](docs/VERIFICATION.md) distinguishes earlier native checks.
+- Stored fragment links and legacy upgrades are checked on synthetic filesystem fixtures. The new Open fragment button is wired into the native panel, but native-host clicks and live AI quality are not yet verified for 0.2.1. [Verification scope](docs/VERIFICATION.md) distinguishes earlier native checks.
 
 [Compatibility and limits](docs/COMPATIBILITY.md) · [Troubleshooting](docs/TROUBLESHOOTING.md)
 

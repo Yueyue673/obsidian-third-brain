@@ -9,7 +9,10 @@ export type SourceStatus = 'indexed' | 'empty' | 'insufficient-context' | 'sensi
 export interface SourceRecord { hash: string; status: SourceStatus; fragmentIds: string[]; }
 export interface IndexState { version: 1; signature: string; updatedAt: string; sources: Record<string, SourceRecord>; fragments: Record<string, Fragment>; }
 export interface Analysis { status: SourceStatus; fragments: Fragment[]; }
-export interface ModelRequest { task: 'extract' | 'interpret'; text: string; vocabulary: Facets; }
+// Background is bounded separately and is never quotation evidence.
+export const SOURCE_CONTEXT_LIMITS = Object.freeze({ heading: 160, before: 400 });
+export interface SourceContext { heading: string; before: string; }
+export interface ModelRequest { task: 'extract' | 'interpret'; text: string; vocabulary: Facets; context?: SourceContext; }
 export interface ModelPort { request(input: ModelRequest, signal?: AbortSignal): Promise<unknown>; }
 export interface AnalyzeOptions { mode: Mode; cloudConsent: boolean; model?: ModelPort; vocabulary?: Facets; now?: string; signal?: AbortSignal; beforeRequest?: (source: SourceSnapshot, vocabulary: Facets) => Promise<void>; }
 export interface RelationReason { kind: 'content' | 'topic' | 'concept' | 'mechanism' | 'analogy' | 'atmosphere'; label: string; quotes: string[]; caveat?: string; }
