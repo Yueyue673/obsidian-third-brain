@@ -4,6 +4,7 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Ignore late current-note replies once a newer search or index refresh has begun. A delayed read can no longer replace the idea/privacy state during refresh, or overwrite refresh failure/cancellation guidance. Retrying the current note remains explicit and preserves full-draft privacy checks.
 - Distinguish an unreadable or unavailable current-note source from empty context. Show safe English/Chinese retry guidance without exposing exception text; keep the previous idea, privacy and results, and still require the full draft and disk source to be checked before replacement.
 - Explain when the current note or selection is too long, with guidance to select a shorter excerpt and retry. Keep the previous idea/results, the existing length limit and full-draft privacy checks; do not truncate or search automatically.
 - Label retained cards and counts as previous search results when the idea is edited, cleared or replaced with the current note. Keep their source links usable and show fresh results only after a successful search; no automatic search while typing.

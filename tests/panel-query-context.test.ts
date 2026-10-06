@@ -334,6 +334,128 @@ it.each(['edit', 'cancel', 'close'] as const)('ignores a controlled late actual 
   } finally { gate.release(); await h.cleanup(); }
 });
 
+// A pending actual Main response is held only at the PanelPort delivery boundary.
+// Faults below are injected synthetic errors; no native timing or cloud claim.
+async function holdCurrent(h: Awaited<ReturnType<typeof fixture>>, outcome: 'resolve' | 'reject') {
+  const entered = latch(), gate = latch();
+  const error = Object.assign(new Error('SYNTHETIC_HELD_CURRENT_FAILURE'), { code: 'EIO' });
+  const readFailure = outcome === 'reject' ? vi.spyOn(fs, 'readFile').mockRejectedValueOnce(error) : undefined;
+  vi.spyOn(h.port, 'current').mockImplementationOnce(() => {
+    const operation = (async () => {
+      let context: Awaited<ReturnType<typeof h.current>>;
+      try { context = await h.current(); }
+      catch (failure) { entered.release(); await gate.promise; throw failure; }
+      entered.release(); await gate.promise; return context;
+    })();
+    h.contexts.push(operation); return operation;
+  });
+  h.button(h.t.current).fire('click'); await entered.promise; readFailure?.mockRestore();
+  const pending = h.contexts.at(-1)!;
+  return {
+    release: gate.release,
+    settle: async () => {
+      gate.release();
+      if (outcome === 'reject') await expect(pending).rejects.toBe(error);
+      else expect(await pending).toEqual({ text: 'BetaNeedle', privacy: 'private' });
+      await Promise.resolve();
+    },
+  };
+}
+
+for (const entry of ['panel', 'controller'] as const)
+for (const outcome of ['resolve', 'reject'] as const)
+it.each(['during', 'success', 'failure', 'cancelled'] as const)(`a late current-note ${outcome} cannot replace ${entry} refresh intent at %s`, async delivery => {
+  const h = await fixture(), entered = latch(), gate = latch();
+  const held = await holdCurrent(h, outcome);
+  const list = h.sources.list.bind(h.sources);
+  let refresh: Promise<void> | undefined, heldList: ReturnType<FileSources['list']> | undefined;
+  const refreshOperation = h.controller.refresh.bind(h.controller);
+  vi.spyOn(h.controller, 'refresh').mockImplementation(() => {
+    refresh = refreshOperation(); void refresh.catch(() => {}); return refresh;
+  });
+  vi.spyOn(h.sources, 'list').mockImplementationOnce((...args) => heldList = (async () => {
+    entered.release(); await gate.promise; return list(...args);
+  })());
+  const refreshError = Object.assign(new Error('SYNTHETIC_REFRESH_READ_FAILURE'), { code: 'EIO' });
+  if (delivery === 'failure') {
+    const read = fs.readFile.bind(fs);
+    vi.spyOn(fs, 'readFile').mockImplementation((...args) => {
+      if (String(args[0]) === path.join(h.root, 'alpha.md')) return Promise.reject(refreshError);
+      return read(...args);
+    });
+  }
+  try {
+    if (entry === 'panel') h.button(h.t.index).fire('click'); else void h.controller.refresh();
+    await entered.promise; expect(h.controller.status().phase).toBe('indexing');
+    expect(h.button(h.t.current).disabled).toBe(true);
+    if (delivery !== 'during') {
+      if (delivery === 'cancelled') h.controller.cancel(); // No panel cancel event to invalidate the old reply.
+      gate.release();
+      if (delivery === 'failure') await expect(refresh).rejects.toBe(refreshError);
+      else if (delivery === 'cancelled') await expect(refresh).rejects.toMatchObject({ name: 'AbortError' });
+      else await refresh;
+      if (delivery === 'failure') await expect(heldList).rejects.toBe(refreshError);
+      else if (delivery === 'cancelled') await expect(heldList).rejects.toMatchObject({ name: 'AbortError' });
+      else await heldList;
+      await Promise.resolve();
+    }
+    const expectedNotice = { text: h.get('tb-notice').textContent, hidden: h.get('tb-notice').hidden };
+    if (delivery === 'failure') {
+      expect(h.controller.status().sourceDiagnostic).toEqual({ relativePath: 'alpha.md', stage: 'reading', reason: 'read-failed' });
+      expect(expectedNotice.text).toContain(h.t.readFailed); expect(expectedNotice.hidden).toBe(false);
+    }
+    if (delivery === 'cancelled') expect(expectedNotice.text).toContain(h.t.cancelled);
+    await held.settle();
+    expect.soft(h.get('tb-idea').value).toBe('AlphaNeedle');
+    expect.soft(h.get('tb-privacy').hidden).toBe(true);
+    expect.soft({ text: h.get('tb-notice').textContent, hidden: h.get('tb-notice').hidden }).toEqual(expectedNotice);
+    expect(h.cards()).toEqual(delivery === 'success' ? [] : ['AlphaCard']);
+    expect(h.get('tb-result-summary').textContent).toBe(delivery === 'success' ? '' : `${h.previous} · 1 ${h.t.results}`);
+    expect(h.findSpy).toHaveBeenCalledOnce();
+    expect(h.container.all().map(node => node.textContent).join('\n')).not.toMatch(/SYNTHETIC_HELD_CURRENT_FAILURE|SYNTHETIC_REFRESH_READ_FAILURE/);
+    // Finish only this owned refresh before retrying or tearing down the DOM globals.
+    if (delivery === 'during') { gate.release(); await refresh; await heldList; }
+    vi.mocked(fs.readFile).mockRestore?.();
+    const refreshCount = 2;
+    await h.assertUnchanged(refreshCount);
+    if (delivery === 'failure' || delivery === 'cancelled') {
+      h.get('tb-source').fire('click'); await h.opens.at(-1)!;
+      expect(h.hostOpen.mock.calls.at(-1)?.[0].path).toBe('alpha.md');
+    }
+    await h.controller.refresh(); await h.assertUnchanged(refreshCount + 1);
+    h.button(h.t.current).fire('click'); await h.contexts.at(-1)!; await Promise.resolve();
+    expect(h.get('tb-idea').value).toBe('BetaNeedle'); expect(h.get('tb-privacy').hidden).toBe(false);
+    expect(h.findSpy).toHaveBeenCalledOnce(); expect(h.get('tb-notice').hidden).toBe(true);
+    h.search(); const items = await h.settleQuery();
+    expect(h.findSpy.mock.calls.at(-1)).toEqual(['BetaNeedle', 'medium', 'private']);
+    expect(h.cards()).toEqual(['BetaCard']);
+    for (const e of items[0].fragment.evidence) {
+      const source = await h.sources.read(e.relativePath); expect(source!.hash).toBe(e.sourceHash); expect(source!.text.slice(e.start, e.end)).toBe(e.quote);
+    }
+    h.get('tb-source').fire('click'); await h.opens.at(-1)!; expect(h.hostOpen.mock.calls.at(-1)?.[0].path).toBe('beta.md');
+    await h.assertUnchanged(refreshCount + 1);
+  } finally { held.release(); gate.release(); await refresh?.catch(() => {}); await heldList?.catch(() => {}); await h.cleanup(); }
+});
+
+for (const outcome of ['resolve', 'reject'] as const)
+it.each(['search', 'current'] as const)(`a late current-note ${outcome} leaves a newer %s intact`, async intent => {
+  const h = await fixture(), held = await holdCurrent(h, outcome);
+  try {
+    if (intent === 'search') { h.search(); await h.settleQuery(); }
+    else {
+      vi.spyOn(h.editor, 'getValue').mockReturnValue('---\nprivacy: local\n---\nAlphaNeedle');
+      vi.spyOn(h.editor, 'getSelection').mockReturnValue('AlphaNeedle');
+      h.button(h.t.current).fire('click'); await h.contexts.at(-1)!; await Promise.resolve();
+    }
+    await held.settle(); expect(h.get('tb-idea').value).toBe('AlphaNeedle');
+    expect(h.get('tb-privacy').hidden).toBe(intent === 'search');
+    expect(h.get('tb-notice').hidden).toBe(true); expect(h.cards()).toEqual(['AlphaCard']);
+    h.search(); await h.settleQuery();
+    expect(h.findSpy.mock.calls.at(-1)).toEqual(['AlphaNeedle', 'medium', intent === 'search' ? 'normal' : 'local']);
+    await h.assertUnchanged();
+  } finally { held.release(); await h.cleanup(); }
+});
+
 it.each(['edit', 'close'] as const)('ignores a controlled late current-note size rejection after %s', async intent => {
   const h = await fixture(), entered = latch(), gate = latch();
   try {

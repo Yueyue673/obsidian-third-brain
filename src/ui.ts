@@ -36,6 +36,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   const results = element('div', 'tb-results'); const summary = element('p', 'tb-result-summary'); summary.setAttribute('aria-live', 'polite');
   root.append(heading, status, stats, label, input, options, privacyHint, actions, notice, summary, results); container.replaceChildren(root);
   let queryPrivacy: Privacy = 'normal'; let searchId = 0; let disposed = false; let hasSearched = false; let resultsArePrevious = false;
+  let currentReadId: number | undefined;
   let previousPhase: Status['phase'] | undefined;
   let selection: QuerySelection | undefined;
   // Old cards remain readable during work, but cannot steal the active query/token.
@@ -55,6 +56,9 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   const renderState = (): void => {
     if (disposed) return;
     const state = port.status(); const busy = isBusy(state.phase);
+    // Current-note reads are outside the controller's task. New work retires
+    // their delivery token, without invalidating the accepted search itself.
+    if (busy) currentReadId = undefined;
     // Every refresh entry (panel, command or schedule) reports completion here.
     // Clear only on success, not processing progress, cancellation or failure.
     if (previousPhase === 'indexing' && state.phase === 'idle') {
@@ -172,7 +176,16 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   find.addEventListener('click', () => void executeSearch()); breadth.addEventListener('change', () => { if (hasSearched && input.value.trim()) void executeSearch(); });
   refresh.addEventListener('click', () => { notice.hidden = true; void port.refresh().catch(() => { if (!disposed) { if (!['error','cancelled'].includes(port.status().phase)) alert(t.failure); renderState(); } }); });
   cancel.addEventListener('click', () => { ++searchId; port.cancel(); });
-  current.addEventListener('click', () => { markPreviousResults(); selection = undefined; const id = ++searchId; renderState(); void port.current?.().then(context => { if (disposed || id !== searchId) return; if (!context?.text.trim()) { alert(t.contextMissing); return; } input.value = context.text; queryPrivacy = context.privacy; privacyHint.textContent = t.private; privacyHint.hidden = queryPrivacy === 'normal'; renderState(); input.focus(); }).catch(error => { if (!disposed && id === searchId) alert(error instanceof CurrentNoteTooLongError ? t.contextTooLong : t.contextUnavailable); }); });
+  current.addEventListener('click', () => {
+    markPreviousResults(); selection = undefined; const id = ++searchId; currentReadId = id; renderState();
+    void port.current?.().then(context => {
+      if (disposed || id !== searchId || id !== currentReadId) return;
+      if (!context?.text.trim()) { alert(t.contextMissing); return; }
+      input.value = context.text; queryPrivacy = context.privacy; privacyHint.textContent = t.private; privacyHint.hidden = queryPrivacy === 'normal'; renderState(); input.focus();
+    }).catch(error => {
+      if (!disposed && id === searchId && id === currentReadId) alert(error instanceof CurrentNoteTooLongError ? t.contextTooLong : t.contextUnavailable);
+    });
+  });
   const unsubscribe = port.subscribe(renderState); renderState();
   return () => { disposed = true; ++searchId; unsubscribe(); root.remove(); };
 }
