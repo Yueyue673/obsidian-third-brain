@@ -14,6 +14,8 @@ Local excerpts match words and existing attributes, not arbitrary meaning. A wid
 
 Source builds distinguish a search blocked by a known missing or changed generated file from an empty result. This also applies to attribute and type searches. Follow the protected-file guidance below; repeated searching or refreshing cannot repair the layer. Your idea remains in the panel, and retained cards are labelled as previous results. This guidance is not yet in the 0.3.7 download.
 
+If a search is waiting for local generated-layer checks, source builds let **Cancel** end the search wait and restore the panel controls. The underlying file check and its safety lock may still be active, so an immediate retry can remain unavailable until it finishes. Late results or errors cannot replace the cancelled search or a newer one. This does not interrupt operating-system I/O and is not yet in the 0.3.7 download.
+
 ## A model request fails
 
 Check the processing mode, base URL, model name and selected API key. Cloud mode also needs HTTPS and **Allow cloud processing** enabled. This preview expects an OpenAI-compatible, non-streaming chat-completions API.
@@ -71,6 +73,8 @@ Include the plugin version, Obsidian version, processing mode, steps and a small
 本地摘录按文字和已有属性匹配，不推断语义；提高发散度也不会凭空产生相关资料。空白或信息太少的笔记可以没有片段。
 
 从源码构建的版本会区分“没有结果”和“生成文件缺失或改动导致搜索被阻止”，点击属性或类型搜索时也会提示。请按下方受保护文件的指引处理，反复搜索或更新不能修复提炼层。想法仍保留在面板里，保留的旧卡片会标为上次搜索结果；这项指引尚未包含在 0.3.7 下载包中。
+
+搜索等待本地提炼层核验时，从源码构建的版本可通过「取消」结束搜索等待、恢复面板按钮。底层文件核验及其安全锁可能仍在运行，立即重试仍可能暂时不可用；待核验结束后再试。迟到的结果或错误不会覆盖取消状态或新搜索。这不代表能硬中断系统 I/O，也尚未包含在 0.3.7 下载包中。
 
 ### 模型请求失败
 

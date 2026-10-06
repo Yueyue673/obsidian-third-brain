@@ -101,7 +101,7 @@ export class ThirdBrainController {
     try {
       const currentSources: SourcePort = {
         list:options => this.sources.list(options),read:path => this.readAtStep(path,task.signal),
-        verify:(snapshots,options) => this.sources.verify(snapshots,options),excluded:paths => this.sources.excluded(paths),
+        verify:(snapshots,options) => this.sources.verify(snapshots,options),excluded:paths => this.excludedAtStep(paths,task.signal),
       };
       const fragments = Object.values(this.indexState.fragments);
       let facets: Partial<Facets> | undefined;
@@ -126,7 +126,7 @@ export class ThirdBrainController {
       } else if (settings.mode !== 'local-excerpts' && !(settings.mode === 'cloud-model' && privacy !== 'normal')) {
         const port = this.model(settings);
         if (port) {
-          const blocked = await this.sources.excluded([...new Set(fragments.flatMap(fragment => fragment.evidence.map(item => item.relativePath)))]);
+          const blocked = await this.excludedAtStep([...new Set(fragments.flatMap(fragment => fragment.evidence.map(item => item.relativePath)))],task.signal);
           if (task.signal.aborted) throw new Error('Cancelled.');
           let vocabularyFragments: Fragment[];
           if (settings.mode === 'cloud-model') {
@@ -239,6 +239,11 @@ export class ThirdBrainController {
       return !!f && trace.sharedMechanisms.every(m => f.facets.mechanisms.some(v => facetKey(v) === facetKey(m)));
     });
   }
+  private async excludedAtStep(paths: string[], signal: AbortSignal): Promise<Set<string>> {
+    // Stop waiting without unlocking or interrupting the store's own operation.
+    // Late results/errors from legacy ports cannot resume the cancelled search.
+    return cancellable(() => this.sources.excluded(paths),signal);
+  }
   private async readAtStep(path: string, signal: AbortSignal): Promise<SourceSnapshot | null> {
     checkAbort(signal); relativePath(path);
     if (this.task?.signal === signal && !signal.aborted) this.update('searching',{ completed:0,total:0,phase:'reading',relativePath:path });
@@ -252,7 +257,7 @@ export class ThirdBrainController {
       || JSON.stringify(fragment.conditions) !== JSON.stringify(endpoint.conditions) || JSON.stringify(fragment.caveats) !== JSON.stringify(endpoint.caveats)
       || JSON.stringify(fragment.evidence) !== JSON.stringify(endpoint.evidence)) return false;
     const paths = [...new Set(endpoint.evidence.map(e => e.relativePath))];
-    const blocked = await this.sources.excluded(paths);
+    const blocked = await this.excludedAtStep(paths,signal);
     const live = new Map<string, SourceSnapshot | null>();
     for (const evidence of endpoint.evidence) {
       if (signal.aborted) throw new Error('Cancelled.');
@@ -264,7 +269,7 @@ export class ThirdBrainController {
       if (!source || !isPrivacy(source.privacy) || source.path !== evidence.relativePath) return false;
     }
     const evidence = await currentEvidence(endpoint.evidence, this.sources, live);
-    const excluded = await this.sources.excluded(paths);
+    const excluded = await this.excludedAtStep(paths,signal);
     if (signal.aborted) throw new Error('Cancelled.');
     if (evidence.length !== endpoint.evidence.length || paths.some(p => excluded.has(p))) return false;
     // Only complete, current, indexed donors may establish merged privacy.

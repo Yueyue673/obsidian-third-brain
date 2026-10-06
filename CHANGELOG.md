@@ -4,6 +4,8 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Let Cancel finish an idea, attribute or type search while it waits for local generated-layer checks, including the pre-request vocabulary check. Ignore late replies without releasing the store's lock, skipping validation or changing ranking. The underlying file check may still finish and temporarily block a retry. Verified with synthetic file-open latches and host-API shells, not native clicks or real stalled disks.
+
 - Explain known missing or protected generated files when Find connections is blocked, including attribute and type searches. Preserve the idea and previous results without treating them as a new answer; reuse English/Chinese recovery guidance without exposing raw errors or claiming the saved index is safe. Search ranking and ownership/source checks are unchanged. Verified with synthetic files and host-API shells, not native clicks.
 
 - Explain missing or protected generated files directly when refreshing notes or loading the plugin, including command and quiet scheduled refreshes. Share safe English/Chinese recovery guidance across panel and host notices; preserve original error identity, source diagnostics and uncertain commit outcomes without claiming a damaged saved index is usable. Storage/ownership guards are unchanged. Verified with synthetic files and host-API shells, not native clicks.
