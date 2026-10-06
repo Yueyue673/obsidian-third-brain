@@ -140,7 +140,7 @@ export class ThirdBrainController {
           facets = await interpretQuery(query, port, vocabularyOf(vocabularyFragments, settings.mode === 'cloud-model'), task.signal);
         }
       }
-      const ranked = searchFragments(kindCandidates ?? fragments, selected ? '' : query, { breadth, limit: 30, facets, ...(kind ? { kind } : {}), index: this.indexState, retainIndirectCandidates: breadth === 'high' });
+      const ranked = searchFragments(kindCandidates ?? fragments, selected ? '' : query, { breadth, limit: 30, facets, ...(kind ? { kind } : {}), index: this.indexState, retainIndirectCandidates: breadth === 'high', ...(selected && selected.channel !== 'kind' && facets ? { retainRankedContinuation:true } : {}) });
       const results: SearchResult[] = [];
       const validate = async (result: SearchResult, suggestion = false): Promise<SearchResult | null> => {
         if (task.signal.aborted) throw new Error('Cancelled.');
@@ -172,7 +172,10 @@ export class ThirdBrainController {
         if (!targetCurrent || !reasons.length || (suggestion && !reasons.some(r => r.kind === 'indirect-mechanism'))) return null;
         return { ...result,reasons,fragment:{ ...result.fragment,evidence },...(suggestion ? { group:'indirect-suggestion' as const } : {}) };
       };
-      for (const result of ranked) {
+      // Only the authenticated typed facet path requests this query-local tail.
+      // Stop at the display budget; unknown read/safety failures still throw.
+      const candidates = function* () { yield* ranked; yield* ranked.rankedContinuation ?? []; };
+      for (const result of candidates()) {
         const current = await validate(result); if (current) results.push(current);
         if (results.length >= 7) break;
       }

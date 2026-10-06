@@ -2,20 +2,20 @@
 
 从一个想法找回自己笔记中的知识片段，在 Obsidian 里读关联理由、打开原文。
 
-**[下载 0.3.4 预览版](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.4/third-brain-0.3.4.zip)** · [安装](#安装) · [English](README.md) · [隐私边界](docs/PRIVACY.md)
+**[下载 0.3.5 预览版](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.5/third-brain-0.3.5.zip)** · [安装](#安装) · [English](README.md) · [隐私边界](docs/PRIVACY.md)
 
 <img src="docs/images/native-obsidian-source-open-zh.png" alt="原生 Obsidian 中打开合成来源笔记，旁边显示第三大脑的本地摘录、关联理由和原文引用" width="680">
 
 *原生 Obsidian，较早构建、合成笔记、本地摘录；不是公开包安装或真实 AI 演示。*
 
-> **0.3.4 预览版 · 桌面 Obsidian 1.11.5+ · 尚未进入社区插件目录。**
+> **0.3.5 预览版 · 桌面 Obsidian 1.11.5+ · 尚未进入社区插件目录。**
 > 默认本地摘录不需要密钥或网络，不是 AI 语义检索。已做小范围真实模型与缓存激活检查；生产接口兼容性、广泛语义效果和本版原生点击仍未验收。
 
 ## 安装
 
 先用可丢弃的测试库。安装插件**不需要 Node.js**。
 
-1. 从 [0.3.4 预览发布](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.4)下载[插件 ZIP](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.4/third-brain-0.3.4.zip) 和 [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.4/SHA256SUMS)，[核对 ZIP 的 SHA-256](docs/GETTING-STARTED.md#check-the-download) 后解压。
+1. 从 [0.3.5 预览发布](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.5)下载[插件 ZIP](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.5/third-brain-0.3.5.zip) 和 [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.5/SHA256SUMS)，[核对 ZIP 的 SHA-256](docs/GETTING-STARTED.md#check-the-download) 后解压。
 2. 在测试库内创建 `.obsidian/plugins/third-brain/`，把 **`main.js`、`manifest.json`、`styles.css`、`LICENSE`** 直接放进去，不要多套一层文件夹。
 3. 重新加载 Obsidian，在**设置 → 第三方插件**中按提示允许第三方插件，并启用 **Third Brain**。点侧栏的脑形图标打开「第三大脑」，再点「更新笔记」。
 
@@ -51,7 +51,7 @@
 
 [模型配置](docs/GETTING-STARTED.md#optional-model-setup) · [隐私边界](docs/PRIVACY.md)
 
-点击属性保留类别和值，直接使用已有属性查找，不再让模型重新解释；仅正文同词的摘录不会抢占这条入口。编辑想法或取当前笔记会恢复普通搜索。机制需中／高、氛围需高发散度；界面会说明范围并保留选择。高档网络邻居仍是间接建议，不代表列表全部与属性严格相等。
+点击属性保留类别和值，直接使用已有属性查找，不再让模型重新解释；仅正文同词的摘录不会抢占这条入口。编辑想法或取当前笔记会恢复普通搜索。机制需中／高、氛围需高发散度；界面会说明范围并保留选择。高档网络邻居仍是间接建议，不代表列表全部与属性严格相等。属性查找发现前面的候选已失效或被排除，会沿原排名继续核验后面的资料，不再被前 30 条候选挡住；未知读取或安全错误仍停止整次查询，主七条／额外两条和普通搜索保持不变。
 
 卡片还显示已有类型。点击“方法”“观察”等类型，可找回当前可核验的同类型材料，不新增模型请求。依据是已存编辑分类相等，不代表含义或因果相同；最多显示七条，不补间接建议，也不承诺完整列表。
 
@@ -65,7 +65,7 @@
 - 来源变化后，旧证据会失效；缺失来源不会继续作为可打开的推荐。修改笔记后请更新。
 - 引文证明出处，不证明每个解释正确；不保证普遍检索准确、改善记忆或判断掌握程度。
 - 脱敏不能识别全部机密。启用云端**之前**，请把敏感笔记标为 local/private 或排除来源。生成历史不加密，删除来源也不保证抹除所有派生副本。
-- 新版持久关联及旧库升级已用合成文件库实测；“打开片段”和双端原文入口已接入原生面板，并经 DOM 测试工具检查；0.3.4 的宿主点击和广泛真实 AI 质量仍未验收。[验证范围](docs/VERIFICATION.md)单独记录较早版本的原生检查。
+- 新版持久关联及旧库升级已用合成文件库实测；“打开片段”和双端原文入口已接入原生面板，并经 DOM 测试工具检查；0.3.5 的宿主点击和广泛真实 AI 质量仍未验收。[验证范围](docs/VERIFICATION.md)单独记录较早版本的原生检查。
 
 [兼容与限制](docs/COMPATIBILITY.md) · [排障](docs/TROUBLESHOOTING.md)
 

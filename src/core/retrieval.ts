@@ -143,7 +143,11 @@ export function searchFragments(fragments: Fragment[], query: string, options: S
       }
     }
   }
-  const output: SearchResults = ranked.sort((a,b) => b.score - a.score || a.fragment.id.localeCompare(b.fragment.id)).slice(0,limit);
+  const ordered = ranked.sort((a,b) => b.score - a.score || a.fragment.id.localeCompare(b.fragment.id));
+  const output: SearchResults = ordered.slice(0,limit);
+  // Explicit facet queries may validate past the ordinary cutoff without
+  // changing the scoring corpus, IDF, seed policy or running a second search.
+  if (options.retainRankedContinuation && query === '' && options.facets !== undefined) output.rankedContinuation = ordered.slice(limit);
   if (options.breadth === 'high' && options.retainIndirectCandidates) {
     output.indirectCandidates = indirectCandidates.sort((a,b) => b.score - a.score || a.fragment.id.localeCompare(b.fragment.id));
   }

@@ -2,6 +2,12 @@
 
 ## Unreleased
 
+## 0.3.5 — 2026-10-06 (preview)
+
+- Fix selected-facet searches losing later current materials behind the first 30 known stale/excluded/removed/changed candidates. An opt-in transient continuation reuses the same score/ID ranking and single network build; no global limit increase, corpus prefilter or IDF change.
+- Preserve ordinary idea search, default core head, kind matching, breadth restrictions, main-seven/extra-two and network policies. Complete current donors/endpoints, indirect both ends, source opening, unknown-error fail-closed and cancellation safeguards remain unchanged; no extra model interpretation or telemetry.
+- Replay 25 real cached-fragment behavioral failures to 25 passing paths, with separately declared synthetic atmosphere; preserve same-corpus natural/all-current controls. Stored schema, generation policy, model wire and originals are unchanged. Native clicks, genuine provider/production HTTP and fresh semantic quality remain unverified.
+
 ## 0.3.4 — 2026-10-06 (preview)
 
 - Make each card’s existing canonical editorial type clickable in the same attribute row. Method/Observation/etc. use strict stored-kind equality through the actual Main/Controller/retrieval/source-opening path, never body-word search or model reclassification.

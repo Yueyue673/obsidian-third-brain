@@ -2,20 +2,20 @@
 
 Reconnect an idea with fragments from your own notes, see why they match, and open the original — inside Obsidian.
 
-**[Download 0.3.4 preview](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.4/third-brain-0.3.4.zip)** · [Install](#install) · [中文](README.zh-CN.md) · [Privacy](docs/PRIVACY.md)
+**[Download 0.3.5 preview](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.5/third-brain-0.3.5.zip)** · [Install](#install) · [中文](README.zh-CN.md) · [Privacy](docs/PRIVACY.md)
 
 <img src="docs/images/native-obsidian-source-open-zh.png" alt="Native Obsidian showing a synthetic source note beside Third Brain's local-excerpt explanation and source quotation" width="680">
 
 *Native Obsidian, earlier build, synthetic notes and local excerpts. Not a public-package installation or live-AI demo.*
 
-> **0.3.4 preview · desktop Obsidian 1.11.5+ · not in the Community directory.**
+> **0.3.5 preview · desktop Obsidian 1.11.5+ · not in the Community directory.**
 > Default local excerpts need no key or network; they are not AI semantic search. A small real-model synthetic check and cached-result activation check exist; production-provider compatibility, broad semantic quality and native clicks for this version remain unverified.
 
 ## Install
 
 Start in a disposable test vault. Node.js is **not** needed to install the plugin.
 
-1. Download the [plugin ZIP](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.4/third-brain-0.3.4.zip) and [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.4/SHA256SUMS) from the [0.3.4 prerelease](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.4). [Compare the ZIP's SHA-256](docs/GETTING-STARTED.md#check-the-download), then extract it.
+1. Download the [plugin ZIP](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.5/third-brain-0.3.5.zip) and [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.5/SHA256SUMS) from the [0.3.5 prerelease](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.5). [Compare the ZIP's SHA-256](docs/GETTING-STARTED.md#check-the-download), then extract it.
 2. Create `.obsidian/plugins/third-brain/` inside that vault. Put **`main.js`, `manifest.json`, `styles.css` and `LICENSE`** directly inside — no extra nested folder.
 3. Reload Obsidian, allow Community plugins if prompted, and enable **Third Brain** in **Settings → Community plugins**. Open the brain ribbon icon, then select **Refresh notes**.
 
@@ -51,7 +51,7 @@ From a search result, choose **Open fragment**. Its **Related fragments** sectio
 
 [Model setup](docs/GETTING-STARTED.md#optional-model-setup) · [Privacy boundaries](docs/PRIVACY.md)
 
-Selected facet buttons retain their category and value instead of becoming an ordinary text query. They use existing local attributes without another model interpretation; identical words in unrelated excerpts do not compete as body matches. Editing the idea or taking current-note context returns to ordinary search. Mechanisms require Medium/High breadth and atmosphere High; the panel explains an inapplicable breadth and retains the choice. High-breadth network neighbors remain indirect suggestions, not strict attribute-equality filtering.
+Selected facet buttons retain their category and value instead of becoming an ordinary text query. They use existing local attributes without another model interpretation; identical words in unrelated excerpts do not compete as body matches. Editing the idea or taking current-note context returns to ordinary search. Mechanisms require Medium/High breadth and atmosphere High; the panel explains an inapplicable breadth and retains the choice. High-breadth network neighbors remain indirect suggestions, not strict attribute-equality filtering. If earlier ranked candidates are known to be stale or excluded, selected-facet searches continue checking the same ranking for current materials instead of stopping at the first 30 candidates. Unknown read/safety errors still stop the entire query; main-seven/extra-two limits and ordinary search are unchanged.
 
 Cards also show their existing editorial Type. Click Method, Observation or another displayed type to find currently verifiable same-type material, without another model request. Type matching is exact stored classification, not semantic/causal similarity; it displays at most seven matches without indirect additions and is not a complete listing.
 
@@ -65,7 +65,7 @@ The panel names the affected vault-relative source, reading/decoding/parsing/ana
 - Source changes invalidate old evidence. Missing sources are not kept as live recommendations; refresh after editing notes.
 - Quotes prove provenance, not the truth of every interpretation. Recall improvement, knowledge mastery and universal relevance are not established.
 - Redaction cannot identify every confidential detail. Mark sensitive notes local/private or exclude them **before** enabling cloud processing. Generated history is not encrypted or guaranteed to be erased when a source is removed.
-- Stored fragment links and legacy upgrades are checked on synthetic filesystem fixtures. The Open fragment and two-source suggestion controls are wired into the native panel and checked in a DOM harness; native-host clicks and broad live-AI quality are not yet verified for 0.3.4. [Verification scope](docs/VERIFICATION.md) distinguishes earlier native checks.
+- Stored fragment links and legacy upgrades are checked on synthetic filesystem fixtures. The Open fragment and two-source suggestion controls are wired into the native panel and checked in a DOM harness; native-host clicks and broad live-AI quality are not yet verified for 0.3.5. [Verification scope](docs/VERIFICATION.md) distinguishes earlier native checks.
 
 [Compatibility and limits](docs/COMPATIBILITY.md) · [Troubleshooting](docs/TROUBLESHOOTING.md)
 
