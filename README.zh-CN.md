@@ -1,81 +1,62 @@
 # 第三大脑 · Third Brain
 
-从一个想法找回自己笔记中的知识片段，在 Obsidian 里读关联理由、打开原文。
+一个 Obsidian 插件，把笔记整理成可检索的片段。写下一个想法，查看相关内容、关联理由和原文出处。
 
-**[下载 0.3.7 预览版](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.7/third-brain-0.3.7.zip)** · [安装](#安装) · [English](README.md) · [隐私边界](docs/PRIVACY.md)
+[下载 0.3.7](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.7) · [使用说明](docs/GETTING-STARTED.md#中文上手) · [English](README.md)
 
-<img src="docs/images/native-obsidian-source-open-zh.png" alt="原生 Obsidian 中打开合成来源笔记，旁边显示第三大脑的本地摘录、关联理由和原文引用" width="680">
+<img src="docs/images/native-obsidian-source-open-zh.png" alt="Obsidian 中打开原笔记，右侧显示搜索结果与原文引用" width="680">
 
-*原生 Obsidian，较早构建、合成笔记、本地摘录；不是公开包安装或真实 AI 演示。*
-
-> **0.3.7 预览版 · 桌面 Obsidian 1.11.5+ · 尚未进入社区插件目录。**
-> 默认本地摘录不需要密钥或网络，不是 AI 语义检索。已做小范围真实模型与缓存激活检查；生产接口兼容性、广泛语义效果和本版原生点击仍未验收。
-
-直接输入想法搜索时，会按原排序继续检查后续候选，失效前项不再挡住有效材料；不改评分、不增加查询模型请求。展示与打开旧卡均复核完整来源、排除设置和索引归属，未知错误仍整次终止。
-
-同正文来自不同隐私等级的笔记时，仍按**最严格等级**保留并可在本地检索；展示和打开前核验全部来源，本地/私密内容及词表仍不外发。
+*截图来自较早版本，使用示例笔记和本地摘录模式。*
 
 ## 安装
 
-先用可丢弃的测试库。安装插件**不需要 Node.js**。
+需要**桌面版 Obsidian 1.11.5 或更新版本**。目前是预览版，尚未上架社区插件目录，建议先在测试库里试用。
 
-1. 从 [0.3.7 预览发布](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.7)下载[插件 ZIP](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.7/third-brain-0.3.7.zip) 和 [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.7/SHA256SUMS)，[核对 ZIP 的 SHA-256](docs/GETTING-STARTED.md#check-the-download) 后解压。
-2. 在测试库内创建 `.obsidian/plugins/third-brain/`，把 **`main.js`、`manifest.json`、`styles.css`、`LICENSE`** 直接放进去，不要多套一层文件夹。
-3. 重新加载 Obsidian，在**设置 → 第三方插件**中按提示允许第三方插件，并启用 **Third Brain**。点侧栏的脑形图标打开「第三大脑」，再点「更新笔记」。
+1. 下载 [third-brain-0.3.7.zip](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.7/third-brain-0.3.7.zip) 并解压。选插件 ZIP，不要选 Source code 源码包。
+2. 在笔记库里创建 `.obsidian/plugins/third-brain/`，把 `main.js`、`manifest.json`、`styles.css`、`LICENSE` 直接放进去，不要多套一层文件夹。
+3. 重启 Obsidian，在「设置 → 第三方插件」中启用 **Third Brain**，再点左侧脑形图标打开面板。
 
-第三方插件具有广泛访问权限；用于重要笔记库前，请先审阅代码并保留备份。遇到问题见[安装排障](docs/TROUBLESHOOTING.md)。
+使用本地模式不需要 Node.js、账户或 API 密钥。[下载校验和安装排障](docs/GETTING-STARTED.md#中文上手)。
 
-## 找到第一条关联
+## 使用
 
-写下想法 →「寻找关联」→ 读关联理由 → 展开「来源证据」→「查看原文」。不必先找到某条旧笔记，也不必知道标签。
+1. 点「更新笔记」，建立索引。
+2. 输入想法，点「寻找关联」。也可以点「使用当前笔记」，用选中的文字或当前草稿搜索。
+3. 查看结果和关联理由，展开「来源证据」，点「查看原文」。
 
-- **原稿与提炼层分开。** 生成的 Markdown 与索引默认放在 `Third Brain/Fragments`。原始笔记只读，已有手写文件和人工改过的生成文件受到保护。
-- **先看理由，再决定用不用。** 卡片区分文字与属性匹配，附原文引用和类比边界。点属性可继续查找；低 / 中 / 高发散度只改变检索范围，不降低证据要求。
-- **按你的节奏更新。** 默认手动，可选每日或每周，仅在 Obsidian 打开时运行。不自动插入原稿，不收集逐键输入、点击、停留或遥测。
+想先试试，可以把[示例笔记](fixtures/sample-vault)复制进测试库，更新后搜索 `留白` 或 `Change one variable at a time`。
 
-想先试试？把明确标为虚构的[合成示例笔记](fixtures/sample-vault)复制进测试库，更新一次，搜索 `留白` 或 `Change one variable at a time`。空库和信息不足的笔记可以没有结果，不会为凑数量编造关联。详见[首次使用](docs/GETTING-STARTED.md#first-connection)。
+## 功能
 
-## 高发散下的间接建议
+- 处理 Markdown 和 Canvas 文本。生成片段默认保存在 `Third Brain/Fragments`，不修改原笔记。
+- 每条结果附匹配理由和原文引用。来源变了或找不到了，旧结果就不能继续当作有效引用。
+- 点卡片上的主题、概念、机制或类型，继续查找。这里的“机制”指共同的做法或原理。点「打开片段」还能沿着保存的链接查看相关片段。
+- 用低、中、高调整关联范围。高发散下可另外显示间接建议，并提供两篇笔记的原文供比较；这些建议可能不合适，需要自行判断。
+- 支持手动、每日、每周更新。定时更新只在 Obsidian 打开时运行，未改动的笔记会复用之前的结果。
 
-选择 **高** 发散度后，直接命中的机制 / 类比片段可沿同隐私的已有片段网络走一跳。卡片明确写出 **间接关联建议**、经由哪个片段及共同机制；展开 **分别核对两端原文**，可读两端引文、条件并分别打开来源。这不代表建议与查询机制等价，也不证明因果关系。低 / 中的行为保持不变。
+## 搜索模式
 
-扩展有固定上限：3 个起点、每起点检查 3 个邻居、最多 6 个目标。原主列表最多 7 条，顺序和分数保持不变；高发散可在 **沿已有网络的间接建议** 下另显示最多 2 条经来源复核的目标，结果摘要会显示额外数量。建议不抢主列表的位置、不提高其分数；没有合格路径时不显示额外区段。两端原文和既有「打开片段」入口仍可使用。
-
-## 顺着片段继续找
-
-搜索结果中选择 **打开片段**，在笔记的 **Related fragments** 下继续打开相关片段，再查看各自的原文引用。生成笔记带有可读标题别名。关系来自已有主题、概念和机制属性，并限制在同一隐私等级；不把共同属性当作已验证的语义或因果关系。
-
-## 本地摘录与模型模式
-
-| 模式 | 做什么 | 需要什么 |
+| 模式 | 怎么搜索 | 需要配置 |
 | --- | --- | --- |
-| 本地摘录 · 默认 | 提取可读片段，按文字和已有属性检索；**不是 AI 语义理解** | 无账户、密钥或网络 |
-| 本机模型 · 可选 | 通过配置的 OpenAI 兼容模型提炼片段、解释查询 | 自备回环模型服务与模型名称 |
-| 云端模型 · 可选 | 普通笔记正文和查询可能发送到选定服务；local/private 来源及其词表不发送 | HTTPS 接口、宿主管理的密钥、明确同意 |
+| 本地摘录 · 默认 | 摘取段落，按文字和已有笔记属性匹配，不推断语义。 | 无需配置，离线使用。 |
+| 本机模型 | 用模型提炼片段、理解搜索输入。 | 自备 OpenAI 兼容的本机模型服务。 |
+| 云端模型 | 把允许发送的笔记正文和搜索输入交给指定服务商。 | HTTPS 接口、模型名、API 密钥，并开启云端处理。 |
 
-[模型配置](docs/GETTING-STARTED.md#optional-model-setup) · [隐私边界](docs/PRIVACY.md)
+[模型配置说明](docs/GETTING-STARTED.md#配置模型)。
 
-点击属性保留类别和值，直接使用已有属性查找，不再让模型重新解释；仅正文同词的摘录不会抢占这条入口。编辑想法或取当前笔记会恢复普通搜索。机制需中／高、氛围需高发散度；界面会说明范围并保留选择。高档网络邻居仍是间接建议，不代表列表全部与属性严格相等。属性查找发现前面的候选已失效或被排除，会沿原排名继续核验后面的资料，不再被前 30 条候选挡住；未知读取或安全错误仍停止整次查询，主七条／额外两条和普通搜索保持不变。
+## 数据与隐私
 
-卡片还显示已有类型。点击“方法”“观察”等类型，可找回当前可核验的同类型材料，不新增模型请求。依据是已存编辑分类相等，不代表含义或因果相同；最多显示七条，不补间接建议，也不承诺完整列表。
+云端处理默认关闭。标为 `privacy: local` 或 `privacy: private` 的笔记及其生成标签不发送到云端。插件不收集点击、停留或输入历史。
 
-## 更新停住时
+生成文件和历史记录没有加密，也可能进入笔记库的同步和备份。移除原笔记不保证清除所有旧摘录。启用云端前请阅读[隐私说明](docs/PRIVACY.md#中文)。
 
-面板会显示阻塞的库内来源、读取／解码／解析／分析阶段和受控原因，并保留最后进度。初次失败会明确尚未建立完整索引；提交前失败且已有旧版本时保留完整旧索引，但已变或不可读来源仍须重新核验。读取期间可取消，后续来源不再开始；这不保证硬中断系统 I/O。处理完成与真正提交分开显示。可修正提示的来源或在既有来源排除设置中排除它，再重试；插件不跳过未知隐私或非法模型输出来提交半轮结果。
+## 当前状态
 
-## 范围与限制
-
-- 仅桌面端，处理可读 Markdown 和 Canvas 文本节点；不支持移动端。
-- 来源变化后，旧证据会失效；缺失来源不会继续作为可打开的推荐。修改笔记后请更新。
-- 引文证明出处，不证明每个解释正确；不保证普遍检索准确、改善记忆或判断掌握程度。
-- 脱敏不能识别全部机密。启用云端**之前**，请把敏感笔记标为 local/private 或排除来源。生成历史不加密，删除来源也不保证抹除所有派生副本。
-- 新版持久关联及旧库升级已用合成文件库实测；“打开片段”和双端原文入口已接入原生面板，并经 DOM 测试工具检查；0.3.7 的宿主点击和广泛真实 AI 质量仍未验收。[验证范围](docs/VERIFICATION.md)单独记录较早版本的原生检查。
-
-[兼容与限制](docs/COMPATIBILITY.md) · [排障](docs/TROUBLESHOOTING.md)
+仅支持桌面端。默认本地搜索不需要模型；AI 模式取决于所用服务，可能找不到内容或给出不合适的关联。本版在 Obsidian 中的完整点击流程、真实服务商接口和更大范围的 AI 效果仍在验证，详见[测试记录](docs/VERIFICATION.md)。
 
 ## 开发
 
-只有源码构建需要 Node **22.12+** 和 npm；Release 安装不需要。
+源码构建需要 Node **22.12+** 和 npm。直接安装发布包不需要。
 
 ```sh
 git clone https://github.com/Yueyue673/obsidian-third-brain.git
@@ -84,10 +65,10 @@ npm ci --ignore-scripts
 npm run build
 ```
 
-将 **`dist/main.js`、`dist/manifest.json`、`dist/styles.css`、`dist/LICENSE`** 复制到上面的插件目录。[贡献指南](CONTRIBUTING.md)列出开发检查；`npm run demo` 是合成库浏览器测试工具，不是 Obsidian 窗口或真实 AI 演示。
+把 `dist/main.js`、`dist/manifest.json`、`dist/styles.css`、`dist/LICENSE` 复制到插件目录即可。开发检查见[贡献指南](CONTRIBUTING.md)。`npm run demo` 是使用示例笔记的浏览器测试页面，不是 Obsidian 或真实模型演示。
 
-[架构](docs/ARCHITECTURE.md) · [研究](docs/RESEARCH.md) · [安全反馈](SECURITY.md) · [更新记录](CHANGELOG.md)
+[架构](docs/ARCHITECTURE.md) · [兼容性](docs/COMPATIBILITY.md) · [常见问题](docs/TROUBLESHOOTING.md) · [更新记录](CHANGELOG.md) · [安全反馈](SECURITY.md)
 
 ## 许可
 
-[MIT](LICENSE)，独立实现，不复制私人笔记库或竞品代码。Obsidian 是独立产品，依赖许可见[第三方声明](THIRD-PARTY-NOTICES.md)。
+[MIT](LICENSE)。依赖许可见[第三方声明](THIRD-PARTY-NOTICES.md)。

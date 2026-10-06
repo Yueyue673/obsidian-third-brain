@@ -1,53 +1,97 @@
-# Privacy and data boundaries / 隐私边界
+# Privacy
 
-## Default
+Third Brain runs in local-excerpt mode by default. That mode makes no model requests. Cloud processing is opt-in, and the plugin does not collect clicks, dwell time or typing history.
 
-Local excerpts make no model requests. Processing mode is never silently upgraded. Model modes use only an explicitly configured endpoint. No telemetry or behavioural profile is collected.
+[中文](#中文) · [Model setup](GETTING-STARTED.md#optional-model-setup)
 
-默认本地摘录不调用模型。点击、停留、逐键输入不用于训练或画像。使用当前笔记是一次明确请求，不是持续监控。
+## What can be sent to a model
 
-## Cloud consent
+In cloud mode, ordinary note text and explicitly submitted searches may be sent to the provider you configure. Requests can also include existing labels and a short section heading or preceding passage to help with editing. The provider's data-retention policy is separate from the plugin.
 
-Cloud mode needs explicit consent, HTTPS and a host-managed secret. Ordinary note text and explicitly submitted queries may be sent to that provider. The provider's retention and privacy terms are separate from this plugin.
+The plugin does not attach source IDs, filenames or paths as request metadata. Names and paths written inside note text may still be sent if redaction does not recognise them. Redaction uses patterns; it cannot find every secret or confidential detail.
 
-The user-message data supplied to the model contains `task`, redacted primary `text`, bounded `vocabulary`, and optionally extraction-only `context` with `heading` and `before`. The heading is parsed from source prose, not a filename or arbitrary frontmatter; preceding prose stays within the same section/chunk. Context is redacted before bounding (160/400 characters), rechecked with the same source at each request, and cannot supply primary quotations, conditions or caveats. Already parser-clipped headings are omitted. The plugin does not attach source identifiers, filenames or paths as metadata. Paths or filenames mentioned within the text are masked only when they match conservative patterns; some bare filenames, such as CSV or spreadsheet names, may remain in the body. This is not comprehensive filename/path anonymisation.
+## Keep notes out of cloud requests
 
-提炼请求还可附带有限的章节标题和前文语境，先脱敏再限长；背景不能作为当前片段的引用证据。模型请求不附加来源 ID、文件名或路径元数据。正文里的路径和文件名仅按有限模式遮罩；例如某些 CSV、表格文件名仍可能原样发送。未识别的机密内容也可能保留，应在首次云端处理前标记 local/private 或排除来源。
+Set `privacy: local` or `privacy: private` in a note's properties. `sensitivity: local` and `sensitivity: private` are also accepted. You can exclude a file or folder in the plugin settings instead.
 
-## local/private
+```yaml
+---
+privacy: local
+---
+```
 
-Supported source frontmatter includes `privacy: local`, `privacy: private`, `sensitivity: local` and `sensitivity: private`. Classify raw input before Markdown/Canvas/plugin-format conversion. Cloud indexing and cloud vocabulary omit non-normal sources and derivatives. Current-note/query context inherits the stricter source/draft privacy; no raw private context is interpreted by a cloud model.
+These notes and their derived labels are excluded from cloud indexing and query vocabulary. **Use current note** also respects the stricter privacy setting from the saved note or current draft. An excerpt shared by several notes keeps the strictest of their privacy levels.
 
-This policy is prospective. Changing a previously ordinary note to private cannot recall content already sent to a provider. A loopback model service may independently forward traffic; endpoint validation does not audit that separate process.
+Set privacy before the first cloud update. Marking a note private later cannot recall text already sent to a provider. A local model service may forward requests elsewhere independently; check that service's settings too.
 
-Cloud requests are re-checked **at each request boundary**, not only at the last refresh or once per note. Every paragraph and oversized-paragraph chunk is a separate extraction request. Before it, the live source proof for each vocabulary label is checked again, including metadata, cached and newly inferred labels; the active note is read last, after asynchronous dictionary checks. A missing, excluded, edited or newly protected required source aborts the run before that request. An independently grounded ordinary source can supply a shared label; a merged fragment's unioned labels still require all of its evidence donors. Local excerpts make no model requests and do not need these outgoing-request checks.
+## Checks before sending
 
-For interpreted queries, candidate dictionary donors are re-read and re-verified before sending. Newly excluded folders and the owned derived layer stop contributing immediately. These checks narrow the check-to-send window; they cannot eliminate it on a filesystem another process can edit at any moment. They also cannot recall previously authorised data sent before a policy change.
+The source text, privacy and exclusions are checked before each model request, including each paragraph or chunk of a long note. The sources behind labels are checked too. If a required source changes, disappears or becomes protected, that request is stopped.
 
-## Indirect suggestions
+Query vocabulary is rechecked against its sources before sending. Generated files do not supply cloud vocabulary. These checks reduce the chance of sending outdated or newly protected content, but another process can still edit a file between the check and the request. The filesystem checks are not atomic.
 
-High-breadth one-hop network expansion is local and introduces no additional model request. It stays within one privacy partition and checks both complete endpoint proofs against live sources and exclusions; source buttons recheck revision, quotation and exclusion before opening. Existing query interpretation follows the mode and consent rules above. Relation explanations contain excerpts from both sources, rendered locally and never sent as a new relation-analysis request. Repeated reads are not atomic and cannot eliminate concurrent check-to-use races.
+High-breadth indirect suggestions are calculated locally from existing links; they do not trigger an extra request to analyse the relationship. Opening either original rechecks both sources. The search itself may still make the query-interpretation request allowed by your selected model mode.
 
-高发散的网络扩展在本地完成，不新增模型请求，不跨隐私等级。两端完整来源均需复核；打开原文前再次检查版本、引文及排除规则。重复检查不是原子读取，仍有并发变化窗口。
+## Files kept in the vault
 
-## Sensitive content
+Generated fragments, the index and history can contain quotations from your notes. The plugin does not encrypt them. Vault sync and backups may include them.
 
-Recognised credential-bearing input blocks a model request. Common identifiable information is redacted where safe evidence mapping is possible. This is a conservative pattern-based measure: it does **not** recognise every secret, identity or confidential situation. Mark sensitive notes local/private or exclude their folder before first indexing.
+Removing a source takes it out of active recommendations, but does not guarantee deletion of every historical excerpt. The plugin never deletes original notes. Disabling it stops processing, not storage or backup retention.
 
-脱敏不能替你识别所有隐私；来源中含有未识别的隐私，仍可能在明确启用云端后发送。应先设置 local/private 或排除文件夹。
+## API keys and model output
 
-## Local copies
+API keys are kept in Obsidian's secret storage. Plugin settings store only the secret identifier, not the key. Other plugins and authorised processes are outside this protection: Obsidian plugins have broad access to the host.
 
-Generated fragments, index and retired history can include excerpts. They are not encrypted by this plugin and may be included in vault backups/sync. Removing a source retires active recommendations; it is not guaranteed erasure of historical derived copies. The plugin never deletes user originals.
+Models are not given tools or permission to name files, write originals or make additional network requests. Invalid output and unsupported quotations are rejected. A quotation proves where text came from, not that a summary or analogy is correct.
 
-## Secrets
+## Request format
 
-Settings keep only a SecretStorage identifier. There is no plaintext API-key fallback. Host secret storage is not a guarantee against other authorised processes or malicious plugins. Obsidian plugins have broad host access and are not permission-sandboxed.
+The model's user message contains `task`, redacted `text`, bounded `vocabulary`, and optional editing `context` with `heading` and `before`. Editing context is limited to a 160-character heading and 400 characters of nearby text from the same section or chunk. It is redacted first and cannot supply quotations for the main passage. Filenames and arbitrary frontmatter are not used as headings.
 
-## Model trust
+Cloud mode requires HTTPS, a host-managed secret and explicit consent. URLs with embedded credentials, query strings or fragments, and redirects, are rejected.
 
-No tools, output-path control, extra network actions or original-note write authority are given to a model. Unknown fields, malformed JSON and unsupported quotations fail closed. A valid quotation proves existence, not the correctness of the interpretation or present-day truth of old knowledge.
+## Bug reports
 
-## Logs and issues
+Do not attach private notes, searches, generated history, raw model replies, keys or personal machine paths to a public issue. Use a small sample note and the steps to reproduce. See [Security](../SECURITY.md).
 
-Do not attach a real vault, index/history, raw model response, query, API key, credential-bearing URL or personal absolute path to a public issue. Use a small synthetic reproduction. Safe application errors do not echo provider response bodies or note text.
+---
+
+## 中文
+
+### 默认行为
+
+默认「本地摘录」不调用模型，也不发送笔记。云端处理需要手动开启。插件不收集点击、停留或输入历史。
+
+### 云端会收到什么
+
+开启云端后，普通笔记正文和主动提交的搜索输入可能发送给所选服务商。请求还可能包含已有标签，以及用于提炼的短章节标题和附近前文。服务商如何保存这些数据，取决于其隐私政策。
+
+请求不附加来源 ID、文件名或路径元数据，但正文里写出的名字、路径或机密信息不一定都能被识别和遮罩。自动脱敏不能替代你对笔记隐私的判断。
+
+### 不想发送的笔记
+
+在笔记属性里设置 `privacy: local` 或 `privacy: private`，也支持 `sensitivity: local` 和 `sensitivity: private`。还可以在插件设置中排除文件或文件夹。
+
+这些笔记及其生成标签不用于云端请求。「使用当前笔记」也会读取原稿和草稿的隐私设置，并采用较严格的一项。一个片段来自多篇笔记时，同样保留最严格等级。
+
+请在第一次云端更新前设置隐私。之后再标私密，不能撤回已经发送的内容。本机模型服务是否转发请求，也需要自行确认。
+
+### 发送前的检查
+
+每次模型请求前都会检查相关来源、隐私和排除设置，长笔记的每个段落或分块也分别检查。标签的来源同样需要有效。相关来源已改动、消失或变成私密时，请求会停止。
+
+这些检查不能消除所有并发修改风险：其他程序仍可能在检查后、发送前改动文件。高发散的间接建议在本地计算，不另发关系分析请求；搜索输入是否交给模型解释，仍取决于你选的模式。
+
+### 本地文件
+
+生成片段、索引和历史可能包含原文摘录，没有加密，也可能进入笔记库的同步和备份。移除来源不保证抹除所有旧摘录。停用插件会停止处理，但不会清空已生成的文件和备份。插件不删除原笔记。
+
+### 密钥与模型
+
+API 密钥由 Obsidian 的密钥存储管理，插件设置只保存标识。这个机制不能阻止其他已获权限的程序或插件访问主机。
+
+模型不能调用工具、指定输出文件、修改原笔记或自行增加网络请求。格式不对或引文无法对上的输出会被拒绝；引文有出处，不代表模型解释正确。
+
+### 提交问题
+
+不要把真实笔记库、搜索输入、生成历史、密钥或原始模型回复上传到公开 Issue。请使用示例笔记复现，安全问题见[SECURITY.md](../SECURITY.md)。

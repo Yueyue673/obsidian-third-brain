@@ -1,30 +1,46 @@
-# Compatibility and limitations
+# Compatibility
 
-## Declared scope
+## Supported formats and requirements
 
-- Desktop Obsidian, minimum manifest version **1.11.5** for host-managed secret storage.
-- SDK declarations pinned to npm **1.13.1**. SDK package, app runtime, installer and repository HEAD are different versions.
-- Development: Node **22.12+**; CI is configured for Node 22/24 on Ubuntu/Windows. A workflow configuration is not evidence that its remote runs have passed.
-- Markdown and Canvas text nodes. Drawing/compressed Excalidraw payload is not treated as prose.
-- OpenAI-compatible non-streaming chat-completions endpoints. Vendor-specific APIs, tool-calling-only responses, streaming-only services and providers without the expected JSON shape are not claimed compatible.
-- Mobile is not supported. The manifest declares desktop-only because production adapters require Node filesystem/network capabilities.
+- **Desktop Obsidian 1.11.5+**, required for Obsidian's secret storage. Mobile is not supported.
+- Markdown notes and text nodes in Canvas files. Compressed Excalidraw drawings are not indexed as text.
+- AI modes use **OpenAI-compatible, non-streaming chat-completions APIs**. Streaming-only, tool-only and vendor-specific APIs are not supported by this transport.
+- Source builds require **Node 22.12+** and npm. Release installation does not need Node. CI is configured for Node 22/24 on Windows and Ubuntu.
 
-## Limits worth knowing
+The Obsidian SDK package is pinned to 1.13.1; this is separate from the installed Obsidian app version.
 
-Local excerpts are a lexical/existing-facet baseline. They do not infer arbitrary cross-domain semantics. AI modes depend on the configured model and can misunderstand your notes. Evidence validation does not prove every summary or analogy.
+## What still needs testing
 
-No useful personal index can be created from an empty vault. Sparse notes can be kept without facets or abstained from rather than padded with invented context. Ranking is heuristic, not calibrated confidence, and high association breadth does not mean every candidate is useful.
+This preview's native Obsidian click flow, real provider compatibility and broader AI quality remain unverified. The [testing record](VERIFICATION.md) separates version-specific native checks, downloaded packages, model checks and local tests.
 
-The plugin does not assess present-day truth, mastery or memory improvement. Exact-content reconciliation preserves multiple provenance; nonidentical semantic equivalence is not automatically assumed.
+Local excerpts use text and existing attributes, not semantic inference. Optional AI can misunderstand notes, choose poor associations or return nothing. A source quotation confirms where text came from, not that an explanation is correct. The plugin does not measure memory improvement or knowledge mastery.
 
-Source and output symlinks are rejected. Excluded folders and configured note/byte limits bound work. Limits apply together: 20,000 source records, 10,000 active fragments, a 32 MiB persisted state, a 2 MiB generated file, and a 100 MiB source-text batch. The configurable source-count ceiling is not a promise that every vault of that size fits: many fragments or quotations can reach another limit first, and the complete revision then fails instead of committing a partial index. UTF-8 and explicit-BOM UTF-16 are accepted by the source adapter; invalid/unsupported decoding is rejected where detected.
+## Storage and updates
 
-Only the index state swap is atomic. Generated files are applied individually under a journal and can appear mixed during an update. Recovery and crash tests do not guarantee protection against every hostile external-file race or every power-loss scenario; see [architecture](ARCHITECTURE.md).
+These limits apply together:
 
-A daily/weekly schedule works only while Obsidian is running. No persistent operating-system service is installed.
+| Item | Limit |
+| --- | --- |
+| Source records | 20,000 |
+| Active fragments | 10,000 |
+| Saved index | 32 MiB |
+| One generated file | 2 MiB |
+| Source text per update | 100 MiB |
 
-Hidden history can retain old generated material. This release does not guarantee complete erasure after source removal; see [privacy](PRIVACY.md).
+A vault may reach a fragment or byte limit before the configured note-count limit. In that case, the update stops instead of saving a partial index.
 
-## Evidence, not implied support
+Source and output symlinks are rejected. UTF-8 and BOM-marked UTF-16 are accepted; invalid text encoding is rejected. A daily/weekly schedule runs only while Obsidian is open.
 
-Actual native-host checks, model checks, local tests and browser-harness checks are separate rows in [VERIFICATION.md](VERIFICATION.md). Read that report for what was exercised on the released commit. Do not infer native Obsidian compatibility from a successful browser harness alone.
+Only the final index replacement is atomic. Generated Markdown files are updated individually, so an update may briefly show a mix of versions. Recovery does not cover every concurrent file edit or power-loss scenario. Details are in [Architecture](ARCHITECTURE.md).
+
+Generated history is not encrypted and may survive source removal or enter vault sync and backups. See [Privacy](PRIVACY.md).
+
+## 中文
+
+- 需要桌面版 Obsidian 1.11.5 或更新版本，不支持移动端。
+- 支持 Markdown 和 Canvas 文本，不把压缩的 Excalidraw 绘图当作笔记正文。
+- 模型接口需要 OpenAI 兼容的非流式 chat-completions 格式；本版的真实服务商兼容性、Obsidian 点击流程和更大范围的 AI 效果仍在验证。
+- 只有源码构建需要 Node 22.12+ 和 npm；安装发布包不需要。
+- 片段数量、索引大小和单轮正文都有上限。超限时更新会停止，不会只保存一部分。
+- 定时更新只在 Obsidian 打开时运行。生成文件逐个更新，过程中可能短暂混合新旧版本；恢复机制不能保证覆盖所有断电和并发修改情况。
+- 历史摘录没有加密，也不保证在移除来源后全部清除。来源引用真实，不代表模型解释一定正确。

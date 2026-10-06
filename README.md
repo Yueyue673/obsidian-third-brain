@@ -1,81 +1,62 @@
 # Third Brain
 
-Reconnect an idea with fragments from your own notes, see why they match, and open the original — inside Obsidian.
+An Obsidian plugin that turns notes into searchable fragments. Enter an idea, see why a passage matches, and open it in the original note.
 
-**[Download 0.3.7 preview](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.7/third-brain-0.3.7.zip)** · [Install](#install) · [中文](README.zh-CN.md) · [Privacy](docs/PRIVACY.md)
+[Download 0.3.7](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.7) · [Getting started](docs/GETTING-STARTED.md) · [简体中文](README.zh-CN.md)
 
-<img src="docs/images/native-obsidian-source-open-zh.png" alt="Native Obsidian showing a synthetic source note beside Third Brain's local-excerpt explanation and source quotation" width="680">
+<img src="docs/images/native-obsidian-source-open-zh.png" alt="A source note open beside search results in Obsidian" width="680">
 
-*Native Obsidian, earlier build, synthetic notes and local excerpts. Not a public-package installation or live-AI demo.*
-
-> **0.3.7 preview · desktop Obsidian 1.11.5+ · not in the Community directory.**
-> Default local excerpts need no key or network; they are not AI semantic search. A small real-model synthetic check and cached-result activation check exist; production-provider compatibility, broad semantic quality and native clicks for this version remain unverified.
-
-Natural idea searches now continue through the same ranked candidates after known-invalid sources, without changing scores or adding query-model requests. Displayed cards and old quotation clicks check complete current provenance, exclusions and index membership; unknown failures still abort the whole query.
-
-Identical excerpts from different privacy classes remain locally searchable under the **most restrictive** merged privacy. Every donor must be current before display/open; cloud eligibility is unchanged and local/private vocabulary remains unsent.
+*Screenshot from an earlier build, using sample notes in local mode.*
 
 ## Install
 
-Start in a disposable test vault. Node.js is **not** needed to install the plugin.
+Requires **desktop Obsidian 1.11.5+**. This is a preview release; it is not listed in Community plugins yet. Try it in a test vault first.
 
-1. Download the [plugin ZIP](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.7/third-brain-0.3.7.zip) and [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.7/SHA256SUMS) from the [0.3.7 prerelease](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.7). [Compare the ZIP's SHA-256](docs/GETTING-STARTED.md#check-the-download), then extract it.
-2. Create `.obsidian/plugins/third-brain/` inside that vault. Put **`main.js`, `manifest.json`, `styles.css` and `LICENSE`** directly inside — no extra nested folder.
-3. Reload Obsidian, allow Community plugins if prompted, and enable **Third Brain** in **Settings → Community plugins**. Open the brain ribbon icon, then select **Refresh notes**.
+1. Download [third-brain-0.3.7.zip](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.7/third-brain-0.3.7.zip) and extract it. Use the plugin ZIP, not the source-code archive.
+2. Put `main.js`, `manifest.json`, `styles.css` and `LICENSE` in your vault's `.obsidian/plugins/third-brain/` folder. Do not add another folder level.
+3. Restart Obsidian, enable **Third Brain** in **Settings → Community plugins**, and open the brain icon in the ribbon.
 
-Community plugins have broad access. Review the code and keep a backup before using an important vault. [Installation help](docs/TROUBLESHOOTING.md).
+No Node.js or API key is needed for local mode. [Download checks and installation help](docs/GETTING-STARTED.md#install-the-preview).
 
-## Find your first connection
+## Usage
 
-Describe an idea → **Find connections** → read the explanation → expand **Source evidence** → **Open original**. You do not need to find an old note or know a tag first.
+1. Click **Refresh notes** to build the index.
+2. Type an idea and click **Find connections**. Use **Use current note** to search with your selection or current draft instead.
+3. Read the matching passages, expand **Source evidence**, and click **Open original**.
 
-- **Keep originals separate.** Generated Markdown and its index live in `Third Brain/Fragments` by default. Originals stay read-only; user-authored or edited output is protected.
-- **Inspect the reason, not just the result.** Cards distinguish text and facet matches, show source quotations, and label analogy limits. Click a facet to explore; low/medium/high breadth changes the search scope, not evidence requirements.
-- **Refresh on your terms.** Manual by default, with optional daily/weekly refresh while Obsidian is open. No automatic insertion, keystroke stream, click/dwell tracking or telemetry.
+For a quick trial, copy the [sample notes](fixtures/sample-vault) into your test vault and search for `留白` or `Change one variable at a time`.
 
-Need notes to try it? Copy the explicitly synthetic [sample notes](fixtures/sample-vault) into your test vault, refresh once, and search for `留白` or `Change one variable at a time`. An empty vault or insufficient context can produce no results; nothing is invented to fill the list. [First-run guide](docs/GETTING-STARTED.md#first-connection).
+## Features
 
-## High-breadth indirect suggestions
+- Index Markdown and Canvas text. Generated fragments are saved to `Third Brain/Fragments`; original notes are not rewritten.
+- Show matching reasons and source quotations. Changed or missing sources invalidate old results.
+- Explore topics, concepts, mechanisms and fragment types from the result cards. Open a fragment to follow its saved links to related fragments.
+- Adjust association breadth with **Low**, **Medium** or **High**. High can show separate indirect suggestions, with quotations from both notes. These are suggestions, not proof that two ideas mean the same thing.
+- Refresh manually, daily or weekly while Obsidian is open. Reuse unchanged notes rather than processing them again.
 
-With **High** breadth, an existing direct mechanism/analogy match can lead one step through the same-privacy fragment network. Cards label this **Indirect association suggestion**, name the anchor and shared mechanism, and let you expand **Compare both original sources** to inspect both quotations, conditions and source buttons. This does not establish equivalence to your query or a causal relationship. Low/medium behaviour is unchanged.
+## Search modes
 
-Expansion is deliberately bounded (3 anchors, 3 inspected neighbors per anchor, at most 6 targets). The original main list keeps its order, scores and up to seven results. High can show at most two additional, source-checked targets in a separate **Indirect suggestions via the existing network** section, with its count in the result summary. Suggestions never take a main-list slot or increase its scores; without a qualifying path there is no extra section. The existing Open fragment action and both original-source controls remain available.
-
-## Follow a saved connection
-
-From a search result, choose **Open fragment**. Its **Related fragments** section links to generated fragments with specific shared topics, concepts or mechanisms; each fragment keeps its original quotations and source links. Human-readable title aliases are included. These are bounded same-privacy suggestions from existing attributes, not proof of semantic or causal equivalence.
-
-## Local excerpts or a model?
-
-| Mode | What it does | What you need |
+| Mode | How it works | Setup |
 | --- | --- | --- |
-| Local excerpts — default | Extracts passages and retrieves text/existing-facet matches; **not AI semantic understanding** | No account, key or network |
-| Local model — optional | Uses a configured OpenAI-compatible model to edit grounded fragments and interpret queries | Your own loopback service and model name |
-| Cloud model — optional | May send ordinary note text and your query to the chosen provider; local/private sources and their vocabulary are excluded | HTTPS endpoint, host-managed secret and explicit consent |
+| Local excerpts — default | Extracts passages and matches text or existing note attributes. It does not infer meaning. | None; works offline. |
+| Local model | Uses a model to edit fragments and interpret searches. | Your own local OpenAI-compatible service. |
+| Cloud model | Sends eligible note text and submitted searches to your chosen provider. | HTTPS endpoint, model, API key and explicit consent. |
 
-[Model setup](docs/GETTING-STARTED.md#optional-model-setup) · [Privacy boundaries](docs/PRIVACY.md)
+[Model setup](docs/GETTING-STARTED.md#optional-model-setup).
 
-Selected facet buttons retain their category and value instead of becoming an ordinary text query. They use existing local attributes without another model interpretation; identical words in unrelated excerpts do not compete as body matches. Editing the idea or taking current-note context returns to ordinary search. Mechanisms require Medium/High breadth and atmosphere High; the panel explains an inapplicable breadth and retains the choice. High-breadth network neighbors remain indirect suggestions, not strict attribute-equality filtering. If earlier ranked candidates are known to be stale or excluded, selected-facet searches continue checking the same ranking for current materials instead of stopping at the first 30 candidates. Unknown read/safety errors still stop the entire query; main-seven/extra-two limits and ordinary search are unchanged.
+## Privacy
 
-Cards also show their existing editorial Type. Click Method, Observation or another displayed type to find currently verifiable same-type material, without another model request. Type matching is exact stored classification, not semantic/causal similarity; it displays at most seven matches without indirect additions and is not a complete listing.
+Cloud processing is off by default. Notes marked `privacy: local` or `privacy: private` are excluded from cloud requests, including their derived labels. The plugin does not collect clicks, dwell time or a typing history.
 
-## When refresh stops
+Generated files and history are not encrypted and may be included in vault sync or backups. Removing a source does not guarantee that every old excerpt is erased. See [Privacy](docs/PRIVACY.md) before enabling a cloud model.
 
-The panel names the affected vault-relative source, reading/decoding/parsing/analysis stage and controlled reason, and retains the last progress. A first failed refresh says that no complete index exists; a pre-commit failure with a previous revision preserves that revision without treating changed/unreadable sources as current evidence. Reading can be cancelled without starting the next source; this is cooperative cancellation, not an OS I/O hard stop. The committing label is distinct from processing completion. Fix or explicitly exclude the reported source before retrying; the plugin never skips unknown privacy or invalid model output to save a partial run.
+## Current status
 
-## Scope and limits
+Desktop only. Local search works without a model; optional AI depends on your provider and can return poor or no matches. This release's native Obsidian click flow, real provider compatibility and broader AI quality still need testing. [Testing status](docs/VERIFICATION.md).
 
-- Desktop only; readable Markdown and Canvas text nodes. No mobile support.
-- Source changes invalidate old evidence. Missing sources are not kept as live recommendations; refresh after editing notes.
-- Quotes prove provenance, not the truth of every interpretation. Recall improvement, knowledge mastery and universal relevance are not established.
-- Redaction cannot identify every confidential detail. Mark sensitive notes local/private or exclude them **before** enabling cloud processing. Generated history is not encrypted or guaranteed to be erased when a source is removed.
-- Stored fragment links and legacy upgrades are checked on synthetic filesystem fixtures. The Open fragment and two-source suggestion controls are wired into the native panel and checked in a DOM harness; native-host clicks and broad live-AI quality are not yet verified for 0.3.7. [Verification scope](docs/VERIFICATION.md) distinguishes earlier native checks.
+## Development
 
-[Compatibility and limits](docs/COMPATIBILITY.md) · [Troubleshooting](docs/TROUBLESHOOTING.md)
-
-## Develop
-
-Source builds require Node **22.12+** and npm; installation from the release does not.
+Requires Node **22.12+** and npm.
 
 ```sh
 git clone https://github.com/Yueyue673/obsidian-third-brain.git
@@ -84,10 +65,10 @@ npm ci --ignore-scripts
 npm run build
 ```
 
-Copy **`dist/main.js`, `dist/manifest.json`, `dist/styles.css` and `dist/LICENSE`** to the plugin folder above. [Contributing](CONTRIBUTING.md) covers development checks; `npm run demo` is a synthetic browser harness, not an Obsidian window or live-AI demonstration.
+Copy `dist/main.js`, `dist/manifest.json`, `dist/styles.css` and `dist/LICENSE` to the plugin folder. Development checks are listed in [Contributing](CONTRIBUTING.md). `npm run demo` opens a browser test app with sample notes, not Obsidian or a live model.
 
-[Architecture](docs/ARCHITECTURE.md) · [Research](docs/RESEARCH.md) · [Security](SECURITY.md) · [Changelog](CHANGELOG.md)
+[Architecture](docs/ARCHITECTURE.md) · [Compatibility](docs/COMPATIBILITY.md) · [Troubleshooting](docs/TROUBLESHOOTING.md) · [Changelog](CHANGELOG.md) · [Security](SECURITY.md)
 
-## Licence
+## License
 
-[MIT](LICENSE). Independently implemented; no private-vault or competitor code is copied. Obsidian is a separate product. See [third-party notices](THIRD-PARTY-NOTICES.md).
+[MIT](LICENSE). See [third-party notices](THIRD-PARTY-NOTICES.md) for dependencies.

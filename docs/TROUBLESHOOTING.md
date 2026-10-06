@@ -1,43 +1,103 @@
-# Troubleshooting / 排障
+# Troubleshooting
 
-## No first-run results
+[Getting started](GETTING-STARTED.md) · [中文](#中文)
 
-Refresh notes once. An empty vault has no prior personal material to retrieve. If notes are excluded, too sparse or missing readable content, no fragment is the correct result. The plugin does not fabricate examples in your vault.
+## The plugin does not appear
 
-先更新一次；没有原始资料时，不会凭空生成你的知识。合成示例需要你明确选用。
+Check that `main.js`, `manifest.json`, `styles.css` and `LICENSE` are directly inside `.obsidian/plugins/third-brain/`. Restart Obsidian and enable Third Brain in Settings → Community plugins. This preview requires desktop Obsidian 1.11.5+.
 
-## No match for an idea
+## No search results
 
-Add context or use a different idea. Local excerpts compare text and existing facets, not arbitrary semantics. For semantic interpretation, configure a supported model intentionally. High breadth cannot force a result from unrelated material.
+Run **Refresh notes** once. Check that the vault has readable notes and that your exclusions do not cover them. You can try the [sample notes](../fixtures/sample-vault) in a test vault.
 
-## Model request did not complete
+Local excerpts match words and existing attributes, not arbitrary meaning. A wider association range cannot create useful material from unrelated notes. Empty or sparse notes may produce no fragments.
 
-Check mode, exact endpoint/model, cloud consent and secret selection. Local mode accepts loopback destinations; cloud mode needs HTTPS and a secret. Redirects, oversized replies, timeout, malformed JSON, unknown fields and unsupported quotations are rejected. No raw remote response is printed. Switching to local excerpts is explicit, not a hidden downgrade.
+## A model request fails
 
-## Refresh cancelled or failed
+Check the processing mode, base URL, model name and selected API key. Cloud mode also needs HTTPS and **Allow cloud processing** enabled. This preview expects an OpenAI-compatible, non-streaming chat-completions API.
 
-The last complete index remains available. Retry after checking settings and source stability. Editing an original during processing can cause source verification to reject that batch; your edit is not overwritten.
+Timeouts, redirects, oversized responses and invalid output stop the request. The plugin does not print the provider's raw reply or silently switch modes. You can select **Local excerpts** yourself to use the offline search.
 
-## Source changed or disappeared
+## Refresh fails or is cancelled
 
-Refresh before opening an old quotation. Stale evidence is filtered, not presented as a live citation. The plugin never guesses another file based on a shared basename.
+The panel shows the affected note, stage and last progress. Fix the reported format or access problem, or explicitly exclude the note, then refresh again. The plugin does not rewrite the original to fix it.
 
-## Protected-file conflict
+A failure before saving retains any previous complete index, but changed or unreadable source references are still unavailable. On a first failed update, there is no complete index yet. If saving itself fails, or a generated file was edited by hand, keep the folder intact; do not assume that the disk index is safe to reuse.
 
-Files are not owned merely because they are under the generated folder. A manual file, human-edited generated file, invalid ownership record or unsafe link blocks overwriting. Preserve the file and inspect the conflict in a disposable copy. Do not reset state just to force the write.
+Cancel stops further processing, but an operating-system read already in progress may take time to finish.
 
-## Invalid index or recovery
+## An old source link will not open
 
-Corrupt/unknown-version state fails closed. Keep the entire generated layer and its hidden history intact for diagnosis in a copy. Do not attach it publicly if it contains real note text. The plugin does not automatically treat corrupt state as empty.
+The source may have changed, disappeared or been excluded. Refresh the notes before using the old result. If a fragment quotes several notes, all of them must still match; keeping one unchanged source is not enough.
 
-## Scheduled updates never run
+## A generated file is protected
 
-Obsidian must be open and the schedule must be Daily or Weekly. Manual is the default. A successful refresh records when maintenance ran, even when note content did not change.
+A folder name does not make every file inside it plugin-owned. User-written files and manually edited generated files are not overwritten. Keep the affected files and inspect the conflict in a test copy. Do not clear the index to force an overwrite.
 
-## Long current note
+## The index cannot be loaded
 
-Select a shorter passage, then choose Use current note. The explicit context input is bounded; it is not a background stream of your editor.
+Keep the generated folder, including its hidden files, for diagnosis in a copy. An invalid or unsupported index is not treated as an empty vault. Do not upload the folder publicly: it can contain note excerpts.
 
-## Safe bug report
+## Scheduled updates do not run
 
-Use a synthetic note and relative path, plugin version, desktop app version, processing mode and the action that failed. Never paste a key, a credential-bearing URL, a private query, your real vault or generated history. See [SECURITY.md](../SECURITY.md).
+Obsidian must be open and the schedule set to Daily or Weekly. Manual is the default. Reopening Obsidian catches up a due update once.
+
+## The current note is too long
+
+Select a shorter passage before clicking **Use current note**. The plugin reads it once; it does not watch your editor continuously.
+
+## Reporting a bug
+
+Include the plugin version, Obsidian version, processing mode, steps and a small sample note. Do not attach private notes, generated history, API keys or raw model replies. Security issues are covered in [SECURITY.md](../SECURITY.md).
+
+---
+
+## 中文
+
+### 插件没有出现
+
+确认四个文件直接放在 `.obsidian/plugins/third-brain/`，没有多套一层目录。重启 Obsidian，在「设置 → 第三方插件」中启用 Third Brain。需要桌面版 Obsidian 1.11.5 或更新版本。
+
+### 找不到结果
+
+先点一次「更新笔记」，确认库里有可读笔记，且没有被排除。可以用[示例笔记](../fixtures/sample-vault)在测试库里试。
+
+本地摘录按文字和已有属性匹配，不推断语义；提高发散度也不会凭空产生相关资料。空白或信息太少的笔记可以没有片段。
+
+### 模型请求失败
+
+检查模式、接口地址、模型名和所选 API 密钥。云端模式还需要 HTTPS 和「允许云端处理」。目前对接 OpenAI 兼容、非流式 chat-completions 接口。
+
+超时、重定向、过大回复或格式错误会中止请求，不会显示服务商原始回包，也不会偷偷换模式。需要离线使用时，可以手动选择「本地摘录」。
+
+### 更新失败或取消
+
+查看面板提示的笔记、阶段和最后进度，处理文件格式或访问问题，也可以明确排除该来源后重试。插件不会替你修改原笔记。
+
+保存前失败会保留已有完整索引，但过时或不可读的来源仍不能使用。第一次更新失败时，还没有可用索引。保存过程中出错或遇到人工修改的生成文件时，请保留目录，不要直接当作旧索引仍可用。
+
+取消后会停止后续处理，但已经开始的系统读取可能需要一点时间才结束。
+
+### 旧引用打不开
+
+原笔记可能已修改、移除或被排除，请先更新。一个片段引用了多篇笔记时，全部来源都要仍然有效，不能靠剩下的一篇继续使用旧结果。
+
+### 提示生成文件受保护
+
+手写文件和人工改过的生成文件不会被覆盖。保留文件，在测试副本里查看冲突；不要清空索引来强行覆盖。
+
+### 索引无法加载
+
+保留生成目录和隐藏文件，在副本中排查。无效索引不会被当作空库处理。这些文件可能包含原文摘录，不要上传到公开 Issue。
+
+### 定时更新没有运行
+
+确认 Obsidian 正在运行，且计划设为每日或每周。默认是手动更新。重新打开 Obsidian 后会补一次到期更新。
+
+### 当前笔记太长
+
+先选中较短的一段，再点「使用当前笔记」。插件只读取一次，不持续监控编辑器。
+
+### 提交问题
+
+提供插件版本、Obsidian 版本、处理模式、操作步骤和一份示例笔记。不要提交私密笔记、生成历史、密钥或原始模型回复。安全问题见[SECURITY.md](../SECURITY.md)。

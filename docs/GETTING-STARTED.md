@@ -1,25 +1,13 @@
-# Getting started / 上手
+# Getting started
 
-[English README](../README.md) · [中文 README](../README.zh-CN.md) · [Install](#install-the-preview) · [Models](#optional-model-setup) · [Build from source](#build-from-source)
+[English README](../README.md) · [中文上手](#中文上手)
 
-**0.3.7 is a prerelease for desktop Obsidian 1.11.5+.** It is not in the Community directory. Default local excerpts work without an account, key or network; they are not AI semantic search. A small real-model synthetic check and cached-result activation check are documented; production-provider compatibility, broad semantic quality and native clicks for this version remain unverified.
-
-**0.3.7 是桌面预览版，需要 Obsidian 1.11.5+，尚未进入社区插件目录。** 默认本地摘录无需账户、密钥或网络，不是 AI 语义检索；已记录小范围真实模型与缓存激活检查；生产接口兼容性、广泛语义效果和本版原生点击仍未验收。
-
-Natural searches check a same-order continuation after known-invalid candidates; they do not prefilter or rescore the library. Both display and source opening validate all donors, exclusions and current membership. Unknown errors fail the complete query; this is not semantic-quality or native-click certification.
-
-自然搜索会按原顺序继续核验后续候选，不预过滤语料或重评分；展示与打开原文都复核全部来源、排除设置和当前归属。未知错误使整次查询失败；这不证明语义质量或原生点击已验收。
+Third Brain 0.3.7 requires desktop Obsidian 1.11.5+. It is a preview, not yet listed in Community plugins. Start in a test vault and keep a backup before using important notes. Installation does not require Node.js.
 
 ## Install the preview
 
-Use a disposable test vault first. You do **not** need Node.js for release installation. Community plugins have broad access; keep a backup before using an important vault.
-
-先用可丢弃的测试库，Release 安装**不需要 Node.js**。第三方插件具有广泛访问权限；用于重要笔记库前请保留备份。
-
-1. Download [third-brain-0.3.7.zip](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.7/third-brain-0.3.7.zip) and [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.7/SHA256SUMS) from the [0.3.7 prerelease](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.7). [Check the ZIP's hash](#check-the-download), then extract it. Use this plugin ZIP, **not** GitHub's “Source code” archive.
-   下载插件 ZIP 与校验文件，核对后解压；不要下载 GitHub 自动生成的「Source code」源码包来安装。
-2. Create `.obsidian/plugins/third-brain/` inside your test vault and put all four extracted files directly inside:
-   在测试库内创建插件目录，把四个文件直接放入，不要多套一层文件夹：
+1. Download [third-brain-0.3.7.zip](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.7/third-brain-0.3.7.zip) and [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.7/SHA256SUMS). [Check the download](#check-the-download), then extract the ZIP. The Source code archives are for developers.
+2. Put the four extracted files directly in this folder inside your vault:
 
    ```text
    .obsidian/plugins/third-brain/
@@ -29,32 +17,27 @@ Use a disposable test vault first. You do **not** need Node.js for release insta
    └── LICENSE
    ```
 
-3. Reload Obsidian, review the host's trust prompt, allow Community plugins if prompted, and enable **Third Brain** in **Settings → Community plugins**. Click the brain ribbon icon or run the plugin's **Find connections** command to open the panel. Select **Refresh notes** once.
-   重新加载 Obsidian，阅读宿主的信任提示，在**设置 → 第三方插件**中按提示允许第三方插件，并启用 **Third Brain**。点脑形图标或插件的「寻找关联」命令，打开面板后点一次「更新笔记」。
+3. Restart Obsidian. In **Settings → Community plugins**, allow community plugins if prompted and enable **Third Brain**. Click the brain icon in the ribbon to open it.
 
-If the plugin is missing, check the exact folder and `manifest.json` placement, then restart Obsidian. The four files are also available as individual release assets. [Troubleshooting](TROUBLESHOOTING.md).
-
-如果插件不出现，先检查目录和 `manifest.json` 是否多套了一层，再重启 Obsidian。也可下载四个独立资产安装。详见[排障](TROUBLESHOOTING.md)。
+If it is not listed, check that `manifest.json` is in the exact folder above, without another nested directory. You can also install the four loose files from the [release](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.7). [Troubleshooting](TROUBLESHOOTING.md).
 
 ### Check the download
 
-Run one command in the folder containing your downloaded ZIP. Compare its hash with the line for `third-brain-0.3.7.zip` in `SHA256SUMS`; if they differ, do not install it.
+Run the command for your system in the download folder. Compare the result with the ZIP entry in `SHA256SUMS`. Do not install a file with a different hash.
 
-在下载目录运行适合你系统的一条命令，与 `SHA256SUMS` 中 ZIP 对应行的哈希比较；不一致就不要安装。
-
-**Windows — PowerShell**
+Windows — PowerShell:
 
 ```powershell
 Get-FileHash .\third-brain-0.3.7.zip -Algorithm SHA256
 ```
 
-**macOS**
+macOS:
 
 ```sh
 shasum -a 256 third-brain-0.3.7.zip
 ```
 
-**Linux**
+Linux:
 
 ```sh
 sha256sum third-brain-0.3.7.zip
@@ -62,94 +45,43 @@ sha256sum third-brain-0.3.7.zip
 
 ## First connection
 
-**English**
+1. Add a few notes to the test vault, or copy the [sample notes](../fixtures/sample-vault). Leave the mode set to **Local excerpts** and click **Refresh notes**.
+2. Type an idea and click **Find connections**. With the sample notes, try `留白` or `Change one variable at a time`.
+3. Expand **Source evidence**, read the quotation and click **Open original**.
 
-1. Add a few notes to your test vault, or copy the authored synthetic [sample notes](../fixtures/sample-vault) into it. Keep **Local excerpts** selected and choose **Refresh notes**; progress and **Cancel** are shown in the panel.
-2. Type an idea and select **Find connections**. With the sample notes, try `留白` or `Change one variable at a time`. You do not need to name a tag first.
-3. Read the retrieval explanation, expand **Source evidence**, inspect the quotation and select **Open original**. Click a facet to explore related fragments. Low/medium/high breadth changes candidate scope, not evidence or privacy rules.
+Local mode matches words and existing attributes; it does not infer meaning. An empty vault or unrelated search can return nothing. Refresh again after editing notes.
 
-**中文**
+**Use current note** searches with your selection or current draft once. For long notes, select a shorter passage. It does not monitor typing or insert text into your note.
 
-1. 在测试库加入几篇笔记，或复制明确标为虚构的[合成示例笔记](../fixtures/sample-vault)。保持「本地摘录」模式，点「更新笔记」；面板会显示进度和「取消」。
-2. 写下想法，点「寻找关联」。示例库可试 `留白` 或 `Change one variable at a time`，不必先知道标签。
-3. 读理由，展开「来源证据」，核对引用后点「查看原文」。点属性可继续查找；低 / 中 / 高只改变候选范围，不降低证据与隐私要求。
+## Explore the results
 
-See the [idea-entry screenshot](images/native-obsidian-activation-zh.png) and [opened-source screenshot](images/native-obsidian-source-open-zh.png). Both show an earlier build in native Obsidian with synthetic notes and local excerpts, not the public package or a live AI model.
+Click a topic, concept, mechanism or type on a result card to find more material with that attribute. This does not make another model request. Editing the search text returns to ordinary search.
 
-可查看[输入想法](images/native-obsidian-activation-zh.png)与[打开原文](images/native-obsidian-source-open-zh.png)截图：均为较早构建在原生 Obsidian 中运行合成笔记与本地摘录，不代表公开包安装或真实 AI 效果。
+**Low** focuses on direct matches; **Medium** includes mechanisms; **High** can include cross-domain and indirect suggestions. A mechanism needs Medium or High; atmosphere needs High. The panel explains when a selection needs a wider range.
 
-An empty vault cannot provide personal knowledge, and sparse notes can produce no fragments. No result is invented to fill the list. These sample queries are controlled examples, not universal retrieval guarantees. Refresh again after changing source notes.
+High can show up to two indirect suggestions separately from the main results. Expand **Compare both original sources** to read both quotations. A shared mechanism is a reason to compare the notes, not proof of equivalence or causation.
 
-空库不能凭空提供个人知识，信息不足可以不提炼、不返回结果。示例查询不是普遍准确率保证；来源笔记改动后请再次更新。
-
-## Continue from an existing facet
-
-Card buttons show Topic / Concept / Mechanism / Atmosphere and their actual value. Click to keep that explicit category/value: the existing local facet is searched without model interpretation or body-word scoring. The input label shows the selected facet; edit its text or use the current-note button to return to ordinary idea search. Changing breadth retains the choice.
-
-Topics/concepts work at Low/Medium/High; mechanisms need Medium/High; atmosphere needs High. At a lower scope, the existing notice explains how to change breadth without silently widening it. High can still show verified one-hop network neighbors: these are marked indirect suggestions, not exact selected-facet matches or a complete strict filter. Current source/identity/privacy/exclusion and whole-provenance checks remain required for results and original-source clicks; stale values cannot create a model request or a cached live link.
-
-中文：属性按钮保留主题／概念／机制／氛围类别和值，不再让模型重解释或把仅正文同词的内容当这次属性入口。输入标签显示当前选择；编辑文字或取当前笔记清掉选择。发散度变化保留选择：机制需中／高、氛围需高；过低会给出提示。高档的网络邻居仍为间接建议，不是严格相等筛选。
-
-## Continue from the existing type
-
-In the same attribute row, cards show their current Type / 类型 with readable names, retaining AI-edited or Local excerpt origin. Click the displayed type to retrieve currently verifiable materials whose stored canonical `kind` is exactly equal; this is not a search for the word “method” in note text. It never constructs a model, invokes interpretation or requests new classification. Existing parser classes are Excerpt, Idea, Method, Concept, Observation, Question, Quote and Reference; only the card’s actual current type is offered, not a preset tag directory.
-
-The same idea input and breadth control are reused. Text edits/current-note context clear the choice; breadth changes retain it. Type matching works at all three breadths, does not add network neighbors, and retains the existing display cap of seven, not an exhaustive listing. Same-type count/reason/empty-state copy distinguishes classification from semantic connections. A stored editorial class can be wrong; original source evidence must still be checked. Source identity/hash/privacy/exclusions, complete provenance, index membership and later type changes invalidate selected results or old source clicks.
-
-中文：同一属性行显示当前卡的“类型 · 方法／观察”等按钮；点击按已存类型严格相等找回材料，不是搜索正文同词，不让模型重新分类。编辑输入或取当前笔记清选择，改发散度保留选择。类型各档都可用，最多七条，不补网络邻居。类型属于编辑判断，不等于含义相同；来源或类型已变的旧卡不能继续打开为当前证据。
-
-## When a source blocks refresh
-
-Reading and processing show the current vault-relative source and completed/total count; committing is labelled separately. For a failure, the existing panel status/notice shows source, stage, controlled cause and last progress—never the raw exception, note body or model response.
-
-- Unreadable source or file-size limit: review that source and your existing source exclusions/limits.
-- Invalid text encoding or Canvas parsing: correct the source format, or explicitly exclude it using the existing settings, then refresh. Switching models does not fix an unreadable file.
-- Rejected analysis output: strict schema/evidence guards remain active. No partial run is committed.
-- Initial failure: no complete index exists yet. Pre-commit failure after a successful refresh: the previous complete index is retained, but changed/unreadable references are still rejected. A failure after entering commit or an ownership conflict is not a guarantee that the disk index is safe to load.
-
-Cancel prevents the next source from starting and rejects late results/progress, including adapters that ignore the signal; it cannot promise hard interruption of an OS read. After an explicit source repair, refresh builds a complete revision; an unchanged rerun remains incremental. The plugin does not repair or skip your originals for you.
-
-中文：面板会写明库内来源、读取／解码／解析／分析阶段、原因和最后进度。初次未成功不会声称“上一轮仍在”；已有旧版本也不把过时引用当现行证据。修正该来源或通过既有设置明确排除后重试。取消后不开始下一来源，但不保证硬中断系统 I/O；显示“提交完整索引”前的处理计数不代表已保存。
+Use **Open fragment** to read a generated note and follow its **Related fragments** links. All searches show a limited number of results; type matching is not a complete inventory of that type.
 
 ## Optional model setup
 
-You can stay in local-excerpt mode. To try a model, open **Settings → Third Brain**. This release uses OpenAI-compatible, non-streaming chat-completions endpoints; vendor-specific APIs and live-provider quality are not claimed supported or verified. See [compatibility](COMPATIBILITY.md).
-
-可以一直使用本地摘录。尝试模型时，打开**设置 → Third Brain**。此版本对接 OpenAI 兼容、非流式 chat-completions 接口，不宣称支持厂商专有 API 或已经验证真实模型效果，详见[兼容范围](COMPATIBILITY.md)。
+Open **Settings → Third Brain**. AI modes use OpenAI-compatible, non-streaming chat-completions APIs. Other API formats and real provider compatibility are not yet verified. You can always stay in local-excerpt mode.
 
 ### Local model
 
-**English**
+1. Start your own OpenAI-compatible model service. The plugin does not install or start one.
+2. Select **Local model**. Enter its loopback `/v1` base URL and exact model name. Select an API key from Obsidian's secret storage if the service requires one.
+3. Refresh notes, then search.
 
-1. Start your own OpenAI-compatible local service; Third Brain does not install or run a model for you.
-2. Choose **Local model**, set its loopback `/v1` base endpoint and exact model name. If needed, choose a host-managed secret in **API key**.
-3. Refresh notes, then search. Malformed or unsupported output fails closed; a failed refresh retains the previous complete index.
-
-**中文**
-
-1. 自行启动 OpenAI 兼容本机服务；插件不会安装或启动模型。
-2. 选择「本机模型」，填写回环 `/v1` 基础地址和确切模型名；需要认证时，在「API 密钥」中选择宿主管理的密钥。
-3. 更新后再查询。格式错误或不受支持的输出会被拒绝，更新失败保留上一完整索引。
-
-The default endpoint is only an example, not an installed service. A loopback destination does not prove that a separate local process never forwards requests elsewhere.
-
-默认地址只是示例，不代表已经安装模型。回环地址也不能保证另一个本机服务不会自行转发请求。
+The default URL is an example, not a running model. A separate local service may forward requests elsewhere; check how yours works.
 
 ### Cloud model
 
-**English**
+1. Read the [privacy notes](PRIVACY.md). Mark sensitive notes local/private or exclude their folders before indexing.
+2. Select **Cloud model**. Enter an HTTPS `/v1` base URL, the model name and a secret stored by Obsidian.
+3. Enable **Allow cloud processing**, then refresh. Ordinary note text and submitted searches may be sent to that provider.
 
-1. Review [privacy boundaries](PRIVACY.md) and the provider's terms **before** sending notes. Mark sensitive notes local/private or exclude their folders first.
-2. Choose **Cloud model**, set an HTTPS `/v1` endpoint and model, then select a host-managed secret. Only the secret identifier is stored in plugin settings.
-3. Explicitly enable **Allow cloud processing**, then refresh. Ordinary note text and explicitly submitted queries may reach that provider; local/private sources and their vocabulary are excluded.
-
-**中文**
-
-1. 外发前阅读[隐私边界](PRIVACY.md)与服务商条款，先把敏感笔记标为 local/private 或排除其文件夹。
-2. 选择「云端模型」，填写 HTTPS `/v1` 接口和模型，在宿主密钥组件中选择密钥；插件设置只保存密钥标识。
-3. 明确打开「允许云端处理」，再更新。普通笔记正文与明确提交的查询可能发送到该服务，local/private 来源及其词表不发送。
-
-Use source frontmatter such as / 可在来源笔记中设置：
+To keep a note out of cloud requests, add this to its properties:
 
 ```yaml
 ---
@@ -157,35 +89,19 @@ privacy: local
 ---
 ```
 
-`privacy: private`, `sensitivity: local` and `sensitivity: private` are also supported. Applying the policy needs no external request. It is prospective: later marking a note private cannot recall text already received by a provider. URL credentials, query strings, fragments and redirects are rejected; pattern-based redaction cannot detect every secret. A verified quotation proves its source, not the model's interpretation.
+`privacy: private`, `sensitivity: local` and `sensitivity: private` also work. Marking a note private later cannot recall text already sent. Automatic redaction does not catch every secret.
 
-也支持上述 private 与 sensitivity 标记，应用策略无需外部请求。保护不追溯：之后标私密不能撤回此前外发的正文。接口地址不允许内嵌凭据、查询串、片段或重定向；规则脱敏不能识别全部机密，引文存在也不能证明模型理解正确。
+## Updates and generated files
 
-## Current note and scheduling
+Refresh is manual by default. Daily and weekly schedules run only while Obsidian is open; reopening it catches up an overdue refresh once. Use **Cancel** to stop a running task.
 
-**Use current note** reads your selection or the current draft once, retaining the stricter source/draft privacy. Select a shorter passage for long notes. It does not watch a keystroke stream or modify the editor.
+Generated Markdown, the index and history are stored under `Third Brain/Fragments` by default. Original notes, user-written files and manually edited generated files are protected from overwriting. Disabling the plugin stops processing; it does not erase generated history. These files are not encrypted and may enter vault sync or backups.
 
-「使用当前笔记」只读取一次选区或当前草稿，继承原稿 / 草稿中更严格的隐私设置。长笔记请选较短段落；不持续采集逐键输入，也不修改编辑器。
-
-Refresh is manual by default. Optional daily/weekly maintenance runs only while Obsidian is open; an overdue refresh is caught up once. No task runs after Obsidian closes, and no OS monitor is installed.
-
-默认手动更新，可选每日 / 每周；仅在 Obsidian 打开时运行，重新打开后补一次到期更新，不安装系统后台监控。
-
-## Generated files and removal
-
-The default generated folder is `Third Brain/Fragments`, with owned Markdown and reserved hidden state/history. A folder name does not establish ownership; user-authored files and manually edited generated files are protected. Originals are never deleted or rewritten.
-
-默认提炼层为 `Third Brain/Fragments`，包含生成 Markdown 与保留的隐藏状态 / 历史。文件夹名不等于所有权；手写文件与人工改过的生成文件受到保护，原稿不删除、不重写。
-
-To stop processing, disable the plugin. Hidden history may retain retired excerpts and can enter vault backups/sync. It is not encrypted, and this release does **not** guarantee immediate erasure of all derived copies when a source is removed. Review backup/sync policy if you require erasure.
-
-停用插件即可停止处理。隐藏历史可能保留旧摘录并进入备份 / 同步；隐藏不等于加密，删除来源也不保证立即抹除全部派生副本。有清除需求时请同时检查备份和同步策略。
+If a refresh fails, the panel reports the affected note and stage. Fix the reported problem or exclude that source, then try again. A failure before saving retains any previous complete index, but stale references remain unavailable. If saving itself fails, keep the generated folder intact and see [Troubleshooting](TROUBLESHOOTING.md).
 
 ## Build from source
 
-For development only: Node **22.12+** and npm. Release users can skip this section.
-
-仅源码开发需要 Node **22.12+** 和 npm，安装 Release 可跳过。
+For development, install Node **22.12+** and npm:
 
 ```sh
 git clone https://github.com/Yueyue673/obsidian-third-brain.git
@@ -194,31 +110,79 @@ npm ci --ignore-scripts
 npm run build
 ```
 
-Copy **`dist/main.js`, `dist/manifest.json`, `dist/styles.css` and `dist/LICENSE`** directly into the plugin folder from [installation step 2](#install-the-preview), then reload and enable as above. A default-branch source build may differ from the published prerelease. [Contributing](../CONTRIBUTING.md) covers development checks.
+Copy `dist/main.js`, `dist/manifest.json`, `dist/styles.css` and `dist/LICENSE` to the plugin folder above. A main-branch build may differ from the released ZIP. See [Contributing](../CONTRIBUTING.md) for checks.
 
-把 **`dist/main.js`、`dist/manifest.json`、`dist/styles.css`、`dist/LICENSE`** 直接复制到安装步骤中的插件目录，再重新加载并启用。默认分支源码构建可能与已发布预览版不同，开发检查见[贡献指南](../CONTRIBUTING.md)。
+## Testing status
 
-## Preview evidence
+This preview's native Obsidian click flow, real provider compatibility and broader AI quality are still being tested. The screenshots show an earlier build with sample notes in local mode. Version-specific checks are listed in [Testing status](VERIFICATION.md).
 
-The earlier 0.1.0 public package was downloaded, hash-checked and loaded in native Obsidian, but its full click journey was not rerun. The 0.2.x packages have separate CI/download checks. Neither establishes native clicks for 0.3.7. Exact-version distribution and cached/model checks are tracked in [verification scope](VERIFICATION.md).
+---
 
-较早的 0.1.0 公开包已下载、校验并在原生 Obsidian 中加载，完整点击旅程未重跑；0.2.x 包另有 CI 与公开下载检查。它们均不证明 0.3.7 的原生点击。确切版本的分发、模型和缓存检查见[验证范围](VERIFICATION.md)。
-## High-breadth indirect suggestions / 高发散间接建议
+## 中文上手
 
-Select **High / 高** before searching. When a direct mechanism/analogy match has an eligible shared-mechanism neighbor, its card identifies an **Indirect association suggestion / 间接关联建议**. Expand **Compare both original sources / 分别核对两端原文** to compare the anchor and suggested source, their exact quotes, conditions and limits, then open either original. A stale or excluded endpoint invalidates the corresponding suggestion.
+需要桌面版 Obsidian 1.11.5 或更新版本。目前是 0.3.7 预览版，尚未上架社区插件目录。建议先用测试库；用于重要笔记前请备份。安装发布包不需要 Node.js。
 
-Only one hop and the same privacy partition are allowed. At most 3 anchors, 3 inspected neighbors per anchor and 6 targets participate. The main list keeps up to seven results and its original order/scores. High can separately show at most two not-yet-visible, verified targets under **Indirect suggestions via the existing network**; the result summary includes their count. Targets can have weak lexical reasons or be purely indirect. They do not displace the main list or receive a score bonus. Both original-source controls and the existing Open fragment action work in this section. This feature makes no new extraction/model request, does not change low/medium behaviour, and cannot guarantee query-mechanism equivalence, correct causality or a new recommendation for every idea. An already enabled model may still interpret your submitted query as before.
+### 安装
 
-选择「高」后查询，主列表最多 7 条并保持原排序；合格的未显示目标在独立间接建议区额外显示最多 2 条，结果摘要会写明数量。可展开双端原文，也可沿既有「打开片段」入口继续查看保存的关系。只走一跳，不跨隐私等级，不新提炼标签、不为凑数补卡片；既有模型模式仍可能按原规则解释本次查询。
+1. 下载 [third-brain-0.3.7.zip](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.7/third-brain-0.3.7.zip) 和 [SHA256SUMS](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.7/SHA256SUMS)。核对校验值后解压，别选 Source code 源码包。
+2. 在库内创建 `.obsidian/plugins/third-brain/`，直接放入 `main.js`、`manifest.json`、`styles.css`、`LICENSE` 四个文件，不要多套一层文件夹。
+3. 重启 Obsidian，在「设置 → 第三方插件」中按提示允许第三方插件，再启用 **Third Brain**。点左侧脑形图标打开面板。
 
-## Follow stored fragment links
+插件没出现时，先检查 `manifest.json` 的位置，再重启。[常见问题](TROUBLESHOOTING.md#中文)。
 
-After searching, choose **Open fragment / 打开片段** on a result. Follow the **Related fragments** Markdown links, then compare the **Original evidence** sections on both notes. Targets are persisted, same-privacy generated files; shared facets explain the suggestion, not an established causal relationship. Native-host clicks on this preview remain unverified.
+Windows 用户可在下载目录打开 PowerShell，运行：
 
-## Bounded editing context / 有界提炼语境
+```powershell
+Get-FileHash .\third-brain-0.3.7.zip -Algorithm SHA256
+```
 
-Optional AI editing receives the current section heading (up to 160 characters) and at most 400 characters of preceding same-section prose or the previous chunk. Context is redacted before bounding, does not cross section/Canvas-node boundaries, and cannot supply quotations, conditions or caveats for the current primary text. Already clipped headings are omitted. It does not send filenames or arbitrary frontmatter as titles.
+把结果与 `SHA256SUMS` 中 ZIP 对应的校验值比较，不一致就不要安装。macOS 和 Linux 命令见[下载校验](#check-the-download)。
 
-AI generations created before this editing policy are refreshed once on the next requested maintenance. Subsequent unchanged refreshes reuse the cache; local-excerpt generations are unchanged. This does not establish live AI quality.
+### 第一次使用
 
-可选 AI 提炼可收到当前章节标题，以及同章节前段或同长段前块的有限语境；先脱敏，再限制长度。背景不能冒充当前片段的引文、条件或限制，也不代表已验证的语义效果。升级后旧 AI 提炼缓存会在下一次维护时更新一次；本地摘录缓存保持不变。
+1. 加入几篇笔记，或复制[示例笔记](../fixtures/sample-vault)，保持「本地摘录」模式，点「更新笔记」。
+2. 输入想法，点「寻找关联」。示例库可以试 `留白` 或 `Change one variable at a time`。
+3. 展开「来源证据」，阅读引用，点「查看原文」。
+
+本地模式按文字和已有属性匹配，不推断语义。空库、信息不足或无关搜索可以没有结果。原笔记改动后，请再点一次「更新笔记」。
+
+「使用当前笔记」会读取一次选区或当前草稿，用它来搜索。长笔记可以先选一段，不会持续监控输入，也不会自动写入原笔记。
+
+### 继续查找
+
+点卡片上的主题、概念、机制或类型，可查找具有相同属性的片段，不会再调用模型。这里的“机制”指共同的做法或原理。编辑输入后会回到普通搜索；切换发散度会保留属性选择。
+
+低发散侧重直接匹配，中发散可看相同机制，高发散可看跨领域和间接建议。机制需要中或高，氛围需要高；范围不够时面板会提示。
+
+高发散下，主结果之外最多显示两条间接建议。展开「分别核对两端原文」查看两篇笔记，再判断关联是否有用。也可以点「打开片段」，沿 **Related fragments** 中的链接继续阅读。结果有数量限制，按类型查找也不代表列出该类型的全部内容。
+
+### 配置模型
+
+打开「设置 → Third Brain」。目前使用 OpenAI 兼容、非流式 chat-completions 接口；其他 API 格式和真实服务商兼容性仍需测试。可以始终只用本地摘录。
+
+- **本机模型：**自行启动模型服务，选择「本机模型」，填入回环 `/v1` 基础地址和模型名。有认证要求时，选择 Obsidian 保存的密钥。默认地址只是示例，插件不会替你安装模型；本机服务是否转发请求，需要自行确认。
+- **云端模型：**先阅读[隐私说明](PRIVACY.md#中文)，把敏感笔记标为 local/private 或排除文件夹。选择「云端模型」，填写 HTTPS `/v1` 基础地址、模型名和 Obsidian 保存的密钥，再开启「允许云端处理」。普通笔记正文和搜索输入可能发送给该服务商。
+
+笔记属性可以这样写，阻止它进入云端请求：
+
+```yaml
+---
+privacy: local
+---
+```
+
+也支持 `privacy: private`、`sensitivity: local` 和 `sensitivity: private`。之后再标私密不能撤回已经发送的内容，自动脱敏也不能识别所有隐私。
+
+### 更新与文件
+
+默认手动更新。每日、每周更新只在 Obsidian 打开时运行，重新打开后会补一次到期任务。运行中可点「取消」。
+
+生成片段、索引和历史默认保存在 `Third Brain/Fragments`。插件不覆盖原笔记、手写文件或人工改过的生成文件。停用插件会停止处理，但不会清空生成历史；这些文件没有加密，也可能进入同步和备份。
+
+更新失败时，查看面板提示的笔记和原因，处理问题或明确排除该来源后重试。保存前失败会保留已有完整索引，但来源已变的旧引用仍不能使用。保存过程中出错时，请保留生成目录，参见[常见问题](TROUBLESHOOTING.md#中文)。
+
+### 开发与测试状态
+
+只有源码构建需要 Node **22.12+** 和 npm，命令见[源码构建](#build-from-source)。
+
+本版的 Obsidian 完整点击流程、真实服务商接口和更大范围的 AI 效果仍在验证。截图使用较早版本、示例笔记和本地模式。[测试记录](VERIFICATION.md)按版本列出了已完成与未完成的检查。
