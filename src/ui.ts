@@ -122,12 +122,18 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
         button.addEventListener('click', () => { if (disposed || isBusy(port.status().phase)) return; selection = chosen; input.value = kindLabel(chosen.value); queryPrivacy = fragment.privacy; privacyHint.textContent = t.private; privacyHint.hidden = queryPrivacy === 'normal'; void executeSearch(); }); facetButtons.push(button); facets.append(button);
       }
       const terms = (['topics','concepts','mechanisms','atmosphere'] as const).flatMap(channel => [...new Set(fragment.facets[channel])].map(value => ({ channel,value })));
-      for (const chosen of terms.slice(0, 12)) {
+      // Keep the compact preview, but never discard later channels or properties.
+      const previewLimit = 12;
+      const overflow = element('details', 'tb-facet-overflow');
+      const moreFacets = element('div', 'tb-facets'); moreFacets.setAttribute('aria-label', t.facets);
+      if (terms.length > previewLimit) overflow.append(element('summary', '', `${t.moreFacets} · ${terms.length - previewLimit}`), moreFacets);
+      for (const [index, chosen] of terms.entries()) {
         const button = element('button', 'tb-facet', `${t[chosen.channel]} · ${chosen.value}`); button.type = 'button';
         button.setAttribute('aria-label', `${t.facets}: ${t[chosen.channel]} · ${chosen.value}`); button.setAttribute('data-channel', chosen.channel);
-        button.addEventListener('click', () => { if (disposed || isBusy(port.status().phase)) return; selection = chosen; input.value = chosen.value; queryPrivacy = fragment.privacy; privacyHint.textContent = t.private; privacyHint.hidden = queryPrivacy === 'normal'; void executeSearch(); }); facetButtons.push(button); facets.append(button);
+        button.addEventListener('click', () => { if (disposed || isBusy(port.status().phase)) return; selection = chosen; input.value = chosen.value; queryPrivacy = fragment.privacy; privacyHint.textContent = t.private; privacyHint.hidden = queryPrivacy === 'normal'; void executeSearch(); }); facetButtons.push(button); (index < previewLimit ? facets : moreFacets).append(button);
       }
       if (facets.childElementCount) article.append(facets);
+      if (terms.length > previewLimit) article.append(overflow);
       const evidence = element('details', 'tb-evidence'); evidence.append(element('summary', '', `${t.evidence} · ${fragment.evidence.length}`));
       for (const source of fragment.evidence) {
         const row = element('div', 'tb-evidence-row'); row.append(element('blockquote', 'tb-quote', source.quote));

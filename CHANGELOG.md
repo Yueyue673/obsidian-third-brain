@@ -4,6 +4,7 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Keep every result-card property accessible. Cards with more than 12 properties now offer a collapsible “More properties” section, so later mechanisms and atmosphere values are not silently omitted. Attribute searches and source checks are unchanged.
 - Keep old result attributes from replacing an in-progress idea search. Attribute buttons pause during search/indexing and become available after completion or cancellation; source links remain usable.
 - Rewrite the README, setup guide and release notes in plain language. No plugin behavior changes.
 
