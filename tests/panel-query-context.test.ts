@@ -305,6 +305,103 @@ it.each(['en', 'zh'] as const)('loading a current note labels the old facet resu
   } finally { await h.cleanup(); }
 });
 
+// Breadth refines a submitted idea; changing it must not submit a newer draft
+// or retire an explicitly requested current-note read. Synthetic events only.
+for (const edit of ['input', 'composition'] as const)
+it.each(['en', 'zh'] as const)(`breadth keeps a newer ${edit} idea unsent in %s`, async locale => {
+  const h = await fixture(locale);
+  try {
+    const input = h.get('tb-idea'), oldSource = h.get('tb-source');
+    if (edit === 'input') h.type('BetaNeedle');
+    else { input.fire('compositionstart'); input.value = 'BetaNeedle正在组词'; }
+    const draft = input.value;
+    h.get('tb-select').value = 'high'; h.get('tb-select').fire('change');
+    // Await even an unexpected operation so the red run shows actual cards,
+    // not just a spy count, and cannot leak filesystem work into teardown.
+    await Promise.allSettled(h.queries); await Promise.resolve();
+    expect.soft(h.findSpy).toHaveBeenCalledOnce();
+    expect.soft(h.cards()).toEqual(['AlphaCard']);
+    expect.soft(h.get('tb-result-summary').textContent).toBe(`${h.previous} · 1 ${h.t.results}`);
+    expect(input.value).toBe(draft); expect(h.get('tb-label').textContent).toBe(h.t.idea);
+    oldSource.fire('click'); await h.opens.at(-1)!; expect(h.hostOpen.mock.calls.at(-1)?.[0].path).toBe('alpha.md');
+    if (edit === 'composition') input.fire('compositionend');
+    h.type('BetaNeedle'); h.search(); const items = await h.settleQuery();
+    expect(h.findSpy.mock.calls.at(-1)).toEqual(['BetaNeedle', 'high', 'normal']);
+    expect(h.cards()).toEqual(['BetaCard']); expect(h.get('tb-result-summary').textContent).toBe(`1 ${h.t.results}`);
+    for (const e of items[0].fragment.evidence) {
+      const source = await h.sources.read(e.relativePath); expect(source!.hash).toBe(e.sourceHash); expect(source!.text.slice(e.start, e.end)).toBe(e.quote);
+    }
+    h.get('tb-source').fire('click'); await h.opens.at(-1)!; expect(h.hostOpen.mock.calls.at(-1)?.[0].path).toBe('beta.md');
+    await h.assertUnchanged();
+    // Deliberate synthetic mutation only after the preservation assertions.
+    await fs.writeFile(path.join(h.root, 'alpha.md'), 'Synthetic source replacement invalidates the old card.');
+    oldSource.fire('click'); await expect(h.opens.at(-1)!).rejects.toThrow(); expect(h.hostOpen).toHaveBeenCalledTimes(2);
+  } finally { await h.cleanup(); }
+});
+
+it.each(['en', 'zh'] as const)('breadth does not submit an unreviewed current-note fill in %s', async locale => {
+  const h = await fixture(locale);
+  try {
+    h.button(h.t.current).fire('click'); await h.contexts.at(-1)!; await Promise.resolve();
+    expect(h.get('tb-idea').value).toBe('BetaNeedle'); expect(h.get('tb-privacy').hidden).toBe(false);
+    h.get('tb-select').value = 'high'; h.get('tb-select').fire('change');
+    await Promise.allSettled(h.queries); await Promise.resolve();
+    expect.soft(h.findSpy).toHaveBeenCalledOnce(); expect.soft(h.cards()).toEqual(['AlphaCard']);
+    expect.soft(h.get('tb-result-summary').textContent).toBe(`${h.previous} · 1 ${h.t.results}`);
+    h.search(); const items = await h.settleQuery();
+    expect(h.findSpy.mock.calls.at(-1)).toEqual(['BetaNeedle', 'high', 'private']); expect(h.cards()).toEqual(['BetaCard']);
+    // Once explicitly submitted, breadth refinement still uses the whole draft's privacy.
+    h.get('tb-select').value = 'low'; h.get('tb-select').fire('change'); const refined = await h.settleQuery();
+    expect(h.findSpy.mock.calls.at(-1)).toEqual(['BetaNeedle', 'low', 'private']);
+    expect(refined.map(item => item.fragment.id)).toEqual(items.map(item => item.fragment.id));
+    h.get('tb-source').fire('click'); await h.opens.at(-1)!; expect(h.hostOpen.mock.calls.at(-1)?.[0].path).toBe('beta.md');
+    await h.assertUnchanged();
+  } finally { await h.cleanup(); }
+});
+
+it.each(['en', 'zh'] as const)('breadth preserves a pending actual Main current-note read in %s', async locale => {
+  const h = await fixture(locale), held = await holdPendingCurrent(h, 'snapshot');
+  try {
+    h.get('tb-select').value = 'high'; h.get('tb-select').fire('change');
+    await Promise.allSettled(h.queries); await Promise.resolve();
+    expect.soft(h.findSpy).toHaveBeenCalledOnce();
+    expect.soft(h.get('tb-status').textContent).toBe(`${readingContext(locale)} · ${h.t.local}`);
+    expect.soft(h.button(h.t.cancel).hidden).toBe(false);
+    await held.settle();
+    expect.soft(h.get('tb-idea').value).toBe('BetaNeedle'); expect.soft(h.get('tb-privacy').hidden).toBe(false);
+    expect.soft(h.cards()).toEqual(['AlphaCard']);
+    expect.soft(h.get('tb-result-summary').textContent).toBe(`${h.previous} · 1 ${h.t.results}`);
+    expect(h.button(h.t.cancel).hidden).toBe(true);
+    h.search(); await h.settleQuery();
+    expect.soft(h.findSpy.mock.calls.at(-1)).toEqual(['BetaNeedle', 'high', 'private']);
+    expect.soft(h.cards()).toEqual(['BetaCard']);
+    h.get('tb-source').fire('click'); await h.opens.at(-1)!;
+    expect.soft(h.hostOpen.mock.calls.at(-1)?.[0].path).toBe('beta.md'); await h.assertUnchanged();
+  } finally { held.release(); await h.cleanup(); }
+});
+
+for (const entry of ['natural', 'topics', 'kind'] as const)
+it.each(['en', 'zh'] as const)(`breadth still refines a submitted ${entry} search in %s`, async locale => {
+  const h = await fixture(locale);
+  try {
+    if (entry !== 'natural') {
+      h.container.all().find(node => node.attrs['data-channel'] === entry)!.fire('click'); await h.settleQuery();
+    }
+    const prior = h.findSpy.mock.calls.at(-1)!, label = h.get('tb-label').textContent;
+    const count = h.findSpy.mock.calls.length;
+    for (const value of ['low', 'high'] as const) {
+      h.get('tb-select').value = value; h.get('tb-select').fire('change'); const items = await h.settleQuery();
+      expect(h.findSpy.mock.calls.at(-1)).toEqual([prior[0], value, prior[2], ...prior.slice(3)]);
+      expect(h.get('tb-label').textContent).toBe(label); expect(h.cards()).toContain('AlphaCard');
+      expect(h.get('tb-result-summary').textContent).not.toContain(h.previous);
+      for (const item of items) for (const e of item.fragment.evidence) {
+        const source = await h.sources.read(e.relativePath); expect(source!.hash).toBe(e.sourceHash); expect(source!.text.slice(e.start, e.end)).toBe(e.quote);
+      }
+    }
+    expect(h.findSpy).toHaveBeenCalledTimes(count + 2); await h.assertUnchanged();
+  } finally { await h.cleanup(); }
+});
+
 it('marks a previous empty result too, but does not invent a previous search on first input', async () => {
   const h = await fixture('en', false);
   try {

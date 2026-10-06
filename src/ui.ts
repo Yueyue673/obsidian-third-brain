@@ -45,6 +45,8 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   const results = element('div', 'tb-results'); const summary = element('p', 'tb-result-summary'); summary.setAttribute('aria-live', 'polite');
   root.append(heading, status, stats, label, input, ideaHint, options, privacyHint, actions, notice, summary, results); container.replaceChildren(root);
   let queryPrivacy: Privacy = 'normal'; let searchId = 0; let disposed = false; let hasSearched = false; let resultsArePrevious = false;
+  // Retaining old cards does not authorize submitting a newer, unreviewed idea.
+  let canRefineSearch = false;
   let currentReadId: number | undefined;
   let releaseCurrentFocus: (() => void) | undefined;
   let previousPhase: Status['phase'] | undefined;
@@ -93,7 +95,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
     // Every refresh entry (panel, command or schedule) reports completion here.
     // Clear only on success, not processing progress, cancellation or failure.
     if (previousPhase === 'indexing' && state.phase === 'idle') {
-      ++searchId; hasSearched = false; summary.textContent = ''; resultsArePrevious = false;
+      ++searchId; hasSearched = false; canRefineSearch = false; summary.textContent = ''; resultsArePrevious = false;
     }
     previousPhase = state.phase;
     if (busy || state.phase === 'idle') notice.hidden = true;
@@ -197,7 +199,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   };
   const executeSearch = async (): Promise<void> => {
     if (!input.value.trim()) { stateBlock(t.contextMissing, ''); return; }
-    markPreviousResults(); const id = ++searchId; notice.hidden = true; hasSearched = true;
+    markPreviousResults(); const id = ++searchId; notice.hidden = true; hasSearched = true; canRefineSearch = true;
     try { const items = await (selection ? port.find(input.value.trim(), breadth.value as Breadth, queryPrivacy, selection) : port.find(input.value.trim(), breadth.value as Breadth, queryPrivacy)); if (!disposed && id === searchId) showResults(items); }
     catch { if (!disposed && id === searchId && !['error','cancelled'].includes(port.status().phase)) alert(t.failure); }
     finally { renderState(); }
@@ -205,13 +207,13 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   // Composition owns the idea before its first input event: retire pending
   // search/current-note delivery and hidden selection, just like a typed edit.
   // Retain readable previous results and privacy; never search automatically.
-  const editIdea = (): void => { markPreviousResults(); selection = undefined; ++searchId; renderState(); };
+  const editIdea = (): void => { markPreviousResults(); canRefineSearch = false; selection = undefined; ++searchId; renderState(); };
   input.addEventListener('input', editIdea);
   input.addEventListener('compositionstart', editIdea);
   // Let the IME finish composition without consuming Enter or submitting partial text.
   // Consume held shortcuts, but only a fresh press can submit (including after cancel).
   input.addEventListener('keydown', e => { if (!e.isComposing && e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); if (!e.repeat && !find.disabled) void executeSearch(); } });
-  find.addEventListener('click', () => void executeSearch()); breadth.addEventListener('change', () => { if (hasSearched && input.value.trim()) void executeSearch(); });
+  find.addEventListener('click', () => void executeSearch()); breadth.addEventListener('change', () => { if (canRefineSearch && input.value.trim()) void executeSearch(); });
   refresh.addEventListener('click', () => { notice.hidden = true; void port.refresh().catch(() => { if (!disposed) { if (!['error','cancelled'].includes(port.status().phase)) alert(t.failure); renderState(); } }); });
   // A current-note read is not a controller task. Cancel retires its delivery;
   // an underlying host/OS read may still finish, without replacing the idea.
@@ -219,7 +221,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   current.addEventListener('click', () => {
     if (disposed || isBusy(port.status().phase)) return;
     releaseCurrentFocus?.();
-    markPreviousResults(); selection = undefined; const id = ++searchId; currentReadId = id; renderState();
+    markPreviousResults(); canRefineSearch = false; selection = undefined; const id = ++searchId; currentReadId = id; renderState();
     const doc = input.ownerDocument, previousFocus = doc?.activeElement;
     let interrupted = false;
     // Only this pending request's focus handoff: no text, history or global keys.
