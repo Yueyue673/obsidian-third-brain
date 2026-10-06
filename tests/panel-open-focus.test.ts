@@ -269,14 +269,21 @@ it('releases transient listeners on a failed reveal and allows a fresh explicit 
 
 // Delay a real Main.current -> Controller.snapshot -> FileSources read result.
 // This is a synthetic scheduling latch, not an actual slow disk or native click.
-async function delayedCurrent(h: Awaited<ReturnType<typeof fixture>>) {
+async function delayedCurrent(h: Awaited<ReturnType<typeof fixture>>, outcome: 'resolve' | 'reject' = 'resolve') {
   const entered = latch(), gate = latch(), snapshot = h.plugin.controller.snapshot.bind(h.plugin.controller);
+  const fault = new Error('SYNTHETIC_DELAYED_CONTEXT_FAILURE');
   vi.spyOn(h.plugin.controller, 'snapshot').mockImplementationOnce(async name => {
-    const source = await snapshot(name); entered.release(); await gate.promise; return source;
+    const source = await snapshot(name); entered.release(); await gate.promise;
+    if (outcome === 'reject') throw fault;
+    return source;
   });
   h.button(h.t.current).fire('click'); const operation = h.contexts.at(-1)!; await entered.promise;
   expect(h.get('tb-status').textContent).toContain(h.t.contextReading);
-  return { release: gate.release, settle: async () => { gate.release(); await operation; await nextTurn(); } };
+  return { release: gate.release, settle: async () => {
+    gate.release();
+    if (outcome === 'reject') await expect(operation).rejects.toBe(fault); else await operation;
+    await nextTurn();
+  } };
 }
 
 it.each(['editor', 'other-control', 'away-and-back', 'window-blur', 'input', 'compositionstart'] as const)('late current-note fill does not reclaim focus after %s', async intent => {
@@ -377,6 +384,66 @@ it('a failed current-note read releases its focus guard and a fresh explicit ret
     expect(h.get('tb-privacy').hidden).toBe(false); expect(h.get('tb-notice').hidden).toBe(true);
     expect(h.searches).toHaveLength(0); await h.unchanged();
   } finally { await h.cleanup(); }
+});
+
+// Explicit composition lifecycle events, with NO input event before delivery.
+// These prove callback handling only, not any native IME's event ordering.
+for (const delivery of ['composing', 'ended-without-input', 'rejected'] as const)
+it.each(['en', 'zh'] as const)(`idea composition retires a pending current-note ${delivery} response in %s`, async locale => {
+  const h = await fixture(locale); let pending: Awaited<ReturnType<typeof delayedCurrent>> | undefined;
+  try {
+    await h.restore(); const input = h.get('tb-idea'), current = h.button(h.t.current);
+    const find = vi.spyOn(h.plugin.controller, 'find');
+    input.value = 'Unsent synthetic idea'; input.fire('input'); current.focus();
+    pending = await delayedCurrent(h, delivery === 'rejected' ? 'reject' : 'resolve');
+    input.focus(); const focusCalls = input.focusCalls;
+    input.fire('compositionstart');
+    // Merely beginning composition owns the input, even if it is later cancelled
+    // and produces neither new text nor an input event.
+    if (delivery === 'ended-without-input') input.fire('compositionend');
+    expect.soft(h.get('tb-status').textContent).not.toContain(h.t.contextReading);
+    expect.soft(h.button(h.t.cancel).hidden).toBe(true);
+    await pending.settle();
+    expect.soft(input.value).toBe('Unsent synthetic idea');
+    expect.soft(h.get('tb-privacy').hidden).toBe(true);
+    expect.soft(h.get('tb-notice').hidden).toBe(true);
+    expect(input.focusCalls).toBe(focusCalls); expect(h.doc.activeElement === input).toBe(true);
+    expect(h.searches).toHaveLength(0);
+    for (const name of ['blur', 'input', 'compositionstart']) expect(current.handlers.get(name)?.size ?? 0).toBe(0);
+    if (delivery !== 'ended-without-input') input.fire('compositionend');
+    input.value = 'FocusNeedle'; input.fire('input');
+    expect(h.searches).toHaveLength(0); // Completion/edit never auto-searches.
+    h.button(h.t.find).fire('click'); const items = await h.searches.at(-1)!; await nextTurn();
+    expect(find.mock.calls.at(-1)).toEqual(['FocusNeedle', 'medium', 'normal']);
+    expect(items).toHaveLength(1);
+    const e = items[0].fragment.evidence[0], source = await h.plugin.controller.snapshot(e.relativePath);
+    expect(source!.hash).toBe(e.sourceHash); expect(source!.text.slice(e.start, e.end)).toBe(e.quote);
+    h.get('tb-source').fire('click'); await h.opens.at(-1); await nextTurn();
+    expect(h.openFile).toHaveBeenCalledOnce(); expect(h.openedView.editor.setSelection).toHaveBeenCalledOnce();
+    // The discarded request does not disable a fresh explicit fill or weaken
+    // full-draft privacy just because Main returned only a selected body.
+    current.fire('click'); await h.contexts.at(-1); await nextTurn();
+    expect(input.value).toBe('FocusNeedle'); expect(h.get('tb-privacy').hidden).toBe(false);
+    expect(h.searches).toHaveLength(1);
+    h.button(h.t.find).fire('click'); await h.searches.at(-1); await nextTurn();
+    expect(find.mock.calls.at(-1)).toEqual(['FocusNeedle', 'medium', 'private']);
+    expect(h.get('tb-notice').hidden).toBe(true); await h.unchanged();
+  } finally { pending?.release(); await h.cleanup(); }
+});
+
+it('a composition-retired current-note response cannot clear a newer explicit read', async () => {
+  const h = await fixture(); let first: Awaited<ReturnType<typeof delayedCurrent>> | undefined, second: typeof first;
+  try {
+    await h.restore(); const input = h.get('tb-idea'); input.value = 'Unsent synthetic idea'; input.fire('input');
+    first = await delayedCurrent(h); input.focus(); input.fire('compositionstart');
+    expect.soft(h.button(h.t.cancel).hidden).toBe(true);
+    input.fire('compositionend'); second = await delayedCurrent(h); await first.settle();
+    expect(input.value).toBe('Unsent synthetic idea'); expect(h.get('tb-privacy').hidden).toBe(true);
+    expect(h.get('tb-status').textContent).toContain(h.t.contextReading); expect(h.button(h.t.cancel).hidden).toBe(false);
+    await second.settle();
+    expect(input.value).toBe('FocusNeedle'); expect(h.get('tb-privacy').hidden).toBe(false);
+    expect(h.button(h.t.cancel).hidden).toBe(true); expect(h.searches).toHaveLength(0); await h.unchanged();
+  } finally { first?.release(); second?.release(); await h.cleanup(); }
 });
 
 it('does not refocus an already composing idea or select its text', async () => {

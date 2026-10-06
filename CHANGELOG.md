@@ -4,6 +4,8 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Ignore a pending Use current note reply as soon as composition starts in the idea box, even before an input event or when composition ends without inserting text. Late success or failure no longer replaces the idea/privacy or adds an obsolete notice; a fresh explicit fill/search still works. Verified through the registered panel and synthetic filesystem/host-API tests; native Obsidian IME event ordering remains unverified.
+
 - Keep a delayed Use current note read from taking focus back after returning to the editor, switching controls or continuing input/composition. The requested text still fills the idea box with full-draft privacy, but does not search automatically. Cancel/edit/close and newer requests retire temporary focus guards. Verified through the real panel and synthetic filesystem/host-API tests; native Obsidian focus and IME behavior remain unverified.
 
 - Focus the idea box when explicitly opening Third Brain from its command or ribbon icon, without clearing the idea, selection or results or starting a search. Restoring/redrawing the sidebar never requests focus; delayed opens yield to continued typing/composition, newer focus, close or unload. Verified through the registered view, renderer and synthetic filesystem/host-API tests; native Obsidian focus behavior remains unverified.

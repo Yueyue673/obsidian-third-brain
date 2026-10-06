@@ -203,6 +203,9 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
     finally { renderState(); }
   };
   input.addEventListener('input', () => { markPreviousResults(); selection = undefined; ++searchId; renderState(); });
+  // Composition owns this input before its first input event. Retire only a
+  // pending current-note fill; keep the idea/privacy and require explicit search.
+  input.addEventListener('compositionstart', () => { if (currentReadId !== undefined) { ++searchId; renderState(); } });
   // Let the IME finish composition without consuming Enter or submitting partial text.
   // Consume held shortcuts, but only a fresh press can submit (including after cancel).
   input.addEventListener('keydown', e => { if (!e.isComposing && e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); if (!e.repeat && !find.disabled) void executeSearch(); } });
