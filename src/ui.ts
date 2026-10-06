@@ -31,7 +31,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   const notice = element('p', 'tb-notice'); notice.setAttribute('role', 'alert'); notice.hidden = true;
   const results = element('div', 'tb-results'); const summary = element('p', 'tb-result-summary'); summary.setAttribute('aria-live', 'polite');
   root.append(heading, status, stats, label, input, options, privacyHint, actions, notice, summary, results); container.replaceChildren(root);
-  let queryPrivacy: Privacy = 'normal'; let searchId = 0; let disposed = false; let hasSearched = false;
+  let queryPrivacy: Privacy = 'normal'; let searchId = 0; let disposed = false; let hasSearched = false; let resultsArePrevious = false;
   let previousPhase: Status['phase'] | undefined;
   let selection: QuerySelection | undefined;
   // Old cards remain readable during work, but cannot steal the active query/token.
@@ -41,13 +41,20 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   const selectionHint = (): string => !selection ? '' : selection.channel === 'mechanisms' && breadth.value === 'low' ? t.mechanismBreadth : selection.channel === 'atmosphere' && breadth.value !== 'high' ? t.atmosphereBreadth : '';
   const alert = (text: string): void => { notice.textContent = text; notice.hidden = false; };
   const stateBlock = (title: string, body: string): void => { facetButtons = []; results.replaceChildren(element('h3', 'tb-empty-title', title), element('p', 'tb-muted', body)); };
+  // Keep readable evidence, but do not present it as a reply to the new intent.
+  // Only transient display state is kept; no query text or input history is stored.
+  const markPreviousResults = (): void => {
+    if (summary.textContent && !resultsArePrevious) {
+      summary.textContent = `${t.previousResults} · ${summary.textContent}`; resultsArePrevious = true;
+    }
+  };
   const renderState = (): void => {
     if (disposed) return;
     const state = port.status(); const busy = isBusy(state.phase);
     // Every refresh entry (panel, command or schedule) reports completion here.
     // Clear only on success, not processing progress, cancellation or failure.
     if (previousPhase === 'indexing' && state.phase === 'idle') {
-      ++searchId; hasSearched = false; summary.textContent = '';
+      ++searchId; hasSearched = false; summary.textContent = ''; resultsArePrevious = false;
     }
     previousPhase = state.phase;
     if (busy || state.phase === 'idle') notice.hidden = true;
@@ -74,7 +81,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
     if (!hasSearched && !busy) { if (!state.fragmentCount) stateBlock(t.first, t.firstBody); else stateBlock(t.initial, ''); }
   };
   const showResults = (items: SearchResult[]): void => {
-    results.replaceChildren(); facetButtons = [];
+    results.replaceChildren(); facetButtons = []; resultsArePrevious = false;
     const suggestions = items.filter(item => item.group === 'indirect-suggestion');
     summary.textContent = `${items.length - suggestions.length} ${t.results}${suggestions.length ? ` · ${suggestions.length} ${presentExplanation('Additional indirect suggestions',locale)}` : ''}`;
     if (selection?.channel === 'kind') summary.textContent = `${items.length} ${t.sameType} · ${t.kindBudget}`;
@@ -151,17 +158,17 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   };
   const executeSearch = async (): Promise<void> => {
     if (!input.value.trim()) { stateBlock(t.contextMissing, ''); return; }
-    const id = ++searchId; notice.hidden = true; hasSearched = true;
+    markPreviousResults(); const id = ++searchId; notice.hidden = true; hasSearched = true;
     try { const items = await (selection ? port.find(input.value.trim(), breadth.value as Breadth, queryPrivacy, selection) : port.find(input.value.trim(), breadth.value as Breadth, queryPrivacy)); if (!disposed && id === searchId) showResults(items); }
     catch { if (!disposed && id === searchId && !['error','cancelled'].includes(port.status().phase)) alert(t.failure); }
     finally { renderState(); }
   };
-  input.addEventListener('input', () => { selection = undefined; ++searchId; renderState(); });
+  input.addEventListener('input', () => { markPreviousResults(); selection = undefined; ++searchId; renderState(); });
   input.addEventListener('keydown', e => { if (e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); if (!find.disabled) void executeSearch(); } });
   find.addEventListener('click', () => void executeSearch()); breadth.addEventListener('change', () => { if (hasSearched && input.value.trim()) void executeSearch(); });
   refresh.addEventListener('click', () => { notice.hidden = true; void port.refresh().catch(() => { if (!disposed) { if (!['error','cancelled'].includes(port.status().phase)) alert(t.failure); renderState(); } }); });
   cancel.addEventListener('click', () => { ++searchId; port.cancel(); });
-  current.addEventListener('click', () => { selection = undefined; const id = ++searchId; renderState(); void port.current?.().then(context => { if (disposed || id !== searchId) return; if (!context?.text.trim()) { alert(t.contextMissing); return; } input.value = context.text; queryPrivacy = context.privacy; privacyHint.textContent = t.private; privacyHint.hidden = queryPrivacy === 'normal'; renderState(); input.focus(); }).catch(() => { if (!disposed && id === searchId) alert(t.contextMissing); }); });
+  current.addEventListener('click', () => { markPreviousResults(); selection = undefined; const id = ++searchId; renderState(); void port.current?.().then(context => { if (disposed || id !== searchId) return; if (!context?.text.trim()) { alert(t.contextMissing); return; } input.value = context.text; queryPrivacy = context.privacy; privacyHint.textContent = t.private; privacyHint.hidden = queryPrivacy === 'normal'; renderState(); input.focus(); }).catch(() => { if (!disposed && id === searchId) alert(t.contextMissing); }); });
   const unsubscribe = port.subscribe(renderState); renderState();
   return () => { disposed = true; ++searchId; unsubscribe(); root.remove(); };
 }
