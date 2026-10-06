@@ -81,6 +81,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   const renderState = (): void => {
     if (disposed) return;
     const state = port.status(); const busy = isBusy(state.phase);
+    const cancelling = busy && state.cancelRequested === true;
     // Current-note reads are outside the controller's task. New work retires
     // their delivery token, without invalidating the accepted search itself.
     if (busy || currentReadId !== searchId) currentReadId = undefined;
@@ -95,7 +96,8 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
     for (const button of facetButtons) button.disabled = busy;
     find.disabled = busy || !input.value.trim() || !state.fragmentCount; find.hidden = !state.fragmentCount; refresh.className = state.fragmentCount ? 'tb-secondary' : 'tb-primary'; refresh.disabled = busy; current.disabled = busy; breadth.disabled = busy; cancel.hidden = !readingCurrent && (!busy || state.phase === 'loading');
     const mode = state.mode === 'local-excerpts' ? t.local : state.mode === 'local-model' ? t.localModel : t.cloud;
-    let line = readingCurrent ? t.contextReading : t[state.phase];
+    cancel.disabled = cancelling;
+    let line = cancelling ? (state.progress?.phase === 'committing' ? t.cancellingCommit : t.cancelling) : readingCurrent ? t.contextReading : t[state.phase];
     if (!readingCurrent && state.progress) line += ` · ${t.lastStep}: ${t[state.progress.phase]}${state.progress.total ? ` ${state.progress.completed} / ${state.progress.total}` : ''}${state.progress.relativePath ? ` · ${state.progress.relativePath}` : ''}`;
     status.textContent = `${line} · ${mode}`;
     label.textContent = selection ? `${t.selectedFacet}: ${t[selection.channel]} · ${selection.channel === 'kind' ? kindLabel(selection.value) : selection.value}` : t.idea;

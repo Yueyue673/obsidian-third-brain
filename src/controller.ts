@@ -17,6 +17,8 @@ export interface Status {
   generatedFileDiagnostic?: ReturnType<typeof generatedFileDiagnostic>;
   storeDiagnostic?: ReturnType<typeof storeDiagnostic>;
   commitOutcome?: 'not-started' | 'unknown';
+  // An acknowledgement, not a terminal outcome or permission to release locks.
+  cancelRequested?: boolean;
 }
 export class ThirdBrainController {
   private indexState: IndexState = emptyIndex();
@@ -35,7 +37,7 @@ export class ThirdBrainController {
     private readonly saved: (when: string) => Promise<void>) {
     this.state = { phase: 'loading', sourceCount: 0, fragmentCount: 0, updatedAt: '', mode: settings().mode };
   }
-  status(): Status { return { ...this.state, ...(this.state.progress ? { progress:{ ...this.state.progress } } : {}), ...(this.state.sourceDiagnostic ? { sourceDiagnostic:{ ...this.state.sourceDiagnostic } } : {}), mode: this.task ? this.taskMode : this.settings().mode }; }
+  status(): Status { return { ...this.state, ...(this.state.progress ? { progress:{ ...this.state.progress } } : {}), ...(this.state.sourceDiagnostic ? { sourceDiagnostic:{ ...this.state.sourceDiagnostic } } : {}), ...(this.task?.signal.aborted && ['indexing','searching'].includes(this.state.phase) ? { cancelRequested:true } : {}), mode: this.task ? this.taskMode : this.settings().mode }; }
   subscribe(listener: () => void): () => void { this.listeners.add(listener); return () => this.listeners.delete(listener); }
   private update(phase: Status['phase'], progress?: RunProgress, errorCode?: Status['errorCode'], warningCode?: Status['warningCode'], diagnostic?: SourceDiagnostic, commitOutcome?: Status['commitOutcome'], generated?: Status['generatedFileDiagnostic'], store?: Status['storeDiagnostic']): void {
     this.state = { phase, sourceCount: Object.keys(this.indexState.sources).length, fragmentCount: Object.keys(this.indexState.fragments).length, updatedAt: this.indexState.updatedAt, mode: this.task ? this.taskMode : this.settings().mode, progress, errorCode, warningCode, hasCompleteIndex:this.hasCompleteIndex, sourceDiagnostic:diagnostic, commitOutcome, generatedFileDiagnostic:generated, storeDiagnostic:store };
@@ -49,7 +51,13 @@ export class ThirdBrainController {
       throw error;
     }
   }
-  cancel(): void { this.task?.abort(); }
+  cancel(): void {
+    if (!this.task || this.task.signal.aborted) return;
+    this.task.abort();
+    // Commit/rollback may still be waiting for filesystem work. Keep the task
+    // and its phase until it settles, but acknowledge every cancellation entry.
+    this.listeners.forEach(listener => listener());
+  }
   async refresh(): Promise<void> {
     if (!this.ready) throw new Error('Review the generated index before refreshing.');
     if (this.task) throw new Error('A task is already running.');
