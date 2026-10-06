@@ -114,6 +114,9 @@ it('controller-driven refresh gates existing attributes then restores typed sear
     const callsDuringRefresh = h.find.mock.calls.length, inputDuringRefresh = h.input.value;
     gate.release(); await refresh; await Promise.allSettled(h.queries); await Promise.resolve();
     expect.soft(disabledDuringRefresh).toBe(true); expect.soft(callsDuringRefresh).toBe(1); expect.soft(inputDuringRefresh).toBe('AlphaNeedle');
+    // Successful refresh now clears all old cards, whichever entry started it.
+    expect(h.buttons()).toEqual([]); expect(h.get('tb-result-summary').textContent).toBe('');
+    h.start('AlphaNeedle'); expect((await h.settleQuery()).map(result => result.fragment.title)).toEqual(['AlphaCard']);
     expect(h.buttons().every(button => !button.disabled)).toBe(true);
     h.get('tb-select').value = 'high';
     for (const channel of ['kind', 'topics', 'concepts', 'mechanisms', 'atmosphere']) {
