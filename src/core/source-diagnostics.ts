@@ -1,6 +1,11 @@
 // SPDX-License-Identifier: MIT
 import { relativePath } from './util';
 
+/** Known evidence mismatch, not an I/O diagnosis. Never wrap external failures. */
+export class SourceEvidenceUnavailableError extends Error {
+  constructor() { super('This source changed or is no longer available. Refresh the index before opening this quotation.'); this.name = 'SourceEvidenceUnavailableError'; }
+}
+
 /** Ephemeral, program-owned metadata. Never part of v1 or model output. */
 export interface SourceDiagnostic {
   relativePath: string;

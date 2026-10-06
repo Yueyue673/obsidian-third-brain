@@ -1,5 +1,6 @@
 import type { Breadth, Evidence, QuerySelection, Privacy, SearchResult } from './core/types';
 import { QUERY_KINDS } from './core/types';
+import { SourceEvidenceUnavailableError } from './core/source-diagnostics';
 import type { Status } from './controller';
 import { messages } from './i18n';
 import { presentExplanation } from './presentation';
@@ -49,9 +50,19 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   const selectionHint = (): string => !selection ? '' : selection.channel === 'mechanisms' && breadth.value === 'low' ? t.mechanismBreadth : selection.channel === 'atmosphere' && breadth.value !== 'high' ? t.atmosphereBreadth : '';
   const alert = (text: string): void => { notice.textContent = text; notice.hidden = false; };
   const openSource = (source: Evidence): void => {
+    const id = searchId, phaseAtOpen = port.status().phase;
+    const canReport = (): boolean => {
+      if (disposed || id !== searchId) return false;
+      const phase = port.status().phase;
+      return !isBusy(phase) && phase !== 'error' && (phase !== 'cancelled' || phaseAtOpen === 'cancelled');
+    };
     void port.open(source).then(() => {
-      if (!disposed && notice.textContent === t.sourceLocationUnavailable) notice.hidden = true;
-    }).catch(error => { if (!disposed) alert(error instanceof SourceLocationUnavailableError ? t.sourceLocationUnavailable : t.failure); });
+      if (canReport() && [t.sourceLocationUnavailable, t.sourceEvidenceUnavailable].includes(notice.textContent ?? '')) notice.hidden = true;
+    }).catch(error => {
+      // Keep current task diagnostics; a late old-card reply cannot replace them.
+      // Only program-owned error classes select recovery copy, never raw messages.
+      if (canReport()) alert(error instanceof SourceEvidenceUnavailableError ? t.sourceEvidenceUnavailable : error instanceof SourceLocationUnavailableError ? t.sourceLocationUnavailable : t.failure);
+    });
   };
   const stateBlock = (title: string, body: string): void => { facetButtons = []; results.replaceChildren(element('h3', 'tb-empty-title', title), element('p', 'tb-muted', body)); };
   // Keep readable evidence, but do not present it as a reply to the new intent.

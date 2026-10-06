@@ -1,6 +1,7 @@
 import { App, FileSystemAdapter, ItemView, MarkdownView, Notice, Plugin, PluginSettingTab, SecretComponent, Setting, WorkspaceLeaf } from 'obsidian';
 import type { ModelPort } from './core/types';
 import { ThirdBrainController } from './controller';
+import { SourceEvidenceUnavailableError } from './core/source-diagnostics';
 import { messages } from './i18n';
 import { OwnedStore } from './runtime/store';
 import { createModelPort } from './runtime/transport';
@@ -78,14 +79,14 @@ export default class ThirdBrainPlugin extends Plugin {
       },
       open: async evidence => {
         await this.controller.verifyOpen(evidence);
-        const file = this.app.vault.getFileByPath(evidence.relativePath); if (!file) throw new Error('Source no longer exists.');
+        const file = this.app.vault.getFileByPath(evidence.relativePath); if (!file) throw new SourceEvidenceUnavailableError();
         const leaf = this.app.workspace.getLeaf(false);
         // Canvas evidence can refer to decoded JSON, not a Markdown span.
         if (file.extension?.toLowerCase() !== 'md') { await leaf.openFile(file); return; }
         const source = await this.controller.snapshot(evidence.relativePath);
         if (!source || source.format !== 'markdown' || source.path !== evidence.relativePath
           || source.id !== evidence.sourceId || source.hash !== evidence.sourceHash
-          || source.text.slice(evidence.start, evidence.end) !== evidence.quote) throw new Error('Source changed before navigation.');
+          || source.text.slice(evidence.start, evidence.end) !== evidence.quote) throw new SourceEvidenceUnavailableError();
         const normalize = (text: string): string => text.replace(/\r\n?/g, '\n');
         const position = (offset: number): { line: number; ch: number } => {
           const lines = normalize(source.text.slice(0, offset)).split('\n');

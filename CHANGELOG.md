@@ -4,6 +4,8 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Explain when a displayed result's source evidence is no longer current or available: review source changes/exclusions, refresh notes, then search and open a new result. Keep full source checks and unknown error identities; old source-open replies no longer replace newer search or structured refresh notices. English/Chinese guidance is verified through synthetic filesystem and host-API tests, not native Obsidian clicks.
+
 - Open Markdown originals in editing view and select/scroll to the verified quotation, including later and repeated passages. Keep original text unchanged; do not apply saved offsets to a different unsaved draft. Explain when only file opening was possible. Canvas still opens at file level; native Obsidian navigation remains unverified.
 
 - Distinguish a completed refresh with no usable fragments from first use, including after reopening the panel. Explain whether no sources were included or included notes yielded no fragments, and suggest changing notes/settings before refreshing again. Failed or cancelled updates keep their own status; no extraction, privacy or source checks change.

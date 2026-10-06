@@ -139,7 +139,7 @@ it.each(['changed-donor', 'excluded', 'read-failure'] as const)('%s still reject
     const canvasIndex = h.items[0].fragment.evidence.findIndex(e => e.relativePath.endsWith('.canvas'));
     await expect(h.click(canvasIndex)).rejects.toThrow(); await Promise.resolve();
     expect(h.openFile).not.toHaveBeenCalled(); expect(h.editor.setSelection).not.toHaveBeenCalled();
-    expect(h.get('tb-notice').textContent).toBe(h.t.failure);
+    expect(h.get('tb-notice').textContent).toBe(fault === 'read-failure' ? h.t.failure : h.t.sourceEvidenceUnavailable);
   } finally { await h.cleanup(); }
 });
 

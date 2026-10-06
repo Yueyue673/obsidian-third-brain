@@ -3,7 +3,7 @@ import { emptyIndex, QUERY_KINDS } from './core/types';
 import type { Breadth, Evidence, Facets, QuerySelection, Fragment, IndexState, IndirectMechanism, ModelPort, Privacy, RelationEndpoint, RelationReason, RunProgress, SearchResult, SourceSnapshot, StorePort } from './core/types';
 import { safeFacet } from './core/privacy';
 import { abortError, cancellable, checkAbort, facetKey, isPrivacy, relativePath, restrictive } from './core/util';
-import { sourceDiagnostic, type SourceDiagnostic } from './core/source-diagnostics';
+import { SourceEvidenceUnavailableError, sourceDiagnostic, type SourceDiagnostic } from './core/source-diagnostics';
 import { currentEvidence, type SourcePort } from './sources';
 import { generationSignature, type Settings } from './settings';
 export interface Status {
@@ -279,17 +279,17 @@ export class ThirdBrainController {
   async verifyOpen(evidence: Evidence): Promise<void> {
     const signal = new AbortController().signal;
     const currentEndpoint = this.currentOpenEndpoints.get(evidence);
-    if (currentEndpoint && !(await this.currentEndpoint(currentEndpoint,signal))) throw new Error('This source changed or is no longer available. Refresh the index before opening this quotation.');
+    if (currentEndpoint && !(await this.currentEndpoint(currentEndpoint,signal))) throw new SourceEvidenceUnavailableError();
     for (const trace of this.openTraces.get(evidence) ?? []) {
       if (!this.traceMembers(trace) || !(await this.currentEndpoint(trace.anchor,signal)) || !(await this.currentEndpoint(trace.target,signal))
         || !(await this.currentEndpoint(trace.anchor,signal)) || !(await this.currentEndpoint(trace.target,signal))) {
-        throw new Error('This source changed or is no longer available. Refresh the index before opening this quotation.');
+        throw new SourceEvidenceUnavailableError();
       }
     }
     const paths = [evidence.relativePath];
     const blocked = await this.sources.excluded(paths);
     if (blocked.has(evidence.relativePath) || !(await currentEvidence([evidence], this.sources)).length
-      || (await this.sources.excluded(paths)).has(evidence.relativePath)) throw new Error('This source changed or is no longer available. Refresh the index before opening this quotation.');
+      || (await this.sources.excluded(paths)).has(evidence.relativePath)) throw new SourceEvidenceUnavailableError();
   }
   async snapshot(path: string): Promise<SourceSnapshot | null> { return this.sources.read(path); }
   dispose(): void { this.cancel(); this.ready = false; this.listeners.clear(); }
