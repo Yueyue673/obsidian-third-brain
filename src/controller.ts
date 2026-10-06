@@ -24,7 +24,7 @@ export class ThirdBrainController {
   // Bind the exact rendered quotation objects to complete query-time traces.
   // Weak keys also protect still-visible old cards during a cancelled new search.
   private readonly openTraces = new WeakMap<Evidence, IndirectMechanism[]>();
-  private readonly selectedOpenEndpoints = new WeakMap<Evidence, RelationEndpoint>();
+  private readonly currentOpenEndpoints = new WeakMap<Evidence, RelationEndpoint>();
   private state: Status;
   constructor(private readonly sources: SourcePort, private readonly store: StorePort,
     private readonly settings: () => Settings, private readonly model: (settings: Readonly<Settings>) => ModelPort | undefined,
@@ -140,7 +140,7 @@ export class ThirdBrainController {
           facets = await interpretQuery(query, port, vocabularyOf(vocabularyFragments, settings.mode === 'cloud-model'), task.signal);
         }
       }
-      const ranked = searchFragments(kindCandidates ?? fragments, selected ? '' : query, { breadth, limit: 30, facets, ...(kind ? { kind } : {}), index: this.indexState, retainIndirectCandidates: breadth === 'high', ...(selected && selected.channel !== 'kind' && facets ? { retainRankedContinuation:true } : {}) });
+      const ranked = searchFragments(kindCandidates ?? fragments, selected ? '' : query, { breadth, limit: 30, facets, ...(kind ? { kind } : {}), index: this.indexState, retainIndirectCandidates: breadth === 'high', ...(!selected ? { retainNaturalContinuation:true } : {}), ...(selected && selected.channel !== 'kind' && facets ? { retainRankedContinuation:true } : {}) });
       const results: SearchResult[] = [];
       const validate = async (result: SearchResult, suggestion = false): Promise<SearchResult | null> => {
         if (task.signal.aborted) throw new Error('Cancelled.');
@@ -149,7 +149,7 @@ export class ThirdBrainController {
         // Partial provenance cannot establish that the remaining donor supports
         // every cached label, so stale merged claims wait for a full refresh.
         if (evidence.length !== result.fragment.evidence.length) return null;
-        if (selected && !(await this.currentEndpoint({ fragmentId:result.fragment.id,title:result.fragment.title,privacy:result.fragment.privacy,evidence:result.fragment.evidence,conditions:result.fragment.conditions,caveats:result.fragment.caveats,...(selected.channel === 'kind' ? { kind:selected.value } : {}) },task.signal))) return null;
+        if (!(await this.currentEndpoint({ fragmentId:result.fragment.id,title:result.fragment.title,privacy:result.fragment.privacy,evidence:result.fragment.evidence,conditions:result.fragment.conditions,caveats:result.fragment.caveats,...(selected?.channel === 'kind' ? { kind:selected.value } : {}) },task.signal))) return null;
         const traceTarget = result.reasons.find(r => r.kind === 'indirect-mechanism')?.indirect?.target;
         if (traceTarget && !(await this.currentEndpoint(traceTarget, task.signal))) return null;
         const reasons: RelationReason[] = []; let targetCurrent = true;
@@ -172,7 +172,7 @@ export class ThirdBrainController {
         if (!targetCurrent || !reasons.length || (suggestion && !reasons.some(r => r.kind === 'indirect-mechanism'))) return null;
         return { ...result,reasons,fragment:{ ...result.fragment,evidence },...(suggestion ? { group:'indirect-suggestion' as const } : {}) };
       };
-      // Only the authenticated typed facet path requests this query-local tail.
+      // Natural and authenticated typed facet paths independently opt in.
       // Stop at the display budget; unknown read/safety failures still throw.
       const candidates = function* () { yield* ranked; yield* ranked.rankedContinuation ?? []; };
       for (const result of candidates()) {
@@ -196,9 +196,9 @@ export class ThirdBrainController {
         }
       }
       for (const [e,traces] of bindings) this.openTraces.set(e,traces);
-      if (selected) for (const result of results) {
-        const endpoint: RelationEndpoint = structuredClone({ fragmentId:result.fragment.id,title:result.fragment.title,privacy:result.fragment.privacy,evidence:result.fragment.evidence,conditions:result.fragment.conditions,caveats:result.fragment.caveats,...(selected.channel === 'kind' ? { kind:selected.value } : {}) });
-        for (const evidence of result.fragment.evidence) this.selectedOpenEndpoints.set(evidence,endpoint);
+      for (const result of results) {
+        const endpoint: RelationEndpoint = structuredClone({ fragmentId:result.fragment.id,title:result.fragment.title,privacy:result.fragment.privacy,evidence:result.fragment.evidence,conditions:result.fragment.conditions,caveats:result.fragment.caveats,...(selected?.channel === 'kind' ? { kind:selected.value } : {}) });
+        for (const evidence of result.fragment.evidence) this.currentOpenEndpoints.set(evidence,endpoint);
       }
       this.update('idle');
       if (task.signal.aborted) throw new Error('Cancelled.');
@@ -272,8 +272,8 @@ export class ThirdBrainController {
   }
   async verifyOpen(evidence: Evidence): Promise<void> {
     const signal = new AbortController().signal;
-    const selectedEndpoint = this.selectedOpenEndpoints.get(evidence);
-    if (selectedEndpoint && !(await this.currentEndpoint(selectedEndpoint,signal))) throw new Error('This source changed or is no longer available. Refresh the index before opening this quotation.');
+    const currentEndpoint = this.currentOpenEndpoints.get(evidence);
+    if (currentEndpoint && !(await this.currentEndpoint(currentEndpoint,signal))) throw new Error('This source changed or is no longer available. Refresh the index before opening this quotation.');
     for (const trace of this.openTraces.get(evidence) ?? []) {
       if (!this.traceMembers(trace) || !(await this.currentEndpoint(trace.anchor,signal)) || !(await this.currentEndpoint(trace.target,signal))
         || !(await this.currentEndpoint(trace.anchor,signal)) || !(await this.currentEndpoint(trace.target,signal))) {

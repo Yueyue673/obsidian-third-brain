@@ -148,6 +148,9 @@ export function searchFragments(fragments: Fragment[], query: string, options: S
   // Explicit facet queries may validate past the ordinary cutoff without
   // changing the scoring corpus, IDF, seed policy or running a second search.
   if (options.retainRankedContinuation && query === '' && options.facets !== undefined) output.rankedContinuation = ordered.slice(limit);
+  // Independently requested by the natural Controller path, never implicit in
+  // facets or the default core head. Reuse this exact scoring/network pass.
+  if (options.retainNaturalContinuation && query.trim() !== '') output.rankedContinuation = ordered.slice(limit);
   if (options.breadth === 'high' && options.retainIndirectCandidates) {
     output.indirectCandidates = indirectCandidates.sort((a,b) => b.score - a.score || a.fragment.id.localeCompare(b.fragment.id));
   }

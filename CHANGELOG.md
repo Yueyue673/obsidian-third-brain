@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.3.6 — 2026-10-06 (preview)
+
+- Fix natural idea searches losing current direct materials after the first30 known-invalid candidates. An independent opt-in continuation reuses the same stable scoring/network pass; no corpus prefilter, IDF change, global limit200 or extra query-model request.
+- Require complete current endpoints at natural display and old quotation opening, including source exclusions and index membership. One remaining donor cannot keep an obsolete merged editorial claim open; unknown failures retain original exceptions and fail the whole query.
+- Restore16 diagnosed cutoff paths and six separate admission omissions, with unchanged lawful current controls. Preserve explicit facet/kind behavior, core limits, breadth/network policies and main-seven/extra-two budgets; stored schema, model wire and originals are unchanged.
+- Stabilize the diagnosed source-fault renderer test by awaiting its real owned refresh/find and controlled commit before teardown, retaining all original assertions. Add stale merged-card refusal plus genuinely rebuilt current-card opening after explicit exclusion/refresh. Native clicks, genuine production-provider HTTP, new semantic quality and mixed-privacy duplicate behavior remain unverified.
+
 ## 0.3.5 — 2026-10-06 (preview)
 
 - Fix selected-facet searches losing later current materials behind the first 30 known stale/excluded/removed/changed candidates. An opt-in transient continuation reuses the same score/ID ranking and single network build; no global limit increase, corpus prefilter or IDF change.
