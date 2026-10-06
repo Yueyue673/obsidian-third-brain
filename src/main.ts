@@ -68,7 +68,7 @@ export default class ThirdBrainPlugin extends Plugin {
         const fullDraft = view ? view.editor.getValue() : await this.app.vault.read(file);
         const text = view?.editor.getSelection() || fullDraft;
         if (text.length > 20000) throw new CurrentNoteTooLongError();
-        const original = await this.controller.snapshot(file.path); if (!original) return null;
+        const original = await this.controller.snapshot(file.path); if (!original) throw new Error('Current-note source is no longer available.');
         return { text, privacy: contextPrivacy(original, fullDraft) };
       },
       openFragment: async id => {

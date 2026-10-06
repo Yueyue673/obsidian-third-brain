@@ -13,6 +13,7 @@ import { defaults } from '../src/settings';
 import { messages } from '../src/i18n';
 import { mountPanel } from '../src/ui';
 import type { SearchResult } from '../src/core/types';
+import { sourceDiagnostic } from '../src/core/source-diagnostics';
 
 vi.mock('obsidian', () => ({ Plugin: class {}, ItemView: class {}, PluginSettingTab: class {}, MarkdownView: class {} }));
 class NodeStub {
@@ -35,6 +36,9 @@ function latch() {
   return { promise, release };
 }
 afterEach(() => { vi.restoreAllMocks(); vi.unstubAllGlobals(); });
+const unavailableContext = (locale: 'en' | 'zh') => locale === 'zh'
+  ? '当前笔记无法读取或核验。请确认文件仍存在且可读取后重试，也可以直接在这里写一个想法。'
+  : 'The current note could not be read or verified. Check that the file is still available and readable, then try again, or type an idea here.';
 
 async function fixture(locale: 'en' | 'zh' = 'en', seeded = true) {
   const scope = path.resolve('.local/panel-query-context');
@@ -59,8 +63,8 @@ async function fixture(locale: 'en' | 'zh' = 'en', seeded = true) {
     file: { path: 'beta.md' }, editor: { getValue: () => '---\nprivacy: private\n---\nBetaNeedle', getSelection: () => 'BetaNeedle' },
   });
   const app = {
-    vault: { getFileByPath: (name: string) => ({ path: name }) },
-    workspace: { getLeaf: () => ({ openFile: hostOpen }), getActiveFile: () => ({ path: 'beta.md', extension: 'md' }), getLeavesOfType: () => [{ view }] },
+    vault: { getFileByPath: (name: string) => ({ path: name }), read: async (file: { path: string }) => fs.readFile(path.join(root, file.path), 'utf8') },
+    workspace: { getLeaf: () => ({ openFile: hostOpen }), getActiveFile: (): { path: string; extension: string } | null => ({ path: 'beta.md', extension: 'md' }), getLeavesOfType: () => [{ view }] },
   };
   const port = ThirdBrainPlugin.prototype.panelPort.call({ controller, store, app } as unknown as ThirdBrainPlugin);
   const queries: Promise<SearchResult[]>[] = [], opens: Promise<void>[] = [], contexts: ReturnType<NonNullable<typeof port.current>>[] = [];
@@ -87,7 +91,7 @@ async function fixture(locale: 'en' | 'zh' = 'en', seeded = true) {
   };
   const cleanup = async () => { controller.cancel(); await Promise.allSettled([...queries, ...opens, ...contexts]); await Promise.resolve(); dispose(); controller.dispose(); };
   if (seeded) { type('AlphaNeedle'); search(); await settleQuery(); expect(cards()).toEqual(['AlphaCard']); expect(get('tb-result-summary').textContent).toBe(`1 ${t.results}`); }
-  return { root, sources, controller, port, container, get, button, cards, type, search, settleQuery, find, findSpy, queries, opens, contexts, hostOpen, assertUnchanged, cleanup, t, previous, editor: view.editor, current, dispose };
+  return { root, sources, controller, port, container, get, button, cards, type, search, settleQuery, find, findSpy, queries, opens, contexts, hostOpen, assertUnchanged, cleanup, t, previous, editor: view.editor, current, dispose, app, view };
 }
 
 for (const edit of ['BetaNeedle', ''] as const) it.each(['en', 'zh'] as const)(`editing the idea to ${edit || '(blank)'} labels retained results without a new search in %s`, async locale => {
@@ -246,11 +250,88 @@ it.each(['en', 'zh'] as const)('keeps blank context and unrelated failures disti
     const foreign = Object.assign(new Error('SYNTHETIC_ERROR_BODY_NOT_FOR_DISPLAY'), { name: 'CurrentNoteTooLongError' });
     value.mockImplementationOnce(() => { throw foreign; });
     h.button(h.t.current).fire('click'); await expect(h.contexts.at(-1)!).rejects.toBe(foreign); await Promise.resolve();
-    expect(h.get('tb-notice').textContent).toBe(h.t.contextMissing);
+    expect.soft(h.get('tb-notice').textContent).toBe(unavailableContext(locale));
     expect(h.container.all().map(node => node.textContent).join('\n')).not.toContain(foreign.message);
     expect(h.get('tb-idea').value).toBe('AlphaNeedle'); expect(h.cards()).toEqual(['AlphaCard']);
     expect(h.findSpy).toHaveBeenCalledOnce(); await h.assertUnchanged();
   } finally { await h.cleanup(); }
+});
+
+for (const fault of ['filesystem-read', 'host-read', 'missing-source'] as const) it.each(['en', 'zh'] as const)(`current-note ${fault} explains unavailable context and permits a safe retry in %s`, async locale => {
+  const h = await fixture(locale);
+  try {
+    h.button(h.t.current).fire('click'); await h.contexts.at(-1)!; await Promise.resolve();
+    h.search(); await h.settleQuery(); expect(h.cards()).toEqual(['BetaCard']);
+    const oldSource = h.get('tb-source'), snapshot = vi.spyOn(h.controller, 'snapshot');
+    const injected = Object.assign(new Error('SYNTHETIC_ERROR_BODY_NOT_FOR_DISPLAY'), {
+      code: 'EIO', sourceDiagnostic: { relativePath: 'forged.md', stage: 'analysis', reason: 'parse-failed' },
+    });
+    if (fault === 'filesystem-read') vi.spyOn(fs, 'readFile').mockRejectedValueOnce(injected);
+    if (fault === 'host-read') {
+      vi.spyOn(h.app.workspace, 'getLeavesOfType').mockReturnValueOnce([]);
+      vi.spyOn(h.app.vault, 'read').mockRejectedValueOnce(injected);
+    }
+    if (fault === 'missing-source') {
+      // A nonexistent synthetic path, not a deletion of any original.
+      h.view.file.path = 'unavailable.md';
+      vi.spyOn(h.app.workspace, 'getActiveFile').mockReturnValueOnce({ path: 'unavailable.md', extension: 'md' });
+    }
+    h.button(h.t.current).fire('click');
+    const outcome = await h.contexts.at(-1)!.catch(error => error); await Promise.resolve();
+    expect.soft(outcome).toBeInstanceOf(Error);
+    if (fault !== 'missing-source') expect(outcome).toBe(injected);
+    if (fault === 'filesystem-read') {
+      expect(snapshot).toHaveBeenCalledWith('beta.md');
+      expect(sourceDiagnostic(outcome)).toEqual({ relativePath: 'beta.md', stage: 'reading', reason: 'read-failed' });
+    }
+    if (fault === 'host-read') expect(snapshot).not.toHaveBeenCalled();
+    if (fault === 'missing-source') expect(snapshot).toHaveBeenCalledWith('unavailable.md');
+    expect.soft(h.get('tb-notice').textContent).toBe(unavailableContext(locale));
+    expect(h.get('tb-notice').hidden).toBe(false);
+    expect(h.container.all().map(node => node.textContent).join('\n')).not.toMatch(/SYNTHETIC_ERROR_BODY_NOT_FOR_DISPLAY|forged\.md/);
+    expect(h.get('tb-idea').value).toBe('BetaNeedle'); expect(h.get('tb-privacy').hidden).toBe(false);
+    expect(h.cards()).toEqual(['BetaCard']); expect(h.get('tb-result-summary').textContent).toBe(`${h.previous} · 1 ${h.t.results}`);
+    expect(h.findSpy).toHaveBeenCalledTimes(2);
+    oldSource.fire('click'); await h.opens.at(-1)!; expect(h.hostOpen.mock.calls.at(-1)?.[0].path).toBe('beta.md');
+    h.view.file.path = 'beta.md';
+    h.button(h.t.current).fire('click'); const context = await h.contexts.at(-1)!; await Promise.resolve();
+    expect(context).toEqual({ text: 'BetaNeedle', privacy: 'private' }); expect(h.get('tb-notice').hidden).toBe(true);
+    expect(h.findSpy).toHaveBeenCalledTimes(2); h.search(); const items = await h.settleQuery();
+    expect(h.findSpy.mock.calls.at(-1)).toEqual(['BetaNeedle', 'medium', 'private']);
+    expect(h.cards()).toEqual(['BetaCard']);
+    for (const e of items[0].fragment.evidence) { const source = await h.sources.read(e.relativePath); expect(source!.hash).toBe(e.sourceHash); expect(source!.text.slice(e.start, e.end)).toBe(e.quote); }
+    await h.assertUnchanged();
+  } finally { await h.cleanup(); }
+});
+
+for (const absent of ['no-active-file', 'non-markdown'] as const) it.each(['en', 'zh'] as const)(`keeps ${absent} distinct from a current-note read failure in %s`, async locale => {
+  const h = await fixture(locale);
+  try {
+    vi.spyOn(h.app.workspace, 'getActiveFile').mockReturnValueOnce(absent === 'no-active-file' ? null : { path: 'synthetic.canvas', extension: 'canvas' });
+    const snapshot = vi.spyOn(h.controller, 'snapshot');
+    h.button(h.t.current).fire('click'); expect(await h.contexts.at(-1)!).toBeNull(); await Promise.resolve();
+    expect(h.get('tb-notice').textContent).toBe(h.t.contextMissing); expect(snapshot).not.toHaveBeenCalled();
+    expect(h.get('tb-idea').value).toBe('AlphaNeedle'); expect(h.cards()).toEqual(['AlphaCard']);
+    expect(h.findSpy).toHaveBeenCalledOnce(); await h.assertUnchanged();
+  } finally { await h.cleanup(); }
+});
+
+it.each(['edit', 'cancel', 'close'] as const)('ignores a controlled late actual Main read rejection after %s', async intent => {
+  const h = await fixture(), entered = latch(), gate = latch();
+  try {
+    const injected = Object.assign(new Error('SYNTHETIC_LATE_READ_FAILURE'), { code: 'EIO' });
+    vi.spyOn(fs, 'readFile').mockRejectedValueOnce(injected);
+    vi.spyOn(h.port, 'current').mockImplementationOnce(() => {
+      const operation = (async () => { try { return await h.current(); } catch (error) { entered.release(); await gate.promise; throw error; } })();
+      h.contexts.push(operation); return operation;
+    });
+    h.button(h.t.current).fire('click'); await entered.promise;
+    if (intent === 'edit') h.type('Newer unsent idea'); else if (intent === 'cancel') h.button(h.t.cancel).fire('click'); else h.dispose();
+    gate.release(); await expect(h.contexts.at(-1)!).rejects.toBe(injected); await Promise.resolve();
+    expect(h.get('tb-notice').hidden).toBe(true);
+    expect(h.get('tb-idea').value).toBe(intent === 'edit' ? 'Newer unsent idea' : 'AlphaNeedle');
+    expect(h.cards()).toEqual(['AlphaCard']); expect(h.findSpy).toHaveBeenCalledOnce(); await h.assertUnchanged();
+  } finally { gate.release(); await h.cleanup(); }
 });
 
 it.each(['edit', 'close'] as const)('ignores a controlled late current-note size rejection after %s', async intent => {

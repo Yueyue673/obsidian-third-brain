@@ -4,6 +4,7 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Distinguish an unreadable or unavailable current-note source from empty context. Show safe English/Chinese retry guidance without exposing exception text; keep the previous idea, privacy and results, and still require the full draft and disk source to be checked before replacement.
 - Explain when the current note or selection is too long, with guidance to select a shorter excerpt and retry. Keep the previous idea/results, the existing length limit and full-draft privacy checks; do not truncate or search automatically.
 - Label retained cards and counts as previous search results when the idea is edited, cleared or replaced with the current note. Keep their source links usable and show fresh results only after a successful search; no automatic search while typing.
 - Clear previous search cards and counts after any successful note refresh, including command and scheduled updates. Keep the idea and selected property for the next search; failed or cancelled updates retain the previous view and its source checks. No search is started automatically.
