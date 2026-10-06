@@ -1,6 +1,7 @@
 import type { Breadth, Evidence, QuerySelection, Privacy, SearchResult } from './core/types';
 import { QUERY_KINDS } from './core/types';
 import { SourceEvidenceUnavailableError } from './core/source-diagnostics';
+import { generatedFileDiagnostic } from './core/generated-diagnostics';
 import type { Status } from './controller';
 import { messages } from './i18n';
 import { presentExplanation } from './presentation';
@@ -49,21 +50,25 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   const kindLabel = (value: string): string => t[`kind_${value}` as keyof typeof t];
   const selectionHint = (): string => !selection ? '' : selection.channel === 'mechanisms' && breadth.value === 'low' ? t.mechanismBreadth : selection.channel === 'atmosphere' && breadth.value !== 'high' ? t.atmosphereBreadth : '';
   const alert = (text: string): void => { notice.textContent = text; notice.hidden = false; };
-  const openSource = (source: Evidence): void => {
+  const generatedCopy = { missing: t.generatedFileMissing, changed: t.generatedFileChanged, unavailable: t.generatedFileUnavailable };
+  const openResult = (operation: () => Promise<void>, recoveredNotices: string[]): void => {
     const id = searchId, phaseAtOpen = port.status().phase;
     const canReport = (): boolean => {
       if (disposed || id !== searchId) return false;
       const phase = port.status().phase;
       return !isBusy(phase) && phase !== 'error' && (phase !== 'cancelled' || phaseAtOpen === 'cancelled');
     };
-    void port.open(source).then(() => {
-      if (canReport() && [t.sourceLocationUnavailable, t.sourceEvidenceUnavailable].includes(notice.textContent ?? '')) notice.hidden = true;
+    void operation().then(() => {
+      // Opening saved Markdown does not prove that its original evidence recovered.
+      if (canReport() && recoveredNotices.includes(notice.textContent ?? '')) notice.hidden = true;
     }).catch(error => {
       // Keep current task diagnostics; a late old-card reply cannot replace them.
-      // Only program-owned error classes select recovery copy, never raw messages.
-      if (canReport()) alert(error instanceof SourceEvidenceUnavailableError ? t.sourceEvidenceUnavailable : error instanceof SourceLocationUnavailableError ? t.sourceLocationUnavailable : t.failure);
+      // Only program-owned diagnostics/classes select recovery copy, never messages.
+      const generated = generatedFileDiagnostic(error);
+      if (canReport()) alert(generated ? generatedCopy[generated] : error instanceof SourceEvidenceUnavailableError ? t.sourceEvidenceUnavailable : error instanceof SourceLocationUnavailableError ? t.sourceLocationUnavailable : t.failure);
     });
   };
+  const openSource = (source: Evidence): void => openResult(() => port.open(source), [t.sourceLocationUnavailable, t.sourceEvidenceUnavailable]);
   const stateBlock = (title: string, body: string): void => { facetButtons = []; results.replaceChildren(element('h3', 'tb-empty-title', title), element('p', 'tb-muted', body)); };
   // Keep readable evidence, but do not present it as a reply to the new intent.
   // Only transient display state is kept; no query text or input history is stored.
@@ -133,7 +138,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
       article.append(top, element('p', 'tb-fragment', fragment.summary));
       if (port.openFragment) {
         const open = element('button', 'tb-secondary', t.openFragment); open.type = 'button';
-        open.addEventListener('click', () => { void port.openFragment!(fragment.id).catch(() => alert(t.failure)); });
+        open.addEventListener('click', () => openResult(() => port.openFragment!(fragment.id), Object.values(generatedCopy)));
         article.append(open);
       }
       if (item.reasons.length) {

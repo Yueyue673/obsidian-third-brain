@@ -34,6 +34,8 @@ The source may have changed, disappeared or been excluded. Refresh the notes bef
 
 A folder name does not make every file inside it plugin-owned. User-written files and manually edited generated files are not overwritten. Keep the affected files and inspect the conflict in a test copy. Do not clear the index to force an overwrite.
 
+The complete generated layer is checked before opening a fragment, so a missing or changed file elsewhere in that layer can also block the click. For a missing file, keep the folder and hidden metadata; try restoring the matching generated version from a backup in a test copy, then reopen the plugin. Repeated refreshes do not bypass this protection. An unavailable old result or host file-list entry can instead require a new search; unknown read errors still need diagnosis and are not treated as proof of a missing file.
+
 ## The index cannot be loaded
 
 Keep the generated folder, including its hidden files, for diagnosis in a copy. An invalid or unsupported index is not treated as an empty vault. Do not upload the folder publicly: it can contain note excerpts.
@@ -85,6 +87,8 @@ Include the plugin version, Obsidian version, processing mode, steps and a small
 ### 提示生成文件受保护
 
 手写文件和人工改过的生成文件不会被覆盖。保留文件，在测试副本里查看冲突；不要清空索引来强行覆盖。
+
+打开片段前会核验整个提炼层，因此同层其他生成文件的缺失或改动也可能阻止打开。文件缺失时，请保留目录和隐藏元数据，先在测试副本中用备份恢复对应生成版本，再重新打开插件；反复更新不会绕过保护。旧结果或宿主文件列表里的项目不再可用时，可重新搜索。未知读取异常仍需排查，不能据此认定文件缺失。
 
 ### 索引无法加载
 

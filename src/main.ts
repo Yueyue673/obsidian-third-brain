@@ -2,6 +2,7 @@ import { App, FileSystemAdapter, ItemView, MarkdownView, Notice, Plugin, PluginS
 import type { ModelPort } from './core/types';
 import { ThirdBrainController } from './controller';
 import { SourceEvidenceUnavailableError } from './core/source-diagnostics';
+import { generatedFileError } from './core/generated-diagnostics';
 import { messages } from './i18n';
 import { OwnedStore } from './runtime/store';
 import { createModelPort } from './runtime/transport';
@@ -74,7 +75,7 @@ export default class ThirdBrainPlugin extends Plugin {
       },
       openFragment: async id => {
         const target = await this.store.fragmentPath(id);
-        const file = this.app.vault.getFileByPath(target); if (!file) throw new Error('Generated fragment no longer exists.');
+        const file = this.app.vault.getFileByPath(target); if (!file) throw generatedFileError('unavailable');
         await this.app.workspace.getLeaf(false).openFile(file);
       },
       open: async evidence => {

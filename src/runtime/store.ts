@@ -6,6 +6,7 @@ import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypt
 import { AsyncLocalStorage } from 'node:async_hooks';
 import type { Facets, Fragment, IndexState, StorePort } from '../core/types';
 import { buildFragmentNetwork, type FragmentNetwork } from '../core/connections';
+import { generatedFileError } from '../core/generated-diagnostics';
 
 const OWNER = 'third-brain';
 const STATE_LIMIT = 32 * 1024 * 1024;
@@ -497,7 +498,8 @@ export class OwnedStore implements StorePort {
     if (checkFiles) {
       for (const [name, expected] of Object.entries(state.value.owned)) {
         const data = await this.read(`${this.folder}/${name}`, FILE_LIMIT);
-        if (!data || hash(data) !== expected) fail('Owned generated file is missing or human-edited');
+        if (!data) throw generatedFileError('missing');
+        if (hash(data) !== expected) throw generatedFileError('changed');
       }
     }
     return state;
@@ -658,7 +660,7 @@ export class OwnedStore implements StorePort {
   }
   async fragmentPath(id: string): Promise<string> {
     const index = await this.load();
-    if (!index || !Object.prototype.hasOwnProperty.call(index.fragments, id)) fail('Fragment is not in the current owned layer');
+    if (!index || !Object.prototype.hasOwnProperty.call(index.fragments, id)) throw generatedFileError('unavailable');
     return `${this.folder}/${filename(id)}`;
   }
   async managedSourcePaths(): Promise<Set<string>> {
