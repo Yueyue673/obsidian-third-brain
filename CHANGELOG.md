@@ -4,6 +4,8 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Treat starting composition in the idea box as a new editing intent: retain and label previous cards, ignore late search results, and leave any selected property/type filter before the first input event. Search remains explicit and keeps current-note privacy and source-open checks. Verified with the real renderer/Main adapter and synthetic filesystem tests; native Obsidian IME ordering remains unverified.
+
 - Ignore a pending Use current note reply as soon as composition starts in the idea box, even before an input event or when composition ends without inserting text. Late success or failure no longer replaces the idea/privacy or adds an obsolete notice; a fresh explicit fill/search still works. Verified through the registered panel and synthetic filesystem/host-API tests; native Obsidian IME event ordering remains unverified.
 
 - Keep a delayed Use current note read from taking focus back after returning to the editor, switching controls or continuing input/composition. The requested text still fills the idea box with full-draft privacy, but does not search automatically. Cancel/edit/close and newer requests retire temporary focus guards. Verified through the real panel and synthetic filesystem/host-API tests; native Obsidian focus and IME behavior remain unverified.

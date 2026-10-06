@@ -354,6 +354,102 @@ it('a late completed query cannot relabel retained results as matching a newer e
   } finally { gate.release(); await h.cleanup(); }
 });
 
+// Synthetic composition events before any input event, with controlled actual
+// file-read or PanelPort delivery timing. Not native IME/event-order evidence.
+for (const boundary of ['source-read', 'delivery'] as const)
+for (const seeded of [true, false])
+it.each(['en', 'zh'] as const)(`composition retires a pending ${boundary} search (previous cards: ${seeded}) in %s`, async locale => {
+  const h = await fixture(locale, seeded), entered = latch(), gate = latch();
+  let heldRead: ReturnType<FileSources['read']> | undefined;
+  try {
+    // Establish private FULL-draft context via the actual Main adapter.
+    h.button(h.t.current).fire('click'); await h.contexts.at(-1)!; await Promise.resolve();
+    const input = h.get('tb-idea'), callsBefore = h.findSpy.mock.calls.length;
+    const oldSource = seeded ? h.get('tb-source') : undefined;
+    if (boundary === 'source-read') {
+      const read = h.sources.read.bind(h.sources);
+      vi.spyOn(h.sources, 'read').mockImplementationOnce((...args) => heldRead = (async () => {
+        const source = await read(...args); entered.release(); await gate.promise; return source;
+      })());
+    } else {
+      h.findSpy.mockImplementationOnce((...args) => {
+        const operation = (async () => { const items = await h.find(...args); entered.release(); await gate.promise; return items; })();
+        h.queries.push(operation); return operation;
+      });
+    }
+    h.search(); const pending = h.queries.at(-1)!; await entered.promise;
+    expect(h.controller.status().phase).toBe(boundary === 'source-read' ? 'searching' : 'idle');
+    input.fire('compositionstart');
+    // A provisional composition value; no input event has retired this query.
+    input.value = 'Newer unsent idea 正在组词'; input.fire('compositionupdate');
+    gate.release(); const late = await pending; await heldRead; await Promise.resolve();
+    expect(late.map(item => item.fragment.title)).toEqual(['BetaCard']); // Actual search did finish.
+    expect.soft(h.cards()).toEqual(seeded ? ['AlphaCard'] : []);
+    expect.soft(h.get('tb-result-summary').textContent).toBe(seeded ? `${h.previous} · 1 ${h.t.results}` : '');
+    expect(input.value).toBe('Newer unsent idea 正在组词'); expect(h.get('tb-privacy').hidden).toBe(false);
+    expect(h.findSpy).toHaveBeenCalledTimes(callsBefore + 1); expect(h.controller.status().phase).toBe('idle');
+    if (oldSource) { oldSource.fire('click'); await h.opens.at(-1)!; expect(h.hostOpen.mock.calls.at(-1)?.[0].path).toBe('alpha.md'); }
+    // Ending composition without an input cannot revive a retired reply or submit.
+    input.fire('compositionend');
+    expect.soft(h.cards()).toEqual(seeded ? ['AlphaCard'] : []);
+    expect(h.findSpy).toHaveBeenCalledTimes(callsBefore + 1);
+    h.type('BetaNeedle'); input.fire('keydown', enterKey('ctrlKey')); const fresh = await h.settleQuery();
+    expect(h.findSpy.mock.calls.at(-1)).toEqual(['BetaNeedle', 'medium', 'private']);
+    expect(h.cards()).toEqual(['BetaCard']); expect(h.get('tb-result-summary').textContent).toBe(`1 ${h.t.results}`);
+    for (const e of fresh[0].fragment.evidence) {
+      const source = await h.sources.read(e.relativePath); expect(source!.hash).toBe(e.sourceHash); expect(source!.text.slice(e.start, e.end)).toBe(e.quote);
+    }
+    h.get('tb-source').fire('click'); await h.opens.at(-1)!; expect(h.hostOpen.mock.calls.at(-1)?.[0].path).toBe('beta.md');
+    await h.assertUnchanged();
+  } finally { gate.release(); await heldRead?.catch(() => {}); await h.cleanup(); }
+});
+
+it.each(['topics', 'kind'] as const)('composition retires an existing %s selection before input without dropping privacy or source checks', async channel => {
+  const h = await fixture();
+  try {
+    h.container.all().find(node => node.attrs['data-channel'] === channel)!.fire('click'); await h.settleQuery();
+    const input = h.get('tb-idea'), text = input.value;
+    const cards = h.cards(), oldSource = h.get('tb-source'), count = h.findSpy.mock.calls.length;
+    const summary = h.get('tb-result-summary').textContent;
+    expect(h.findSpy.mock.calls.at(-1)?.[3]?.channel).toBe(channel);
+    input.fire('compositionstart'); input.fire('compositionupdate'); input.fire('compositionend');
+    expect.soft(h.get('tb-label').textContent).toBe(h.t.idea);
+    expect.soft(h.get('tb-result-summary').textContent).toBe(`${h.previous} · ${summary}`);
+    expect(input.value).toBe(text); expect(h.cards()).toEqual(cards); expect(h.findSpy).toHaveBeenCalledTimes(count);
+    oldSource.fire('click'); await h.opens.at(-1)!; expect(h.hostOpen).toHaveBeenCalledOnce();
+    // The same visible text is a natural idea now, not a hidden equality filter.
+    h.search(); await h.settleQuery(); expect.soft(h.findSpy.mock.calls.at(-1)).toEqual([text, 'medium', 'normal']);
+    await h.assertUnchanged();
+    // Intentional synthetic source mutation after the preservation assertions.
+    const originalPath = h.hostOpen.mock.calls.at(-1)![0].path;
+    await fs.writeFile(path.join(h.root, originalPath), 'Synthetic replacement invalidates the original quotation.');
+    oldSource.fire('click'); await expect(h.opens.at(-1)!).rejects.toThrow(); expect(h.hostOpen).toHaveBeenCalledOnce();
+  } finally { await h.cleanup(); }
+});
+
+it.each(['cancel', 'failure'] as const)('composition leaves a pending search %s diagnostic and explicit retry intact', async outcome => {
+  const h = await fixture(), entered = latch(), gate = latch();
+  const read = h.sources.read.bind(h.sources); let held: ReturnType<FileSources['read']> | undefined;
+  const error = Object.assign(new Error('SYNTHETIC_COMPOSITION_READ_FAILURE'), { code: 'EIO' });
+  vi.spyOn(h.sources, 'read').mockImplementationOnce((...args) => held = (async () => {
+    const source = await read(...args); entered.release(); await gate.promise;
+    if (outcome === 'failure') throw error;
+    return source;
+  })());
+  try {
+    h.type('BetaNeedle'); h.search(); const pending = h.queries.at(-1)!; await entered.promise;
+    h.get('tb-idea').fire('compositionstart');
+    if (outcome === 'cancel') h.button(h.t.cancel).fire('click');
+    gate.release(); await expect(pending).rejects.toThrow(); await held?.catch(() => {}); await Promise.resolve();
+    expect(h.controller.status().phase).toBe(outcome === 'cancel' ? 'cancelled' : 'error');
+    expect(h.cards()).toEqual(['AlphaCard']); expect(h.get('tb-result-summary').textContent).toBe(`${h.previous} · 1 ${h.t.results}`);
+    expect(h.get('tb-notice').hidden).toBe(false); expect(h.get('tb-notice').textContent).not.toContain(error.message);
+    h.get('tb-idea').fire('compositionend'); h.search(); await h.settleQuery();
+    expect(h.cards()).toEqual(['BetaCard']); expect(h.get('tb-result-summary').textContent).toBe(`1 ${h.t.results}`);
+    await h.assertUnchanged();
+  } finally { gate.release(); await held?.catch(() => {}); await h.cleanup(); }
+});
+
 it('previous-search marking never bypasses changed-source refusal', async () => {
   const h = await fixture();
   try {

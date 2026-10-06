@@ -202,10 +202,12 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
     catch { if (!disposed && id === searchId && !['error','cancelled'].includes(port.status().phase)) alert(t.failure); }
     finally { renderState(); }
   };
-  input.addEventListener('input', () => { markPreviousResults(); selection = undefined; ++searchId; renderState(); });
-  // Composition owns this input before its first input event. Retire only a
-  // pending current-note fill; keep the idea/privacy and require explicit search.
-  input.addEventListener('compositionstart', () => { if (currentReadId !== undefined) { ++searchId; renderState(); } });
+  // Composition owns the idea before its first input event: retire pending
+  // search/current-note delivery and hidden selection, just like a typed edit.
+  // Retain readable previous results and privacy; never search automatically.
+  const editIdea = (): void => { markPreviousResults(); selection = undefined; ++searchId; renderState(); };
+  input.addEventListener('input', editIdea);
+  input.addEventListener('compositionstart', editIdea);
   // Let the IME finish composition without consuming Enter or submitting partial text.
   // Consume held shortcuts, but only a fresh press can submit (including after cancel).
   input.addEventListener('keydown', e => { if (!e.isComposing && e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); if (!e.repeat && !find.disabled) void executeSearch(); } });
