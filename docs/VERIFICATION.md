@@ -7,7 +7,7 @@ AI extraction now receives redacted, bounded same-source section/preceding conte
 - Parent integration passed: **499 tests across 19 files**, typecheck, build, production-filesystem smoke, privacy pattern scan, packaging and diff checks.
 - The new context regression failed on the previous implementation (7 failed / 6 passed) and passes after the fix. Actual loopback HTTP covers the additional wire fields, request snapshots, bounds, unsafe context rejection and background-only evidence rejection; responses are explicitly synthetic.
 - **Still unverified:** live AI quality/provider compatibility and native-host clicks for this changed executable. The separate in-progress live-provider probe does not count as completed evidence.
-- Distribution checks are recorded after publishing.
+- Published prerelease [0.2.1](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.2.1), exact code commit `47a0b8c555fce11be1c19f7899e440896cf4e045`. [Main CI](https://github.com/Yueyue673/obsidian-third-brain/actions/runs/37400880907) and [tag CI](https://github.com/Yueyue673/obsidian-third-brain/actions/runs/37401396246) both passed all four Windows/Ubuntu × Node 22/24 jobs. All six anonymously downloaded public assets match the local candidate and all four main-CI builds byte-for-byte.
 
 ## 0.2.0 preview — local integration
 
