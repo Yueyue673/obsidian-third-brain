@@ -96,8 +96,74 @@ async function fixture(locale: 'en' | 'zh' = 'en', seeded = true) {
 
 // Synthetic keyboard payloads exercise the real event callback. They do not
 // emulate a native IME or prove any OS-specific composition event sequence.
-const enterKey = (modifier?: 'ctrlKey' | 'metaKey', isComposing = false) => ({
-  key: 'Enter', ctrlKey: modifier === 'ctrlKey', metaKey: modifier === 'metaKey', isComposing, preventDefault: vi.fn(),
+const enterKey = (modifier?: 'ctrlKey' | 'metaKey', isComposing = false, repeat = false) => ({
+  key: 'Enter', ctrlKey: modifier === 'ctrlKey', metaKey: modifier === 'metaKey', isComposing, repeat, preventDefault: vi.fn(),
+});
+
+for (const modifier of ['ctrlKey', 'metaKey'] as const)
+it.each(['en', 'zh'] as const)(`held ${modifier}+Enter does not restart a completed search in %s`, async locale => {
+  const h = await fixture(locale);
+  try {
+    h.button(h.t.current).fire('click'); await h.contexts.at(-1)!; await Promise.resolve();
+    const input = h.get('tb-idea'), first = enterKey(modifier);
+    input.fire('keydown', first); const items = await h.settleQuery();
+    expect(first.preventDefault).toHaveBeenCalledOnce(); expect(h.findSpy).toHaveBeenCalledTimes(2);
+    expect(h.controller.status().phase).toBe('idle'); expect(h.button(h.t.find).disabled).toBe(false);
+    expect(h.findSpy.mock.calls.at(-1)).toEqual(['BetaNeedle', 'medium', 'private']);
+    expect(h.cards()).toEqual(['BetaCard']); expect(h.get('tb-privacy').hidden).toBe(false);
+    const summary = h.get('tb-result-summary').textContent, reason = h.get('tb-reason').textContent;
+    // No keyup/new press: the OS's repeated keydown must not become new intent,
+    // even when the controller has finished and the search button is enabled.
+    for (let i = 0; i < 2; i++) {
+      const repeated = enterKey(modifier, false, true); input.fire('keydown', repeated);
+      expect(repeated.preventDefault).toHaveBeenCalledOnce();
+      expect(h.findSpy).toHaveBeenCalledTimes(2);
+      expect(h.controller.status().phase).toBe('idle');
+      expect(h.get('tb-result-summary').textContent).toBe(summary);
+      expect(h.get('tb-reason').textContent).toBe(reason); expect(h.cards()).toEqual(['BetaCard']);
+    }
+    const ordinary = enterKey(undefined, false, true), composing = enterKey(modifier, true, true);
+    input.fire('keydown', ordinary); input.fire('keydown', composing);
+    expect(ordinary.preventDefault).not.toHaveBeenCalled(); expect(composing.preventDefault).not.toHaveBeenCalled();
+    expect(h.findSpy).toHaveBeenCalledTimes(2); expect(input.value).toBe('BetaNeedle');
+    for (const e of items[0].fragment.evidence) {
+      const source = await h.sources.read(e.relativePath);
+      expect(source!.hash).toBe(e.sourceHash); expect(source!.text.slice(e.start, e.end)).toBe(e.quote);
+    }
+    h.get('tb-source').fire('click'); await h.opens.at(-1)!;
+    expect(h.hostOpen.mock.calls.at(-1)?.[0].path).toBe('beta.md');
+    // A deliberate fresh press of the SAME query is still a valid retry.
+    input.fire('keyup', { key: 'Enter' }); const fresh = enterKey(modifier); input.fire('keydown', fresh);
+    expect(fresh.preventDefault).toHaveBeenCalledOnce(); expect(await h.settleQuery()).toEqual(items);
+    expect(h.findSpy).toHaveBeenCalledTimes(3);
+    expect(h.findSpy.mock.calls.at(-1)).toEqual(['BetaNeedle', 'medium', 'private']);
+    expect(h.get('tb-result-summary').textContent).toBe(summary); await h.assertUnchanged();
+  } finally { await h.cleanup(); }
+});
+
+it.each(['ctrlKey', 'metaKey'] as const)('held %s+Enter does not restart a cancelled search', async modifier => {
+  const h = await fixture(), entered = latch(), gate = latch();
+  const read = h.sources.read.bind(h.sources); let held: ReturnType<FileSources['read']> | undefined;
+  vi.spyOn(h.sources, 'read').mockImplementationOnce((...args) => held = (async () => {
+    const source = await read(...args); entered.release(); await gate.promise; return source;
+  })());
+  try {
+    h.type('BetaNeedle'); const input = h.get('tb-idea'); input.fire('keydown', enterKey(modifier));
+    const pending = h.queries.at(-1)!; await entered.promise;
+    expect(h.controller.status().phase).toBe('searching');
+    h.button(h.t.cancel).fire('click'); gate.release();
+    await expect(pending).rejects.toMatchObject({ name: 'AbortError' }); await held; await Promise.resolve();
+    expect(h.controller.status().phase).toBe('cancelled'); expect(h.button(h.t.find).disabled).toBe(false);
+    const summary = h.get('tb-result-summary').textContent, notice = h.get('tb-notice').textContent;
+    const repeated = enterKey(modifier, false, true); input.fire('keydown', repeated);
+    expect(repeated.preventDefault).toHaveBeenCalledOnce(); expect(h.findSpy).toHaveBeenCalledTimes(2);
+    expect(h.controller.status().phase).toBe('cancelled'); expect(h.cards()).toEqual(['AlphaCard']);
+    expect(h.get('tb-result-summary').textContent).toBe(summary);
+    expect(h.get('tb-notice').textContent).toBe(notice); expect(h.get('tb-notice').hidden).toBe(false);
+    input.fire('keyup', { key: 'Enter' }); input.fire('keydown', enterKey(modifier)); await h.settleQuery();
+    expect(h.findSpy).toHaveBeenCalledTimes(3); expect(h.cards()).toEqual(['BetaCard']);
+    expect(h.controller.status().phase).toBe('idle'); await h.assertUnchanged();
+  } finally { gate.release(); await held?.catch(() => {}); await h.cleanup(); }
 });
 
 for (const modifier of ['ctrlKey', 'metaKey'] as const)
@@ -147,6 +213,7 @@ it.each(['ctrlKey', 'metaKey'] as const)('busy %s+Enter does not replace the acc
     expect(h.controller.status().phase).toBe('searching'); expect(h.button(h.t.find).disabled).toBe(true);
     h.get('tb-idea').fire('keydown', enterKey(modifier));
     h.get('tb-idea').fire('keydown', enterKey(modifier, true));
+    h.get('tb-idea').fire('keydown', enterKey(modifier, false, true));
     expect(h.findSpy).toHaveBeenCalledTimes(2);
     gate.release(); await pending; await held; await Promise.resolve();
     expect(h.cards()).toEqual(['BetaCard']); expect(h.controller.status().phase).toBe('idle');

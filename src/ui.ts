@@ -201,7 +201,8 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   };
   input.addEventListener('input', () => { markPreviousResults(); selection = undefined; ++searchId; renderState(); });
   // Let the IME finish composition without consuming Enter or submitting partial text.
-  input.addEventListener('keydown', e => { if (!e.isComposing && e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); if (!find.disabled) void executeSearch(); } });
+  // Consume held shortcuts, but only a fresh press can submit (including after cancel).
+  input.addEventListener('keydown', e => { if (!e.isComposing && e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); if (!e.repeat && !find.disabled) void executeSearch(); } });
   find.addEventListener('click', () => void executeSearch()); breadth.addEventListener('change', () => { if (hasSearched && input.value.trim()) void executeSearch(); });
   refresh.addEventListener('click', () => { notice.hidden = true; void port.refresh().catch(() => { if (!disposed) { if (!['error','cancelled'].includes(port.status().phase)) alert(t.failure); renderState(); } }); });
   // A current-note read is not a controller task. Cancel retires its delivery;
