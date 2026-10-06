@@ -2,7 +2,7 @@ import { buildIndex, interpretQuery, searchFragments, vocabularyOf } from './cor
 import { emptyIndex, QUERY_KINDS } from './core/types';
 import type { Breadth, Evidence, Facets, QuerySelection, Fragment, IndexState, IndirectMechanism, ModelPort, Privacy, RelationEndpoint, RelationReason, RunProgress, SearchResult, SourceSnapshot, StorePort } from './core/types';
 import { safeFacet } from './core/privacy';
-import { abortError, cancellable, checkAbort, facetKey, relativePath } from './core/util';
+import { abortError, cancellable, checkAbort, facetKey, isPrivacy, relativePath, restrictive } from './core/util';
 import { sourceDiagnostic, type SourceDiagnostic } from './core/source-diagnostics';
 import { currentEvidence, type SourcePort } from './sources';
 import { generationSignature, type Settings } from './settings';
@@ -237,7 +237,8 @@ export class ThirdBrainController {
   }
   private async currentEndpoint(endpoint: RelationEndpoint, signal: AbortSignal): Promise<boolean> {
     const fragment = this.indexState.fragments[endpoint.fragmentId];
-    if (endpoint.kind !== undefined && (!Object.hasOwn(this.indexState.fragments,endpoint.fragmentId) || fragment?.id !== endpoint.fragmentId || fragment.kind !== endpoint.kind)) return false;
+    if (!Object.hasOwn(this.indexState.fragments,endpoint.fragmentId) || fragment?.id !== endpoint.fragmentId || !isPrivacy(endpoint.privacy)) return false;
+    if (endpoint.kind !== undefined && fragment.kind !== endpoint.kind) return false;
     if (!fragment || !endpoint.evidence.length || fragment.privacy !== endpoint.privacy || fragment.title !== endpoint.title
       || JSON.stringify(fragment.conditions) !== JSON.stringify(endpoint.conditions) || JSON.stringify(fragment.caveats) !== JSON.stringify(endpoint.caveats)
       || JSON.stringify(fragment.evidence) !== JSON.stringify(endpoint.evidence)) return false;
@@ -247,16 +248,21 @@ export class ThirdBrainController {
     for (const evidence of endpoint.evidence) {
       if (signal.aborted) throw new Error('Cancelled.');
       const record = this.indexState.sources[evidence.relativePath];
-      if (endpoint.kind !== undefined && !Object.hasOwn(this.indexState.sources,evidence.relativePath)) return false;
+      if (!Object.hasOwn(this.indexState.sources,evidence.relativePath)) return false;
       if (blocked.has(evidence.relativePath) || record?.status !== 'indexed' || record.hash !== evidence.sourceHash || !record.fragmentIds.includes(endpoint.fragmentId)) return false;
       if (!live.has(evidence.relativePath)) live.set(evidence.relativePath, await this.readAtStep(evidence.relativePath,signal));
       const source = live.get(evidence.relativePath);
-      if (source?.privacy !== endpoint.privacy || source.path !== evidence.relativePath) return false;
+      if (!source || !isPrivacy(source.privacy) || source.path !== evidence.relativePath) return false;
     }
     const evidence = await currentEvidence(endpoint.evidence, this.sources, live);
     const excluded = await this.sources.excluded(paths);
     if (signal.aborted) throw new Error('Cancelled.');
-    return evidence.length === endpoint.evidence.length && !paths.some(p => excluded.has(p));
+    if (evidence.length !== endpoint.evidence.length || paths.some(p => excluded.has(p))) return false;
+    // Only complete, current, indexed donors may establish merged privacy.
+    // Never let a restrictive donor mask another donor's failed proof.
+    let privacy: Privacy = 'normal';
+    for (const source of live.values()) privacy = restrictive(privacy,source!.privacy);
+    return privacy === endpoint.privacy && privacy === fragment.privacy;
   }
   /** A cloud dictionary entry is only usable while its exact donors are current, ordinary and part of the live library. */
   private async cloudSafe(fragment: Fragment, blocked: Set<string>, live: Map<string, SourceSnapshot | null>, signal: AbortSignal): Promise<boolean> {

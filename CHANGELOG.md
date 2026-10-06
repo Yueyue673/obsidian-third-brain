@@ -2,6 +2,13 @@
 
 ## Unreleased
 
+## 0.3.7 — 2026-10-06 (preview)
+
+- Keep all-current identical excerpts searchable/openable when donors have different privacy levels. Authenticate every source and quotation before aggregating the existing most-restrictive privacy, then require it to equal the current stored fragment/endpoint.
+- Reject unknown privacy and missing/inherited index/source records; preserve all-donor identity/hash/range/member/exclusion checks and old quotation/network opening rechecks. Another private donor cannot hide stale bytes in an ordinary donor.
+- Repair three diagnosed mixed-donor cases with six lawful filesystem controls unchanged, plus actual one-hop renderer source opens and stale-button refusal. No changes to cloud eligibility, model routing, dedup/schema, scoring/IDF, network policy, budgets or original notes; no extra model request/read pass.
+- Add51 regressions. Corrected immutable0.3.6 proof was collected after repair; invalid preliminary fixture failures are not claimed as TDD evidence. Native clicks, genuine configured provider/HTTP and fresh semantic quality remain unverified.
+
 ## 0.3.6 — 2026-10-06 (preview)
 
 - Fix natural idea searches losing current direct materials after the first30 known-invalid candidates. An independent opt-in continuation reuses the same stable scoring/network pass; no corpus prefilter, IDF change, global limit200 or extra query-model request.
