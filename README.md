@@ -2,7 +2,9 @@
 
 An Obsidian plugin that turns notes into searchable fragments. Enter an idea, see why a passage matches, and open it in the original note.
 
-[Download 0.3.7](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.7) · [Getting started](docs/GETTING-STARTED.md) · [简体中文](README.zh-CN.md)
+> **Demo — desktop only.** Try local excerpt search in a test vault. AI-assisted extraction and cross-domain connections are experimental.
+
+[Download demo 0.3.7](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.7) · [Getting started](docs/GETTING-STARTED.md) · [简体中文](README.zh-CN.md)
 
 <img src="docs/images/native-obsidian-source-open-zh.png" alt="A source note open beside search results in Obsidian" width="680">
 
@@ -10,7 +12,7 @@ An Obsidian plugin that turns notes into searchable fragments. Enter an idea, se
 
 ## Install
 
-Requires **desktop Obsidian 1.11.5+**. This is a preview release; it is not listed in Community plugins yet. Try it in a test vault first.
+Requires **desktop Obsidian 1.11.5+**. This is a demo release; it is not listed in Community plugins yet. Try it in a test vault first.
 
 1. Download [third-brain-0.3.7.zip](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.7/third-brain-0.3.7.zip) and extract it. Use the plugin ZIP, not the source-code archive.
 2. Put `main.js`, `manifest.json`, `styles.css` and `LICENSE` in your vault's `.obsidian/plugins/third-brain/` folder. Do not add another folder level.
@@ -44,6 +46,14 @@ For a quick trial, copy the [sample notes](fixtures/sample-vault) into your test
 
 [Model setup](docs/GETTING-STARTED.md#optional-model-setup).
 
+## How connections work
+
+Search compares text and attributes stored on fragments. **Medium** allows shared-mechanism matches; **High** can also suggest material one existing mechanism link away, with quotations from both notes. It does not treat an indirect link as a direct match.
+
+For example, the sample dialogue and music notes both declare `不完整信息促使主动补全`. At Medium, selecting that mechanism finds both notes without a model call. These sample labels are supplied in note properties, not inferred by live AI.
+
+Model modes can infer labels, but automatic cross-domain discovery is experimental and can miss valid links. Source quotations establish where an excerpt came from; they do not validate a model's interpretation.
+
 ## Privacy
 
 Cloud processing is off by default. Notes marked `privacy: local` or `privacy: private` are excluded from cloud requests, including their derived labels. The plugin does not collect clicks, dwell time or a typing history.
@@ -52,7 +62,7 @@ Generated files and history are not encrypted and may be included in vault sync 
 
 ## Current status
 
-Desktop only. Local search works without a model; optional AI depends on your provider and can return poor or no matches. This release's native Obsidian click flow, real provider compatibility and broader AI quality still need testing. [Testing status](docs/VERIFICATION.md).
+Local search is available without a model. AI quality and real provider compatibility are not yet validated for general use; correct source citations do not guarantee a useful connection. This demo's complete native Obsidian click flow still needs testing. See [testing status](docs/VERIFICATION.md).
 
 ## Development
 

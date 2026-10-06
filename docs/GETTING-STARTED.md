@@ -2,7 +2,7 @@
 
 [English README](../README.md) · [中文上手](#中文上手)
 
-Third Brain 0.3.7 requires desktop Obsidian 1.11.5+. It is a preview, not yet listed in Community plugins. Start in a test vault and keep a backup before using important notes. Installation does not require Node.js.
+Third Brain 0.3.7 requires desktop Obsidian 1.11.5+. It is a demo, not yet listed in Community plugins. Start in a test vault and keep a backup before using important notes. Installation does not require Node.js.
 
 ## Install the preview
 
@@ -114,13 +114,13 @@ Copy `dist/main.js`, `dist/manifest.json`, `dist/styles.css` and `dist/LICENSE` 
 
 ## Testing status
 
-This preview's native Obsidian click flow, real provider compatibility and broader AI quality are still being tested. The screenshots show an earlier build with sample notes in local mode. Version-specific checks are listed in [Testing status](VERIFICATION.md).
+This demo's native Obsidian click flow, real provider compatibility and broader AI quality are still being tested. The sample notes include declared labels; finding their shared mechanism is not proof of automatic AI discovery. The screenshots show an earlier build with sample notes in local mode. Version-specific checks are listed in [Testing status](VERIFICATION.md).
 
 ---
 
 ## 中文上手
 
-需要桌面版 Obsidian 1.11.5 或更新版本。目前是 0.3.7 预览版，尚未上架社区插件目录。建议先用测试库；用于重要笔记前请备份。安装发布包不需要 Node.js。
+需要桌面版 Obsidian 1.11.5 或更新版本。目前是 0.3.7 Demo，尚未上架社区插件目录。建议先用测试库；用于重要笔记前请备份。安装发布包不需要 Node.js。
 
 ### 安装
 
@@ -185,4 +185,4 @@ privacy: local
 
 只有源码构建需要 Node **22.12+** 和 npm，命令见[源码构建](#build-from-source)。
 
-本版的 Obsidian 完整点击流程、真实服务商接口和更大范围的 AI 效果仍在验证。截图使用较早版本、示例笔记和本地模式。[测试记录](VERIFICATION.md)按版本列出了已完成与未完成的检查。
+本 Demo 的 Obsidian 完整点击流程、真实服务商接口和更大范围的 AI 效果仍在验证。示例笔记已有声明标签，找到共同机制不代表 AI 能自动发现同类联系。截图使用较早版本、示例笔记和本地模式。[测试记录](VERIFICATION.md)按版本列出了已完成与未完成的检查。

@@ -2,7 +2,9 @@
 
 一个 Obsidian 插件，把笔记整理成可检索的片段。写下一个想法，查看相关内容、关联理由和原文出处。
 
-[下载 0.3.7](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.7) · [使用说明](docs/GETTING-STARTED.md#中文上手) · [English](README.md)
+> **Demo · 仅桌面端。** 可在测试库中试用本地摘录搜索；AI 提炼和跨领域关联仍属实验功能。
+
+[下载 Demo 0.3.7](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.7) · [使用说明](docs/GETTING-STARTED.md#中文上手) · [English](README.md)
 
 <img src="docs/images/native-obsidian-source-open-zh.png" alt="Obsidian 中打开原笔记，右侧显示搜索结果与原文引用" width="680">
 
@@ -10,7 +12,7 @@
 
 ## 安装
 
-需要**桌面版 Obsidian 1.11.5 或更新版本**。目前是预览版，尚未上架社区插件目录，建议先在测试库里试用。
+需要**桌面版 Obsidian 1.11.5 或更新版本**。目前是 Demo，尚未上架社区插件目录，建议先在测试库里试用。
 
 1. 下载 [third-brain-0.3.7.zip](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.7/third-brain-0.3.7.zip) 并解压。选插件 ZIP，不要选 Source code 源码包。
 2. 在笔记库里创建 `.obsidian/plugins/third-brain/`，把 `main.js`、`manifest.json`、`styles.css`、`LICENSE` 直接放进去，不要多套一层文件夹。
@@ -44,6 +46,14 @@
 
 [模型配置说明](docs/GETTING-STARTED.md#配置模型)。
 
+## 关联如何产生
+
+搜索比较片段中的文字和属性。中发散允许匹配共同机制；高发散还可以沿已有机制连接走一步，给出间接建议，并展示两篇笔记的原文。间接建议不会被算成直接匹配。
+
+例如，示例库中的对话和音乐笔记都声明了 `不完整信息促使主动补全`。在中发散下点击这个机制，可以找到两篇笔记，不调用模型。这些示例标签写在笔记属性中，并非实时 AI 推断。
+
+模型模式可以推断标签，但自动发现跨领域关联仍是实验功能，可能漏掉有效联系。原文引用能证明出处，不能证明模型的理解正确。
+
 ## 数据与隐私
 
 云端处理默认关闭。标为 `privacy: local` 或 `privacy: private` 的笔记及其生成标签不发送到云端。插件不收集点击、停留或输入历史。
@@ -52,7 +62,7 @@
 
 ## 当前状态
 
-仅支持桌面端。默认本地搜索不需要模型；AI 模式取决于所用服务，可能找不到内容或给出不合适的关联。本版在 Obsidian 中的完整点击流程、真实服务商接口和更大范围的 AI 效果仍在验证，详见[测试记录](docs/VERIFICATION.md)。
+本地搜索无需模型即可试用。AI 效果和真实服务商兼容性尚未完成日常使用验证；出处正确，也不代表关联一定有用。本 Demo 在 Obsidian 中的完整点击流程仍待验证，详见[测试记录](docs/VERIFICATION.md)。
 
 ## 开发
 
