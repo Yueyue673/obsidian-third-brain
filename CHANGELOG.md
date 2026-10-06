@@ -4,6 +4,8 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Focus the idea box when explicitly opening Third Brain from its command or ribbon icon, without clearing the idea, selection or results or starting a search. Restoring/redrawing the sidebar never requests focus; delayed opens yield to continued typing/composition, newer focus, close or unload. Verified through the registered view, renderer and synthetic filesystem/host-API tests; native Obsidian focus behavior remains unverified.
+
 - Show an English/Chinese hint below the idea box: Enter adds a line; Ctrl/Command+Enter finds connections. Associate the description and shortcut metadata with the input for assistive technology, without adding a control or changing key handling. Verified with the real renderer and synthetic filesystem/host-API tests; native keyboard and screen-reader behavior remain unverified.
 
 - Prevent held Ctrl/Command+Enter from starting another search after completion or cancellation. A fresh press can still retry the same idea; ordinary Enter, input-method composition and current-note privacy stay unchanged. Verified with synthetic key-repeat events through the real panel and local file pipeline, not native keyboard input.

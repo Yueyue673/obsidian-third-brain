@@ -18,6 +18,7 @@ export default class ThirdBrainPlugin extends Plugin {
   private store!: OwnedStore;
   private destroyed = false;
   private scheduledRefreshPaused = false;
+  private panelOpenToken = 0;
   async onload(): Promise<void> {
     this.settings = loadSettings(await this.loadData());
     if (!(this.app.vault.adapter instanceof FileSystemAdapter)) { new Notice('Third Brain requires a desktop filesystem vault.'); return; }
@@ -62,9 +63,34 @@ export default class ThirdBrainPlugin extends Plugin {
     for (const leaf of this.app.workspace.getLeavesOfType(VIEW)) (leaf.view as ActivationView).redraw();
   }
   async openPanel(): Promise<void> {
-    let leaf = this.app.workspace.getLeavesOfType(VIEW)[0];
-    if (!leaf) { const right = this.app.workspace.getRightLeaf(false); if (!right) return; leaf = right; await leaf.setViewState({ type: VIEW, active: true }); }
-    void this.app.workspace.revealLeaf(leaf);
+    if (this.destroyed) return;
+    const token = ++this.panelOpenToken, doc = activeDocument, previousFocus = doc.activeElement;
+    let interrupted = false;
+    // Content-free, short-lived intent guard on the previously focused element:
+    // continuing to type/compose while the host loads must cancel late focus.
+    const interrupt = (): void => { interrupted = true; };
+    previousFocus?.addEventListener('input', interrupt, { once: true });
+    previousFocus?.addEventListener('compositionstart', interrupt, { once: true });
+    try {
+      const workspace = this.app.workspace;
+      let leaf = workspace.getLeavesOfType(VIEW)[0];
+      if (!leaf) { const right = workspace.getRightLeaf(false); if (!right) return; leaf = right; await leaf.setViewState({ type: VIEW, active: true }); }
+      if (this.destroyed || interrupted || token !== this.panelOpenToken) return;
+      const beforeInput = leaf.view instanceof ActivationView ? leaf.view.contentEl.querySelector<HTMLTextAreaElement>('.tb-idea') : undefined;
+      // Also loads a restored deferred view. Restore/redraw alone never focus.
+      await workspace.revealLeaf(leaf);
+      if (this.destroyed || interrupted || token !== this.panelOpenToken || activeDocument !== doc || !doc.hasFocus()
+        || !workspace.getLeavesOfType(VIEW).includes(leaf) || !(leaf.view instanceof ActivationView)) return;
+      const input = leaf.view.contentEl.querySelector<HTMLTextAreaElement>('.tb-idea');
+      if (!input?.isConnected || input.ownerDocument !== doc || (beforeInput !== undefined && input !== beforeInput)) return;
+      const focused = doc.activeElement;
+      // Do not displace a newer control/editor, or re-focus an already active IME.
+      // The host may focus the view container itself when revealing a sidebar.
+      if (focused !== input && (focused === previousFocus || focused === leaf.view.contentEl || focused === leaf.view.containerEl)) input.focus({ preventScroll: true });
+    } finally {
+      previousFocus?.removeEventListener('input', interrupt);
+      previousFocus?.removeEventListener('compositionstart', interrupt);
+    }
   }
   private async runScheduled(): Promise<void> {
     if (this.destroyed || this.scheduledRefreshPaused || !this.controller || !['idle', 'cancelled'].includes(this.controller.status().phase) || !isDue(this.settings)) return;
