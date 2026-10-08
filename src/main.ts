@@ -20,6 +20,7 @@ export default class ThirdBrainPlugin extends Plugin {
   private scheduledRefreshPaused = false;
   private panelOpenToken = 0;
   private settingsSaveToken = 0;
+  private settingsWriteTail?: Promise<void>;
   async onload(): Promise<void> {
     this.settings = loadSettings(await this.loadData());
     if (!(this.app.vault.adapter instanceof FileSystemAdapter)) { new Notice('Third Brain requires a desktop filesystem vault.'); return; }
@@ -44,7 +45,7 @@ export default class ThirdBrainPlugin extends Plugin {
     const root = (this.app.vault.adapter as FileSystemAdapter).getBasePath();
     const store = this.store = new OwnedStore(root, this.settings.outputFolder);
     const sources = new FileSources(root, () => this.settings, () => store.managedSourcePaths(), async () => this.app.vault.getFiles().map(f => f.path));
-    const controller = this.controller = new ThirdBrainController(sources, store, () => this.settings, settings => this.model(settings), async when => { this.settings.lastIndexedAt = when; await this.saveData(this.settings); });
+    const controller = this.controller = new ThirdBrainController(sources, store, () => this.settings, settings => this.model(settings), async when => { this.settings.lastIndexedAt = when; await this.saveSettingsSnapshot(); });
     let previousPhase = controller.status().phase;
     controller.subscribe(() => {
       const { phase, cancelRequested } = controller.status();
@@ -58,10 +59,19 @@ export default class ThirdBrainPlugin extends Plugin {
     try { await this.controller.initialize(); } catch { new Notice(presentFailure(this.controller.status(), this.settings.locale)); }
     for (const leaf of this.app.workspace.getLeavesOfType(VIEW)) (leaf.view as ActivationView).redraw();
   }
+  private saveSettingsSnapshot(): Promise<void> {
+    // Capture only validated settings now, not mutable live data at dequeue time.
+    // Ordinary changes and refresh timestamps share one host-write order.
+    const snapshot = loadSettings(this.settings);
+    const write = (this.settingsWriteTail ?? Promise.resolve()).then(() => this.saveData(snapshot));
+    // Keep this caller's rejection, but let later explicit saves proceed.
+    this.settingsWriteTail = write.catch(() => {});
+    return write;
+  }
   async persistSettings(): Promise<void> {
     const token = ++this.settingsSaveToken;
     this.controller?.cancel();
-    this.settings = loadSettings(this.settings); await this.saveData(this.settings);
+    this.settings = loadSettings(this.settings); await this.saveSettingsSnapshot();
     // A later settings callback owns redraw. An older save completion must not
     // discard searches, current-note reads or composition accepted since then.
     if (this.destroyed || token !== this.settingsSaveToken) return;

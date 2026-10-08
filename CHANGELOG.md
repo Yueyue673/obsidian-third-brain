@@ -4,7 +4,9 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
-- Ignore an older ordinary settings-save completion after a newer settings change. It no longer redraws away a later search, current-note read or composing idea; privacy and exact source-open checks remain intact. Verified with registered settings/view callbacks, English/Chinese rendering and synthetic files with controlled save timing, not native Obsidian settings or IME input. This does not establish ordering of overlapping writes to the host settings file.
+- Serialize settings writes, including successful-refresh timestamps, using detached validated snapshots. An older delayed write can no longer overwrite a later saved setting or restore revoked cloud consent on disk. A rejected write still reports failure without blocking later saves; current-session cancellation and privacy remain immediate. Verified through registered settings/view callbacks and synthetic settings files with controlled host I/O, not native Obsidian or crash-atomic persistence.
+
+- Ignore an older ordinary settings-save completion after a newer settings change. It no longer redraws away a later search, current-note read or composing idea; privacy and exact source-open checks remain intact. Verified with registered settings/view callbacks, English/Chinese rendering and synthetic files with controlled save timing, not native Obsidian settings or IME input. Redraw protection is distinct from the serialized settings writes described above.
 
 - Keep the open panel's unfinished idea, privacy, breadth and selected property/type when saving plugin settings. Carry only that transient draft into the redrawn view; discard old results and pending replies, require an explicit new search, and forget the draft when the view closes. Breadth hints name the explicit search action; changing breadth alone does not submit a restored draft. No query text is saved in plugin settings. Verified through registered settings/view callbacks and synthetic files, not native Obsidian settings or IME input.
 

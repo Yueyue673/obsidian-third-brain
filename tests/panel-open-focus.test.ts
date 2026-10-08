@@ -11,6 +11,7 @@ import { OwnedStore } from '../src/runtime/store';
 import { messages } from '../src/i18n';
 import { defaults } from '../src/settings';
 
+const noticeState = vi.hoisted(() => ({ allowed: false, messages: [] as string[] }));
 vi.mock('obsidian', () => ({
   Plugin: class { constructor(readonly app: unknown) {} },
   ItemView: class {
@@ -30,18 +31,18 @@ vi.mock('obsidian', () => ({
     addDropdown(cb: (control: unknown) => void) { return this.control(cb); }
     addText(cb: (control: unknown) => void) { return this.control(cb); }
     addTextArea(cb: (control: unknown) => void) { return this.control(cb); }
-    addToggle(cb: (control: unknown) => void) { return this.control(cb); }
+    addToggle(cb: (control: unknown) => void) { return this.control(cb, true); }
     addComponent() { return this; } // Secret selector is not used by these tests.
-    control(cb: (control: unknown) => void) {
+    control(cb: (control: unknown) => void, toggle = false) {
       const inputEl = document.createElement('input'); this.row.append(inputEl);
       const control = {
         inputEl, addOptions() { return this; }, setPlaceholder() { return this; },
-        setValue(value: string) { inputEl.value = value; return this; }, getValue() { return inputEl.value; },
-        onChange(callback: (value: string) => void) { inputEl.addEventListener('change', () => callback(inputEl.value)); return this; },
+        setValue(value: string | boolean) { inputEl.value = String(value); return this; }, getValue() { return inputEl.value; },
+        onChange(callback: (value: string | boolean) => void) { inputEl.addEventListener('change', () => callback(toggle ? inputEl.value === 'true' : inputEl.value)); return this; },
       }; cb(control); return this;
     }
   },
-  Notice: class { constructor() { throw new Error('Unexpected host notice in focus fixture'); } },
+  Notice: class { constructor(message: string) { if (!noticeState.allowed) throw new Error('Unexpected host notice in focus fixture'); noticeState.messages.push(message); } },
 }));
 class NodeStub {
   id = ''; className = ''; textContent = ''; value = ''; hidden = false; disabled = false;
@@ -78,7 +79,7 @@ interface ViewShell {
 interface LeafShell { view: ViewShell; containerEl: NodeStub; setViewState(state: { type: string; active: boolean }): Promise<void> }
 function latch() { let release!: () => void; const promise = new Promise<void>(resolve => { release = resolve; }); return { promise, release }; }
 const nextTurn = () => new Promise<void>(resolve => setImmediate(resolve));
-afterEach(() => { vi.restoreAllMocks(); vi.unstubAllGlobals(); });
+afterEach(() => { vi.restoreAllMocks(); vi.unstubAllGlobals(); noticeState.allowed = false; noticeState.messages.length = 0; });
 
 async function fixture(locale: 'en' | 'zh' = 'en') {
   const scope = path.resolve('.local/panel-open-focus/cases'); await fs.mkdir(scope, { recursive: true });
@@ -95,6 +96,7 @@ async function fixture(locale: 'en' | 'zh' = 'en') {
   let factory!: (leaf: LeafShell) => ViewShell, ribbon!: () => void;
   let settingsTab!: { containerEl: NodeStub; display(): void };
   const saved: string[] = [], settingsWrites: Promise<void>[] = [];
+  const settingsFile = path.join(root, 'synthetic-plugin-settings.json');
   const draftView = Object.assign(Object.create(MarkdownView.prototype), {
     file: { path: 'draft.md' }, editor: { getValue: () => '---\nprivacy: private\n---\nFocusNeedle', getSelection: () => 'FocusNeedle' },
   });
@@ -128,7 +130,7 @@ async function fixture(locale: 'en' | 'zh' = 'en') {
   const plugin = new ThirdBrainPlugin({ vault, workspace } as never, {} as never);
   Object.assign(plugin, {
     loadData: async () => ({ ...defaults, excludes: [], outputFolder: 'Derived', locale }),
-    saveData: async (data: unknown) => { saved.push(JSON.stringify(data)); },
+    saveData: async (data: unknown) => { const text = JSON.stringify(data); await fs.writeFile(settingsFile, text); saved.push(text); },
     registerView: (_type: string, cb: typeof factory) => { factory = cb; }, addRibbonIcon: (_icon: string, _name: string, cb: () => void) => { ribbon = cb; },
     addCommand: (command: { id: string; callback: () => void }) => commands.set(command.id, command.callback),
     addSettingTab: (tab: typeof settingsTab) => { settingsTab = tab; }, registerInterval: () => {},
@@ -174,7 +176,7 @@ async function fixture(locale: 'en' | 'zh' = 'en') {
     expect(await store.load()).toEqual(loaded);
   };
   const cleanup = async () => { plugin.controller.cancel(); await Promise.allSettled([...calls, ...searches, ...contexts, ...opens, ...settingsWrites]); await nextTurn(); for (const leaf of leaves) await leaf.view.onClose(); plugin.onunload(); };
-  return { plugin, root, doc, editor, leaves, workspace, enter, restore, restoreDeferred, get, button, searches, contexts, opens, openFile, openedView, unchanged, cleanup, startSetting, changeSetting, saved, t: messages(locale) };
+  return { plugin, root, settingsFile, doc, editor, leaves, workspace, enter, restore, restoreDeferred, get, button, searches, contexts, opens, openFile, openedView, unchanged, cleanup, startSetting, changeSetting, saved, t: messages(locale) };
 }
 
 for (const entry of ['command', 'ribbon'] as const) for (const existing of [false, true])
@@ -604,22 +606,28 @@ it.each(['resolve', 'reject'] as const)('settings retire an old current-note %s 
 });
 
 // Ordinary settings saves do not replace the store/controller. Delay only a
-// host save completion; exercise newer intent through registered callbacks.
+// host save completion; exercise newer intent while the newer save is queued.
 // This is synthetic I/O timing, not a real slow disk or native settings test.
 for (const intent of ['search', 'current-read', 'composition'] as const)
 it.each(['en', 'zh'] as const)(`an older ordinary settings completion cannot retire a newer ${intent} intent in %s`, async locale => {
-  const h = await fixture(locale), saveGate = latch(), saveEntered = latch();
+  const h = await fixture(locale), saveGate = latch(), saveEntered = latch(), latestGate = latch();
   let pending: Awaited<ReturnType<typeof delayedCurrent>> | undefined;
-  let older: Promise<void> | undefined;
+  let older: Promise<void> | undefined, latest: Promise<void> | undefined;
   try {
     await h.restore(); const controller = h.plugin.controller;
     const save = h.plugin.saveData.bind(h.plugin);
-    vi.spyOn(h.plugin, 'saveData').mockImplementationOnce(async data => {
-      saveEntered.release(); await saveGate.promise; await save(data);
+    let saveCalls = 0;
+    vi.spyOn(h.plugin, 'saveData').mockImplementation(async data => {
+      const call = ++saveCalls;
+      if (call === 1) { saveEntered.release(); await saveGate.promise; }
+      if (call === 2) await latestGate.promise;
+      await save(data);
     });
     older = h.startSetting('Refresh schedule|更新频率', 'weekly'); await saveEntered.promise;
-    await h.changeSetting('Language|语言', locale === 'en' ? 'zh' : 'en');
-    const t = messages(h.plugin.settings.locale), input = h.get('tb-idea'); h.t = t;
+    latest = h.startSetting('Language|语言', locale === 'en' ? 'zh' : 'en'); await nextTurn();
+    // The newer write cannot finish before the older one. The still-mounted
+    // renderer stays in its original locale until the newest save succeeds.
+    const t = h.t, input = h.get('tb-idea');
     const find = vi.spyOn(h.plugin.controller, 'find');
     // Main merges the selected body with the FULL private editor draft.
     h.button(t.current).fire('click'); await h.contexts.at(-1); await nextTurn();
@@ -663,5 +671,101 @@ it.each(['en', 'zh'] as const)(`an older ordinary settings completion cannot ret
     if (open) { open.fire('click'); await h.opens.at(-1); await nextTurn(); expect(h.openFile).toHaveBeenCalledOnce(); expect(h.openedView.editor.setSelection).toHaveBeenCalledOnce(); }
     expect(h.saved.every(text => !text.includes('FocusNeedle') && !text.includes('UnsentComposition'))).toBe(true);
     await h.unchanged();
-  } finally { saveGate.release(); pending?.release(); await h.cleanup(); }
+    latestGate.release(); await latest; await nextTurn();
+    expect(h.get('tb-idea').value).toBe(input.value); expect(h.get('tb-privacy').hidden).toBe(false);
+    expect(h.get('tb-result')).toBeNull(); // Only the latest successful save may redraw.
+  } finally { saveGate.release(); latestGate.release(); pending?.release(); await Promise.allSettled([older, latest].filter(Boolean)); await h.cleanup(); }
+});
+// Controlled host save timing and synthetic settings files, not native disk faults.
+for (const outcome of ['resolve', 'reject'] as const)
+it.each(['en', 'zh'] as const)(`settings writes stay ordered after an older ${outcome}, keeping revoked consent on disk in %s`, async locale => {
+  const h = await fixture(locale), entered = latch(), gate = latch();
+  let first: Promise<unknown> | undefined, second: Promise<void> | undefined;
+  try {
+    await h.restore(); h.button(h.t.current).fire('click'); await h.contexts.at(-1); await nextTurn();
+    expect(h.get('tb-privacy').hidden).toBe(false);
+    const save = h.plugin.saveData.bind(h.plugin); let active = 0, maxActive = 0, calls = 0;
+    noticeState.allowed = outcome === 'reject';
+    vi.spyOn(h.plugin, 'saveData').mockImplementation(async data => {
+      active++; maxActive = Math.max(maxActive, active); const call = ++calls;
+      const snapshot = JSON.parse(JSON.stringify(data)); // Host captures the payload before asynchronous file work.
+      try {
+        if (call === 1) { entered.release(); await gate.promise; if (outcome === 'reject') throw new Error('SYNTHETIC_UNSAFE_SAVE_MESSAGE'); }
+        await save(snapshot);
+      } finally { active--; }
+    });
+    first = h.startSetting('Allow cloud processing|允许云端处理', 'true').catch(error => error); await entered.promise;
+    second = h.startSetting('Allow cloud processing|允许云端处理', 'false'); await nextTurn();
+    expect.soft(calls).toBe(1); expect(h.plugin.settings.cloudConsent).toBe(false);
+    expect(h.get('tb-privacy').hidden).toBe(false);
+    gate.release(); const firstResult = await first; await second; await nextTurn();
+    expect.soft(maxActive).toBe(1);
+    expect.soft(JSON.parse(await fs.readFile(h.settingsFile, 'utf8')).cloudConsent).toBe(false);
+    expect(h.plugin.settings.cloudConsent).toBe(false); expect(h.get('tb-privacy').hidden).toBe(false);
+    if (outcome === 'reject') {
+      expect(firstResult).toBeInstanceOf(Error); expect(noticeState.messages).toHaveLength(1);
+      expect(noticeState.messages.join('')).not.toContain('SYNTHETIC_UNSAFE_SAVE_MESSAGE');
+    } else expect(firstResult).toBeUndefined();
+    const find = vi.spyOn(h.plugin.controller, 'find');
+    h.button(h.t.find).fire('click'); const items = await h.searches.at(-1)!; await nextTurn();
+    expect(items).toHaveLength(1); expect(find.mock.calls.at(-1)?.[2]).toBe('private');
+    h.get('tb-source').fire('click'); await h.opens.at(-1); await nextTurn(); expect(h.openFile).toHaveBeenCalledOnce();
+    const e = items[0].fragment.evidence[0], source = await h.plugin.controller.snapshot(e.relativePath);
+    expect(source!.id).toBe(e.sourceId); expect(source!.hash).toBe(e.sourceHash); expect(source!.text.slice(e.start, e.end)).toBe(e.quote);
+    expect(h.saved.every(text => !text.includes('FocusNeedle'))).toBe(true); await h.unchanged();
+  } finally { gate.release(); await Promise.allSettled([first, second].filter(Boolean)); await h.cleanup(); }
+});
+
+it.each(['en', 'zh'] as const)('a failed latest settings write leaves the private idea intact and permits an explicit retry in %s', async locale => {
+  const h = await fixture(locale);
+  try {
+    await h.restore(); h.button(h.t.current).fire('click'); await h.contexts.at(-1); await nextTurn();
+    const input = h.get('tb-idea'), diskBefore = await fs.readFile(h.settingsFile);
+    noticeState.allowed = true;
+    vi.spyOn(h.plugin, 'saveData').mockRejectedValueOnce(new Error('SYNTHETIC_UNSAFE_SAVE_MESSAGE'));
+    await expect(h.startSetting('Refresh schedule|更新频率', 'weekly')).rejects.toThrow('SYNTHETIC_UNSAFE_SAVE_MESSAGE'); await nextTurn();
+    expect(await fs.readFile(h.settingsFile)).toEqual(diskBefore);
+    expect(h.get('tb-idea') === input).toBe(true); expect(input.value).toBe('FocusNeedle');
+    expect(h.get('tb-privacy').hidden).toBe(false); expect(h.searches).toHaveLength(0);
+    expect(noticeState.messages).toHaveLength(1); expect(noticeState.messages.join('')).not.toContain('SYNTHETIC_UNSAFE_SAVE_MESSAGE');
+    await h.changeSetting('Refresh schedule|更新频率', 'weekly');
+    expect(JSON.parse(await fs.readFile(h.settingsFile, 'utf8')).schedule).toBe('weekly');
+    expect(h.get('tb-idea').value).toBe('FocusNeedle'); expect(h.get('tb-privacy').hidden).toBe(false);
+    const find = vi.spyOn(h.plugin.controller, 'find');
+    h.button(h.t.find).fire('click'); expect(await h.searches.at(-1)).toHaveLength(1); await nextTurn();
+    expect(find.mock.calls.at(-1)?.[2]).toBe('private');
+    h.get('tb-source').fire('click'); await h.opens.at(-1); await nextTurn(); expect(h.openFile).toHaveBeenCalledOnce();
+    expect(h.saved.every(text => !text.includes('FocusNeedle'))).toBe(true); await h.unchanged();
+  } finally { await h.cleanup(); }
+});
+
+it('refresh timestamp saves share the settings queue and snapshot data before waiting', async () => {
+  const h = await fixture(), entered = latch(), gate = latch(), savedEntered = latch();
+  let first: Promise<void> | undefined, second: Promise<void> | undefined, refresh: Promise<void> | undefined;
+  try {
+    await h.restore(); const before = h.saved.length, previousTimestamp = h.plugin.settings.lastIndexedAt;
+    const save = h.plugin.saveData.bind(h.plugin); let active = 0, maxActive = 0, calls = 0;
+    vi.spyOn(h.plugin, 'saveData').mockImplementation(async data => {
+      active++; maxActive = Math.max(maxActive, active); const call = ++calls;
+      const snapshot = JSON.parse(JSON.stringify(data)); // Host captures the payload before asynchronous file work.
+      try { if (call === 1) { entered.release(); await gate.promise; } await save(snapshot); } finally { active--; }
+    });
+    const controller = h.plugin.controller as unknown as { saved(when: string): Promise<void> };
+    const saved = controller.saved.bind(controller);
+    vi.spyOn(controller, 'saved').mockImplementation(when => { const op = saved(when); savedEntered.release(); return op; });
+    first = h.startSetting('Refresh schedule', 'weekly'); await entered.promise;
+    second = h.startSetting('Refresh schedule', 'daily');
+    refresh = h.plugin.controller.refresh(); await savedEntered.promise;
+    const timestamp = h.plugin.settings.lastIndexedAt;
+    expect(timestamp).not.toBe(previousTimestamp); expect.soft(calls).toBe(1);
+    gate.release(); await Promise.all([first, second, refresh]); await nextTurn();
+    expect.soft(maxActive).toBe(1);
+    const writes = h.saved.slice(before).map(text => JSON.parse(text));
+    expect.soft(writes.map(data => data.schedule)).toEqual(['weekly', 'daily', 'daily']);
+    expect.soft(writes.map(data => data.lastIndexedAt)).toEqual([previousTimestamp, previousTimestamp, timestamp]);
+    const disk = JSON.parse(await fs.readFile(h.settingsFile, 'utf8'));
+    expect(disk.schedule).toBe('daily'); expect(disk.lastIndexedAt).toBe(timestamp);
+    expect(h.plugin.controller.status().phase).toBe('idle'); expect(h.plugin.controller.status().warningCode).toBeUndefined();
+    await h.unchanged();
+  } finally { gate.release(); await Promise.allSettled([first, second, refresh].filter(Boolean)); await h.cleanup(); }
 });
