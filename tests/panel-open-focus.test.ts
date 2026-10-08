@@ -739,6 +739,143 @@ it.each(['en', 'zh'] as const)('a failed latest settings write leaves the privat
   } finally { await h.cleanup(); }
 });
 
+// Policy changes are effective before host persistence. A rejected synthetic
+// save must not leave a pre-change read/search authorized to deliver afterward.
+for (const setting of ['exclusions', 'mode'] as const) for (const outcome of ['resolve', 'reject'] as const)
+it.each(['en', 'zh'] as const)(`a failed settings save retires the pre-change current-note ${outcome} after ${setting} in %s`, async locale => {
+  const h = await fixture(locale), saveEntered = latch(), saveGate = latch();
+  let pending: Awaited<ReturnType<typeof delayedCurrent>> | undefined, saving: Promise<unknown> | undefined;
+  try {
+    await h.restore(); h.button(h.t.current).fire('click'); await h.contexts.at(-1); await nextTurn();
+    const input = h.get('tb-idea'); expect(input.value).toBe('FocusNeedle'); expect(h.get('tb-privacy').hidden).toBe(false);
+    h.button(h.t.find).fire('click'); const prior = await h.searches.at(-1)!; await nextTurn(); expect(prior).toHaveLength(1);
+    const card = h.get('tb-result'); input.value = 'Unsent private synthetic idea'; input.fire('input');
+    pending = await delayedCurrent(h, outcome);
+    const diskBefore = await fs.readFile(h.settingsFile), focus = h.doc.activeElement, focuses = input.focusCalls;
+    const model = vi.spyOn(h.plugin as unknown as { model(settings: unknown): unknown }, 'model');
+    const fault = new Error('SYNTHETIC_UNSAFE_SETTINGS_FAILURE'); noticeState.allowed = true;
+    vi.spyOn(h.plugin, 'saveData').mockImplementationOnce(async () => { saveEntered.release(); await saveGate.promise; throw fault; });
+    saving = h.startSetting(setting === 'exclusions' ? 'Source exclusions|排除的原始文件夹' : 'Processing mode|处理方式', setting === 'exclusions' ? 'alpha.md' : 'cloud-model').catch(error => error);
+    await saveEntered.promise;
+    expect.soft(h.get('tb-status').textContent).not.toContain(h.t.contextReading);
+    expect.soft(h.button(h.t.cancel).hidden).toBe(true);
+    for (const name of ['blur', 'input', 'compositionstart']) expect.soft(h.editor.handlers.get(name)?.size ?? 0).toBe(0);
+    saveGate.release(); expect(await saving).toBe(fault); await nextTurn();
+    expect(await fs.readFile(h.settingsFile)).toEqual(diskBefore);
+    await pending.settle();
+    expect.soft(h.get('tb-idea') === input).toBe(true); expect.soft(input.value).toBe('Unsent private synthetic idea');
+    expect(h.get('tb-privacy').hidden).toBe(false); expect.soft(h.get('tb-notice').hidden).toBe(true);
+    expect.soft(h.doc.activeElement === focus).toBe(true); expect.soft(input.focusCalls).toBe(focuses);
+    expect(h.get('tb-result')).toBe(card); expect(h.get('tb-result-summary').textContent).toContain(h.t.previousResults);
+    expect(h.searches).toHaveLength(1); expect(model).not.toHaveBeenCalled();
+    expect(noticeState.messages).toHaveLength(1); expect(noticeState.messages.join('')).not.toContain(fault.message);
+    if (setting === 'exclusions') await expect(h.plugin.controller.verifyOpen(prior[0].fragment.evidence[0])).rejects.toThrow();
+    // Retry restores the policy explicitly, not the discarded request. Search
+    // remains opt-in, private and source-verified; no authentication is resolved.
+    await h.changeSetting(setting === 'exclusions' ? 'Source exclusions|排除的原始文件夹' : 'Processing mode|处理方式', setting === 'exclusions' ? '' : 'local-excerpts');
+    expect(h.get('tb-idea').value).toBe('Unsent private synthetic idea'); expect(h.get('tb-privacy').hidden).toBe(false);
+    h.get('tb-select').value = 'high'; h.get('tb-select').fire('change'); expect(h.searches).toHaveLength(1);
+    h.button(h.t.current).fire('click'); await h.contexts.at(-1); await nextTurn();
+    expect(h.get('tb-idea').value).toBe('FocusNeedle'); expect(h.get('tb-privacy').hidden).toBe(false);
+    const find = vi.spyOn(h.plugin.controller, 'find'); h.button(h.t.find).fire('click'); const items = await h.searches.at(-1)!; await nextTurn();
+    expect(items).toHaveLength(1); expect(find.mock.calls.at(-1)).toEqual(['FocusNeedle', 'high', 'private']);
+    h.get('tb-source').fire('click'); await h.opens.at(-1); await nextTurn(); expect(h.openFile).toHaveBeenCalledOnce();
+    const e = items[0].fragment.evidence[0], source = await h.plugin.controller.snapshot(e.relativePath);
+    expect(source!.id).toBe(e.sourceId); expect(source!.hash).toBe(e.sourceHash); expect(source!.text.slice(e.start, e.end)).toBe(e.quote);
+    expect(h.saved.every(text => !text.includes('FocusNeedle') && !text.includes('Unsent private'))).toBe(true); await h.unchanged();
+  } finally { saveGate.release(); pending?.release(); await Promise.allSettled([saving].filter(Boolean)); await h.cleanup(); }
+});
+
+it.each(['en', 'zh'] as const)('a failed settings save cannot render a pre-change search reply after excluding its source in %s', async locale => {
+  const h = await fixture(locale), entered = latch(), gate = latch();
+  try {
+    await h.restore(); h.button(h.t.current).fire('click'); await h.contexts.at(-1); await nextTurn();
+    const find = h.plugin.controller.find.bind(h.plugin.controller);
+    vi.spyOn(h.plugin.controller, 'find').mockImplementationOnce(async (...args) => {
+      const items = await find(...args); expect(items).toHaveLength(1); entered.release(); await gate.promise; return items;
+    });
+    h.button(h.t.find).fire('click'); await entered.promise;
+    expect(h.plugin.controller.status().phase).toBe('idle'); // Controller finished; renderer delivery is synthetically delayed.
+    const input = h.get('tb-idea'), diskBefore = await fs.readFile(h.settingsFile);
+    noticeState.allowed = true; const fault = new Error('SYNTHETIC_UNSAFE_SETTINGS_FAILURE');
+    vi.spyOn(h.plugin, 'saveData').mockRejectedValueOnce(fault);
+    await expect(h.startSetting('Source exclusions|排除的原始文件夹', 'alpha.md')).rejects.toBe(fault); await nextTurn();
+    gate.release(); const old = await h.searches.at(-1)!; await nextTurn();
+    expect.soft(h.get('tb-result')).toBeNull(); expect.soft(h.get('tb-result-summary').textContent).toBe('');
+    expect(h.get('tb-idea') === input).toBe(true); expect(input.value).toBe('FocusNeedle'); expect(h.get('tb-privacy').hidden).toBe(false);
+    expect(await fs.readFile(h.settingsFile)).toEqual(diskBefore); expect(noticeState.messages).toHaveLength(1);
+    await expect(h.plugin.controller.verifyOpen(old[0].fragment.evidence[0])).rejects.toThrow();
+    await h.changeSetting('Source exclusions|排除的原始文件夹', '');
+    expect(h.searches).toHaveLength(1); h.button(h.t.find).fire('click'); const current = await h.searches.at(-1)!; await nextTurn();
+    expect(current).toHaveLength(1); expect(h.get('tb-result')).not.toBeNull();
+    h.get('tb-source').fire('click'); await h.opens.at(-1); await nextTurn(); expect(h.openFile).toHaveBeenCalledOnce();
+    await h.unchanged();
+  } finally { gate.release(); await h.cleanup(); }
+});
+
+for (const intent of ['current-read', 'search'] as const)
+it.each(['en', 'zh'] as const)(`a failed settings save keeps a newer explicit ${intent} accepted under the changed policy in %s`, async locale => {
+  const h = await fixture(locale), saveEntered = latch(), saveGate = latch(), queryReady = latch(), queryGate = latch();
+  let pending: Awaited<ReturnType<typeof delayedCurrent>> | undefined, saving: Promise<unknown> | undefined;
+  try {
+    await h.restore(); h.button(h.t.current).fire('click'); await h.contexts.at(-1); await nextTurn();
+    const input = h.get('tb-idea'); expect(h.get('tb-privacy').hidden).toBe(false);
+    const model = vi.spyOn(h.plugin as unknown as { model(settings: unknown): unknown }, 'model');
+    const fault = new Error('SYNTHETIC_UNSAFE_SETTINGS_FAILURE'); noticeState.allowed = true;
+    vi.spyOn(h.plugin, 'saveData').mockImplementationOnce(async () => { saveEntered.release(); await saveGate.promise; throw fault; });
+    saving = h.startSetting('Processing mode|处理方式', 'cloud-model').catch(error => error); await saveEntered.promise;
+    const find = h.plugin.controller.find.bind(h.plugin.controller);
+    if (intent === 'current-read') pending = await delayedCurrent(h);
+    else {
+      vi.spyOn(h.plugin.controller, 'find').mockImplementationOnce(async (...args) => { const items = await find(...args); queryReady.release(); await queryGate.promise; return items; });
+      h.button(h.t.find).fire('click'); await queryReady.promise;
+    }
+    saveGate.release(); expect(await saving).toBe(fault); await nextTurn();
+    expect(h.get('tb-idea') === input).toBe(true); expect(h.get('tb-privacy').hidden).toBe(false);
+    if (pending) {
+      expect(h.get('tb-status').textContent).toContain(h.t.contextReading); expect(h.button(h.t.cancel).hidden).toBe(false);
+      await pending.settle(); expect(input.value).toBe('FocusNeedle'); h.button(h.t.find).fire('click');
+    } else queryGate.release();
+    const items = await h.searches.at(-1)!; await nextTurn(); expect(items).toHaveLength(1); expect(h.get('tb-result')).not.toBeNull();
+    expect(h.get('tb-notice').hidden).toBe(true); expect(h.searches).toHaveLength(1); expect(model).not.toHaveBeenCalled();
+    h.get('tb-source').fire('click'); await h.opens.at(-1); await nextTurn(); expect(h.openFile).toHaveBeenCalledOnce(); await h.unchanged();
+  } finally { saveGate.release(); queryGate.release(); pending?.release(); await Promise.allSettled([saving].filter(Boolean)); await h.cleanup(); }
+});
+
+it.each(['en', 'zh'] as const)('a failed settings save preserves the selected type but requires a new explicit search in %s', async locale => {
+  const h = await fixture(locale);
+  try {
+    await h.restore(); h.button(h.t.current).fire('click'); await h.contexts.at(-1); await nextTurn();
+    h.button(h.t.find).fire('click'); const items = await h.searches.at(-1)!; await nextTurn();
+    h.get('tb-facet').fire('click'); await h.searches.at(-1); await nextTurn();
+    const input = h.get('tb-idea'), label = h.get('tb-label').textContent, value = input.value, card = h.get('tb-result');
+    noticeState.allowed = true; vi.spyOn(h.plugin, 'saveData').mockRejectedValueOnce(new Error('SYNTHETIC_UNSAFE_SETTINGS_FAILURE'));
+    await expect(h.startSetting('Source exclusions|排除的原始文件夹', 'draft.md')).rejects.toThrow(); await nextTurn();
+    expect(h.get('tb-idea') === input).toBe(true); expect(input.value).toBe(value); expect(h.get('tb-label').textContent).toBe(label);
+    expect(h.get('tb-privacy').hidden).toBe(true); // Selected current card is an ordinary-source type, not the preceding private idea.
+    expect(h.get('tb-result')).toBe(card); expect.soft(h.get('tb-result-summary').textContent).toContain(h.t.previousResults);
+    const count = h.searches.length; h.get('tb-select').value = 'high'; h.get('tb-select').fire('change');
+    expect.soft(h.searches).toHaveLength(count);
+    // Await any wrongly auto-started baseline query before testing recovery.
+    if (h.searches.length !== count) { await h.searches.at(-1); await nextTurn(); }
+    const find = vi.spyOn(h.plugin.controller, 'find'); h.button(h.t.find).fire('click'); const current = await h.searches.at(-1)!; await nextTurn();
+    expect(find.mock.calls.at(-1)).toEqual([value, 'high', 'normal', { channel: 'kind', value: items[0].fragment.kind }]);
+    expect(current).toHaveLength(1); h.get('tb-source').fire('click'); await h.opens.at(-1); await nextTurn();
+    expect(h.openFile).toHaveBeenCalledOnce(); await h.unchanged();
+  } finally { await h.cleanup(); }
+});
+
+it('a failed settings save does not require a deferred view to have mounted a panel', async () => {
+  const h = await fixture();
+  try {
+    const leaf = h.restoreDeferred(), placeholder = leaf.view; noticeState.allowed = true;
+    const fault = new Error('SYNTHETIC_UNSAFE_SETTINGS_FAILURE'); vi.spyOn(h.plugin, 'saveData').mockRejectedValueOnce(fault);
+    await expect(h.startSetting('Refresh schedule', 'weekly')).rejects.toBe(fault); await nextTurn();
+    expect(leaf.view).toBe(placeholder); expect(h.contexts).toHaveLength(0); expect(h.searches).toHaveLength(0);
+    expect(noticeState.messages).toHaveLength(1); await h.enter(); expect(h.get('tb-idea').value).toBe(''); await h.unchanged();
+  } finally { await h.cleanup(); }
+});
+
 it('refresh timestamp saves share the settings queue and snapshot data before waiting', async () => {
   const h = await fixture(), entered = latch(), gate = latch(), savedEntered = latch();
   let first: Promise<void> | undefined, second: Promise<void> | undefined, refresh: Promise<void> | undefined;

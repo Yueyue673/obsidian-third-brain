@@ -71,6 +71,9 @@ export default class ThirdBrainPlugin extends Plugin {
   async persistSettings(): Promise<void> {
     const token = ++this.settingsSaveToken;
     this.controller?.cancel();
+    // Runtime policy changes already apply. Retire pre-change panel replies
+    // even if the host save rejects, without redrawing the unfinished idea.
+    for (const leaf of this.app.workspace.getLeavesOfType(VIEW)) if (leaf.view instanceof ActivationView) leaf.view.settingsChanged();
     this.settings = loadSettings(this.settings); await this.saveSettingsSnapshot();
     // A later settings callback owns redraw. An older save completion must not
     // discard searches, current-note reads or composition accepted since then.
@@ -168,6 +171,7 @@ class ActivationView extends ItemView {
   getDisplayText(): string { return messages(this.plugin.settings.locale).title; }
   getIcon(): string { return 'brain'; }
   async onOpen(): Promise<void> { this.redraw(); }
+  settingsChanged(): void { this.cleanup?.settingsChanged(); }
   redraw(): void {
     const draft = this.cleanup?.draft(); this.cleanup?.(); this.cleanup = undefined;
     if (this.plugin.controller) this.cleanup = mountPanel(this.contentEl, this.plugin.panelPort(), this.plugin.settings.locale, draft);

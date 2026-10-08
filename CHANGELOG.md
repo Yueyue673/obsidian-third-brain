@@ -4,6 +4,8 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Retire pending panel replies as soon as a setting changes, even when saving the setting fails. An earlier current-note read can no longer replace the idea or add an obsolete error, and an earlier search cannot render a result from a newly excluded source. Keep the draft, privacy, selected type/property and readable previous cards; require explicit search again, without discarding a newer request made under the changed settings. Verified through registered settings/view callbacks and synthetic files with controlled read/reply/save timing, not native Obsidian or real disk failures.
+
 - Serialize settings writes, including successful-refresh timestamps, using detached validated snapshots. An older delayed write can no longer overwrite a later saved setting or restore revoked cloud consent on disk. A rejected write still reports failure without blocking later saves; current-session cancellation and privacy remain immediate. Verified through registered settings/view callbacks and synthetic settings files with controlled host I/O, not native Obsidian or crash-atomic persistence.
 
 - Ignore an older ordinary settings-save completion after a newer settings change. It no longer redraws away a later search, current-note read or composing idea; privacy and exact source-open checks remain intact. Verified with registered settings/view callbacks, English/Chinese rendering and synthetic files with controlled save timing, not native Obsidian settings or IME input. Redraw protection is distinct from the serialized settings writes described above.

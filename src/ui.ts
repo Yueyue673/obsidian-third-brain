@@ -17,7 +17,7 @@ export interface PanelPort {
 // A one-time handoff within an open view, never settings/workspace persistence.
 // Results, evidence proofs and permission to auto-refine are deliberately absent.
 interface PanelDraft { text: string; privacy: Privacy; breadth: Breadth; selection?: QuerySelection }
-export interface PanelHandle { (): void; draft(): PanelDraft }
+export interface PanelHandle { (): void; draft(): PanelDraft; settingsChanged(): void }
 // A host-owned recovery signal. Never classify failures by external names/messages.
 export class CurrentNoteTooLongError extends Error {
   constructor() { super('Select a shorter excerpt before using current-note context.'); this.name = 'CurrentNoteTooLongError'; }
@@ -255,5 +255,11 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   const unsubscribe = port.subscribe(renderState); renderState();
   return Object.assign(() => { disposed = true; ++searchId; releaseCurrentFocus?.(); unsubscribe(); root.remove(); }, {
     draft: (): PanelDraft => ({ text: input.value, privacy: queryPrivacy, breadth: breadth.value as Breadth, ...(selection ? { selection: { ...selection } } : {}) }),
+    settingsChanged: (): void => {
+      if (disposed) return;
+      // Preserve the draft/selection/privacy and readable previous cards, but
+      // do not let a pre-policy reply deliver or authorize automatic refinement.
+      markPreviousResults(); canRefineSearch = false; ++searchId; renderState();
+    },
   });
 }
