@@ -60,9 +60,11 @@ export default class ThirdBrainPlugin extends Plugin {
     // Initialization may outlive a folder change, newer save or plugin unload.
     // Its I/O still settles, but only the current configuration may deliver UI.
     const current = (): boolean => !this.destroyed && token === this.settingsSaveToken && this.controller === controller;
-    try { await controller.initialize(); } catch { if (!current()) return; new Notice(presentFailure(controller.status(), this.settings.locale)); }
-    if (!current()) return;
+    // Rebind open panels to the replacement controller before waiting for I/O.
+    // Its live loading/idle/error updates keep controls accurate; completion
+    // must not remount the input the user may now be composing in.
     for (const leaf of this.app.workspace.getLeavesOfType(VIEW)) (leaf.view as ActivationView).redraw();
+    try { await controller.initialize(); } catch { if (!current()) return; new Notice(presentFailure(controller.status(), this.settings.locale)); }
   }
   private saveSettingsSnapshot(): Promise<void> {
     // Capture only validated settings now, not mutable live data at dequeue time.
@@ -83,9 +85,12 @@ export default class ThirdBrainPlugin extends Plugin {
     // A later settings callback owns redraw. An older save completion must not
     // discard searches, current-note reads or composition accepted since then.
     if (this.destroyed || token !== this.settingsSaveToken) return;
+    const previousController = this.controller;
     await this.configure(token);
     if (this.destroyed || token !== this.settingsSaveToken) return;
-    for (const leaf of this.app.workspace.getLeavesOfType(VIEW)) (leaf.view as ActivationView).redraw();
+    // Folder replacements already handed off the draft and live subscription.
+    // Ordinary settings still need a redraw for locale/presentation changes.
+    if (this.controller === previousController) for (const leaf of this.app.workspace.getLeavesOfType(VIEW)) (leaf.view as ActivationView).redraw();
   }
   async openPanel(): Promise<void> {
     if (this.destroyed) return;

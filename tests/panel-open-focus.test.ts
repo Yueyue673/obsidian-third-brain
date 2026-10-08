@@ -1038,3 +1038,127 @@ it.each(['en', 'zh'] as const)('generated-folder older initialize cannot redraw 
     expect(h.saved.every(text => !text.includes('SameControllerComposition'))).toBe(true); await h.unchanged();
   } finally { held.release(); await Promise.allSettled([saving].filter(Boolean)); await h.cleanup(); }
 });
+
+// Loading-state handoff uses the registered setting and actual replacement
+// Controller/FileSources/OwnedStore. Only load completion/failure is synthetic;
+// no native clicks, slow-disk claim, model request or generated-cache mutation.
+async function seedAlternateFolder(h: Awaited<ReturnType<typeof fixture>>) {
+  await h.changeSetting('Generated layer|提炼层位置', 'Another Derived', 'blur');
+  await h.plugin.controller.refresh();
+  const store = (h.plugin as unknown as { store: OwnedStore }).store;
+  const loaded = await store.load(); expect(loaded).not.toBeNull();
+  const bytes = await fs.readFile(path.join(h.root, 'Another Derived/.third-brain/state.json'));
+  await h.changeSetting('Generated layer|提炼层位置', 'Derived', 'blur');
+  return { store, loaded, bytes };
+}
+for (const indexed of [false, true]) for (const outcome of ['resolve', 'reject'] as const)
+it.each(['en', 'zh'] as const)(`replacement-folder loading handoff with ${indexed ? 'saved' : 'empty'} index and ${outcome} keeps controls and draft accurate in %s`, async locale => {
+  const h = await fixture(locale); let held: ReturnType<typeof delayedFolderLoad> | undefined, saving: Promise<void> | undefined;
+  try {
+    const alternate = indexed ? await seedAlternateFolder(h) : undefined;
+    await fs.mkdir(path.join(h.root, 'Another Derived'), { recursive: true });
+    const human = path.join(h.root, 'Another Derived/manual.txt'), humanBytes = 'Synthetic human-authored output-folder file, never owned.';
+    await fs.writeFile(human, humanBytes);
+    await h.restore(); h.button(h.t.current).fire('click'); await h.contexts.at(-1); await nextTurn();
+    h.button(h.t.find).fire('click'); expect(await h.searches.at(-1)).toHaveLength(1); await nextTurn();
+    expect(h.get('tb-result')).not.toBeNull(); expect(h.get('tb-privacy').hidden).toBe(false);
+    const searchCount = h.searches.length, contextCount = h.contexts.length;
+    held = delayedFolderLoad('Another Derived', outcome); noticeState.allowed = true;
+    saving = h.startSetting('Generated layer|提炼层位置', 'Another Derived', 'blur'); await held.entered;
+    const controller = h.plugin.controller;
+    expect(controller.status().phase).toBe('loading');
+    // No input/click/manual redraw should be needed to see the new live state.
+    expect.soft(h.get('tb-status').textContent).toContain(h.t.loading);
+    expect.soft(h.button(h.t.index).disabled).toBe(true);
+    expect.soft(h.button(h.t.find).disabled).toBe(true);
+    expect.soft(h.button(h.t.current).disabled).toBe(true);
+    expect.soft(h.get('tb-select').disabled).toBe(true);
+    expect(h.button(h.t.cancel).hidden).toBe(true); // Loading I/O is not a cancellable task.
+    expect.soft(h.get('tb-result') === null).toBe(true); expect.soft(h.get('tb-result-summary').textContent).toBe('');
+    const input = h.get('tb-idea'); expect(input.value).toBe('FocusNeedle'); expect(input.disabled).toBe(false);
+    expect(h.get('tb-privacy').hidden).toBe(false); expect.soft(input.focusCalls).toBe(0);
+    // Composition can continue while loading. A completed initialize must update
+    // the same subscribed renderer, not remount and displace the composing input.
+    input.focus(); input.fire('compositionstart'); input.value = 'FocusNeedle UnsentLoadingIdea'; input.fire('input');
+    const focusCalls = input.focusCalls, redraw = vi.spyOn(h.leaves[0].view, 'redraw');
+    held.release(); await saving; await nextTurn();
+    expect.soft(redraw).not.toHaveBeenCalled(); expect.soft(h.get('tb-idea') === input).toBe(true);
+    expect.soft(h.doc.activeElement === h.get('tb-idea')).toBe(true); expect(input.focusCalls).toBe(focusCalls);
+    expect(h.get('tb-idea').value).toBe('FocusNeedle UnsentLoadingIdea'); expect(h.get('tb-privacy').hidden).toBe(false);
+    expect(h.searches).toHaveLength(searchCount); expect(h.contexts).toHaveLength(contextCount);
+    if (outcome === 'reject') {
+      expect(controller.status()).toMatchObject({ phase: 'error', errorCode: 'index-unavailable', hasCompleteIndex: false });
+      expect(h.get('tb-status').textContent).toContain(h.t.error);
+      expect(h.get('tb-notice').hidden).toBe(false); expect(h.get('tb-notice').textContent).toBe(h.t.unavailable);
+      expect(noticeState.messages).toEqual([h.t.unavailable]);
+      expect(noticeState.messages.join('')).not.toContain(held.fault.message);
+    } else {
+      expect(controller.status().phase).toBe('idle'); expect(h.get('tb-status').textContent).toContain(h.t.idle);
+      expect(h.get('tb-notice').hidden).toBe(true); expect(h.button(h.t.index).disabled).toBe(false);
+      expect(h.button(h.t.current).disabled).toBe(false); expect(h.get('tb-select').disabled).toBe(false);
+      expect(h.button(h.t.find).hidden).toBe(!indexed); expect(h.button(h.t.find).disabled).toBe(!indexed);
+      expect(h.get('tb-empty-title').textContent).toBe(indexed ? h.t.initial : h.t.first);
+      expect(noticeState.messages).toEqual([]);
+    }
+    h.get('tb-idea').fire('compositionend');
+    if (alternate) {
+      expect(await fs.readFile(path.join(h.root, 'Another Derived/.third-brain/state.json'))).toEqual(alternate.bytes);
+      expect(await alternate.store.load()).toEqual(alternate.loaded);
+    } else await expect(fs.stat(path.join(h.root, 'Another Derived/.third-brain/state.json'))).rejects.toMatchObject({ code: 'ENOENT' });
+    // An explicit valid-folder retry rebinds the panel; no refresh or query is
+    // inferred from the carried private draft. Real source checks still run.
+    await h.changeSetting('Generated layer|提炼层位置', 'Derived', 'blur');
+    const find = vi.spyOn(h.plugin.controller, 'find');
+    h.get('tb-select').value = 'high'; h.get('tb-select').fire('change'); expect(h.searches).toHaveLength(searchCount);
+    h.button(h.t.find).fire('click'); const items = await h.searches.at(-1)!; await nextTurn();
+    expect(find.mock.calls.at(-1)).toEqual(['FocusNeedle UnsentLoadingIdea', 'high', 'private']); expect(items).toHaveLength(1);
+    const e = items[0].fragment.evidence[0], source = await h.plugin.controller.snapshot(e.relativePath);
+    expect(source!.id).toBe(e.sourceId); expect(source!.hash).toBe(e.sourceHash); expect(source!.text.slice(e.start, e.end)).toBe(e.quote);
+    h.get('tb-source').fire('click'); await h.opens.at(-1); await nextTurn();
+    expect(h.openFile).toHaveBeenCalledOnce(); expect(h.openedView.editor.setSelection).toHaveBeenCalledOnce();
+    h.plugin.settings.excludes = ['alpha.md']; await expect(h.plugin.controller.verifyOpen(e)).rejects.toThrow(); h.plugin.settings.excludes = [];
+    expect(await fs.readFile(human, 'utf8')).toBe(humanBytes);
+    expect(h.saved.every(text => !text.includes('FocusNeedle') && !text.includes('UnsentLoadingIdea'))).toBe(true); await h.unchanged();
+  } finally { held?.release(); await Promise.allSettled([saving].filter(Boolean)); await h.cleanup(); }
+});
+
+it.each(['en', 'zh'] as const)('replacement-folder loading handoff preserves typed selection without authorizing automatic refinement in %s', async locale => {
+  const h = await fixture(locale); let held: ReturnType<typeof delayedFolderLoad> | undefined, saving: Promise<void> | undefined;
+  try {
+    const alternate = await seedAlternateFolder(h); await h.restore();
+    h.get('tb-idea').value = 'FocusNeedle'; h.get('tb-idea').fire('input'); h.button(h.t.find).fire('click');
+    const prior = await h.searches.at(-1)!; await nextTurn(); h.get('tb-facet').fire('click'); const typed = await h.searches.at(-1)!; await nextTurn();
+    const label = h.get('tb-label').textContent, value = h.get('tb-idea').value, count = h.searches.length;
+    held = delayedFolderLoad('Another Derived', 'resolve');
+    saving = h.startSetting('Generated layer|提炼层位置', 'Another Derived', 'blur'); await held.entered;
+    expect.soft(h.get('tb-status').textContent).toContain(h.t.loading);
+    expect(h.get('tb-label').textContent).toBe(label); expect(h.get('tb-idea').value).toBe(value);
+    held.release(); await saving; await nextTurn();
+    expect(h.get('tb-label').textContent).toBe(label); expect(h.get('tb-idea').value).toBe(value);
+    const find = vi.spyOn(h.plugin.controller, 'find');
+    h.get('tb-select').value = 'high'; h.get('tb-select').fire('change'); expect(h.searches).toHaveLength(count);
+    h.button(h.t.find).fire('click'); const items = await h.searches.at(-1)!; await nextTurn();
+    expect(items.map(item => item.fragment.id)).toEqual(typed.map(item => item.fragment.id));
+    expect(find.mock.calls.at(-1)).toEqual([value, 'high', 'normal', { channel: 'kind', value: prior[0].fragment.kind }]);
+    h.get('tb-source').fire('click'); await h.opens.at(-1); await nextTurn(); expect(h.openFile).toHaveBeenCalledOnce();
+    expect(await fs.readFile(path.join(h.root, 'Another Derived/.third-brain/state.json'))).toEqual(alternate.bytes);
+    expect(await alternate.store.load()).toEqual(alternate.loaded); await h.unchanged();
+  } finally { held?.release(); await Promise.allSettled([saving].filter(Boolean)); await h.cleanup(); }
+});
+
+it.each(['en', 'zh'] as const)('a view opened during replacement-folder loading keeps its subscribed composing input on completion in %s', async locale => {
+  const h = await fixture(locale), held = delayedFolderLoad('Another Derived', 'resolve'); let saving: Promise<void> | undefined;
+  try {
+    saving = h.startSetting('Generated layer|提炼层位置', 'Another Derived', 'blur'); await held.entered;
+    await h.restore(); expect(h.get('tb-status').textContent).toContain(h.t.loading);
+    expect(h.button(h.t.index).disabled).toBe(true); expect(h.button(h.t.current).disabled).toBe(true);
+    const input = h.get('tb-idea'); input.focus(); input.fire('compositionstart'); input.value = 'OpenedWhileLoadingDraft';
+    const redraw = vi.spyOn(h.leaves[0].view, 'redraw');
+    held.release(); await saving; await nextTurn();
+    expect.soft(redraw).not.toHaveBeenCalled(); expect.soft(h.get('tb-idea') === input).toBe(true);
+    expect.soft(h.doc.activeElement === h.get('tb-idea')).toBe(true); expect(h.get('tb-idea').value).toBe('OpenedWhileLoadingDraft');
+    expect(h.get('tb-status').textContent).toContain(h.t.idle); expect(h.button(h.t.index).disabled).toBe(false);
+    expect(h.button(h.t.current).disabled).toBe(false); expect(h.searches).toHaveLength(0); expect(h.contexts).toHaveLength(0);
+    expect(h.saved.every(text => !text.includes('OpenedWhileLoadingDraft'))).toBe(true); await h.unchanged();
+  } finally { held.release(); await Promise.allSettled([saving].filter(Boolean)); await h.cleanup(); }
+});
