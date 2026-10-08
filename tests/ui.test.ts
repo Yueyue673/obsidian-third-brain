@@ -82,3 +82,37 @@ it('ignores late results from a cancelled renderer search', async () => {
   await root.all().find(n=>n.textContent==='Cancel')!.fire('click');resolve([{fragment:fragment('late',[]),score:1,reasons:[],group:'indirect-suggestion'}]);
   for(let i=0;i<12;i++)await Promise.resolve();expect(cancel).toHaveBeenCalledOnce();expect(root.all().filter(n=>n.className==='tb-result')).toEqual([]);dispose();
 });
+
+// Restoring a transient selection is not permission to automatically submit it.
+it.each([
+  ['en','mechanisms','medium','This mechanism requires Medium or High breadth. Your selection is retained; change breadth, then click Find connections.'],
+  ['en','atmosphere','high','This atmosphere requires High breadth. Your selection is retained; change breadth, then click Find connections.'],
+  ['zh','mechanisms','medium','此机制需中或高关联发散度。已保留选择；调整后请点击“寻找关联”。'],
+  ['zh','atmosphere','high','此氛围需高关联发散度。已保留选择；调整后请点击“寻找关联”。'],
+] as const)('explains the explicit search required by a restored %s %s selection', async (locale, channel, allowedBreadth, hint) => {
+  vi.stubGlobal('document',{createElement:(tag:string)=>new NodeStub(tag)});
+  const root=new NodeStub('main'), find=vi.fn(async()=>[]);
+  const selection={channel,value:'Synthetic retained facet'};
+  const dispose=mountPanel(root as unknown as HTMLElement,{
+    status:()=>({phase:'idle',sourceCount:1,fragmentCount:1,updatedAt:'',mode:'local-excerpts'}),
+    subscribe:()=>()=>{},refresh:async()=>{},find,cancel:()=>{},open:async()=>{},
+  },locale,{text:selection.value,privacy:'private',breadth:'low',selection});
+  const input=root.all().find(n=>n.tag==='textarea')!;
+  const breadth=root.all().find(n=>n.tag==='select')!;
+  const notice=root.all().find(n=>n.className==='tb-notice')!;
+  expect(notice.hidden).toBe(false);expect(notice.textContent).toBe(hint);
+  expect(input.value).toBe(selection.value);expect(find).not.toHaveBeenCalled();
+  breadth.value=allowedBreadth;await breadth.fire('change');
+  expect(find).not.toHaveBeenCalled();expect(notice.hidden).toBe(true);
+  expect(dispose.draft()).toEqual({text:selection.value,privacy:'private',breadth:allowedBreadth,selection});
+  await root.all().find(n=>n.className==='tb-primary')!.fire('click');
+  expect(find.mock.calls).toEqual([[selection.value,allowedBreadth,'private',selection]]);
+  // After an explicit submission the existing automatic-refine contract remains.
+  breadth.value='low';await breadth.fire('change');
+  expect(find).toHaveBeenCalledTimes(2);
+  expect(notice.textContent).toContain(locale==='zh'?'调整发散度即可重新寻找':'change breadth to search again');
+  input.value='A new unsent idea';await input.fire('input');
+  breadth.value=allowedBreadth;await breadth.fire('change');
+  expect(find).toHaveBeenCalledTimes(2);expect(dispose.draft().selection).toBeUndefined();
+  expect(dispose.draft().privacy).toBe('private');dispose();
+});

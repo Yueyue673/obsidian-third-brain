@@ -9,7 +9,7 @@ import { OwnedStore } from './runtime/store';
 import { createModelPort } from './runtime/transport';
 import { contextPrivacy, FileSources } from './sources';
 import { defaults, isDue, loadSettings, type Settings } from './settings';
-import { CurrentNoteTooLongError, SourceLocationUnavailableError, mountPanel, type PanelPort } from './ui';
+import { CurrentNoteTooLongError, SourceLocationUnavailableError, mountPanel, type PanelHandle, type PanelPort } from './ui';
 const VIEW = 'third-brain-activation';
 export default class ThirdBrainPlugin extends Plugin {
   settings: Settings = { ...defaults };
@@ -145,13 +145,16 @@ export default class ThirdBrainPlugin extends Plugin {
   onunload(): void { this.destroyed = true; this.controller?.dispose(); }
 }
 class ActivationView extends ItemView {
-  private cleanup?: () => void;
+  private cleanup?: PanelHandle;
   constructor(leaf: WorkspaceLeaf, private readonly plugin: ThirdBrainPlugin) { super(leaf); }
   getViewType(): string { return VIEW; }
   getDisplayText(): string { return messages(this.plugin.settings.locale).title; }
   getIcon(): string { return 'brain'; }
   async onOpen(): Promise<void> { this.redraw(); }
-  redraw(): void { this.cleanup?.(); if (this.plugin.controller) this.cleanup = mountPanel(this.contentEl, this.plugin.panelPort(), this.plugin.settings.locale); }
+  redraw(): void {
+    const draft = this.cleanup?.draft(); this.cleanup?.(); this.cleanup = undefined;
+    if (this.plugin.controller) this.cleanup = mountPanel(this.contentEl, this.plugin.panelPort(), this.plugin.settings.locale, draft);
+  }
   async onClose(): Promise<void> { this.cleanup?.(); this.cleanup = undefined; }
 }
 class ThirdBrainSettings extends PluginSettingTab {

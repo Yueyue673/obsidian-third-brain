@@ -4,6 +4,8 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Keep the open panel's unfinished idea, privacy, breadth and selected property/type when saving plugin settings. Carry only that transient draft into the redrawn view; discard old results and pending replies, require an explicit new search, and forget the draft when the view closes. Breadth hints name the explicit search action; changing breadth alone does not submit a restored draft. No query text is saved in plugin settings. Verified through registered settings/view callbacks and synthetic files, not native Obsidian settings or IME input.
+
 - Keep breadth changes from submitting an edited/composing idea or an unreviewed current-note fill. A pending current-note read now survives changing Low/Medium/High; explicitly submitted, unchanged ideas and selected properties/types still refine immediately. Previous cards, full-draft privacy and source-open checks remain intact. Verified through the real renderer/Main adapter with synthetic files and controlled read timing; native Obsidian behavior remains unverified.
 
 - Treat starting composition in the idea box as a new editing intent: retain and label previous cards, ignore late search results, and leave any selected property/type filter before the first input event. Search remains explicit and keeps current-note privacy and source-open checks. Verified with the real renderer/Main adapter and synthetic filesystem tests; native Obsidian IME ordering remains unverified.

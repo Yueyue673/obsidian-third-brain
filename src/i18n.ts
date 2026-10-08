@@ -40,6 +40,8 @@ export const en = {
   kindEmpty: 'No current same-type material found', kindEmptyBody: 'Refresh source notes that have changed and choose a current type again. No other types or indirect suggestions are added.',
   mechanismBreadth: 'This mechanism requires Medium or High breadth. Your selection is retained; change breadth to search again.',
   atmosphereBreadth: 'This atmosphere requires High breadth. Your selection is retained; change breadth to search again.',
+  mechanismBreadthManual: 'This mechanism requires Medium or High breadth. Your selection is retained; change breadth, then click Find connections.',
+  atmosphereBreadthManual: 'This atmosphere requires High breadth. Your selection is retained; change breadth, then click Find connections.',
   noContext: 'No note context is available in this view.', settings: 'Settings', unknown: 'Not yet indexed',
 };
 export const zh: Record<keyof typeof en, string> = {
@@ -84,6 +86,8 @@ export const zh: Record<keyof typeof en, string> = {
   kindEmpty: '没有当前可核验的同类型材料', kindEmptyBody: '更新已变更的来源笔记，再选择当前已有类型；不会补入其他类型或间接建议。',
   mechanismBreadth: '此机制需中或高关联发散度。已保留选择；调整发散度即可重新寻找。',
   atmosphereBreadth: '此氛围需高关联发散度。已保留选择；调整发散度即可重新寻找。',
+  mechanismBreadthManual: '此机制需中或高关联发散度。已保留选择；调整后请点击“寻找关联”。',
+  atmosphereBreadthManual: '此氛围需高关联发散度。已保留选择；调整后请点击“寻找关联”。',
   noContext: '此界面没有当前笔记上下文。', settings: '设置', unknown: '尚未更新',
 };
 export function messages(locale: 'auto' | 'en' | 'zh'): typeof en {

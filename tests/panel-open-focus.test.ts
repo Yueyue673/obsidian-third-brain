@@ -20,7 +20,27 @@ vi.mock('obsidian', () => ({
       this.containerEl.append(this.contentEl);
     }
   },
-  FileSystemAdapter: class {}, MarkdownView: class {}, PluginSettingTab: class {},
+  FileSystemAdapter: class {}, MarkdownView: class {},
+  PluginSettingTab: class { containerEl = document.createElement('section'); },
+  Setting: class {
+    row: HTMLElement;
+    constructor(container: HTMLElement) { this.row = document.createElement('div'); container.append(this.row); }
+    setName(name: string) { this.row.textContent = name; return this; }
+    setDesc() { return this; }
+    addDropdown(cb: (control: unknown) => void) { return this.control(cb); }
+    addText(cb: (control: unknown) => void) { return this.control(cb); }
+    addTextArea(cb: (control: unknown) => void) { return this.control(cb); }
+    addToggle(cb: (control: unknown) => void) { return this.control(cb); }
+    addComponent() { return this; } // Secret selector is not used by these tests.
+    control(cb: (control: unknown) => void) {
+      const inputEl = document.createElement('input'); this.row.append(inputEl);
+      const control = {
+        inputEl, addOptions() { return this; }, setPlaceholder() { return this; },
+        setValue(value: string) { inputEl.value = value; return this; }, getValue() { return inputEl.value; },
+        onChange(callback: (value: string) => void) { inputEl.addEventListener('change', () => callback(inputEl.value)); return this; },
+      }; cb(control); return this;
+    }
+  },
   Notice: class { constructor() { throw new Error('Unexpected host notice in focus fixture'); } },
 }));
 class NodeStub {
@@ -31,6 +51,7 @@ class NodeStub {
   constructor(readonly tag: string, readonly ownerDocument: DocumentStub) {}
   append(...nodes: NodeStub[]) { for (const node of nodes) { node.parent = this; this.children.push(node); } }
   replaceChildren(...nodes: NodeStub[]) { for (const node of this.children) node.parent = null; this.children = []; this.append(...nodes); }
+  empty() { this.replaceChildren(); }
   setAttribute() {}
   remove() { if (this.parent) this.parent.children = this.parent.children.filter(node => node !== this); this.parent = null; }
   focus() {
@@ -72,6 +93,8 @@ async function fixture(locale: 'en' | 'zh' = 'en') {
   vi.stubGlobal('window', { setInterval: () => 1 });
   const leaves: LeafShell[] = [], commands = new Map<string, () => void>(), deferred = new Set<LeafShell>();
   let factory!: (leaf: LeafShell) => ViewShell, ribbon!: () => void;
+  let settingsTab!: { containerEl: NodeStub; display(): void };
+  const saved: string[] = [], settingsWrites: Promise<void>[] = [];
   const draftView = Object.assign(Object.create(MarkdownView.prototype), {
     file: { path: 'draft.md' }, editor: { getValue: () => '---\nprivacy: private\n---\nFocusNeedle', getSelection: () => 'FocusNeedle' },
   });
@@ -104,12 +127,22 @@ async function fixture(locale: 'en' | 'zh' = 'en') {
   };
   const plugin = new ThirdBrainPlugin({ vault, workspace } as never, {} as never);
   Object.assign(plugin, {
-    loadData: async () => ({ ...defaults, excludes: [], outputFolder: 'Derived', locale }), saveData: async () => {},
+    loadData: async () => ({ ...defaults, excludes: [], outputFolder: 'Derived', locale }),
+    saveData: async (data: unknown) => { saved.push(JSON.stringify(data)); },
     registerView: (_type: string, cb: typeof factory) => { factory = cb; }, addRibbonIcon: (_icon: string, _name: string, cb: () => void) => { ribbon = cb; },
     addCommand: (command: { id: string; callback: () => void }) => commands.set(command.id, command.callback),
-    addSettingTab: () => {}, registerInterval: () => {},
+    addSettingTab: (tab: typeof settingsTab) => { settingsTab = tab; }, registerInterval: () => {},
   });
   await plugin.onload(); await plugin.controller.refresh();
+  const persist = plugin.persistSettings.bind(plugin);
+  vi.spyOn(plugin, 'persistSettings').mockImplementation(() => { const op = persist(); settingsWrites.push(op); return op; });
+  const changeSetting = async (name: string, value: string, event = 'change') => {
+    settingsTab.display();
+    const row = settingsTab.containerEl.children.find(node => name.split('|').includes(node.textContent));
+    expect(row, `Registered setting ${name}`).toBeDefined();
+    const input = row!.children[0]; input.value = value; input.fire(event);
+    expect(settingsWrites.length).toBeGreaterThan(0); await settingsWrites.at(-1); await nextTurn();
+  };
   const store = (plugin as unknown as { store: OwnedStore }).store, loaded = await store.load();
   const stateBytes = await fs.readFile(path.join(root, 'Derived/.third-brain/state.json'));
   const calls: Promise<void>[] = [], searches: ReturnType<typeof plugin.controller.find>[] = [], contexts: ReturnType<NonNullable<ReturnType<typeof plugin.panelPort>['current']>>[] = [], opens: Promise<void>[] = [];
@@ -136,8 +169,8 @@ async function fixture(locale: 'en' | 'zh' = 'en') {
     expect(await fs.readFile(path.join(root, 'Derived/.third-brain/state.json'))).toEqual(stateBytes);
     expect(await store.load()).toEqual(loaded);
   };
-  const cleanup = async () => { plugin.controller.cancel(); await Promise.allSettled([...calls, ...searches, ...contexts, ...opens]); await nextTurn(); for (const leaf of leaves) await leaf.view.onClose(); plugin.onunload(); };
-  return { plugin, root, doc, editor, leaves, workspace, enter, restore, restoreDeferred, get, button, searches, contexts, opens, openFile, openedView, unchanged, cleanup, t: messages(locale) };
+  const cleanup = async () => { plugin.controller.cancel(); await Promise.allSettled([...calls, ...searches, ...contexts, ...opens, ...settingsWrites]); await nextTurn(); for (const leaf of leaves) await leaf.view.onClose(); plugin.onunload(); };
+  return { plugin, root, doc, editor, leaves, workspace, enter, restore, restoreDeferred, get, button, searches, contexts, opens, openFile, openedView, unchanged, cleanup, changeSetting, saved, t: messages(locale) };
 }
 
 for (const entry of ['command', 'ribbon'] as const) for (const existing of [false, true])
@@ -456,4 +489,112 @@ it('does not refocus an already composing idea or select its text', async () => 
     expect([input.selectionStart, input.selectionEnd]).toEqual([4, 4]); expect(h.searches).toHaveLength(0);
     await h.unchanged();
   } finally { await h.cleanup(); }
+});
+
+// Registered Settings -> persistSettings -> ActivationView -> real renderer,
+// with synthetic files and host/DOM shells. No native settings/IME claim.
+for (const setting of ['schedule', 'language', 'folder'] as const)
+it.each(['en', 'zh'] as const)(`saving ${setting} retains an unfinished idea only in the open view in %s`, async locale => {
+  const h = await fixture(locale);
+  try {
+    const leaf = await h.restore(), input = h.get('tb-idea');
+    const idea = 'UnsentSettingsDraft\nFocusNeedle'; input.value = idea; input.fire('input');
+    h.get('tb-select').value = 'high'; h.get('tb-select').fire('change');
+    if (setting === 'schedule') await h.changeSetting('Refresh schedule|更新频率', 'weekly');
+    if (setting === 'language') await h.changeSetting('Language|语言', locale === 'en' ? 'zh' : 'en');
+    if (setting === 'folder') await h.changeSetting('Generated layer|提炼层位置', 'Another Derived', 'blur');
+    expect.soft(h.get('tb-idea').value).toBe(idea); expect.soft(h.get('tb-select').value).toBe('high');
+    expect(h.doc.activeElement).toBe(h.editor); expect(h.get('tb-idea').focusCalls).toBe(0);
+    expect(h.searches).toHaveLength(0); expect(h.contexts).toHaveLength(0);
+    expect(h.saved.every(text => !text.includes('UnsentSettingsDraft') && !text.includes('FocusNeedle'))).toBe(true);
+    expect(h.get('tb-result')).toBeNull(); expect(h.get('tb-result-summary').textContent).toBe('');
+    // A remount is not authorization to search the carried draft.
+    h.get('tb-select').value = 'low'; h.get('tb-select').fire('change'); expect(h.searches).toHaveLength(0);
+    if (setting !== 'folder') {
+      const t = messages(h.plugin.settings.locale); h.button(t.find).fire('click');
+      const items = await h.searches.at(-1)!; await nextTurn(); expect(items).toHaveLength(1);
+      h.get('tb-source').fire('click'); await h.opens.at(-1); await nextTurn(); expect(h.openFile).toHaveBeenCalledOnce();
+      const e = items[0].fragment.evidence[0], source = await h.plugin.controller.snapshot(e.relativePath);
+      expect(source!.hash).toBe(e.sourceHash); expect(source!.text.slice(e.start, e.end)).toBe(e.quote);
+    } else expect(h.plugin.controller.status().fragmentCount).toBe(0);
+    await h.unchanged();
+    // Closing drops the draft; neither a newly mounted view nor plugin settings restore it.
+    await leaf.view.onClose(); h.leaves.splice(0); await h.restore();
+    expect(h.get('tb-idea').value).toBe(''); expect(h.get('tb-privacy').hidden).toBe(true);
+  } finally { await h.cleanup(); }
+});
+
+it.each(['en', 'zh'] as const)('settings keep full-draft privacy and never turn a carried private idea into a cloud request in %s', async locale => {
+  const h = await fixture(locale);
+  try {
+    await h.restore(); const find = vi.spyOn(h.plugin.controller, 'find');
+    const model = vi.spyOn(h.plugin as unknown as { model(settings: unknown): unknown }, 'model');
+    h.button(h.t.current).fire('click'); await h.contexts.at(-1); await nextTurn();
+    expect(h.get('tb-idea').value).toBe('FocusNeedle'); expect(h.get('tb-privacy').hidden).toBe(false);
+    // A private query bypasses even the factory/secret lookup: no provider,
+    // authentication or HTTP is involved in this local safety check.
+    await h.changeSetting('Processing mode|处理方式', 'cloud-model');
+    expect.soft(h.get('tb-idea').value).toBe('FocusNeedle'); expect.soft(h.get('tb-privacy').hidden).toBe(false);
+    h.button(h.t.find).fire('click'); const items = await h.searches.at(-1)!; await nextTurn();
+    expect(find.mock.calls.at(-1)).toEqual(['FocusNeedle', 'medium', 'private']); expect(items).toHaveLength(1);
+    expect(model).not.toHaveBeenCalled(); expect(h.saved.every(text => !text.includes('FocusNeedle'))).toBe(true);
+    h.get('tb-source').fire('click'); await h.opens.at(-1); await nextTurn(); expect(h.openFile).toHaveBeenCalledOnce();
+    await h.unchanged();
+  } finally { await h.cleanup(); }
+});
+
+it('settings retire old search results and revalidate a retained type selection after source exclusion', async () => {
+  const h = await fixture();
+  try {
+    await h.restore(); h.get('tb-idea').value = 'FocusNeedle'; h.get('tb-idea').fire('input');
+    h.button(h.t.find).fire('click'); const items = await h.searches.at(-1)!; await nextTurn(); expect(items).toHaveLength(1);
+    h.get('tb-facet').fire('click'); await h.searches.at(-1); await nextTurn();
+    const label = h.get('tb-label').textContent, value = h.get('tb-idea').value;
+    const find = vi.spyOn(h.plugin.controller, 'find');
+    await h.changeSetting('Source exclusions|排除的原始文件夹', 'alpha.md\ndraft.md');
+    expect.soft(h.get('tb-idea').value).toBe(value); expect.soft(h.get('tb-label').textContent).toBe(label);
+    expect(h.get('tb-result')).toBeNull(); expect(h.get('tb-result-summary').textContent).toBe(''); expect(find).not.toHaveBeenCalled();
+    h.get('tb-select').value = 'high'; h.get('tb-select').fire('change'); expect(find).not.toHaveBeenCalled();
+    h.button(h.t.find).fire('click'); const excluded = await h.searches.at(-1); await nextTurn();
+    expect(find.mock.calls.at(-1)?.[3]).toEqual({ channel: 'kind', value: items[0].fragment.kind });
+    expect(excluded).toEqual([]); expect(h.get('tb-result')).toBeNull();
+    await expect(h.plugin.controller.verifyOpen(items[0].fragment.evidence[0])).rejects.toThrow();
+    await h.unchanged();
+  } finally { await h.cleanup(); }
+});
+
+it('settings capture the latest draft after an asynchronous save, without keeping a late old search', async () => {
+  const h = await fixture(), resultGate = latch(), resultReady = latch(), saveGate = latch(), saveEntered = latch();
+  try {
+    await h.restore(); const input = h.get('tb-idea'); input.value = 'FocusNeedle'; input.fire('input');
+    const find = h.plugin.controller.find.bind(h.plugin.controller);
+    vi.spyOn(h.plugin.controller, 'find').mockImplementationOnce(async (...args) => {
+      const items = await find(...args); expect(items).toHaveLength(1); resultReady.release(); await resultGate.promise; return items;
+    });
+    h.button(h.t.find).fire('click'); await resultReady.promise;
+    const save = h.plugin.saveData.bind(h.plugin);
+    vi.spyOn(h.plugin, 'saveData').mockImplementationOnce(async data => { saveEntered.release(); await saveGate.promise; await save(data); });
+    const saving = h.changeSetting('Refresh schedule', 'weekly'); await saveEntered.promise;
+    input.value = 'LatestUnsentDraft'; input.fire('input');
+    saveGate.release(); await saving;
+    expect(h.get('tb-idea').value).toBe('LatestUnsentDraft');
+    resultGate.release(); await h.searches.at(-1); await nextTurn();
+    expect(h.get('tb-result')).toBeNull(); expect(h.get('tb-result-summary').textContent).toBe('');
+    expect(h.get('tb-idea').value).toBe('LatestUnsentDraft'); expect(h.searches).toHaveLength(1);
+    expect(h.saved.every(text => !text.includes('LatestUnsentDraft'))).toBe(true); await h.unchanged();
+  } finally { resultGate.release(); saveGate.release(); await h.cleanup(); }
+});
+
+it.each(['resolve', 'reject'] as const)('settings retire an old current-note %s without erasing the existing draft', async outcome => {
+  const h = await fixture(); let pending: Awaited<ReturnType<typeof delayedCurrent>> | undefined;
+  try {
+    await h.restore(); h.get('tb-idea').value = 'Unsent synthetic idea'; h.get('tb-idea').fire('input');
+    pending = await delayedCurrent(h, outcome);
+    await h.changeSetting('Refresh schedule', 'weekly');
+    expect.soft(h.get('tb-idea').value).toBe('Unsent synthetic idea');
+    await pending.settle();
+    expect.soft(h.get('tb-idea').value).toBe('Unsent synthetic idea'); expect(h.get('tb-privacy').hidden).toBe(true);
+    expect(h.get('tb-notice').hidden).toBe(true); expect(h.button(h.t.cancel).hidden).toBe(true);
+    expect(h.searches).toHaveLength(0); await h.unchanged();
+  } finally { pending?.release(); await h.cleanup(); }
 });

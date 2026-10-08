@@ -14,6 +14,10 @@ export interface PanelPort {
   open(evidence: Evidence): Promise<void>;
   openFragment?(id: string): Promise<void>;
 }
+// A one-time handoff within an open view, never settings/workspace persistence.
+// Results, evidence proofs and permission to auto-refine are deliberately absent.
+interface PanelDraft { text: string; privacy: Privacy; breadth: Breadth; selection?: QuerySelection }
+export interface PanelHandle { (): void; draft(): PanelDraft }
 // A host-owned recovery signal. Never classify failures by external names/messages.
 export class CurrentNoteTooLongError extends Error {
   constructor() { super('Select a shorter excerpt before using current-note context.'); this.name = 'CurrentNoteTooLongError'; }
@@ -24,38 +28,39 @@ export class SourceLocationUnavailableError extends Error {
 function element<K extends keyof HTMLElementTagNameMap>(tag: K, className?: string, text?: string): HTMLElementTagNameMap[K] {
   const el = document.createElement(tag); if (className) el.className = className; if (text !== undefined) el.textContent = text; return el;
 }
-export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'auto' | 'en' | 'zh' = 'auto'): () => void {
+export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'auto' | 'en' | 'zh' = 'auto', draft?: PanelDraft): PanelHandle {
   const t = messages(locale); const root = element('section', 'third-brain-panel');
   const heading = element('header', 'tb-heading'); heading.append(element('h2', '', t.title), element('p', 'tb-muted', t.subtitle));
   const status = element('div', 'tb-status'); status.setAttribute('role', 'status'); status.setAttribute('aria-live', 'polite');
   const stats = element('p', 'tb-muted tb-stats');
   const label = element('label', 'tb-label', t.idea); const id = `tb-idea-${Math.random().toString(36).slice(2)}`; label.htmlFor = id;
   const input = element('textarea', 'tb-idea'); input.id = id; input.rows = 4; input.placeholder = t.placeholder; input.maxLength = 20000;
+  input.value = draft?.text ?? '';
   const ideaHint = element('p', 'tb-muted tb-idea-hint', t.ideaHint); ideaHint.id = `${id}-hint`;
   input.setAttribute('aria-describedby', ideaHint.id); input.setAttribute('aria-keyshortcuts', 'Control+Enter Meta+Enter');
   const options = element('div', 'tb-options'); const breadthLabel = element('label', 'tb-breadth-label', t.breadth);
   const breadth = element('select', 'tb-select'); breadth.setAttribute('aria-label', t.breadth);
   for (const [value, text] of [['low', t.low], ['medium', t.medium], ['high', t.high]]) { const option = element('option', '', text); option.value = value; breadth.append(option); }
-  breadth.value = 'medium'; breadthLabel.append(breadth); options.append(breadthLabel);
+  breadth.value = draft?.breadth ?? 'medium'; breadthLabel.append(breadth); options.append(breadthLabel);
   const current = element('button', 'tb-secondary', t.current); current.type = 'button'; if (port.current) options.append(current);
-  const privacyHint = element('p', 'tb-muted tb-privacy', t.private); privacyHint.hidden = true;
+  const privacyHint = element('p', 'tb-muted tb-privacy', t.private); privacyHint.hidden = !draft || draft.privacy === 'normal';
   const actions = element('div', 'tb-actions'); const find = element('button', 'tb-primary', t.find); find.type = 'button';
   const refresh = element('button', 'tb-secondary', t.index); refresh.type = 'button'; const cancel = element('button', 'tb-secondary', t.cancel); cancel.type = 'button'; cancel.hidden = true; actions.append(find, refresh, cancel);
   const notice = element('p', 'tb-notice'); notice.setAttribute('role', 'alert'); notice.hidden = true;
   const results = element('div', 'tb-results'); const summary = element('p', 'tb-result-summary'); summary.setAttribute('aria-live', 'polite');
   root.append(heading, status, stats, label, input, ideaHint, options, privacyHint, actions, notice, summary, results); container.replaceChildren(root);
-  let queryPrivacy: Privacy = 'normal'; let searchId = 0; let disposed = false; let hasSearched = false; let resultsArePrevious = false;
+  let queryPrivacy: Privacy = draft?.privacy ?? 'normal'; let searchId = 0; let disposed = false; let hasSearched = false; let resultsArePrevious = false;
   // Retaining old cards does not authorize submitting a newer, unreviewed idea.
   let canRefineSearch = false;
   let currentReadId: number | undefined;
   let releaseCurrentFocus: (() => void) | undefined;
   let previousPhase: Status['phase'] | undefined;
-  let selection: QuerySelection | undefined;
+  let selection: QuerySelection | undefined = draft?.selection ? { ...draft.selection } : undefined;
   // Old cards remain readable during work, but cannot steal the active query/token.
   let facetButtons: HTMLButtonElement[] = [];
   const isBusy = (phase: Status['phase']): boolean => ['indexing', 'searching', 'loading'].includes(phase);
   const kindLabel = (value: string): string => t[`kind_${value}` as keyof typeof t];
-  const selectionHint = (): string => !selection ? '' : selection.channel === 'mechanisms' && breadth.value === 'low' ? t.mechanismBreadth : selection.channel === 'atmosphere' && breadth.value !== 'high' ? t.atmosphereBreadth : '';
+  const selectionHint = (): string => !selection ? '' : selection.channel === 'mechanisms' && breadth.value === 'low' ? (canRefineSearch ? t.mechanismBreadth : t.mechanismBreadthManual) : selection.channel === 'atmosphere' && breadth.value !== 'high' ? (canRefineSearch ? t.atmosphereBreadth : t.atmosphereBreadthManual) : '';
   const alert = (text: string): void => { notice.textContent = text; notice.hidden = false; };
   const generatedCopy = { missing: t.generatedFileMissing, changed: t.generatedFileChanged, unavailable: t.generatedFileUnavailable };
   const openResult = (operation: () => Promise<void>, recoveredNotices: string[]): void => {
@@ -213,7 +218,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
   // Let the IME finish composition without consuming Enter or submitting partial text.
   // Consume held shortcuts, but only a fresh press can submit (including after cancel).
   input.addEventListener('keydown', e => { if (!e.isComposing && e.key === 'Enter' && (e.ctrlKey || e.metaKey)) { e.preventDefault(); if (!e.repeat && !find.disabled) void executeSearch(); } });
-  find.addEventListener('click', () => void executeSearch()); breadth.addEventListener('change', () => { if (canRefineSearch && input.value.trim()) void executeSearch(); });
+  find.addEventListener('click', () => void executeSearch()); breadth.addEventListener('change', () => { if (canRefineSearch && input.value.trim()) void executeSearch(); else renderState(); });
   refresh.addEventListener('click', () => { notice.hidden = true; void port.refresh().catch(() => { if (!disposed) { if (!['error','cancelled'].includes(port.status().phase)) alert(t.failure); renderState(); } }); });
   // A current-note read is not a controller task. Cancel retires its delivery;
   // an underlying host/OS read may still finish, without replacing the idea.
@@ -248,5 +253,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
     }).finally(releaseFocus);
   });
   const unsubscribe = port.subscribe(renderState); renderState();
-  return () => { disposed = true; ++searchId; releaseCurrentFocus?.(); unsubscribe(); root.remove(); };
+  return Object.assign(() => { disposed = true; ++searchId; releaseCurrentFocus?.(); unsubscribe(); root.remove(); }, {
+    draft: (): PanelDraft => ({ text: input.value, privacy: queryPrivacy, breadth: breadth.value as Breadth, ...(selection ? { selection: { ...selection } } : {}) }),
+  });
 }
