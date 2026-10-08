@@ -4,6 +4,8 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Keep an earlier generated-folder initialization from redrawing the panel or showing an obsolete failure after a newer setting or plugin unload. New search results, pending current-note reads and composing ideas keep their current view; a failure in the current configuration still shows safe guidance. This guards delayed UI delivery, not interruption of file I/O or migration between folders. Verified through registered settings/view callbacks, real local stores and synthetic completion/failure latches, not native Obsidian or real disk faults.
+
 - Retire pending panel replies as soon as a setting changes, even when saving the setting fails. An earlier current-note read can no longer replace the idea or add an obsolete error, and an earlier search cannot render a result from a newly excluded source. Keep the draft, privacy, selected type/property and readable previous cards; require explicit search again, without discarding a newer request made under the changed settings. Verified through registered settings/view callbacks and synthetic files with controlled read/reply/save timing, not native Obsidian or real disk failures.
 
 - Serialize settings writes, including successful-refresh timestamps, using detached validated snapshots. An older delayed write can no longer overwrite a later saved setting or restore revoked cloud consent on disk. A rejected write still reports failure without blocking later saves; current-session cancellation and privacy remain immediate. Verified through registered settings/view callbacks and synthetic settings files with controlled host I/O, not native Obsidian or crash-atomic persistence.

@@ -906,3 +906,135 @@ it('refresh timestamp saves share the settings queue and snapshot data before wa
     await h.unchanged();
   } finally { gate.release(); await Promise.allSettled([first, second, refresh].filter(Boolean)); await h.cleanup(); }
 });
+
+// Hold the completion of a real OwnedStore load for one synthetic folder only.
+// The controller initializes normally; this is controlled timing/fault injection,
+// not an actual stalled disk, native setting callback, or model response.
+function delayedFolderLoad(folder: string, outcome: 'resolve' | 'reject') {
+  const entered = latch(), gate = latch(), load = OwnedStore.prototype.load;
+  const fault = new TypeError('SYNTHETIC_UNSAFE_FOLDER_LOAD_DETAIL'); let calls = 0;
+  vi.spyOn(OwnedStore.prototype, 'load').mockImplementation(async function (this: OwnedStore) {
+    const result = await load.call(this);
+    if ((this as unknown as { folder: string }).folder === folder && calls++ === 0) {
+      entered.release(); await gate.promise;
+      if (outcome === 'reject') throw fault;
+    }
+    return result;
+  });
+  return { entered: entered.promise, release: gate.release, fault };
+}
+
+for (const outcome of ['resolve', 'reject'] as const) for (const intent of ['search', 'current-read', 'composition'] as const)
+it.each(['en', 'zh'] as const)(`generated-folder older initialize ${outcome} cannot override newer ${intent} in %s`, async locale => {
+  const h = await fixture(locale), held = delayedFolderLoad('Another Derived', outcome);
+  let older: Promise<void> | undefined, pending: Awaited<ReturnType<typeof delayedCurrent>> | undefined;
+  try {
+    await fs.mkdir(path.join(h.root, 'Another Derived'));
+    const human = path.join(h.root, 'Another Derived/manual.txt'), humanBytes = 'Synthetic human-authored output-folder file.';
+    await fs.writeFile(human, humanBytes);
+    await h.restore(); h.button(h.t.current).fire('click'); await h.contexts.at(-1); await nextTurn();
+    expect(h.get('tb-privacy').hidden).toBe(false);
+    noticeState.allowed = true;
+    older = h.startSetting('Generated layer|提炼层位置', 'Another Derived', 'blur'); await held.entered;
+    const obsolete = h.plugin.controller;
+    expect(obsolete.status().phase).toBe('loading');
+    await h.changeSetting('Generated layer|提炼层位置', 'Derived', 'blur');
+    const current = h.plugin.controller, input = h.get('tb-idea'), redraw = vi.spyOn(h.leaves[0].view, 'redraw');
+    expect(current).not.toBe(obsolete); expect(current.status().fragmentCount).toBeGreaterThan(0);
+    expect(input.value).toBe('FocusNeedle'); expect(h.get('tb-privacy').hidden).toBe(false);
+    const find = vi.spyOn(current, 'find');
+    if (intent === 'search') {
+      h.button(h.t.find).fire('click'); expect(await h.searches.at(-1)).toHaveLength(1); await nextTurn();
+    } else if (intent === 'current-read') pending = await delayedCurrent(h);
+    else { input.focus(); input.fire('compositionstart'); input.value = 'FocusNeedle UnsentFolderComposition'; }
+    const focus = h.doc.activeElement, count = h.searches.length;
+    held.release(); await older; await nextTurn();
+    expect.soft(h.plugin.controller).toBe(current);
+    expect.soft(redraw).not.toHaveBeenCalled();
+    expect.soft(h.get('tb-idea') === input).toBe(true); expect.soft(h.doc.activeElement === focus).toBe(true);
+    expect(h.get('tb-privacy').hidden).toBe(false); expect(h.searches).toHaveLength(count);
+    expect.soft(noticeState.messages).toEqual([]);
+    if (intent === 'search') {
+      expect.soft(h.get('tb-result')).not.toBeNull(); expect.soft(h.get('tb-result-summary').textContent).toBe(`1 ${h.t.results}`);
+      // Recover the baseline's lost cards to keep source-open and invariant
+      // assertions executable even while the direct red assertions are recorded.
+      if (!h.get('tb-result')) { h.button(h.t.find).fire('click'); await h.searches.at(-1); await nextTurn(); }
+    } else if (intent === 'current-read') {
+      expect.soft(h.get('tb-status').textContent).toContain(h.t.contextReading);
+      expect.soft(h.button(h.t.cancel).hidden).toBe(false);
+      await pending!.settle(); expect(h.get('tb-idea').value).toBe('FocusNeedle');
+      h.button(h.t.find).fire('click'); await h.searches.at(-1); await nextTurn();
+    } else {
+      expect(h.get('tb-idea').value).toBe('FocusNeedle UnsentFolderComposition'); input.fire('compositionend');
+      h.get('tb-select').value = 'high'; h.get('tb-select').fire('change'); expect(h.searches).toHaveLength(count);
+      h.button(h.t.find).fire('click'); await h.searches.at(-1); await nextTurn();
+    }
+    expect(find.mock.calls.at(-1)?.[2]).toBe('private');
+    const items = await h.searches.at(-1)!, e = items[0].fragment.evidence[0], source = await current.snapshot(e.relativePath);
+    expect(source!.id).toBe(e.sourceId); expect(source!.hash).toBe(e.sourceHash);
+    expect(source!.text.slice(e.start, e.end)).toBe(e.quote);
+    h.get('tb-source').fire('click'); await h.opens.at(-1); await nextTurn();
+    expect(h.openFile).toHaveBeenCalledOnce(); expect(h.openedView.editor.setSelection).toHaveBeenCalledOnce();
+    h.plugin.settings.excludes = ['alpha.md']; await expect(current.verifyOpen(e)).rejects.toThrow(); h.plugin.settings.excludes = [];
+    expect(await fs.readFile(human, 'utf8')).toBe(humanBytes);
+    expect(h.saved.every(text => !text.includes('FocusNeedle') && !text.includes('UnsentFolderComposition'))).toBe(true);
+    expect(JSON.parse(await fs.readFile(h.settingsFile, 'utf8')).outputFolder).toBe('Derived'); await h.unchanged();
+  } finally { held.release(); pending?.release(); await Promise.allSettled([older].filter(Boolean)); await h.cleanup(); }
+});
+
+for (const outcome of ['resolve', 'reject'] as const)
+it.each(['en', 'zh'] as const)(`generated-folder pending initialize ${outcome} cannot redraw or notify after unload in %s`, async locale => {
+  const h = await fixture(locale), held = delayedFolderLoad('Another Derived', outcome); let saving: Promise<void> | undefined;
+  try {
+    const leaf = await h.restore(); h.get('tb-idea').value = 'UnsentUnloadDraft'; h.get('tb-idea').fire('input');
+    noticeState.allowed = true;
+    saving = h.startSetting('Generated layer|提炼层位置', 'Another Derived', 'blur'); await held.entered;
+    h.plugin.onunload(); await leaf.view.onClose();
+    const input = h.get('tb-idea'), redraw = vi.spyOn(leaf.view, 'redraw');
+    held.release(); await saving; await nextTurn();
+    expect.soft(redraw).not.toHaveBeenCalled(); expect.soft(h.get('tb-idea') === input).toBe(true);
+    expect.soft(noticeState.messages).toEqual([]);
+    expect(h.searches).toHaveLength(0); expect(h.contexts).toHaveLength(0);
+    expect(h.saved.every(text => !text.includes('UnsentUnloadDraft'))).toBe(true); await h.unchanged();
+  } finally { held.release(); await Promise.allSettled([saving].filter(Boolean)); await h.cleanup(); }
+});
+
+it.each(['en', 'zh'] as const)('generated-folder current initialize failure stays visible and a fresh explicit retry works in %s', async locale => {
+  const h = await fixture(locale), held = delayedFolderLoad('Another Derived', 'reject'); let saving: Promise<void> | undefined;
+  try {
+    await h.restore(); h.button(h.t.current).fire('click'); await h.contexts.at(-1); await nextTurn(); noticeState.allowed = true;
+    saving = h.startSetting('Generated layer|提炼层位置', 'Another Derived', 'blur'); await held.entered;
+    held.release(); await saving; await nextTurn();
+    expect(h.plugin.controller.status()).toMatchObject({ phase: 'error', errorCode: 'index-unavailable', hasCompleteIndex: false });
+    expect(noticeState.messages).toHaveLength(1); expect(noticeState.messages[0]).toBe(h.t.unavailable);
+    expect(h.get('tb-notice').textContent).toBe(h.t.unavailable); expect(h.get('tb-notice').hidden).toBe(false);
+    expect(h.get('tb-idea').value).toBe('FocusNeedle'); expect(h.get('tb-privacy').hidden).toBe(false);
+    expect(noticeState.messages.join('')).not.toContain(held.fault.message);
+    await h.changeSetting('Generated layer|提炼层位置', 'Derived', 'blur');
+    expect(h.searches).toHaveLength(0); h.button(h.t.find).fire('click'); expect(await h.searches.at(-1)).toHaveLength(1); await nextTurn();
+    expect(h.get('tb-notice').hidden).toBe(true); h.get('tb-source').fire('click'); await h.opens.at(-1); await nextTurn();
+    expect(h.openFile).toHaveBeenCalledOnce(); await h.unchanged();
+  } finally { held.release(); await Promise.allSettled([saving].filter(Boolean)); await h.cleanup(); }
+});
+
+it.each(['en', 'zh'] as const)('generated-folder older initialize cannot redraw after a newer ordinary save on the same controller in %s', async locale => {
+  const h = await fixture(locale), held = delayedFolderLoad('Derived', 'resolve'); let saving: Promise<void> | undefined;
+  try {
+    await h.restore(); h.button(h.t.current).fire('click'); await h.contexts.at(-1); await nextTurn();
+    await h.changeSetting('Generated layer|提炼层位置', 'Another Derived', 'blur');
+    saving = h.startSetting('Generated layer|提炼层位置', 'Derived', 'blur'); await held.entered;
+    const controller = h.plugin.controller;
+    await h.changeSetting('Refresh schedule|更新频率', 'weekly');
+    expect(h.plugin.controller).toBe(controller); expect(controller.status().phase).toBe('loading');
+    const input = h.get('tb-idea'), redraw = vi.spyOn(h.leaves[0].view, 'redraw');
+    input.focus(); input.fire('compositionstart'); input.value = 'FocusNeedle SameControllerComposition';
+    held.release(); await saving; await nextTurn();
+    expect.soft(redraw).not.toHaveBeenCalled(); expect.soft(h.get('tb-idea') === input).toBe(true);
+    expect.soft(h.doc.activeElement === input).toBe(true); expect(controller.status().phase).toBe('idle');
+    expect(h.get('tb-idea').value).toBe('FocusNeedle SameControllerComposition'); expect(h.get('tb-privacy').hidden).toBe(false);
+    input.fire('compositionend'); h.get('tb-select').value = 'high'; h.get('tb-select').fire('change'); expect(h.searches).toHaveLength(0);
+    h.button(h.t.find).fire('click'); expect(await h.searches.at(-1)).toHaveLength(1); await nextTurn();
+    h.get('tb-source').fire('click'); await h.opens.at(-1); await nextTurn(); expect(h.openFile).toHaveBeenCalledOnce();
+    expect(h.saved.every(text => !text.includes('SameControllerComposition'))).toBe(true); await h.unchanged();
+  } finally { held.release(); await Promise.allSettled([saving].filter(Boolean)); await h.cleanup(); }
+});

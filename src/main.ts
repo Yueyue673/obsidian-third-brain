@@ -39,7 +39,8 @@ export default class ThirdBrainPlugin extends Plugin {
     const secret = settings.secretId ? this.app.secretStorage.getSecret(settings.secretId) ?? undefined : undefined;
     return createModelPort({ mode: settings.mode, endpoint: settings.endpoint, model: settings.model, secret, cloudConsent: settings.cloudConsent });
   }
-  private async configure(): Promise<void> {
+  private async configure(token = this.settingsSaveToken): Promise<void> {
+    if (this.destroyed || token !== this.settingsSaveToken) return;
     if (this.configuredFolder === this.settings.outputFolder && this.controller) return;
     this.controller?.dispose();
     const root = (this.app.vault.adapter as FileSystemAdapter).getBasePath();
@@ -56,7 +57,11 @@ export default class ThirdBrainPlugin extends Plugin {
       previousPhase = phase;
     });
     this.configuredFolder = this.settings.outputFolder;
-    try { await this.controller.initialize(); } catch { new Notice(presentFailure(this.controller.status(), this.settings.locale)); }
+    // Initialization may outlive a folder change, newer save or plugin unload.
+    // Its I/O still settles, but only the current configuration may deliver UI.
+    const current = (): boolean => !this.destroyed && token === this.settingsSaveToken && this.controller === controller;
+    try { await controller.initialize(); } catch { if (!current()) return; new Notice(presentFailure(controller.status(), this.settings.locale)); }
+    if (!current()) return;
     for (const leaf of this.app.workspace.getLeavesOfType(VIEW)) (leaf.view as ActivationView).redraw();
   }
   private saveSettingsSnapshot(): Promise<void> {
@@ -78,7 +83,7 @@ export default class ThirdBrainPlugin extends Plugin {
     // A later settings callback owns redraw. An older save completion must not
     // discard searches, current-note reads or composition accepted since then.
     if (this.destroyed || token !== this.settingsSaveToken) return;
-    await this.configure();
+    await this.configure(token);
     if (this.destroyed || token !== this.settingsSaveToken) return;
     for (const leaf of this.app.workspace.getLeavesOfType(VIEW)) (leaf.view as ActivationView).redraw();
   }
