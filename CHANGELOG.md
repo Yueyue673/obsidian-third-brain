@@ -4,6 +4,8 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Ignore an older ordinary settings-save completion after a newer settings change. It no longer redraws away a later search, current-note read or composing idea; privacy and exact source-open checks remain intact. Verified with registered settings/view callbacks, English/Chinese rendering and synthetic files with controlled save timing, not native Obsidian settings or IME input. This does not establish ordering of overlapping writes to the host settings file.
+
 - Keep the open panel's unfinished idea, privacy, breadth and selected property/type when saving plugin settings. Carry only that transient draft into the redrawn view; discard old results and pending replies, require an explicit new search, and forget the draft when the view closes. Breadth hints name the explicit search action; changing breadth alone does not submit a restored draft. No query text is saved in plugin settings. Verified through registered settings/view callbacks and synthetic files, not native Obsidian settings or IME input.
 
 - Keep breadth changes from submitting an edited/composing idea or an unreviewed current-note fill. A pending current-note read now survives changing Low/Medium/High; explicitly submitted, unchanged ideas and selected properties/types still refine immediately. Previous cards, full-draft privacy and source-open checks remain intact. Verified through the real renderer/Main adapter with synthetic files and controlled read timing; native Obsidian behavior remains unverified.

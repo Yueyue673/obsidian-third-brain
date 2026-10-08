@@ -136,12 +136,16 @@ async function fixture(locale: 'en' | 'zh' = 'en') {
   await plugin.onload(); await plugin.controller.refresh();
   const persist = plugin.persistSettings.bind(plugin);
   vi.spyOn(plugin, 'persistSettings').mockImplementation(() => { const op = persist(); settingsWrites.push(op); return op; });
-  const changeSetting = async (name: string, value: string, event = 'change') => {
+  const startSetting = (name: string, value: string, event = 'change') => {
     settingsTab.display();
     const row = settingsTab.containerEl.children.find(node => name.split('|').includes(node.textContent));
     expect(row, `Registered setting ${name}`).toBeDefined();
+    const before = settingsWrites.length;
     const input = row!.children[0]; input.value = value; input.fire(event);
-    expect(settingsWrites.length).toBeGreaterThan(0); await settingsWrites.at(-1); await nextTurn();
+    expect(settingsWrites.length).toBe(before + 1); return settingsWrites.at(-1)!;
+  };
+  const changeSetting = async (name: string, value: string, event = 'change') => {
+    await startSetting(name, value, event); await nextTurn();
   };
   const store = (plugin as unknown as { store: OwnedStore }).store, loaded = await store.load();
   const stateBytes = await fs.readFile(path.join(root, 'Derived/.third-brain/state.json'));
@@ -170,7 +174,7 @@ async function fixture(locale: 'en' | 'zh' = 'en') {
     expect(await store.load()).toEqual(loaded);
   };
   const cleanup = async () => { plugin.controller.cancel(); await Promise.allSettled([...calls, ...searches, ...contexts, ...opens, ...settingsWrites]); await nextTurn(); for (const leaf of leaves) await leaf.view.onClose(); plugin.onunload(); };
-  return { plugin, root, doc, editor, leaves, workspace, enter, restore, restoreDeferred, get, button, searches, contexts, opens, openFile, openedView, unchanged, cleanup, changeSetting, saved, t: messages(locale) };
+  return { plugin, root, doc, editor, leaves, workspace, enter, restore, restoreDeferred, get, button, searches, contexts, opens, openFile, openedView, unchanged, cleanup, startSetting, changeSetting, saved, t: messages(locale) };
 }
 
 for (const entry of ['command', 'ribbon'] as const) for (const existing of [false, true])
@@ -597,4 +601,67 @@ it.each(['resolve', 'reject'] as const)('settings retire an old current-note %s 
     expect(h.get('tb-notice').hidden).toBe(true); expect(h.button(h.t.cancel).hidden).toBe(true);
     expect(h.searches).toHaveLength(0); await h.unchanged();
   } finally { pending?.release(); await h.cleanup(); }
+});
+
+// Ordinary settings saves do not replace the store/controller. Delay only a
+// host save completion; exercise newer intent through registered callbacks.
+// This is synthetic I/O timing, not a real slow disk or native settings test.
+for (const intent of ['search', 'current-read', 'composition'] as const)
+it.each(['en', 'zh'] as const)(`an older ordinary settings completion cannot retire a newer ${intent} intent in %s`, async locale => {
+  const h = await fixture(locale), saveGate = latch(), saveEntered = latch();
+  let pending: Awaited<ReturnType<typeof delayedCurrent>> | undefined;
+  let older: Promise<void> | undefined;
+  try {
+    await h.restore(); const controller = h.plugin.controller;
+    const save = h.plugin.saveData.bind(h.plugin);
+    vi.spyOn(h.plugin, 'saveData').mockImplementationOnce(async data => {
+      saveEntered.release(); await saveGate.promise; await save(data);
+    });
+    older = h.startSetting('Refresh schedule|更新频率', 'weekly'); await saveEntered.promise;
+    await h.changeSetting('Language|语言', locale === 'en' ? 'zh' : 'en');
+    const t = messages(h.plugin.settings.locale), input = h.get('tb-idea'); h.t = t;
+    const find = vi.spyOn(h.plugin.controller, 'find');
+    // Main merges the selected body with the FULL private editor draft.
+    h.button(t.current).fire('click'); await h.contexts.at(-1); await nextTurn();
+    expect(input.value).toBe('FocusNeedle'); expect(h.get('tb-privacy').hidden).toBe(false);
+    if (intent === 'search') {
+      h.button(t.find).fire('click'); expect(await h.searches.at(-1)).toHaveLength(1); await nextTurn();
+      expect(h.get('tb-result')).not.toBeNull();
+    } else if (intent === 'current-read') {
+      pending = await delayedCurrent(h);
+    } else {
+      input.focus(); input.fire('compositionstart'); input.value = 'FocusNeedle UnsentComposition';
+    }
+    const focus = h.doc.activeElement, searchesBefore = h.searches.length;
+    saveGate.release(); await older; await nextTurn();
+    expect.soft(h.plugin.controller).toBe(controller);
+    expect.soft(h.get('tb-idea') === input).toBe(true);
+    expect.soft(h.doc.activeElement === focus).toBe(true);
+    expect.soft(h.get('tb-privacy').hidden).toBe(false);
+    expect(h.searches).toHaveLength(searchesBefore);
+    if (intent === 'search') {
+      expect.soft(h.get('tb-result')).not.toBeNull();
+      expect.soft(h.get('tb-result-summary').textContent).toBe(`1 ${t.results}`);
+    } else if (intent === 'current-read') {
+      expect.soft(h.get('tb-status').textContent).toContain(t.contextReading);
+      expect.soft(h.button(t.cancel).hidden).toBe(false);
+      await pending!.settle(); expect(h.get('tb-idea').value).toBe('FocusNeedle');
+    } else {
+      expect(h.get('tb-idea').value).toBe('FocusNeedle UnsentComposition'); input.fire('compositionend');
+      h.get('tb-select').value = 'high'; h.get('tb-select').fire('change');
+      expect(h.searches).toHaveLength(searchesBefore);
+    }
+    if (intent !== 'search') { h.button(t.find).fire('click'); expect(await h.searches.at(-1)).toHaveLength(1); await nextTurn(); }
+    expect(find.mock.calls.at(-1)?.[2]).toBe('private');
+    const items = await h.searches.at(-1)!, e = items[0].fragment.evidence[0];
+    const source = await h.plugin.controller.snapshot(e.relativePath);
+    expect(source!.id).toBe(e.sourceId); expect(source!.hash).toBe(e.sourceHash);
+    expect(source!.text.slice(e.start, e.end)).toBe(e.quote);
+    // The genuinely rendered current result still opens the precise original.
+    const open = h.get('tb-source');
+    expect.soft(open).not.toBeNull();
+    if (open) { open.fire('click'); await h.opens.at(-1); await nextTurn(); expect(h.openFile).toHaveBeenCalledOnce(); expect(h.openedView.editor.setSelection).toHaveBeenCalledOnce(); }
+    expect(h.saved.every(text => !text.includes('FocusNeedle') && !text.includes('UnsentComposition'))).toBe(true);
+    await h.unchanged();
+  } finally { saveGate.release(); pending?.release(); await h.cleanup(); }
 });

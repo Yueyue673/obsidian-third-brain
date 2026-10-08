@@ -19,6 +19,7 @@ export default class ThirdBrainPlugin extends Plugin {
   private destroyed = false;
   private scheduledRefreshPaused = false;
   private panelOpenToken = 0;
+  private settingsSaveToken = 0;
   async onload(): Promise<void> {
     this.settings = loadSettings(await this.loadData());
     if (!(this.app.vault.adapter instanceof FileSystemAdapter)) { new Notice('Third Brain requires a desktop filesystem vault.'); return; }
@@ -58,8 +59,14 @@ export default class ThirdBrainPlugin extends Plugin {
     for (const leaf of this.app.workspace.getLeavesOfType(VIEW)) (leaf.view as ActivationView).redraw();
   }
   async persistSettings(): Promise<void> {
+    const token = ++this.settingsSaveToken;
     this.controller?.cancel();
-    this.settings = loadSettings(this.settings); await this.saveData(this.settings); await this.configure();
+    this.settings = loadSettings(this.settings); await this.saveData(this.settings);
+    // A later settings callback owns redraw. An older save completion must not
+    // discard searches, current-note reads or composition accepted since then.
+    if (this.destroyed || token !== this.settingsSaveToken) return;
+    await this.configure();
+    if (this.destroyed || token !== this.settingsSaveToken) return;
     for (const leaf of this.app.workspace.getLeavesOfType(VIEW)) (leaf.view as ActivationView).redraw();
   }
   async openPanel(): Promise<void> {
