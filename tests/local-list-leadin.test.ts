@@ -34,16 +34,21 @@ it.each(['md','canvas'])('%s keeps explicit colon lead-ins with every root group
  }
 });
 
-it.each([':', '：'])('retains a multi-line %s introduction for loose/numbered siblings, without merging independent root points',async colon=>{
+it.each([':', '：'])('retains a multi-line %s introduction for loose ordered sequences and independent unordered roots',async colon=>{
  const lead='仅在断开连接的合成模拟器中\n且隔离真实设备时才允许'+colon;
  const first='1. 将合成赭石旋钮调到四档。\n   - 例子：离线沙盒。\n   - 反例：真实设备不适用。';
  const second='2. 检查合成白银测试灯。';
- const r=await analyzeSource(snap(lead+'\n\n'+first+'\n\n'+second+'\n\n独立蓝鲸笔记按日期整理。'),opts);
- const actions=r.fragments.filter(f=>f.summary.includes('旋钮')||f.summary.includes('测试灯'));
- expect(actions).toHaveLength(2);for(const f of actions)expect(f.summary).toContain(lead);
- expect(actions.find(f=>f.summary.includes('旋钮'))!.summary).not.toContain('测试灯');
- expect(r.fragments.find(f=>f.summary.includes('独立蓝鲸'))!.summary).toBe('独立蓝鲸笔记按日期整理。');
- expect(actions.some(f=>f.summary.includes('反例'))).toBe(true);
+ for(const ordered of [true,false]){
+  const a=ordered?first:first.replace(/^1\./u,'-'),b=ordered?second:second.replace(/^2\./u,'-');
+  const raw=lead+'\n\n'+a+'\n\n'+b+'\n\n独立蓝鲸笔记按日期整理。';
+  const r=await analyzeSource(snap(raw),opts);
+  const actions=r.fragments.filter(f=>f.summary.includes('旋钮')||f.summary.includes('测试灯'));
+  expect(actions).toHaveLength(ordered?1:2);for(const f of actions){expect(f.summary).toContain(lead);for(const e of f.evidence)expect(raw.slice(e.start,e.end)).toBe(e.quote);}
+  if(ordered)expect(actions[0].summary).toBe(lead+'\n\n'+a+'\n\n'+b);
+  else expect(actions.find(f=>f.summary.includes('旋钮'))!.summary).not.toContain('测试灯');
+  expect(r.fragments.find(f=>f.summary.includes('独立蓝鲸'))!.summary).toBe('独立蓝鲸笔记按日期整理。');
+  expect(actions.some(f=>f.summary.includes('反例'))).toBe(true);
+ }
 });
 
 it('ends lead-in scope at ordinary prose, a new heading, code/hidden boundaries or a Canvas node; ordinary literal examples survive',async()=>{

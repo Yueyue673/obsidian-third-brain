@@ -1,0 +1,453 @@
+{
+  "synthetic": true,
+  "sourceCommit": "0345342111cb06651bb0d31685202bc44388b244",
+  "raws": {
+    "procedure.md": "# Synthetic operation\n## Disconnected chamber\nOnly in the imaginary laboratory:\n\n1. Seal the cobalt inlet before draining.\n   - Example: use the dummy isolation gate.\n2. Drain the violet chamber after sealing the inlet.\n   - Caveat: inert samples only.",
+    "copy.md": "# Synthetic operation\n## Disconnected chamber\nOnly in the imaginary laboratory:\n\n1. Seal the cobalt inlet before draining.\n   - Example: use the dummy isolation gate.\n2. Drain the violet chamber after sealing the inlet.\n   - Caveat: inert samples only.",
+    "denied.md": "# Synthetic operation\n## Disconnected chamber\nOnly in the imaginary laboratory:\n\n1. Never seal the cobalt inlet in this setup.\n   - Example: use the dummy isolation gate.\n2. Drain the violet chamber after sealing the inlet.\n   - Caveat: inert samples only."
+  },
+  "signatures": {
+    "local-excerpts": "{\"version\":1,\"localExcerptPolicy\":\"literal-structure-identity-1\",\"mode\":\"local-excerpts\",\"endpoint\":\"\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "local-model": "{\"version\":1,\"mode\":\"local-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "cloud-model": "{\"version\":1,\"mode\":\"cloud-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}"
+  },
+  "requests": {
+    "local-model": [
+      {
+        "task": "extract",
+        "text": "Only in the imaginary laboratory:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected chamber",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "1. Seal the cobalt inlet before draining.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected chamber",
+          "before": "Only in the imaginary laboratory:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Example: use the dummy isolation gate.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected chamber",
+          "before": "1. Seal the cobalt inlet before draining."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "2. Drain the violet chamber after sealing the inlet.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected chamber",
+          "before": "- Example: use the dummy isolation gate."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Caveat: inert samples only.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected chamber",
+          "before": "2. Drain the violet chamber after sealing the inlet."
+        }
+      }
+    ],
+    "cloud-model": [
+      {
+        "task": "extract",
+        "text": "Only in the imaginary laboratory:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected chamber",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "1. Seal the cobalt inlet before draining.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected chamber",
+          "before": "Only in the imaginary laboratory:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Example: use the dummy isolation gate.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected chamber",
+          "before": "1. Seal the cobalt inlet before draining."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "2. Drain the violet chamber after sealing the inlet.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected chamber",
+          "before": "- Example: use the dummy isolation gate."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Caveat: inert samples only.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected chamber",
+          "before": "2. Drain the violet chamber after sealing the inlet."
+        }
+      }
+    ]
+  },
+  "oldIndex": {
+    "version": 1,
+    "signature": "editorial-core-2:828e462a353888f5d280cfb8f969063851e65e1da138acf9d6bf0d33ad3621fd",
+    "updatedAt": "2026-01-01T00:00:00.000Z",
+    "sources": {
+      "copy.md": {
+        "hash": "265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_44d90bb33753cdd133714b669069e93086f9d0aae0b9db677d35d789b36280e4",
+          "f_e9e4313b602a21423026dca55f12a92def094e41a5b579d42071adccf2cd1152"
+        ]
+      },
+      "denied.md": {
+        "hash": "219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_e9e4313b602a21423026dca55f12a92def094e41a5b579d42071adccf2cd1152",
+          "f_fc9d29dc34b9ed918567851ff8bb279314d4c501031ad69b141c70ac5e59761f"
+        ]
+      },
+      "procedure.md": {
+        "hash": "265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_44d90bb33753cdd133714b669069e93086f9d0aae0b9db677d35d789b36280e4",
+          "f_e9e4313b602a21423026dca55f12a92def094e41a5b579d42071adccf2cd1152"
+        ]
+      }
+    },
+    "fragments": {
+      "f_44d90bb33753cdd133714b669069e93086f9d0aae0b9db677d35d789b36280e4": {
+        "id": "f_44d90bb33753cdd133714b669069e93086f9d0aae0b9db677d35d789b36280e4",
+        "privacy": "normal",
+        "title": "Disconnected chamber",
+        "summary": "# Synthetic operation\n## Disconnected chamber\n\nOnly in the imaginary laboratory:\n\n1. Seal the cobalt inlet before draining.\n   - Example: use the dummy isolation gate.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a",
+            "quote": "# Synthetic operation",
+            "start": 0,
+            "end": 21
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a",
+            "quote": "## Disconnected chamber",
+            "start": 22,
+            "end": 45
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a",
+            "quote": "1. Seal the cobalt inlet before draining.\n   - Example: use the dummy isolation gate.",
+            "start": 81,
+            "end": 166
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a",
+            "quote": "Only in the imaginary laboratory:",
+            "start": 46,
+            "end": 79
+          },
+          {
+            "sourceId": "94b72a37de2aeac46be7b559",
+            "relativePath": "procedure.md",
+            "sourceHash": "265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a",
+            "quote": "# Synthetic operation",
+            "start": 0,
+            "end": 21
+          },
+          {
+            "sourceId": "94b72a37de2aeac46be7b559",
+            "relativePath": "procedure.md",
+            "sourceHash": "265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a",
+            "quote": "## Disconnected chamber",
+            "start": 22,
+            "end": 45
+          },
+          {
+            "sourceId": "94b72a37de2aeac46be7b559",
+            "relativePath": "procedure.md",
+            "sourceHash": "265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a",
+            "quote": "1. Seal the cobalt inlet before draining.\n   - Example: use the dummy isolation gate.",
+            "start": 81,
+            "end": 166
+          },
+          {
+            "sourceId": "94b72a37de2aeac46be7b559",
+            "relativePath": "procedure.md",
+            "sourceHash": "265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a",
+            "quote": "Only in the imaginary laboratory:",
+            "start": 46,
+            "end": 79
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_e9e4313b602a21423026dca55f12a92def094e41a5b579d42071adccf2cd1152": {
+        "id": "f_e9e4313b602a21423026dca55f12a92def094e41a5b579d42071adccf2cd1152",
+        "privacy": "normal",
+        "title": "Disconnected chamber",
+        "summary": "# Synthetic operation\n## Disconnected chamber\n\nOnly in the imaginary laboratory:\n\n2. Drain the violet chamber after sealing the inlet.\n   - Caveat: inert samples only.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a",
+            "quote": "# Synthetic operation",
+            "start": 0,
+            "end": 21
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a",
+            "quote": "## Disconnected chamber",
+            "start": 22,
+            "end": 45
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a",
+            "quote": "2. Drain the violet chamber after sealing the inlet.\n   - Caveat: inert samples only.",
+            "start": 167,
+            "end": 252
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a",
+            "quote": "Only in the imaginary laboratory:",
+            "start": 46,
+            "end": 79
+          },
+          {
+            "sourceId": "93bee5f4455982128924e92b",
+            "relativePath": "denied.md",
+            "sourceHash": "219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26",
+            "quote": "# Synthetic operation",
+            "start": 0,
+            "end": 21
+          },
+          {
+            "sourceId": "93bee5f4455982128924e92b",
+            "relativePath": "denied.md",
+            "sourceHash": "219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26",
+            "quote": "## Disconnected chamber",
+            "start": 22,
+            "end": 45
+          },
+          {
+            "sourceId": "93bee5f4455982128924e92b",
+            "relativePath": "denied.md",
+            "sourceHash": "219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26",
+            "quote": "2. Drain the violet chamber after sealing the inlet.\n   - Caveat: inert samples only.",
+            "start": 171,
+            "end": 256
+          },
+          {
+            "sourceId": "93bee5f4455982128924e92b",
+            "relativePath": "denied.md",
+            "sourceHash": "219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26",
+            "quote": "Only in the imaginary laboratory:",
+            "start": 46,
+            "end": 79
+          },
+          {
+            "sourceId": "94b72a37de2aeac46be7b559",
+            "relativePath": "procedure.md",
+            "sourceHash": "265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a",
+            "quote": "# Synthetic operation",
+            "start": 0,
+            "end": 21
+          },
+          {
+            "sourceId": "94b72a37de2aeac46be7b559",
+            "relativePath": "procedure.md",
+            "sourceHash": "265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a",
+            "quote": "## Disconnected chamber",
+            "start": 22,
+            "end": 45
+          },
+          {
+            "sourceId": "94b72a37de2aeac46be7b559",
+            "relativePath": "procedure.md",
+            "sourceHash": "265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a",
+            "quote": "2. Drain the violet chamber after sealing the inlet.\n   - Caveat: inert samples only.",
+            "start": 167,
+            "end": 252
+          },
+          {
+            "sourceId": "94b72a37de2aeac46be7b559",
+            "relativePath": "procedure.md",
+            "sourceHash": "265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a",
+            "quote": "Only in the imaginary laboratory:",
+            "start": 46,
+            "end": 79
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_fc9d29dc34b9ed918567851ff8bb279314d4c501031ad69b141c70ac5e59761f": {
+        "id": "f_fc9d29dc34b9ed918567851ff8bb279314d4c501031ad69b141c70ac5e59761f",
+        "privacy": "normal",
+        "title": "Disconnected chamber",
+        "summary": "# Synthetic operation\n## Disconnected chamber\n\nOnly in the imaginary laboratory:\n\n1. Never seal the cobalt inlet in this setup.\n   - Example: use the dummy isolation gate.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "93bee5f4455982128924e92b",
+            "relativePath": "denied.md",
+            "sourceHash": "219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26",
+            "quote": "1. Never seal the cobalt inlet in this setup.\n   - Example: use the dummy isolation gate.",
+            "start": 81,
+            "end": 170
+          },
+          {
+            "sourceId": "93bee5f4455982128924e92b",
+            "relativePath": "denied.md",
+            "sourceHash": "219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26",
+            "quote": "# Synthetic operation",
+            "start": 0,
+            "end": 21
+          },
+          {
+            "sourceId": "93bee5f4455982128924e92b",
+            "relativePath": "denied.md",
+            "sourceHash": "219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26",
+            "quote": "## Disconnected chamber",
+            "start": 22,
+            "end": 45
+          },
+          {
+            "sourceId": "93bee5f4455982128924e92b",
+            "relativePath": "denied.md",
+            "sourceHash": "219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26",
+            "quote": "Only in the imaginary laboratory:",
+            "start": 46,
+            "end": 79
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      }
+    }
+  },
+  "rendered": {
+    "f_44d90bb33753cdd133714b669069e93086f9d0aae0b9db677d35d789b36280e4": "---\nthird_brain_render: 2\naliases: [\"Disconnected chamber\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_44d90bb33753cdd133714b669069e93086f9d0aae0b9db677d35d789b36280e4\"\nprivacy: normal\ntitle: \"Disconnected chamber\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"copy.md\",\"revision\":\"265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a\",\"start\":0,\"end\":21},{\"path\":\"copy.md\",\"revision\":\"265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a\",\"start\":22,\"end\":45},{\"path\":\"copy.md\",\"revision\":\"265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a\",\"start\":81,\"end\":166},{\"path\":\"copy.md\",\"revision\":\"265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a\",\"start\":46,\"end\":79},{\"path\":\"procedure.md\",\"revision\":\"265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a\",\"start\":0,\"end\":21},{\"path\":\"procedure.md\",\"revision\":\"265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a\",\"start\":22,\"end\":45},{\"path\":\"procedure.md\",\"revision\":\"265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a\",\"start\":81,\"end\":166},{\"path\":\"procedure.md\",\"revision\":\"265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a\",\"start\":46,\"end\":79}]\n---\n\n# Disconnected chamber\n\n\\# Synthetic operation\n\\#\\# Disconnected chamber\n\nOnly in the imaginary laboratory:\n\n1. Seal the cobalt inlet before draining.\n   - Example: use the dummy isolation gate.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a; character range: 0–21\n\n> \\# Synthetic operation\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a; character range: 22–45\n\n> \\#\\# Disconnected chamber\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a; character range: 81–166\n\n> 1. Seal the cobalt inlet before draining.\n>    - Example: use the dummy isolation gate.\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a; character range: 46–79\n\n> Only in the imaginary laboratory:\n\n[Open original](<../procedure.md>) — procedure.md\n\nRevision: 265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a; character range: 0–21\n\n> \\# Synthetic operation\n\n[Open original](<../procedure.md>) — procedure.md\n\nRevision: 265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a; character range: 22–45\n\n> \\#\\# Disconnected chamber\n\n[Open original](<../procedure.md>) — procedure.md\n\nRevision: 265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a; character range: 81–166\n\n> 1. Seal the cobalt inlet before draining.\n>    - Example: use the dummy isolation gate.\n\n[Open original](<../procedure.md>) — procedure.md\n\nRevision: 265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a; character range: 46–79\n\n> Only in the imaginary laboratory:\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_e9e4313b602a21423026dca55f12a92def094e41a5b579d42071adccf2cd1152": "---\nthird_brain_render: 2\naliases: [\"Disconnected chamber\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_e9e4313b602a21423026dca55f12a92def094e41a5b579d42071adccf2cd1152\"\nprivacy: normal\ntitle: \"Disconnected chamber\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"copy.md\",\"revision\":\"265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a\",\"start\":0,\"end\":21},{\"path\":\"copy.md\",\"revision\":\"265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a\",\"start\":22,\"end\":45},{\"path\":\"copy.md\",\"revision\":\"265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a\",\"start\":167,\"end\":252},{\"path\":\"copy.md\",\"revision\":\"265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a\",\"start\":46,\"end\":79},{\"path\":\"denied.md\",\"revision\":\"219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26\",\"start\":0,\"end\":21},{\"path\":\"denied.md\",\"revision\":\"219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26\",\"start\":22,\"end\":45},{\"path\":\"denied.md\",\"revision\":\"219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26\",\"start\":171,\"end\":256},{\"path\":\"denied.md\",\"revision\":\"219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26\",\"start\":46,\"end\":79},{\"path\":\"procedure.md\",\"revision\":\"265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a\",\"start\":0,\"end\":21},{\"path\":\"procedure.md\",\"revision\":\"265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a\",\"start\":22,\"end\":45},{\"path\":\"procedure.md\",\"revision\":\"265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a\",\"start\":167,\"end\":252},{\"path\":\"procedure.md\",\"revision\":\"265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a\",\"start\":46,\"end\":79}]\n---\n\n# Disconnected chamber\n\n\\# Synthetic operation\n\\#\\# Disconnected chamber\n\nOnly in the imaginary laboratory:\n\n2. Drain the violet chamber after sealing the inlet.\n   - Caveat: inert samples only.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a; character range: 0–21\n\n> \\# Synthetic operation\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a; character range: 22–45\n\n> \\#\\# Disconnected chamber\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a; character range: 167–252\n\n> 2. Drain the violet chamber after sealing the inlet.\n>    - Caveat: inert samples only.\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a; character range: 46–79\n\n> Only in the imaginary laboratory:\n\n[Open original](<../denied.md>) — denied.md\n\nRevision: 219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26; character range: 0–21\n\n> \\# Synthetic operation\n\n[Open original](<../denied.md>) — denied.md\n\nRevision: 219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26; character range: 22–45\n\n> \\#\\# Disconnected chamber\n\n[Open original](<../denied.md>) — denied.md\n\nRevision: 219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26; character range: 171–256\n\n> 2. Drain the violet chamber after sealing the inlet.\n>    - Caveat: inert samples only.\n\n[Open original](<../denied.md>) — denied.md\n\nRevision: 219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26; character range: 46–79\n\n> Only in the imaginary laboratory:\n\n[Open original](<../procedure.md>) — procedure.md\n\nRevision: 265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a; character range: 0–21\n\n> \\# Synthetic operation\n\n[Open original](<../procedure.md>) — procedure.md\n\nRevision: 265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a; character range: 22–45\n\n> \\#\\# Disconnected chamber\n\n[Open original](<../procedure.md>) — procedure.md\n\nRevision: 265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a; character range: 167–252\n\n> 2. Drain the violet chamber after sealing the inlet.\n>    - Caveat: inert samples only.\n\n[Open original](<../procedure.md>) — procedure.md\n\nRevision: 265ab74da231dbdba36af423e9934c8e45faca616220548ba95cffe8d61f574a; character range: 46–79\n\n> Only in the imaginary laboratory:\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_fc9d29dc34b9ed918567851ff8bb279314d4c501031ad69b141c70ac5e59761f": "---\nthird_brain_render: 2\naliases: [\"Disconnected chamber\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_fc9d29dc34b9ed918567851ff8bb279314d4c501031ad69b141c70ac5e59761f\"\nprivacy: normal\ntitle: \"Disconnected chamber\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"denied.md\",\"revision\":\"219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26\",\"start\":81,\"end\":170},{\"path\":\"denied.md\",\"revision\":\"219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26\",\"start\":0,\"end\":21},{\"path\":\"denied.md\",\"revision\":\"219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26\",\"start\":22,\"end\":45},{\"path\":\"denied.md\",\"revision\":\"219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26\",\"start\":46,\"end\":79}]\n---\n\n# Disconnected chamber\n\n\\# Synthetic operation\n\\#\\# Disconnected chamber\n\nOnly in the imaginary laboratory:\n\n1. Never seal the cobalt inlet in this setup.\n   - Example: use the dummy isolation gate.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../denied.md>) — denied.md\n\nRevision: 219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26; character range: 81–170\n\n> 1. Never seal the cobalt inlet in this setup.\n>    - Example: use the dummy isolation gate.\n\n[Open original](<../denied.md>) — denied.md\n\nRevision: 219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26; character range: 0–21\n\n> \\# Synthetic operation\n\n[Open original](<../denied.md>) — denied.md\n\nRevision: 219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26; character range: 22–45\n\n> \\#\\# Disconnected chamber\n\n[Open original](<../denied.md>) — denied.md\n\nRevision: 219ef57a64707245e2300a4f7ceec40750179fb79f998dd5fb09b0e4a11f6a26; character range: 46–79\n\n> Only in the imaginary laboratory:\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n"
+  }
+}
