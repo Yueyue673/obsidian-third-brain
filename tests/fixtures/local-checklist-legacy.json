@@ -1,0 +1,409 @@
+{
+  "raw": "# Synthetic checklist\n## Disconnected bench\n\nOnly inside the isolated synthetic laboratory:\n\n- Complete both preparations before releasing the inert fixture:\n  - [x] Seal the cobalt inlet.\n    - Example: keep the dummy gate closed.\n  - [ ] Drain the violet chamber after sealing the inlet.\n    - Limitation: use only inert samples.\n  - Condition: never connect real equipment.\n- Caveat: do not restart before both preparations finish.",
+  "oldIndex": {
+    "version": 1,
+    "signature": "editorial-core-2:fbff740420d0dfc5273568b2d738a0ba0bd81ba1f92365c151974e601f29670c",
+    "updatedAt": "2026-10-18T21:25:34.700Z",
+    "sources": {
+      "checklist.md": {
+        "hash": "9f83a3ea50b59eaa3a0a79b4c555200679eb6b89840924aebff01b25b1e3921f",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_3193883600f4b364ff60b0c50cce4e0f4fa35c9e1dee1f0ee90176da115f2b88",
+          "f_a0399c4a64c48ab8bfb32eff988ab3df6748fb187653b85fb5c1c943b260009b"
+        ]
+      }
+    },
+    "fragments": {
+      "f_3193883600f4b364ff60b0c50cce4e0f4fa35c9e1dee1f0ee90176da115f2b88": {
+        "id": "f_3193883600f4b364ff60b0c50cce4e0f4fa35c9e1dee1f0ee90176da115f2b88",
+        "privacy": "normal",
+        "title": "Disconnected bench",
+        "summary": "# Synthetic checklist\n## Disconnected bench\n\nOnly inside the isolated synthetic laboratory:\n\n- Complete both preparations before releasing the inert fixture:\n  - [x] Seal the cobalt inlet.\n    - Example: keep the dummy gate closed.\n  - Condition: never connect real equipment.\n- Caveat: do not restart before both preparations finish.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "607320b352abe6fc7b30b3ab",
+            "relativePath": "checklist.md",
+            "sourceHash": "9f83a3ea50b59eaa3a0a79b4c555200679eb6b89840924aebff01b25b1e3921f",
+            "quote": "- Complete both preparations before releasing the inert fixture:",
+            "start": 93,
+            "end": 157
+          },
+          {
+            "sourceId": "607320b352abe6fc7b30b3ab",
+            "relativePath": "checklist.md",
+            "sourceHash": "9f83a3ea50b59eaa3a0a79b4c555200679eb6b89840924aebff01b25b1e3921f",
+            "quote": "  - [x] Seal the cobalt inlet.\n    - Example: keep the dummy gate closed.",
+            "start": 158,
+            "end": 231
+          },
+          {
+            "sourceId": "607320b352abe6fc7b30b3ab",
+            "relativePath": "checklist.md",
+            "sourceHash": "9f83a3ea50b59eaa3a0a79b4c555200679eb6b89840924aebff01b25b1e3921f",
+            "quote": "  - Condition: never connect real equipment.",
+            "start": 332,
+            "end": 376
+          },
+          {
+            "sourceId": "607320b352abe6fc7b30b3ab",
+            "relativePath": "checklist.md",
+            "sourceHash": "9f83a3ea50b59eaa3a0a79b4c555200679eb6b89840924aebff01b25b1e3921f",
+            "quote": "- Caveat: do not restart before both preparations finish.",
+            "start": 377,
+            "end": 434
+          },
+          {
+            "sourceId": "607320b352abe6fc7b30b3ab",
+            "relativePath": "checklist.md",
+            "sourceHash": "9f83a3ea50b59eaa3a0a79b4c555200679eb6b89840924aebff01b25b1e3921f",
+            "quote": "# Synthetic checklist",
+            "start": 0,
+            "end": 21
+          },
+          {
+            "sourceId": "607320b352abe6fc7b30b3ab",
+            "relativePath": "checklist.md",
+            "sourceHash": "9f83a3ea50b59eaa3a0a79b4c555200679eb6b89840924aebff01b25b1e3921f",
+            "quote": "## Disconnected bench",
+            "start": 22,
+            "end": 43
+          },
+          {
+            "sourceId": "607320b352abe6fc7b30b3ab",
+            "relativePath": "checklist.md",
+            "sourceHash": "9f83a3ea50b59eaa3a0a79b4c555200679eb6b89840924aebff01b25b1e3921f",
+            "quote": "Only inside the isolated synthetic laboratory:",
+            "start": 45,
+            "end": 91
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T21:25:34.700Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_a0399c4a64c48ab8bfb32eff988ab3df6748fb187653b85fb5c1c943b260009b": {
+        "id": "f_a0399c4a64c48ab8bfb32eff988ab3df6748fb187653b85fb5c1c943b260009b",
+        "privacy": "normal",
+        "title": "Disconnected bench",
+        "summary": "# Synthetic checklist\n## Disconnected bench\n\nOnly inside the isolated synthetic laboratory:\n\n- Complete both preparations before releasing the inert fixture:\n  - [ ] Drain the violet chamber after sealing the inlet.\n    - Limitation: use only inert samples.\n  - Condition: never connect real equipment.\n- Caveat: do not restart before both preparations finish.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "607320b352abe6fc7b30b3ab",
+            "relativePath": "checklist.md",
+            "sourceHash": "9f83a3ea50b59eaa3a0a79b4c555200679eb6b89840924aebff01b25b1e3921f",
+            "quote": "- Complete both preparations before releasing the inert fixture:",
+            "start": 93,
+            "end": 157
+          },
+          {
+            "sourceId": "607320b352abe6fc7b30b3ab",
+            "relativePath": "checklist.md",
+            "sourceHash": "9f83a3ea50b59eaa3a0a79b4c555200679eb6b89840924aebff01b25b1e3921f",
+            "quote": "  - [ ] Drain the violet chamber after sealing the inlet.\n    - Limitation: use only inert samples.",
+            "start": 232,
+            "end": 331
+          },
+          {
+            "sourceId": "607320b352abe6fc7b30b3ab",
+            "relativePath": "checklist.md",
+            "sourceHash": "9f83a3ea50b59eaa3a0a79b4c555200679eb6b89840924aebff01b25b1e3921f",
+            "quote": "  - Condition: never connect real equipment.",
+            "start": 332,
+            "end": 376
+          },
+          {
+            "sourceId": "607320b352abe6fc7b30b3ab",
+            "relativePath": "checklist.md",
+            "sourceHash": "9f83a3ea50b59eaa3a0a79b4c555200679eb6b89840924aebff01b25b1e3921f",
+            "quote": "- Caveat: do not restart before both preparations finish.",
+            "start": 377,
+            "end": 434
+          },
+          {
+            "sourceId": "607320b352abe6fc7b30b3ab",
+            "relativePath": "checklist.md",
+            "sourceHash": "9f83a3ea50b59eaa3a0a79b4c555200679eb6b89840924aebff01b25b1e3921f",
+            "quote": "# Synthetic checklist",
+            "start": 0,
+            "end": 21
+          },
+          {
+            "sourceId": "607320b352abe6fc7b30b3ab",
+            "relativePath": "checklist.md",
+            "sourceHash": "9f83a3ea50b59eaa3a0a79b4c555200679eb6b89840924aebff01b25b1e3921f",
+            "quote": "## Disconnected bench",
+            "start": 22,
+            "end": 43
+          },
+          {
+            "sourceId": "607320b352abe6fc7b30b3ab",
+            "relativePath": "checklist.md",
+            "sourceHash": "9f83a3ea50b59eaa3a0a79b4c555200679eb6b89840924aebff01b25b1e3921f",
+            "quote": "Only inside the isolated synthetic laboratory:",
+            "start": 45,
+            "end": 91
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T21:25:34.700Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      }
+    }
+  },
+  "signatures": {
+    "local-excerpts": "{\"version\":1,\"localExcerptPolicy\":\"ordered-nested-context-1\",\"mode\":\"local-excerpts\",\"endpoint\":\"\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "local-model": "{\"version\":1,\"mode\":\"local-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "cloud-model": "{\"version\":1,\"mode\":\"cloud-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}"
+  },
+  "requests": {
+    "local-model": [
+      {
+        "task": "extract",
+        "text": "Only inside the isolated synthetic laboratory:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected bench",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Complete both preparations before releasing the inert fixture:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected bench",
+          "before": "Only inside the isolated synthetic laboratory:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- [x] Seal the cobalt inlet.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected bench",
+          "before": "- Complete both preparations before releasing the inert fixture:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Example: keep the dummy gate closed.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected bench",
+          "before": "- [x] Seal the cobalt inlet."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- [ ] Drain the violet chamber after sealing the inlet.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected bench",
+          "before": "- Example: keep the dummy gate closed."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Limitation: use only inert samples.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected bench",
+          "before": "- [ ] Drain the violet chamber after sealing the inlet."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Condition: never connect real equipment.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected bench",
+          "before": "- Limitation: use only inert samples."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Caveat: do not restart before both preparations finish.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected bench",
+          "before": "- Condition: never connect real equipment."
+        }
+      }
+    ],
+    "cloud-model": [
+      {
+        "task": "extract",
+        "text": "Only inside the isolated synthetic laboratory:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected bench",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Complete both preparations before releasing the inert fixture:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected bench",
+          "before": "Only inside the isolated synthetic laboratory:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- [x] Seal the cobalt inlet.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected bench",
+          "before": "- Complete both preparations before releasing the inert fixture:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Example: keep the dummy gate closed.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected bench",
+          "before": "- [x] Seal the cobalt inlet."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- [ ] Drain the violet chamber after sealing the inlet.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected bench",
+          "before": "- Example: keep the dummy gate closed."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Limitation: use only inert samples.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected bench",
+          "before": "- [ ] Drain the violet chamber after sealing the inlet."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Condition: never connect real equipment.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected bench",
+          "before": "- Limitation: use only inert samples."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Caveat: do not restart before both preparations finish.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Disconnected bench",
+          "before": "- Condition: never connect real equipment."
+        }
+      }
+    ]
+  }
+}

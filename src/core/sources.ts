@@ -264,7 +264,7 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
 }
 /** A deliberately narrow local fan-out: a one-line colon parent with at least
  * two direct branches, each carrying its own explicitly labelled descendant.
- * Numbered or unqualified children stay whole. All shared-level labels and
+ * Numbered, checklist or unqualified groups stay whole. All shared-level labels and
  * root-level qualifiers accompany every branch, rather than guessing scope.
  * Run AFTER ordinary parsing/restoration so original whole-group limits and
  * structural/hidden barriers still apply before any smaller display is made.
@@ -291,6 +291,10 @@ function qualifiedListBranches(block: TextBlock): TextBlock[] {
   // Ordered children can be dependent stages, even with their own examples.
   // Keep the complete group, including mixed and repeated-number Markdown.
   if (starts.some(i => /^\s*\d+[.)]\s+/u.test(rows[i].text))) return [block];
+  // A task parent or direct task child can describe a coupled checklist. Its
+  // checked state and labelled examples do not establish independent usability.
+  // Deeper tasks remain inside their own branch; do not inspect wording.
+  if ([0,...starts].some(i => /^[ \t]*\[[ \txX]\](?:[ \t]+|$)/u.test(rows[i].content))) return [block];
   if (rows.slice(first,end).some(row => row.item ? row.indent < depth : row.text.trim() && columns(/^\s*/u.exec(row.text)![0]) <= depth)) return [block];
   const groups = starts.map((start,i) => ({ start, end:starts[i+1] ?? end, shared:context(rows[start].content) }));
   const points = groups.filter(group => !group.shared);
