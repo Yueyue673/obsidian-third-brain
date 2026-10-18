@@ -2,6 +2,16 @@
 
 ## Unreleased main — context-preserving local excerpts
 
+### Same-level conditions and caveats
+
+Local excerpts now keep immediately following same-level list items beginning with `Condition:`, `Conditions:`, `Caveat:`, `Caveats:`, `Limitation:`, `Limitations:`, `条件：`, `前提：` or `限制：` alongside the preceding root action, its descendants and labelled examples. English matching is case-insensitive and either colon is accepted. This narrowly extends the existing [list-syntax grouping rule](https://help.obsidian.md/syntax#Lists); the labels are authored structure, not Markdown semantics or model interpretation.
+
+Before the repair, new synthetic Markdown and private Canvas files passed through actual FileSources → Controller/buildIndex → OwnedStore strict reload → natural local search. Both returned one action card merged from three sources with different following restrictions. Every action quotation verified, but neither the condition nor caveat appeared on the action card. The same files now yield two complete contextual actions; the identical complete copy still shares provenance, and the independent next point remains separate. Regression tests were run on unchanged code before the production edit. Both renderer languages find the actions and invoke every original-evidence callback, with unchanged original hashes and nanosecond mtimes. These are real file operations and renderer events, not native Obsidian clicks.
+
+Numbered, loose and mixed example/condition lists retain descendants. Leading standalone labels, embedded label text and ordinary titles are not attached; independent prose, headings, hidden/code boundaries and separate Canvas nodes end the group. Long restrictions are never re-split, and the unchanged **16,384 UTF-16 code-unit** combined-context and **256-quotation** limits include them. Actual-store tests reload 256 quotations, refuse 257 before commit, retain prior bytes and recover after a controlled input repair. Restriction-only changes or exclusions of any merged donor refuse every old-card original action. Frozen prior local output upgrades once and then refreshes byte-idempotently; cancellation/no commit/retry and human-owned/edited generated files remain protected.
+
+Only local-excerpt generation is invalidated. Offline primary/background request captures and generation signatures are exactly unchanged in both AI modes. There are zero genuine model calls; the fixture responses are explicitly synthetic and not semantic-graded. Unlabelled, preceding, nonadjacent or differently formatted restrictions and implied references remain unresolved. This is conservative structural retention, not proof that each fragment is a semantically complete atomic idea. Download 0.3.7 is unchanged.
+
 ### Canvas fixture acceptance
 
 The previous main commit's CI failed the same long-Canvas test at the unchanged 20-second deadline twice on Windows/Node 22; the other three jobs passed. A bounded replay on unchanged production code localized the cost to opening every evidence entry: 80 identical filler rows created 82 entries representing only three distinct proofs, and the open loop performed 328 generated-layer checks. This is a test workload diagnosis, not evidence of slow indexing or a plugin performance repair.

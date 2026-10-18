@@ -1,0 +1,676 @@
+{
+  "sourceCommit": "64c8de63319c8632a29c7b30cd10d7c173536c63",
+  "synthetic": true,
+  "semanticGraded": false,
+  "heading": "# Synthetic calibration",
+  "lead": "For the disconnected synthetic demonstration:",
+  "action": "- Rotate the synthetic amber calibration ring.",
+  "condition": "- Condition: the synthetic motor must be disconnected.",
+  "caveat": "- Caveat: never apply this step to the connected production rig.",
+  "other": "- Record the independent synthetic cobalt reference.",
+  "raws": {
+    "a.md": "# Synthetic calibration\n\nFor the disconnected synthetic demonstration:\n\n- Rotate the synthetic amber calibration ring.\n- Condition: the synthetic motor must be disconnected.\n  - Verify the synthetic cable is isolated.\n- Caveat: never apply this step to the connected production rig.\n- Example: the offline synthetic bench.\n- Record the independent synthetic cobalt reference.",
+    "b.md": "# Synthetic calibration\n\nFor the disconnected synthetic demonstration:\n\n- Rotate the synthetic amber calibration ring.\n- Condition: only the sealed synthetic simulator permits this step.\n  - Verify the synthetic cable is isolated.\n- Caveat: never use this step on the open synthetic bench.\n- Example: the offline synthetic bench.\n- Record the independent synthetic cobalt reference.",
+    "copy.md": "# Synthetic calibration\n\nFor the disconnected synthetic demonstration:\n\n- Rotate the synthetic amber calibration ring.\n- Condition: the synthetic motor must be disconnected.\n  - Verify the synthetic cable is isolated.\n- Caveat: never apply this step to the connected production rig.\n- Example: the offline synthetic bench.\n- Record the independent synthetic cobalt reference."
+  },
+  "old": {
+    "version": 1,
+    "signature": "editorial-core-2:02a6282e9845509de5016bd386a15e4faf141aa28724d56916e22bd10c4efc4c",
+    "updatedAt": "2026-01-01T00:00:00.000Z",
+    "sources": {
+      "a.md": {
+        "hash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_18f050eef00df9c040a246601d05ba9941017327567e2b3deed4780087e0e11e",
+          "f_2ffd00cfe203d566ff5b7a8bdbb0509e86af9ff0c5d3918b387e4cbdb9c84fb3",
+          "f_bbcb55ad66b83a45b25f9d65797e97dfc19584bf19509a7249fc63539d8fdf08",
+          "f_c5c8658124eb31a6cff7c48d09048b0351ce265be7ec4fdc18270c90585af968"
+        ]
+      },
+      "b.md": {
+        "hash": "3d7f94618b61d6ea09bb47d5c29d33c92988885f6eb13ba21c29747e76a0ac08",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_18f050eef00df9c040a246601d05ba9941017327567e2b3deed4780087e0e11e",
+          "f_aeac07e9d421c22ec6a35b474f25a1c298931420783685e3f1844b70ba324aac",
+          "f_b246f1303557c267805427a87ed34937003fb82f3c76562a0255505624bf80e8",
+          "f_c5c8658124eb31a6cff7c48d09048b0351ce265be7ec4fdc18270c90585af968"
+        ]
+      },
+      "copy.md": {
+        "hash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_18f050eef00df9c040a246601d05ba9941017327567e2b3deed4780087e0e11e",
+          "f_2ffd00cfe203d566ff5b7a8bdbb0509e86af9ff0c5d3918b387e4cbdb9c84fb3",
+          "f_bbcb55ad66b83a45b25f9d65797e97dfc19584bf19509a7249fc63539d8fdf08",
+          "f_c5c8658124eb31a6cff7c48d09048b0351ce265be7ec4fdc18270c90585af968"
+        ]
+      }
+    },
+    "fragments": {
+      "f_18f050eef00df9c040a246601d05ba9941017327567e2b3deed4780087e0e11e": {
+        "id": "f_18f050eef00df9c040a246601d05ba9941017327567e2b3deed4780087e0e11e",
+        "privacy": "normal",
+        "title": "Synthetic calibration",
+        "summary": "# Synthetic calibration\n\nFor the disconnected synthetic demonstration:\n\n- Record the independent synthetic cobalt reference.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "- Record the independent synthetic cobalt reference.",
+            "start": 323,
+            "end": 375
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "For the disconnected synthetic demonstration:",
+            "start": 25,
+            "end": 70
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "3d7f94618b61d6ea09bb47d5c29d33c92988885f6eb13ba21c29747e76a0ac08",
+            "quote": "- Record the independent synthetic cobalt reference.",
+            "start": 330,
+            "end": 382
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "3d7f94618b61d6ea09bb47d5c29d33c92988885f6eb13ba21c29747e76a0ac08",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "3d7f94618b61d6ea09bb47d5c29d33c92988885f6eb13ba21c29747e76a0ac08",
+            "quote": "For the disconnected synthetic demonstration:",
+            "start": 25,
+            "end": 70
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "- Record the independent synthetic cobalt reference.",
+            "start": 323,
+            "end": 375
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "For the disconnected synthetic demonstration:",
+            "start": 25,
+            "end": 70
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_2ffd00cfe203d566ff5b7a8bdbb0509e86af9ff0c5d3918b387e4cbdb9c84fb3": {
+        "id": "f_2ffd00cfe203d566ff5b7a8bdbb0509e86af9ff0c5d3918b387e4cbdb9c84fb3",
+        "privacy": "normal",
+        "title": "Synthetic calibration",
+        "summary": "# Synthetic calibration\n\nFor the disconnected synthetic demonstration:\n\n- Condition: the synthetic motor must be disconnected.\n  - Verify the synthetic cable is isolated.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "- Condition: the synthetic motor must be disconnected.\n  - Verify the synthetic cable is isolated.",
+            "start": 119,
+            "end": 217
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "For the disconnected synthetic demonstration:",
+            "start": 25,
+            "end": 70
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "- Condition: the synthetic motor must be disconnected.\n  - Verify the synthetic cable is isolated.",
+            "start": 119,
+            "end": 217
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "For the disconnected synthetic demonstration:",
+            "start": 25,
+            "end": 70
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_aeac07e9d421c22ec6a35b474f25a1c298931420783685e3f1844b70ba324aac": {
+        "id": "f_aeac07e9d421c22ec6a35b474f25a1c298931420783685e3f1844b70ba324aac",
+        "privacy": "normal",
+        "title": "Synthetic calibration",
+        "summary": "# Synthetic calibration\n\nFor the disconnected synthetic demonstration:\n\n- Condition: only the sealed synthetic simulator permits this step.\n  - Verify the synthetic cable is isolated.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "3d7f94618b61d6ea09bb47d5c29d33c92988885f6eb13ba21c29747e76a0ac08",
+            "quote": "- Condition: only the sealed synthetic simulator permits this step.\n  - Verify the synthetic cable is isolated.",
+            "start": 119,
+            "end": 230
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "3d7f94618b61d6ea09bb47d5c29d33c92988885f6eb13ba21c29747e76a0ac08",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "3d7f94618b61d6ea09bb47d5c29d33c92988885f6eb13ba21c29747e76a0ac08",
+            "quote": "For the disconnected synthetic demonstration:",
+            "start": 25,
+            "end": 70
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_b246f1303557c267805427a87ed34937003fb82f3c76562a0255505624bf80e8": {
+        "id": "f_b246f1303557c267805427a87ed34937003fb82f3c76562a0255505624bf80e8",
+        "privacy": "normal",
+        "title": "Synthetic calibration",
+        "summary": "# Synthetic calibration\n\nFor the disconnected synthetic demonstration:\n\n- Caveat: never use this step on the open synthetic bench.\n- Example: the offline synthetic bench.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "3d7f94618b61d6ea09bb47d5c29d33c92988885f6eb13ba21c29747e76a0ac08",
+            "quote": "- Caveat: never use this step on the open synthetic bench.\n- Example: the offline synthetic bench.",
+            "start": 231,
+            "end": 329
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "3d7f94618b61d6ea09bb47d5c29d33c92988885f6eb13ba21c29747e76a0ac08",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "3d7f94618b61d6ea09bb47d5c29d33c92988885f6eb13ba21c29747e76a0ac08",
+            "quote": "For the disconnected synthetic demonstration:",
+            "start": 25,
+            "end": 70
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_bbcb55ad66b83a45b25f9d65797e97dfc19584bf19509a7249fc63539d8fdf08": {
+        "id": "f_bbcb55ad66b83a45b25f9d65797e97dfc19584bf19509a7249fc63539d8fdf08",
+        "privacy": "normal",
+        "title": "Synthetic calibration",
+        "summary": "# Synthetic calibration\n\nFor the disconnected synthetic demonstration:\n\n- Caveat: never apply this step to the connected production rig.\n- Example: the offline synthetic bench.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "- Caveat: never apply this step to the connected production rig.\n- Example: the offline synthetic bench.",
+            "start": 218,
+            "end": 322
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "For the disconnected synthetic demonstration:",
+            "start": 25,
+            "end": 70
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "- Caveat: never apply this step to the connected production rig.\n- Example: the offline synthetic bench.",
+            "start": 218,
+            "end": 322
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "For the disconnected synthetic demonstration:",
+            "start": 25,
+            "end": 70
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_c5c8658124eb31a6cff7c48d09048b0351ce265be7ec4fdc18270c90585af968": {
+        "id": "f_c5c8658124eb31a6cff7c48d09048b0351ce265be7ec4fdc18270c90585af968",
+        "privacy": "normal",
+        "title": "Synthetic calibration",
+        "summary": "# Synthetic calibration\n\nFor the disconnected synthetic demonstration:\n\n- Rotate the synthetic amber calibration ring.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "- Rotate the synthetic amber calibration ring.",
+            "start": 72,
+            "end": 118
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "For the disconnected synthetic demonstration:",
+            "start": 25,
+            "end": 70
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "3d7f94618b61d6ea09bb47d5c29d33c92988885f6eb13ba21c29747e76a0ac08",
+            "quote": "- Rotate the synthetic amber calibration ring.",
+            "start": 72,
+            "end": 118
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "3d7f94618b61d6ea09bb47d5c29d33c92988885f6eb13ba21c29747e76a0ac08",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "3d7f94618b61d6ea09bb47d5c29d33c92988885f6eb13ba21c29747e76a0ac08",
+            "quote": "For the disconnected synthetic demonstration:",
+            "start": 25,
+            "end": 70
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "- Rotate the synthetic amber calibration ring.",
+            "start": 72,
+            "end": 118
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "f70399ee0a7ae8121503fb8aae196f84c31613a9b84c6e862ace891c28f8d1ea",
+            "quote": "For the disconnected synthetic demonstration:",
+            "start": 25,
+            "end": 70
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      }
+    }
+  },
+  "signatures": {
+    "local-excerpts": "{\"version\":1,\"localExcerptPolicy\":\"list-sibling-examples-1\",\"mode\":\"local-excerpts\",\"endpoint\":\"\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "local-model": "{\"version\":1,\"mode\":\"local-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "cloud-model": "{\"version\":1,\"mode\":\"cloud-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}"
+  },
+  "requests": {
+    "local-model": [
+      {
+        "task": "extract",
+        "text": "For the disconnected synthetic demonstration:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Rotate the synthetic amber calibration ring.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": "For the disconnected synthetic demonstration:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Condition: the synthetic motor must be disconnected.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": "- Rotate the synthetic amber calibration ring."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Verify the synthetic cable is isolated.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": "- Condition: the synthetic motor must be disconnected."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Caveat: never apply this step to the connected production rig.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": "- Verify the synthetic cable is isolated."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Example: the offline synthetic bench.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": "- Caveat: never apply this step to the connected production rig."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Record the independent synthetic cobalt reference.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": "- Example: the offline synthetic bench."
+        }
+      }
+    ],
+    "cloud-model": [
+      {
+        "task": "extract",
+        "text": "For the disconnected synthetic demonstration:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Rotate the synthetic amber calibration ring.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": "For the disconnected synthetic demonstration:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Condition: the synthetic motor must be disconnected.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": "- Rotate the synthetic amber calibration ring."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Verify the synthetic cable is isolated.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": "- Condition: the synthetic motor must be disconnected."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Caveat: never apply this step to the connected production rig.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": "- Verify the synthetic cable is isolated."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Example: the offline synthetic bench.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": "- Caveat: never apply this step to the connected production rig."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Record the independent synthetic cobalt reference.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": "- Example: the offline synthetic bench."
+        }
+      }
+    ]
+  }
+}
