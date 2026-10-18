@@ -1,0 +1,597 @@
+{
+  "synthetic": true,
+  "heading": "# Synthetic calibration",
+  "lead": "Only in disconnected synthetic test rigs:",
+  "action": "- Rotate the amber calibration ring.",
+  "example": "- Example: the sealed copper sandbox.",
+  "counter": "- Counterexample: a connected production rig is forbidden.",
+  "other": "- Record the independent blue temperature reading.",
+  "raws": {
+    "a.md": "# Synthetic calibration\nOnly in disconnected synthetic test rigs:\n\n- Rotate the amber calibration ring.\n- Example: the sealed copper sandbox.\n- Counterexample: a connected production rig is forbidden.\n- Record the independent blue temperature reading.",
+    "b.md": "# Synthetic calibration\nOnly in disconnected synthetic test rigs:\n\n- Rotate the amber calibration ring.\n- Example: the sealed copper sandbox.\n- Counterexample: a rig with a live power cable is forbidden.\n- Record the independent blue temperature reading.",
+    "copy.md": "# Synthetic calibration\nOnly in disconnected synthetic test rigs:\n\n- Rotate the amber calibration ring.\n- Example: the sealed copper sandbox.\n- Counterexample: a connected production rig is forbidden.\n- Record the independent blue temperature reading."
+  },
+  "old": {
+    "version": 1,
+    "signature": "editorial-core-2:0ffa2e429e0cd449dea5225a930fdda0ccac7111de41124e6684dd4877a007b0",
+    "updatedAt": "2026-10-18T18:29:17.171Z",
+    "sources": {
+      "a.md": {
+        "hash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_50b2739ca9c1924787b45316f633c60bfcc1748e0157d3232e7e0cda9a094744",
+          "f_6bfb7dd9b8353905063c7d0c737f917dcf327fe1bd6328de0371072b4077b7de",
+          "f_b82142c36f048789ed9e9a1c2a2e7e4a5202c821ac1729014960aa8611e18962",
+          "f_c6dfa299b5ac8cd501772624360d111509ef9722244833bd11e6d11ff3cf9c28"
+        ]
+      },
+      "b.md": {
+        "hash": "b3119e625d4c6bf8621b1d1d524ac889b004e6f56bb85c376a1fd314f5da2a3f",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_50b2739ca9c1924787b45316f633c60bfcc1748e0157d3232e7e0cda9a094744",
+          "f_6bfb7dd9b8353905063c7d0c737f917dcf327fe1bd6328de0371072b4077b7de",
+          "f_ab62618b80ea7a1c54ecead8f9d478ca47587475a3684b6ada39d972c98d1867",
+          "f_c6dfa299b5ac8cd501772624360d111509ef9722244833bd11e6d11ff3cf9c28"
+        ]
+      },
+      "copy.md": {
+        "hash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_50b2739ca9c1924787b45316f633c60bfcc1748e0157d3232e7e0cda9a094744",
+          "f_6bfb7dd9b8353905063c7d0c737f917dcf327fe1bd6328de0371072b4077b7de",
+          "f_b82142c36f048789ed9e9a1c2a2e7e4a5202c821ac1729014960aa8611e18962",
+          "f_c6dfa299b5ac8cd501772624360d111509ef9722244833bd11e6d11ff3cf9c28"
+        ]
+      }
+    },
+    "fragments": {
+      "f_50b2739ca9c1924787b45316f633c60bfcc1748e0157d3232e7e0cda9a094744": {
+        "id": "f_50b2739ca9c1924787b45316f633c60bfcc1748e0157d3232e7e0cda9a094744",
+        "privacy": "normal",
+        "title": "Synthetic calibration",
+        "summary": "# Synthetic calibration\n\nOnly in disconnected synthetic test rigs:\n\n- Rotate the amber calibration ring.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "- Rotate the amber calibration ring.",
+            "start": 67,
+            "end": 103
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "Only in disconnected synthetic test rigs:",
+            "start": 24,
+            "end": 65
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b3119e625d4c6bf8621b1d1d524ac889b004e6f56bb85c376a1fd314f5da2a3f",
+            "quote": "- Rotate the amber calibration ring.",
+            "start": 67,
+            "end": 103
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b3119e625d4c6bf8621b1d1d524ac889b004e6f56bb85c376a1fd314f5da2a3f",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b3119e625d4c6bf8621b1d1d524ac889b004e6f56bb85c376a1fd314f5da2a3f",
+            "quote": "Only in disconnected synthetic test rigs:",
+            "start": 24,
+            "end": 65
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "- Rotate the amber calibration ring.",
+            "start": 67,
+            "end": 103
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "Only in disconnected synthetic test rigs:",
+            "start": 24,
+            "end": 65
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T18:29:17.171Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_6bfb7dd9b8353905063c7d0c737f917dcf327fe1bd6328de0371072b4077b7de": {
+        "id": "f_6bfb7dd9b8353905063c7d0c737f917dcf327fe1bd6328de0371072b4077b7de",
+        "privacy": "normal",
+        "title": "Synthetic calibration",
+        "summary": "# Synthetic calibration\n\nOnly in disconnected synthetic test rigs:\n\n- Record the independent blue temperature reading.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "- Record the independent blue temperature reading.",
+            "start": 201,
+            "end": 251
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "Only in disconnected synthetic test rigs:",
+            "start": 24,
+            "end": 65
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b3119e625d4c6bf8621b1d1d524ac889b004e6f56bb85c376a1fd314f5da2a3f",
+            "quote": "- Record the independent blue temperature reading.",
+            "start": 204,
+            "end": 254
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b3119e625d4c6bf8621b1d1d524ac889b004e6f56bb85c376a1fd314f5da2a3f",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b3119e625d4c6bf8621b1d1d524ac889b004e6f56bb85c376a1fd314f5da2a3f",
+            "quote": "Only in disconnected synthetic test rigs:",
+            "start": 24,
+            "end": 65
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "- Record the independent blue temperature reading.",
+            "start": 201,
+            "end": 251
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "Only in disconnected synthetic test rigs:",
+            "start": 24,
+            "end": 65
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T18:29:17.171Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_ab62618b80ea7a1c54ecead8f9d478ca47587475a3684b6ada39d972c98d1867": {
+        "id": "f_ab62618b80ea7a1c54ecead8f9d478ca47587475a3684b6ada39d972c98d1867",
+        "privacy": "normal",
+        "title": "Synthetic calibration",
+        "summary": "# Synthetic calibration\n\nOnly in disconnected synthetic test rigs:\n\n- Counterexample: a rig with a live power cable is forbidden.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b3119e625d4c6bf8621b1d1d524ac889b004e6f56bb85c376a1fd314f5da2a3f",
+            "quote": "- Counterexample: a rig with a live power cable is forbidden.",
+            "start": 142,
+            "end": 203
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b3119e625d4c6bf8621b1d1d524ac889b004e6f56bb85c376a1fd314f5da2a3f",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b3119e625d4c6bf8621b1d1d524ac889b004e6f56bb85c376a1fd314f5da2a3f",
+            "quote": "Only in disconnected synthetic test rigs:",
+            "start": 24,
+            "end": 65
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T18:29:17.171Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_b82142c36f048789ed9e9a1c2a2e7e4a5202c821ac1729014960aa8611e18962": {
+        "id": "f_b82142c36f048789ed9e9a1c2a2e7e4a5202c821ac1729014960aa8611e18962",
+        "privacy": "normal",
+        "title": "Synthetic calibration",
+        "summary": "# Synthetic calibration\n\nOnly in disconnected synthetic test rigs:\n\n- Counterexample: a connected production rig is forbidden.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "- Counterexample: a connected production rig is forbidden.",
+            "start": 142,
+            "end": 200
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "Only in disconnected synthetic test rigs:",
+            "start": 24,
+            "end": 65
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "- Counterexample: a connected production rig is forbidden.",
+            "start": 142,
+            "end": 200
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "Only in disconnected synthetic test rigs:",
+            "start": 24,
+            "end": 65
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T18:29:17.171Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_c6dfa299b5ac8cd501772624360d111509ef9722244833bd11e6d11ff3cf9c28": {
+        "id": "f_c6dfa299b5ac8cd501772624360d111509ef9722244833bd11e6d11ff3cf9c28",
+        "privacy": "normal",
+        "title": "Synthetic calibration",
+        "summary": "# Synthetic calibration\n\nOnly in disconnected synthetic test rigs:\n\n- Example: the sealed copper sandbox.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "- Example: the sealed copper sandbox.",
+            "start": 104,
+            "end": 141
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "Only in disconnected synthetic test rigs:",
+            "start": 24,
+            "end": 65
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b3119e625d4c6bf8621b1d1d524ac889b004e6f56bb85c376a1fd314f5da2a3f",
+            "quote": "- Example: the sealed copper sandbox.",
+            "start": 104,
+            "end": 141
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b3119e625d4c6bf8621b1d1d524ac889b004e6f56bb85c376a1fd314f5da2a3f",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b3119e625d4c6bf8621b1d1d524ac889b004e6f56bb85c376a1fd314f5da2a3f",
+            "quote": "Only in disconnected synthetic test rigs:",
+            "start": 24,
+            "end": 65
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "- Example: the sealed copper sandbox.",
+            "start": 104,
+            "end": 141
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "# Synthetic calibration",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "1196e346e7047af171bba516d5aa70a8aa0e3bc2a685a612a63b704bb0b2de63",
+            "quote": "Only in disconnected synthetic test rigs:",
+            "start": 24,
+            "end": 65
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T18:29:17.171Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      }
+    }
+  },
+  "requests": {
+    "local-model": [
+      {
+        "task": "extract",
+        "text": "Only in disconnected synthetic test rigs:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Rotate the amber calibration ring.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": "Only in disconnected synthetic test rigs:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Example: the sealed copper sandbox.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": "- Rotate the amber calibration ring."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Counterexample: a connected production rig is forbidden.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": "- Example: the sealed copper sandbox."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Record the independent blue temperature reading.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": "- Counterexample: a connected production rig is forbidden."
+        }
+      }
+    ],
+    "cloud-model": [
+      {
+        "task": "extract",
+        "text": "Only in disconnected synthetic test rigs:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Rotate the amber calibration ring.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": "Only in disconnected synthetic test rigs:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Example: the sealed copper sandbox.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": "- Rotate the amber calibration ring."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Counterexample: a connected production rig is forbidden.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": "- Example: the sealed copper sandbox."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Record the independent blue temperature reading.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic calibration",
+          "before": "- Counterexample: a connected production rig is forbidden."
+        }
+      }
+    ]
+  },
+  "signatures": {
+    "local-excerpts": "{\"version\":1,\"localExcerptPolicy\":\"list-introduction-context-1\",\"mode\":\"local-excerpts\",\"endpoint\":\"\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "local-model": "{\"version\":1,\"mode\":\"local-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "cloud-model": "{\"version\":1,\"mode\":\"cloud-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}"
+  }
+}

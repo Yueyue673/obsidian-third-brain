@@ -57,6 +57,8 @@ Open a Markdown note. **Use current note** fills the idea box with the selected 
 
 Unreleased local builds also keep an immediately preceding paragraph ending in `:` or `：` with every root item of its list. Blank lines are allowed; intervening prose, headings, code/hidden boundaries and Canvas nodes end that scope. This preserves explicit introductions, not implied conditions from arbitrary earlier text. The introduction shares the same size/quotation bounds and has its own exact source evidence; AI processing and download 0.3.7 are unchanged.
 
+These builds also retain immediately following, same-indent list items explicitly labelled `Example:`, `Examples:`, `Counterexample:`, `Counterexamples:`, `例子：`, `示例：` or `反例：` with the preceding point, including their descendants. Unlabelled next points remain separate. This preserves literal adjacent example context, not implied references or all Markdown formatting; the same size/evidence bounds apply. AI processing and download 0.3.7 are unchanged.
+
 While the idea box is focused, **Enter** adds a new line; **Ctrl + Enter** (**Command + Enter** on Mac) runs **Find connections**. Unreleased source builds show this hint below the box and associate it with the input for assistive technology; the 0.3.7 download has the shortcut but not the hint.
 
 ## Explore the results
@@ -159,6 +161,8 @@ Get-FileHash .\third-brain-0.3.7.zip -Algorithm SHA256
 打开一篇 Markdown 笔记，点「使用当前笔记」，会把选中的文字填入想法输入框；没有选区时使用当前草稿，不会立即搜索。检查内容后，再点「寻找关联」。长笔记可以先选一段。插件不会持续监控输入，也不会自动写入原笔记。
 
 尚未发布的本地构建也会把紧邻列表、以 `:` 或 `：` 结尾的完整前导段落带到每个顶层条目里，中间允许空行。普通正文、新标题、代码／隐藏内容边界和 Canvas 节点会结束这段语境；不会猜测更早文字里的隐含条件。前导段落有自己的精确出处，并计入相同的长度和引文上限；AI 处理与下载版 0.3.7 不变。
+
+这些构建也会把紧跟一个要点、同级且明确以「例子：」「示例：」「反例：」或英文 `Example:`／`Examples:`／`Counterexample:`／`Counterexamples:` 开头的列表项及其子项一并保留。后面没有这些标记的新要点仍单独成片。这只保留相邻、明确标记的例子语境，不推断隐含指代或覆盖所有 Markdown 格式；长度／引文上限、AI 处理和下载版 0.3.7 不变。
 
 焦点在想法输入框内时，**Enter** 换行；**Ctrl + Enter**（Mac 上为 **Command + Enter**）寻找关联。尚未发布的源码版本会在框下显示这条提示，并将它关联为输入框的无障碍说明；0.3.7 下载包已有快捷键，尚不包含提示。
 

@@ -94,7 +94,7 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
   const meta = frontmatter(raw), blocks: TextBlock[] = [];
   const ancestors: { depth: number; block: MappedText }[] = [];
   let heading = '', start = -1, end = -1, fence = '', fenceLength = 0, hidden = '', drawing = false;
-  let listIndent = -1, contentIndent = -1, blockedIndent = -1, blockedContentIndent = -1, blank = false;
+  let listIndent = -1, contentIndent = -1, blockedIndent = -1, blockedContentIndent = -1, blank = false, rootIsExample = false;
   let introduction: { block: TextBlock; end: number } | undefined, listLeadIn: MappedText | undefined;
   const columns = (text: string) => { let width = 0; for (const char of text) width += char === '\t' ? 4 - width % 4 : 1; return width; };
   const clearBlocked = () => { blockedIndent = blockedContentIndent = -1; };
@@ -115,7 +115,7 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
         if (local && listIndent < 0) introduction = /[:：]$/u.test(trimmed) ? { block,end } : undefined;
       }
     }
-    start = end = -1; listIndent = contentIndent = -1;
+    start = end = -1; listIndent = contentIndent = -1; rootIsExample = false;
   };
   const linePattern = /[^\r\n]+(?:\r\n|\r|\n|$)|(?:\r\n|\r|\n)/gu;
   for (const hit of raw.slice(meta.body).matchAll(linePattern)) {
@@ -175,7 +175,13 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
           flush();
         }
         clearBlocked();
-        if (listIndent < 0 || indent <= listIndent) {
+        // An explicit following example label is context for the preceding root,
+        // not a new unqualified idea. Keep its exact text and descendants too.
+        // Do not infer labels inside prose or attach a leading standalone label.
+        const example = /^(?:examples?|counterexamples?|例子|示例|反例)[ \t]*[:：]/iu.test(line.slice(item[0].length));
+        if (listIndent >= 0 && indent === listIndent && !rootIsExample && example) {
+          contentIndent = columns(item[0]);
+        } else if (listIndent < 0 || indent <= listIndent) {
           const continuing = listIndent >= 0;
           flush();
           if (!continuing) {
@@ -189,7 +195,7 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
             }
             introduction = undefined;
           }
-          listIndent = indent; contentIndent = columns(item[0]);
+          listIndent = indent; contentIndent = columns(item[0]); rootIsExample = example;
         }
       }
     } else if (item && start >= 0) flush();
