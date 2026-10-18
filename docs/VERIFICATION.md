@@ -2,6 +2,12 @@
 
 ## Unreleased main — context-preserving local excerpts
 
+### Canvas fixture acceptance
+
+The previous main commit's CI failed the same long-Canvas test at the unchanged 20-second deadline twice on Windows/Node 22; the other three jobs passed. A bounded replay on unchanged production code localized the cost to opening every evidence entry: 80 identical filler rows created 82 entries representing only three distinct proofs, and the open loop performed 328 generated-layer checks. This is a test workload diagnosis, not evidence of slow indexing or a plugin performance repair.
+
+The length fixture now uses a long nested item containing a JSON-escaped double quote plus its parent restriction and final action. It still exceeds 1,400 UTF-16 code units, strictly reloads from the real store, searches, opens **every** returned quotation and refreshes byte-idempotently. New assertions check the complete summary, an actual decoded `-1/-1` quotation and unchanged original bytes. A local Windows/Node 22 focused run completes this case in 639 ms. Separate unchanged tests still store 256 quotations, refuse 257 before commit, retain the previous bytes and recover. No timeout, skip, runtime guard, evidence limit, AI policy or released asset was changed; this does not certify native clicks, general performance or semantic quality.
+
 ### Same-level labelled examples
 
 Finding an action now also retains immediately following list items at the same indentation whose text starts with `Example:`, `Examples:`, `Counterexample:`, `Counterexamples:`, `例子：`, `示例：` or `反例：` (English is case-insensitive; either colon is accepted). Their descendants stay with them, including in numbered and loose lists. This supplements the [documented list syntax](https://help.obsidian.md/syntax#Lists) with a bounded local-excerpt grouping rule; these labels are not a Markdown semantic guarantee. An unlabelled next point starts its own excerpt. A leading standalone example is not attached backwards, and labels embedded inside sentences or ordinary titles are not treated as markers. Intervening prose, headings, code/hidden boundaries and separate Canvas nodes end attachment.

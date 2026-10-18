@@ -85,10 +85,16 @@ it('actual OwnedStore legacy → candidate → strict reload → byte-idempotent
  await fs.writeFile(path.join(scope,'upgrade-receipt.json'),JSON.stringify({legacySignature:old.signature,candidateSignature:next.signature,oldChildRetired:!next.fragments[oldChild.id],strictReload:true,secondRefreshByteIdentical:true,sourceHash:hash(raw),modelRequests,render,root},null,2));controller.dispose();});
 it('long decoded Canvas groups survive actual storage, cached refresh and precise open validation',async()=>{
  const scope=path.resolve('.local/local-list-context');await fs.mkdir(scope,{recursive:true});const root=await fs.mkdtemp(path.join(scope,'canvas-'));
- const body=`---\nprivacy: private\n---\n- ${cn}\n`+'  - 合成观察只适用于断开连接的模拟器。\n'.repeat(80)+`  - ${child}`;
- await fs.writeFile(path.join(root,'notes.canvas'),JSON.stringify({nodes:[{type:'text',text:body},{type:'text',text:'白色独立节点不属于前面的列表。'}],edges:[]}));
+ // Test length independently of evidence fan-out. Eighty identical list rows
+ // produced 82 entries (only three distinct proofs) and 82 complete live opens.
+ // The unchanged 256/257-entry store test covers high evidence cardinality.
+ // A literal double quote forces decoded (-1/-1) Canvas evidence below.
+ const body=`---\nprivacy: private\n---\n- ${cn}\n  - 合成记录标为 "amber"；`+'合成观察只适用于断开连接的模拟器。'.repeat(80)+`\n  - ${child}`;
+ const raw=JSON.stringify({nodes:[{type:'text',text:body},{type:'text',text:'白色独立节点不属于前面的列表。'}],edges:[]});
+ await fs.writeFile(path.join(root,'notes.canvas'),raw);
  const settings={...defaults,outputFolder:'Derived',excludes:[]};const store=new OwnedStore(root,'Derived'),sources=new FileSources(root,()=>settings,()=>store.managedSourcePaths());const c=new ThirdBrainController(sources,store,()=>settings,()=>undefined,async()=>{});await c.initialize();await c.refresh();const loaded=(await store.load())!;
  const f=Object.values(loaded.fragments).find(f=>f.summary.includes(child))!;expect(f.summary.length).toBeGreaterThan(1400);expect(f.summary).toContain(cn);expect(f.summary).not.toContain('白色');expect(f.privacy).toBe('private');
+ expect(f.summary).toBe(body.slice(body.indexOf(`- ${cn}`)));expect(f.evidence).toHaveLength(3);expect(f.evidence.some(e=>e.start===-1&&e.end===-1)).toBe(true);
  const results=await c.find('紫铜阀门','medium');const found=results.find(r=>r.fragment.id===f.id)!;expect(found).toBeDefined();for(const e of found.fragment.evidence)await c.verifyOpen(e);
- const state=path.join(root,'Derived/.third-brain/state.json'),bytes=await fs.readFile(state);await c.initialize();await c.refresh();expect(await fs.readFile(state)).toEqual(bytes);await fs.writeFile(path.join(scope,'canvas-receipt.json'),JSON.stringify({summaryLength:f.summary.length,evidenceCount:f.evidence.length,private:true,strictReload:true,openVerified:true,byteIdempotent:true},null,2));c.dispose();
+ const state=path.join(root,'Derived/.third-brain/state.json'),bytes=await fs.readFile(state);await c.initialize();await c.refresh();expect(await fs.readFile(state)).toEqual(bytes);expect(hash(await fs.readFile(path.join(root,'notes.canvas')))).toBe(hash(raw));await fs.writeFile(path.join(scope,'canvas-receipt.json'),JSON.stringify({summaryLength:f.summary.length,evidenceCount:f.evidence.length,private:true,strictReload:true,openVerified:true,byteIdempotent:true},null,2));c.dispose();
 });
