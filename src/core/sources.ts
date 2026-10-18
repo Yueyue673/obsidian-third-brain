@@ -99,7 +99,7 @@ function introducesList(text: string): boolean {
   while (lines.length && /^(?: {0,3}>[ \t]*)+$/u.test(lines.at(-1)!)) lines.pop();
   return /[:：]$/u.test(lines.at(-1)?.trimEnd() ?? '');
 }
-function markdownBlocks(raw: string, base: number, excalidraw = false, local = false, sourcePath = '', includeHeadings = false): TextBlock[] {
+function markdownBlocks(raw: string, base: number, excalidraw = false, local = false, sourcePath = '', includeHeadings = false, quotedLists = true): TextBlock[] {
   const meta = frontmatter(raw), blocks: TextBlock[] = [];
   const ancestors: { depth: number; block: MappedText }[] = [];
   let heading = '', start = -1, end = -1, fence = '', fenceLength = 0, hidden = '', drawing = false;
@@ -127,8 +127,10 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
     start = end = -1; listIndent = contentIndent = -1; rootIsContext = false;
   };
   const linePattern = /[^\r\n]+(?:\r\n|\r|\n|$)|(?:\r\n|\r|\n)/gu;
+  let quotedThrough = -1, quoteScannedThrough = -1;
   for (const hit of raw.slice(meta.body).matchAll(linePattern)) {
     const offset = meta.body + hit.index, line = hit[0].replace(/[\r\n]+$/u, '');
+    if (offset < quotedThrough) continue;
     const code = /^\s*(`{3,}|~{3,})/u.exec(line);
     if (code) {
       barrier();
@@ -161,6 +163,52 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
       continue;
     }
     if (drawing) continue;
+    // Only explicit, contiguous, single-level quote runs are structural input.
+    // Parse their visible list syntax with the existing local rules, then restore
+    // every component to an exact original span (including its quote prefixes).
+    // Never split an unrecognised prose restriction off its following actions.
+    if (local && quotedLists && listIndent < 0 && offset >= quoteScannedThrough && /^ {0,3}>/u.test(line)) {
+      const run = /(?: {0,3}>[^\r\n]*(?:\r\n|\r|\n|$))+/uy;
+      run.lastIndex = offset;
+      const match = run.exec(raw)!;
+      quoteScannedThrough = offset + match[0].length;
+      let visible = '\n';
+      const positions = [-1], starts = [-1];
+      for (const row of match[0].matchAll(linePattern)) {
+        const prefix = /^ {0,3}>[ \t]?/u.exec(row[0])![0].length;
+        for (let i = prefix; i < row[0].length; i++) {
+          visible += row[0][i]; positions.push(offset + row.index + i); starts.push(offset + row.index);
+        }
+      }
+      const firstItem = /^(?:[ \t]*)(?:[-*+]\s+|\d+[.)]\s+)/mu.exec(visible);
+      const before = firstItem ? visible.slice(0,firstItem.index).trimEnd() : '';
+      if (firstItem && !/^ {0,3}>/mu.test(visible) && (!before.trim() || /[:：]$/u.test(before))) {
+        flush(); clearBlocked(); introduction = undefined; listLeadIn = undefined;
+        const restore = (part: MappedText): MappedText => {
+          const first = part.offsets[0], last = part.offsets.at(-1)!;
+          const begin = starts[first], end = positions[last] + 1;
+          const text = raw.slice(begin,end), leading = text.length - text.trimStart().length;
+          return mapped(text.trim(),base < 0 ? -1 : base + begin + leading);
+        };
+        const inner = markdownBlocks(visible,0,false,true,sourcePath,false,false);
+        for (const block of inner) {
+          const restored: TextBlock = { ...restore(block),heading:block.heading || heading,
+            ...(block.localList ? { localList:true } : {}),
+            ...(block.localLeadIn ? { localLeadIn:restore(block.localLeadIn) } : {}),
+            localHeadings:[...ancestors.map(item => item.block),...(block.localHeadings ?? []).map(restore)] };
+          const body = restored.localLeadIn ? restored.localLeadIn.text + '\n\n' + restored.text : restored.text;
+          const size = body.length + (restored.localHeadings!.length ? restored.localHeadings!.map(item => item.text).join('\n').length + 2 : 0);
+          if (size > LOCAL_EXCERPT_CONTEXT_LIMIT) {
+            const error = new CoreError('Local list context exceeds 16384 characters; no partial index was saved.');
+            bindSourceDiagnostic(error,{ relativePath:sourcePath,stage:'analysis',reason:'local-context-size-limit' });
+            throw error;
+          }
+          blocks.push(restored);
+        }
+        quotedThrough = offset + match[0].length; blank = false;
+        continue;
+      }
+    }
     const item = /^(\s*)(?:[-*+]\s+|\d+[.)]\s+)/u.exec(line);
     const indent = columns(item?.[1] ?? /^\s*/u.exec(line)![0]);
     // Unrelated prose after a blank line is outside the previous list. Keep its

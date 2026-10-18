@@ -1,0 +1,137 @@
+{
+  "action": "> - Turn the cobalt memory dial to seven.",
+  "other": "> - Archive the independent jade ledger by date.",
+  "lead": "> [!warning]- Synthetic scope\n> Only in the disconnected copper simulator:\n>",
+  "raws": {
+    "a.md": "> [!warning]- Synthetic scope\n> Only in the disconnected copper simulator:\n>\n> - Turn the cobalt memory dial to seven.\n>   - Counterexample: connected equipment is forbidden.\n> - Archive the independent jade ledger by date.",
+    "copy.md": "> [!warning]- Synthetic scope\n> Only in the disconnected copper simulator:\n>\n> - Turn the cobalt memory dial to seven.\n>   - Counterexample: connected equipment is forbidden.\n> - Archive the independent jade ledger by date.",
+    "b.md": "> [!warning]- Synthetic scope\n> Only in the isolated violet simulator:\n>\n> - Turn the cobalt memory dial to seven.\n>   - Counterexample: connected equipment is forbidden.\n> - Archive the independent jade ledger by date."
+  },
+  "old": {
+    "version": 1,
+    "signature": "editorial-core-2:68b6fa6706b02f4c63403e7ec6c315a4b2fe5abf8686b52955aecc0fec825e3b",
+    "updatedAt": "2026-10-18T20:00:17.194Z",
+    "sources": {
+      "a.md": {
+        "hash": "9b44e6d69bb56003f1a01cd66e3d3c79798684e15c038b0c0d1c3b6c8b23d49b",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_2329f941fd0a2d91b2a55e907aa4f8d59306715a4d2281d5568213ccd5a0d580"
+        ]
+      },
+      "b.md": {
+        "hash": "114f5b4640b736316fbdd64d3a7bf4179d34c7eefb14b58a5a1d6eb5bd8f3430",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_79d66369de80fb64cfd147cbba42ffeeb9f07f13975248b2bd569f7dd5efd12c"
+        ]
+      },
+      "copy.md": {
+        "hash": "9b44e6d69bb56003f1a01cd66e3d3c79798684e15c038b0c0d1c3b6c8b23d49b",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_2329f941fd0a2d91b2a55e907aa4f8d59306715a4d2281d5568213ccd5a0d580"
+        ]
+      }
+    },
+    "fragments": {
+      "f_2329f941fd0a2d91b2a55e907aa4f8d59306715a4d2281d5568213ccd5a0d580": {
+        "id": "f_2329f941fd0a2d91b2a55e907aa4f8d59306715a4d2281d5568213ccd5a0d580",
+        "privacy": "normal",
+        "title": "!warning]- Synthetic scope\n> Only in the disconnected copper simulator:\n>\n> - Turn the cobalt memory",
+        "summary": "> [!warning]- Synthetic scope\n> Only in the disconnected copper simulator:\n>\n> - Turn the cobalt memory dial to seven.\n>   - Counterexample: connected equipment is forbidden.\n> - Archive the independent jade ledger by date.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "9b44e6d69bb56003f1a01cd66e3d3c79798684e15c038b0c0d1c3b6c8b23d49b",
+            "quote": "> [!warning]- Synthetic scope\n> Only in the disconnected copper simulator:\n>\n> - Turn the cobalt memory dial to seven.\n>   - Counterexample: connected equipment is forbidden.\n> - Archive the independent jade ledger by date.",
+            "start": 0,
+            "end": 223
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "9b44e6d69bb56003f1a01cd66e3d3c79798684e15c038b0c0d1c3b6c8b23d49b",
+            "quote": "> [!warning]- Synthetic scope\n> Only in the disconnected copper simulator:\n>\n> - Turn the cobalt memory dial to seven.\n>   - Counterexample: connected equipment is forbidden.\n> - Archive the independent jade ledger by date.",
+            "start": 0,
+            "end": 223
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T20:00:17.194Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_79d66369de80fb64cfd147cbba42ffeeb9f07f13975248b2bd569f7dd5efd12c": {
+        "id": "f_79d66369de80fb64cfd147cbba42ffeeb9f07f13975248b2bd569f7dd5efd12c",
+        "privacy": "normal",
+        "title": "!warning]- Synthetic scope\n> Only in the isolated violet simulator:\n>\n> - Turn the cobalt memory dia",
+        "summary": "> [!warning]- Synthetic scope\n> Only in the isolated violet simulator:\n>\n> - Turn the cobalt memory dial to seven.\n>   - Counterexample: connected equipment is forbidden.\n> - Archive the independent jade ledger by date.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "114f5b4640b736316fbdd64d3a7bf4179d34c7eefb14b58a5a1d6eb5bd8f3430",
+            "quote": "> [!warning]- Synthetic scope\n> Only in the isolated violet simulator:\n>\n> - Turn the cobalt memory dial to seven.\n>   - Counterexample: connected equipment is forbidden.\n> - Archive the independent jade ledger by date.",
+            "start": 0,
+            "end": 219
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T20:00:17.194Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      }
+    }
+  },
+  "signatures": {
+    "local-excerpts": "{\"version\":1,\"localExcerptPolicy\":\"quoted-introduction-1\",\"mode\":\"local-excerpts\",\"endpoint\":\"\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "local-model": "{\"version\":1,\"mode\":\"local-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "cloud-model": "{\"version\":1,\"mode\":\"cloud-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}"
+  },
+  "requests": {
+    "local-model": [
+      {
+        "task": "extract",
+        "text": "> [!warning]- Synthetic scope\n> Only in the disconnected copper simulator:\n>\n> - Turn the cobalt memory dial to seven.\n>   - Counterexample: connected equipment is forbidden.\n> - Archive the independent jade ledger by date.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        }
+      }
+    ],
+    "cloud-model": [
+      {
+        "task": "extract",
+        "text": "> [!warning]- Synthetic scope\n> Only in the disconnected copper simulator:\n>\n> - Turn the cobalt memory dial to seven.\n>   - Counterexample: connected equipment is forbidden.\n> - Archive the independent jade ledger by date.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        }
+      }
+    ]
+  }
+}
