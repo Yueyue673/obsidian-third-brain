@@ -162,7 +162,12 @@ it.each([
       evidence = actions.find(r => r.fragment.summary.includes('disconnected'))!.fragment.evidence;
       const cards = container.all().filter(n => n.className === 'tb-result' && n.text().includes(legacy.action)); expect(cards).toHaveLength(2);
       for (const card of cards) {
-        expect(card.text()).toContain(messages(locale).excerpt); expect(card.text()).not.toContain(legacy.other);
+        expect(card.text()).toContain(messages(locale).excerpt);
+        // The primary still separates. Same-group siblings now deliberately
+        // remain visible in the separately labelled source context and evidence.
+        expect(card.all().find(n => n.className === 'tb-fragment')!.text()).not.toContain(legacy.other);
+        expect(card.all().find(n => n.className === 'tb-local-context')!.text()).toContain(legacy.other);
+        expect(card.all().find(n => n.className === 'tb-evidence')!.text()).toContain(legacy.other);
         expect(card.text()).toContain('Limitation: no production equipment.'); expect(card.text()).toContain('Condition: use a disposable mock fixture.');
         for (const button of card.all().filter(n => n.className === 'tb-source')) { button.fire('click'); await opens.at(-1); }
       }
@@ -202,12 +207,14 @@ it('strictly reloads 256 Canvas quotations after nested separation, refuses 257 
   const make = (n: number) => canvas('- Only the disconnected synthetic fixture:\n  - Remember the amber point.\n' + Array.from({ length: n }, (_, i) => '    - Example: synthetic tile ' + i + '.').join('\n') + '\n  - File the jade ledger.\n    - Caveat: no real identity.');
   const scope = path.resolve('.local/local-nested-qualified'); await fs.mkdir(scope, { recursive: true }); const root = await fs.mkdtemp(path.join(scope, 'bounds-'));
   const settings = { ...defaults, outputFolder: 'Derived', excludes: [] }, store = new OwnedStore(root, 'Derived'), sources = new FileSources(root, () => settings, () => store.managedSourcePaths());
-  const c = new ThirdBrainController(sources, store, () => settings, () => undefined, async () => {}), file = path.join(root, 'source.canvas'); const legal = make(254);
+  // Root + selected child + n examples + omitted child + its caveat = n + 4.
+  // Preserve the same exact 256/257 boundary, now counting all sibling evidence.
+  const c = new ThirdBrainController(sources, store, () => settings, () => undefined, async () => {}), file = path.join(root, 'source.canvas'); const legal = make(252);
   try {
     await fs.writeFile(file, legal); await c.initialize(); await c.refresh(); const index = (await store.load())!, all = Object.values(index.fragments); expect(all).toHaveLength(2); const f = all.find(f => f.summary.includes('amber'))!; expect(f.evidence).toHaveLength(256);
     const found = await c.find('amber point', 'medium'); const current = found.find(r => r.fragment.id === f.id)!; expect(current).toBeDefined(); for (const e of [current.fragment.evidence[0], current.fragment.evidence.at(-1)!]) await c.verifyOpen(e);
     const statePath = path.join(root, 'Derived/.third-brain/state.json'), state = await fs.readFile(statePath); await c.refresh(); expect(await fs.readFile(statePath)).toEqual(state);
-    const commit = vi.spyOn(store, 'commit'); await fs.writeFile(file, make(255)); await expect(c.refresh()).rejects.toThrow(); expect(commit).not.toHaveBeenCalled(); expect(await fs.readFile(statePath)).toEqual(state);
+    const commit = vi.spyOn(store, 'commit'); await fs.writeFile(file, make(253)); await expect(c.refresh()).rejects.toThrow(); expect(commit).not.toHaveBeenCalled(); expect(await fs.readFile(statePath)).toEqual(state);
     await fs.writeFile(file, legal); await c.refresh(); expect(await fs.readFile(statePath)).toEqual(state); expect(await fs.readFile(file, 'utf8')).toBe(legal);
   } finally { c.dispose(); vi.restoreAllMocks(); }
 });

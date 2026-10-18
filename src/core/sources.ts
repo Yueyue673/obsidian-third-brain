@@ -4,7 +4,7 @@ import { CoreError, FACET_KEYS, boundedString, canonicalFacets, isPrivacy, parse
 import { mapped, safeVocabulary, type MappedText } from './privacy';
 import { bindSourceDiagnostic } from './source-diagnostics';
 
-export interface TextBlock extends MappedText { heading: string; localList?: boolean; localHeadings?: MappedText[]; localLeadIn?: MappedText; localParts?: MappedText[]; }
+export interface TextBlock extends MappedText { heading: string; localList?: boolean; localHeadings?: MappedText[]; localLeadIn?: MappedText; localParts?: MappedText[]; localSiblings?: MappedText[]; }
 /** Bound complete local structural context before any qualified-branch fan-out. Never truncate. */
 export const LOCAL_EXCERPT_CONTEXT_LIMIT = 16384;
 function frontmatter(raw: string): { body: number; metadata: string } {
@@ -300,8 +300,8 @@ function qualifiedListBranches(block: TextBlock): TextBlock[] {
   const points = groups.filter(group => !group.shared);
   if (points.length < 2) return [block];
   // A descendant label provides a visible boundary for this small slice. It is
-  // not evidence of semantic independence; references and unlabelled sequences
-  // are deliberately not resolved. Never recursively split a qualified branch.
+  // not evidence of semantic independence. Preserve omitted siblings separately
+  // without resolving references or recursively splitting a qualified branch.
   if (points.some(group => {
     const descendants = rows.slice(group.start+1,group.end).filter(row => row.item && row.indent > depth);
     if (descendants.some(row => row.indent < columns(rows[group.start].item![0]))) return true;
@@ -316,7 +316,8 @@ function qualifiedListBranches(block: TextBlock): TextBlock[] {
   };
   return points.map(point => {
     const parts = [part(0,first),...groups.filter(group => group.shared || group === point).map(group => part(group.start,group.end)),...(tail < 0 ? [] : [part(tail,rows.length)])];
-    return { ...block,text:parts.map(piece => piece.text).join('\n'),offsets:parts.flatMap((piece,i) => [...(i ? [-1] : []),...piece.offsets]),localParts:parts };
+    const siblings = groups.filter(group => !group.shared && group !== point).map(group => part(group.start,group.end));
+    return { ...block,text:parts.map(piece => piece.text).join('\n'),offsets:parts.flatMap((piece,i) => [...(i ? [-1] : []),...piece.offsets]),localParts:parts,localSiblings:siblings };
   });
 }
 function sourceBlocks(snapshot: SourceSnapshot, local = false, includeHeadings = false): TextBlock[] {

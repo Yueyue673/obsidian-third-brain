@@ -13,7 +13,8 @@ export interface SourceSnapshot { id: string; path: string; text: string; hash: 
 export interface Evidence { sourceId: string; relativePath: string; sourceHash: string; quote: string; start: number; end: number; }
 // Shared by core staging and the strict owned-store validator.
 export const FRAGMENT_EVIDENCE_LIMIT = 256;
-export interface Fragment { id: string; privacy: Privacy; title: string; summary: string; kind: string; facets: Facets; evidence: Evidence[]; mode: 'local' | 'ai'; updatedAt: string; conditions: string[]; caveats: string[]; }
+// Program-owned local source context, never a model input/output field or a facet.
+export interface Fragment { id: string; privacy: Privacy; title: string; summary: string; kind: string; facets: Facets; evidence: Evidence[]; mode: 'local' | 'ai'; updatedAt: string; conditions: string[]; caveats: string[]; localContext?: string; }
 export type SourceStatus = 'indexed' | 'empty' | 'insufficient-context' | 'sensitive' | 'local-only' | 'error';
 export interface SourceRecord { hash: string; status: SourceStatus; fragmentIds: string[]; }
 export interface IndexState { version: 1; signature: string; updatedAt: string; sources: Record<string, SourceRecord>; fragments: Record<string, Fragment>; }

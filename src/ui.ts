@@ -142,6 +142,11 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
       const fragment = item.fragment; const article = element('article', 'tb-result');
       const top = element('div', 'tb-result-top'); top.append(element('h3', 'tb-result-title', fragment.title), element('span', 'tb-kind', fragment.mode === 'ai' ? t.ai : t.excerpt));
       article.append(top, element('p', 'tb-fragment', fragment.summary));
+      if (fragment.localContext !== undefined) {
+        const context = element('section','tb-local-context');
+        context.append(element('h4','tb-small-heading',t.sameListContext),element('p','tb-muted',t.sameListContextHint),element('blockquote','tb-quote',fragment.localContext));
+        article.append(context);
+      }
       if (port.openFragment) {
         const open = element('button', 'tb-secondary', t.openFragment); open.type = 'button';
         open.addEventListener('click', () => openResult(() => port.openFragment!(fragment.id), Object.values(generatedCopy)));

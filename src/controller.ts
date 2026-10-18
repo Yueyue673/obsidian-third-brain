@@ -302,6 +302,14 @@ export class ThirdBrainController {
     }
     return (await currentEvidence(fragment.evidence, this.sources, live)).length === fragment.evidence.length;
   }
+  /** New contextual excerpts cannot open saved text without their complete live context.
+   * Legacy no-context files retain their existing saved-derived-text behavior. */
+  async verifyFragmentOpen(id: string): Promise<void> {
+    const fragment = Object.hasOwn(this.indexState.fragments,id) ? this.indexState.fragments[id] : undefined;
+    if (!fragment) throw new SourceEvidenceUnavailableError();
+    if (fragment.localContext === undefined) return;
+    if (!(await this.currentEndpoint({ fragmentId:fragment.id,title:fragment.title,privacy:fragment.privacy,evidence:fragment.evidence,conditions:fragment.conditions,caveats:fragment.caveats },new AbortController().signal))) throw new SourceEvidenceUnavailableError();
+  }
   async verifyOpen(evidence: Evidence): Promise<void> {
     const signal = new AbortController().signal;
     const currentEndpoint = this.currentOpenEndpoints.get(evidence);

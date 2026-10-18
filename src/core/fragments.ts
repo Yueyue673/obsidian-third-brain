@@ -1,6 +1,8 @@
 import type { Evidence, Facets, Fragment, SourceSnapshot } from './types';
-import { CoreError, canonicalText, digest, restrictive, unionFacets } from './util';
+import { CoreError, boundedString, canonicalText, digest, restrictive, unionFacets } from './util';
 import type { MappedText } from './privacy';
+import { hasCredentials } from './privacy';
+import { LOCAL_EXCERPT_CONTEXT_LIMIT } from './sources';
 
 export const CANVAS_OFFSET_CAVEAT = 'Canvas text is decoded; a non-contiguous original span is represented by start/end = -1.';
 export const AI_EDITOR_CAVEAT = 'AI summary and semantic facets are editorial interpretations, not verified facts; only the source quotations are locally verified.';
@@ -27,10 +29,35 @@ export function quotations(snapshot: SourceSnapshot, input: MappedText, quote: s
   if (!out.length) throw new CoreError('Model quotation is absent from the supplied text');
   return out;
 }
-export function bodyKey(fragment: Pick<Fragment, 'summary' | 'kind' | 'conditions' | 'caveats'>): string {
-  return JSON.stringify([canonicalText(fragment.summary), fragment.kind, fragment.conditions.map(canonicalText).sort(), fragment.caveats.filter(value => value !== CANVAS_OFFSET_CAVEAT).map(canonicalText).sort()]);
+/** Legacy no-field records keep their exact identity. New context is local-only.
+ * Count every displayed primary/context code unit plus the joining newline once;
+ * ancestors/shared qualifiers occur only in the primary, never once per sibling.
+ * The parser also checks the unseparated original group before fan-out.
+ */
+export function validateLocalContext(fragment: Fragment): void {
+  if (!Object.hasOwn(fragment,'localContext')) return;
+  if (fragment.mode !== 'local' || fragment.kind !== 'excerpt') throw new CoreError('Invalid local source context');
+  const context = boundedString(fragment.localContext,LOCAL_EXCERPT_CONTEXT_LIMIT);
+  if (hasCredentials(context) || fragment.summary.length + 1 + context.length > LOCAL_EXCERPT_CONTEXT_LIMIT) throw new CoreError('Invalid or oversized local source context');
+  // Stored context is not a free-form editorial claim. Every nonblank authored
+  // line must be quoted by every complete donor, including decoded Canvas whose
+  // individual list quotations do not form one contiguous original JSON span.
+  if (!Array.isArray(fragment.evidence) || !fragment.evidence.length) throw new CoreError('Local source context lacks quotation evidence');
+  const donors = new Map<string,string[]>();
+  for (const item of fragment.evidence) {
+    if (!item || typeof item.quote !== 'string') throw new CoreError('Local source context lacks quotation evidence');
+    const key = JSON.stringify([item.sourceId,item.relativePath,item.sourceHash]);
+    donors.set(key,[...donors.get(key) ?? [],item.quote]);
+  }
+  const lines = context.split(/\r\n|\r|\n/u).map(line => line.trim()).filter(Boolean);
+  for (const quotes of donors.values()) if (lines.some(line => !quotes.some(quote => quote.includes(line)))) throw new CoreError('Local source context lacks quotation evidence');
 }
-export function fragmentId(fragment: Pick<Fragment, 'summary' | 'kind' | 'conditions' | 'caveats'>): string { return `f_${digest(bodyKey(fragment))}`; }
+export function bodyKey(fragment: Pick<Fragment, 'summary' | 'kind' | 'conditions' | 'caveats' | 'localContext'>): string {
+  const body = [canonicalText(fragment.summary), fragment.kind, fragment.conditions.map(canonicalText).sort(), fragment.caveats.filter(value => value !== CANVAS_OFFSET_CAVEAT).map(canonicalText).sort()];
+  if (fragment.localContext !== undefined) body.push(canonicalText(fragment.localContext));
+  return JSON.stringify(body);
+}
+export function fragmentId(fragment: Pick<Fragment, 'summary' | 'kind' | 'conditions' | 'caveats' | 'localContext'>): string { return `f_${digest(bodyKey(fragment))}`; }
 export function evidenceKey(evidence: Evidence): string { return JSON.stringify([evidence.sourceId,evidence.relativePath,evidence.sourceHash,evidence.quote,evidence.start,evidence.end]); }
 export function mergeFragments(input: Fragment[]): Fragment[] {
   const merged = new Map<string, Fragment>();

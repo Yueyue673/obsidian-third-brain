@@ -5,6 +5,7 @@ import * as path from 'node:path';
 import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
 import { AsyncLocalStorage } from 'node:async_hooks';
 import type { Facets, Fragment, IndexState, StorePort } from '../core/types';
+import { fragmentId, validateLocalContext } from '../core/fragments';
 import { FRAGMENT_EVIDENCE_LIMIT } from '../core/types';
 import { buildFragmentNetwork, type FragmentNetwork } from '../core/connections';
 import { generatedFileError } from '../core/generated-diagnostics';
@@ -124,10 +125,12 @@ function validateIndex(v: unknown): IndexState {
   }
   for (const [id, value] of Object.entries(fragments)) {
     text(id, 512);
-    const f = keys(value, ['id', 'privacy', 'title', 'summary', 'kind', 'facets', 'evidence', 'mode', 'updatedAt', 'conditions', 'caveats']);
+    const f = keys(value, ['id', 'privacy', 'title', 'summary', 'kind', 'facets', 'evidence', 'mode', 'updatedAt', 'conditions', 'caveats', ...(own(record(value),'localContext') ? ['localContext'] : [])]);
     if (f.id !== id || !['normal', 'local', 'private'].includes(f.privacy as string) || !['local', 'ai'].includes(f.mode as string)) fail();
     text(f.title, 1024); text(f.summary, 100000); text(f.kind, 256); text(f.updatedAt, 64, true);
     facets(f.facets); strings(f.conditions); strings(f.caveats);
+    validateLocalContext(f as unknown as Fragment);
+    if (own(f,'localContext') && fragmentId(f as unknown as Fragment) !== id) fail('Invalid contextual fragment identity');
     if (!Array.isArray(f.evidence) || !f.evidence.length || f.evidence.length > FRAGMENT_EVIDENCE_LIMIT) fail();
     for (const value of f.evidence) {
       const e = keys(value, ['sourceId', 'relativePath', 'sourceHash', 'quote', 'start', 'end']);
@@ -193,6 +196,9 @@ function renderLegacy(fragment: Fragment, marker: Marker): Buffer {
     '---', '', `# ${escapeMD(fragment.title)}`, '', escapeMD(fragment.summary), '',
     fragment.mode === 'local' ? '_Local excerpt; not an AI summary._' : '_AI-edited derived fragment; check the original evidence._', '',
   ];
+  if (fragment.localContext !== undefined) lines.push('## Same-list source context', '',
+    'Conservatively retained sibling text, not an inferred dependency or connection. The focused excerpt remains above.', '',
+    ...fragment.localContext.split(/\r?\n/).map(line => `> ${escapeMD(line)}`), '');
   for (const [name, values] of Object.entries(fragment.facets)) {
     if (values.length) lines.push(`**${name}:** ${values.map(escapeMD).join(', ')}`, '');
   }

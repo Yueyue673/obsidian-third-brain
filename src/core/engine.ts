@@ -4,7 +4,7 @@ import { CoreError, CORE_REVISION, FACET_KEYS, checkAbort, digest, exactKeys, fa
 import { extendVocabulary, hasCredentials, safeFacet, safeVocabulary } from './privacy';
 import { checkedSource, hasReadableQuote, sourceFacets, textBlocks } from './sources';
 import { analyzeSource } from './extraction';
-import { fragmentId, mergeFragments } from './fragments';
+import { fragmentId, mergeFragments, validateLocalContext } from './fragments';
 import { bindSourceDiagnostic, markGlobalSourceFailure } from './source-diagnostics';
 
 const STATUSES: SourceStatus[] = ['indexed','empty','insufficient-context','sensitive','local-only'];
@@ -16,11 +16,12 @@ function validatePrevious(state: IndexState): void {
     if (typeof record.hash !== 'string' || !record.hash || !STATUSES.includes(record.status) || !Array.isArray(record.fragmentIds) || record.fragmentIds.some(id => typeof id !== 'string' || !Object.hasOwn(state.fragments,id)) || new Set(record.fragmentIds).size !== record.fragmentIds.length || ((record.status === 'indexed') !== (record.fragmentIds.length > 0))) throw new CoreError('Invalid source record');
   }
   for (const [id,fragment] of Object.entries(state.fragments)) {
-    exactKeys(fragment,['id','privacy','title','summary','kind','facets','evidence','mode','updatedAt','conditions','caveats']);
+    exactKeys(fragment,['id','privacy','title','summary','kind','facets','evidence','mode','updatedAt','conditions','caveats',...(Object.hasOwn(fragment,'localContext') ? ['localContext'] : [])]);
     exactKeys(fragment.facets,FACET_KEYS);
     if (id !== fragment.id || !isPrivacy(fragment.privacy) || !['local','ai'].includes(fragment.mode) || typeof fragment.updatedAt !== 'string' || typeof fragment.title !== 'string' || !fragment.title || typeof fragment.kind !== 'string' || !fragment.kind || typeof fragment.summary !== 'string' || !fragment.summary || hasCredentials(fragment.summary)) throw new CoreError('Invalid fragment record');
     for (const key of FACET_KEYS) if (stringList(fragment.facets[key],256,120).some(value => !safeFacet(value))) throw new CoreError('Unsafe stored facet');
     stringList(fragment.conditions,12,500); stringList(fragment.caveats,24,1000);
+    validateLocalContext(fragment);
     if (!Array.isArray(fragment.evidence) || !fragment.evidence.length || fragmentId(fragment) !== id) throw new CoreError('Invalid fragment identifier or evidence');
     if (fragment.evidence.length > FRAGMENT_EVIDENCE_LIMIT) throw new CoreError('Fragment evidence limit exceeded; no partial index was saved.');
     for (const evidence of fragment.evidence) {

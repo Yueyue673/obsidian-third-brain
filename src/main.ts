@@ -146,6 +146,7 @@ export default class ThirdBrainPlugin extends Plugin {
         return { text, privacy: contextPrivacy(original, fullDraft) };
       },
       openFragment: async id => {
+        await this.controller.verifyFragmentOpen(id);
         const target = await this.store.fragmentPath(id);
         const file = this.app.vault.getFileByPath(target); if (!file) throw generatedFileError('unavailable');
         await this.app.workspace.getLeaf(false).openFile(file);

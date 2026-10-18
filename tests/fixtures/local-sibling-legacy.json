@@ -1,0 +1,681 @@
+{
+  "raw": "# Synthetic context\n\nOnly on a disconnected bench:\n- Prepare the inert batch:\n  - Seal the cobalt inlet.\n    - Example: keep the dummy gate closed.\n  - Drain the violet chamber.\n    - Limitation: use inert samples only.\n  - Condition: never connect real equipment.\n- Independent white archive record.",
+  "raws": {
+    "source.md": "# Synthetic context\n\nOnly on a disconnected bench:\n- Prepare the inert batch:\n  - Seal the cobalt inlet.\n    - Example: keep the dummy gate closed.\n  - Drain the violet chamber.\n    - Limitation: use inert samples only.\n  - Condition: never connect real equipment.\n- Independent white archive record.",
+    "copy.md": "# Synthetic context\n\nOnly on a disconnected bench:\n- Prepare the inert batch:\n  - Seal the cobalt inlet.\n    - Example: keep the dummy gate closed.\n  - Drain the violet chamber.\n    - Limitation: use inert samples only.\n  - Condition: never connect real equipment.\n- Independent white archive record.",
+    "opposite.md": "# Synthetic context\n\nOnly on a disconnected bench:\n- Prepare the inert batch:\n  - Open the cobalt inlet.\n    - Example: keep the dummy gate closed.\n  - Drain the violet chamber.\n    - Limitation: use inert samples only.\n  - Condition: never connect real equipment.\n- Independent white archive record."
+  },
+  "signatures": {
+    "local-excerpts": "{\"version\":1,\"localExcerptPolicy\":\"checklist-nested-context-1\",\"mode\":\"local-excerpts\",\"endpoint\":\"\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "local-model": "{\"version\":1,\"mode\":\"local-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "cloud-model": "{\"version\":1,\"mode\":\"cloud-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}"
+  },
+  "requests": {
+    "local-model": [
+      {
+        "task": "extract",
+        "text": "Only on a disconnected bench:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic context",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Prepare the inert batch:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic context",
+          "before": "Only on a disconnected bench:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Seal the cobalt inlet.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic context",
+          "before": "- Prepare the inert batch:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Example: keep the dummy gate closed.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic context",
+          "before": "- Seal the cobalt inlet."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Drain the violet chamber.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic context",
+          "before": "- Example: keep the dummy gate closed."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Limitation: use inert samples only.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic context",
+          "before": "- Drain the violet chamber."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Condition: never connect real equipment.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic context",
+          "before": "- Limitation: use inert samples only."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Independent white archive record.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic context",
+          "before": "- Condition: never connect real equipment."
+        }
+      }
+    ],
+    "cloud-model": [
+      {
+        "task": "extract",
+        "text": "Only on a disconnected bench:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic context",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Prepare the inert batch:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic context",
+          "before": "Only on a disconnected bench:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Seal the cobalt inlet.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic context",
+          "before": "- Prepare the inert batch:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Example: keep the dummy gate closed.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic context",
+          "before": "- Seal the cobalt inlet."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Drain the violet chamber.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic context",
+          "before": "- Example: keep the dummy gate closed."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Limitation: use inert samples only.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic context",
+          "before": "- Drain the violet chamber."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Condition: never connect real equipment.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic context",
+          "before": "- Limitation: use inert samples only."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Independent white archive record.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic context",
+          "before": "- Condition: never connect real equipment."
+        }
+      }
+    ]
+  },
+  "oldIndex": {
+    "version": 1,
+    "signature": "editorial-core-2:62b315da31baf1a0d99e1947ca5cd1f656da25e9d342fe7651ca69b7eeebdd52",
+    "updatedAt": "2026-01-01T00:00:00.000Z",
+    "sources": {
+      "copy.md": {
+        "hash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_14627a119ceb9ffd2db2f17cdf42a9cc45cf493796d96e530b62ed1b1019f9d5",
+          "f_57053b9fb29b9bc3cb19170d424030fae03e23e6252fd931077e1d3e0b15c4d7",
+          "f_e07ba59ad5ad479f2aca9489b66406c77f199039a841c633ba200253e07956eb"
+        ]
+      },
+      "opposite.md": {
+        "hash": "37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_14627a119ceb9ffd2db2f17cdf42a9cc45cf493796d96e530b62ed1b1019f9d5",
+          "f_1a175a29ed1702fd4865092c734eebe2d0abf90db8d3bdd97c04df571c02891d",
+          "f_e07ba59ad5ad479f2aca9489b66406c77f199039a841c633ba200253e07956eb"
+        ]
+      },
+      "source.md": {
+        "hash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_14627a119ceb9ffd2db2f17cdf42a9cc45cf493796d96e530b62ed1b1019f9d5",
+          "f_57053b9fb29b9bc3cb19170d424030fae03e23e6252fd931077e1d3e0b15c4d7",
+          "f_e07ba59ad5ad479f2aca9489b66406c77f199039a841c633ba200253e07956eb"
+        ]
+      }
+    },
+    "fragments": {
+      "f_14627a119ceb9ffd2db2f17cdf42a9cc45cf493796d96e530b62ed1b1019f9d5": {
+        "id": "f_14627a119ceb9ffd2db2f17cdf42a9cc45cf493796d96e530b62ed1b1019f9d5",
+        "privacy": "normal",
+        "title": "Synthetic context",
+        "summary": "# Synthetic context\n\nOnly on a disconnected bench:\n\n- Independent white archive record.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "- Independent white archive record.",
+            "start": 265,
+            "end": 300
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "# Synthetic context",
+            "start": 0,
+            "end": 19
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "Only on a disconnected bench:",
+            "start": 21,
+            "end": 50
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12",
+            "quote": "- Independent white archive record.",
+            "start": 265,
+            "end": 300
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12",
+            "quote": "# Synthetic context",
+            "start": 0,
+            "end": 19
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12",
+            "quote": "Only on a disconnected bench:",
+            "start": 21,
+            "end": 50
+          },
+          {
+            "sourceId": "52a44c849668711c167f3cfa",
+            "relativePath": "source.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "- Independent white archive record.",
+            "start": 265,
+            "end": 300
+          },
+          {
+            "sourceId": "52a44c849668711c167f3cfa",
+            "relativePath": "source.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "# Synthetic context",
+            "start": 0,
+            "end": 19
+          },
+          {
+            "sourceId": "52a44c849668711c167f3cfa",
+            "relativePath": "source.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "Only on a disconnected bench:",
+            "start": 21,
+            "end": 50
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_1a175a29ed1702fd4865092c734eebe2d0abf90db8d3bdd97c04df571c02891d": {
+        "id": "f_1a175a29ed1702fd4865092c734eebe2d0abf90db8d3bdd97c04df571c02891d",
+        "privacy": "normal",
+        "title": "Synthetic context",
+        "summary": "# Synthetic context\n\nOnly on a disconnected bench:\n\n- Prepare the inert batch:\n  - Open the cobalt inlet.\n    - Example: keep the dummy gate closed.\n  - Condition: never connect real equipment.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12",
+            "quote": "- Prepare the inert batch:",
+            "start": 51,
+            "end": 77
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12",
+            "quote": "  - Open the cobalt inlet.\n    - Example: keep the dummy gate closed.",
+            "start": 78,
+            "end": 147
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12",
+            "quote": "  - Condition: never connect real equipment.",
+            "start": 220,
+            "end": 264
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12",
+            "quote": "# Synthetic context",
+            "start": 0,
+            "end": 19
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12",
+            "quote": "Only on a disconnected bench:",
+            "start": 21,
+            "end": 50
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_57053b9fb29b9bc3cb19170d424030fae03e23e6252fd931077e1d3e0b15c4d7": {
+        "id": "f_57053b9fb29b9bc3cb19170d424030fae03e23e6252fd931077e1d3e0b15c4d7",
+        "privacy": "normal",
+        "title": "Synthetic context",
+        "summary": "# Synthetic context\n\nOnly on a disconnected bench:\n\n- Prepare the inert batch:\n  - Seal the cobalt inlet.\n    - Example: keep the dummy gate closed.\n  - Condition: never connect real equipment.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "  - Condition: never connect real equipment.",
+            "start": 220,
+            "end": 264
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "  - Seal the cobalt inlet.\n    - Example: keep the dummy gate closed.",
+            "start": 78,
+            "end": 147
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "- Prepare the inert batch:",
+            "start": 51,
+            "end": 77
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "# Synthetic context",
+            "start": 0,
+            "end": 19
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "Only on a disconnected bench:",
+            "start": 21,
+            "end": 50
+          },
+          {
+            "sourceId": "52a44c849668711c167f3cfa",
+            "relativePath": "source.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "  - Condition: never connect real equipment.",
+            "start": 220,
+            "end": 264
+          },
+          {
+            "sourceId": "52a44c849668711c167f3cfa",
+            "relativePath": "source.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "  - Seal the cobalt inlet.\n    - Example: keep the dummy gate closed.",
+            "start": 78,
+            "end": 147
+          },
+          {
+            "sourceId": "52a44c849668711c167f3cfa",
+            "relativePath": "source.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "- Prepare the inert batch:",
+            "start": 51,
+            "end": 77
+          },
+          {
+            "sourceId": "52a44c849668711c167f3cfa",
+            "relativePath": "source.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "# Synthetic context",
+            "start": 0,
+            "end": 19
+          },
+          {
+            "sourceId": "52a44c849668711c167f3cfa",
+            "relativePath": "source.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "Only on a disconnected bench:",
+            "start": 21,
+            "end": 50
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_e07ba59ad5ad479f2aca9489b66406c77f199039a841c633ba200253e07956eb": {
+        "id": "f_e07ba59ad5ad479f2aca9489b66406c77f199039a841c633ba200253e07956eb",
+        "privacy": "normal",
+        "title": "Synthetic context",
+        "summary": "# Synthetic context\n\nOnly on a disconnected bench:\n\n- Prepare the inert batch:\n  - Drain the violet chamber.\n    - Limitation: use inert samples only.\n  - Condition: never connect real equipment.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "  - Condition: never connect real equipment.",
+            "start": 220,
+            "end": 264
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "  - Drain the violet chamber.\n    - Limitation: use inert samples only.",
+            "start": 148,
+            "end": 219
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "- Prepare the inert batch:",
+            "start": 51,
+            "end": 77
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "# Synthetic context",
+            "start": 0,
+            "end": 19
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "Only on a disconnected bench:",
+            "start": 21,
+            "end": 50
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12",
+            "quote": "  - Condition: never connect real equipment.",
+            "start": 220,
+            "end": 264
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12",
+            "quote": "  - Drain the violet chamber.\n    - Limitation: use inert samples only.",
+            "start": 148,
+            "end": 219
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12",
+            "quote": "- Prepare the inert batch:",
+            "start": 51,
+            "end": 77
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12",
+            "quote": "# Synthetic context",
+            "start": 0,
+            "end": 19
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12",
+            "quote": "Only on a disconnected bench:",
+            "start": 21,
+            "end": 50
+          },
+          {
+            "sourceId": "52a44c849668711c167f3cfa",
+            "relativePath": "source.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "  - Condition: never connect real equipment.",
+            "start": 220,
+            "end": 264
+          },
+          {
+            "sourceId": "52a44c849668711c167f3cfa",
+            "relativePath": "source.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "  - Drain the violet chamber.\n    - Limitation: use inert samples only.",
+            "start": 148,
+            "end": 219
+          },
+          {
+            "sourceId": "52a44c849668711c167f3cfa",
+            "relativePath": "source.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "- Prepare the inert batch:",
+            "start": 51,
+            "end": 77
+          },
+          {
+            "sourceId": "52a44c849668711c167f3cfa",
+            "relativePath": "source.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "# Synthetic context",
+            "start": 0,
+            "end": 19
+          },
+          {
+            "sourceId": "52a44c849668711c167f3cfa",
+            "relativePath": "source.md",
+            "sourceHash": "2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25",
+            "quote": "Only on a disconnected bench:",
+            "start": 21,
+            "end": 50
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      }
+    }
+  },
+  "rendered": {
+    "f_14627a119ceb9ffd2db2f17cdf42a9cc45cf493796d96e530b62ed1b1019f9d5": "---\nthird_brain_render: 2\naliases: [\"Synthetic context\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_14627a119ceb9ffd2db2f17cdf42a9cc45cf493796d96e530b62ed1b1019f9d5\"\nprivacy: normal\ntitle: \"Synthetic context\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"copy.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":265,\"end\":300},{\"path\":\"copy.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":0,\"end\":19},{\"path\":\"copy.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":21,\"end\":50},{\"path\":\"opposite.md\",\"revision\":\"37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12\",\"start\":265,\"end\":300},{\"path\":\"opposite.md\",\"revision\":\"37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12\",\"start\":0,\"end\":19},{\"path\":\"opposite.md\",\"revision\":\"37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12\",\"start\":21,\"end\":50},{\"path\":\"source.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":265,\"end\":300},{\"path\":\"source.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":0,\"end\":19},{\"path\":\"source.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":21,\"end\":50}]\n---\n\n# Synthetic context\n\n\\# Synthetic context\n\nOnly on a disconnected bench:\n\n- Independent white archive record.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 265–300\n\n> - Independent white archive record.\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 0–19\n\n> \\# Synthetic context\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 21–50\n\n> Only on a disconnected bench:\n\n[Open original](<../opposite.md>) — opposite.md\n\nRevision: 37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12; character range: 265–300\n\n> - Independent white archive record.\n\n[Open original](<../opposite.md>) — opposite.md\n\nRevision: 37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12; character range: 0–19\n\n> \\# Synthetic context\n\n[Open original](<../opposite.md>) — opposite.md\n\nRevision: 37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12; character range: 21–50\n\n> Only on a disconnected bench:\n\n[Open original](<../source.md>) — source.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 265–300\n\n> - Independent white archive record.\n\n[Open original](<../source.md>) — source.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 0–19\n\n> \\# Synthetic context\n\n[Open original](<../source.md>) — source.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 21–50\n\n> Only on a disconnected bench:\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_1a175a29ed1702fd4865092c734eebe2d0abf90db8d3bdd97c04df571c02891d": "---\nthird_brain_render: 2\naliases: [\"Synthetic context\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_1a175a29ed1702fd4865092c734eebe2d0abf90db8d3bdd97c04df571c02891d\"\nprivacy: normal\ntitle: \"Synthetic context\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"opposite.md\",\"revision\":\"37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12\",\"start\":51,\"end\":77},{\"path\":\"opposite.md\",\"revision\":\"37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12\",\"start\":78,\"end\":147},{\"path\":\"opposite.md\",\"revision\":\"37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12\",\"start\":220,\"end\":264},{\"path\":\"opposite.md\",\"revision\":\"37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12\",\"start\":0,\"end\":19},{\"path\":\"opposite.md\",\"revision\":\"37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12\",\"start\":21,\"end\":50}]\n---\n\n# Synthetic context\n\n\\# Synthetic context\n\nOnly on a disconnected bench:\n\n- Prepare the inert batch:\n  - Open the cobalt inlet.\n    - Example: keep the dummy gate closed.\n  - Condition: never connect real equipment.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../opposite.md>) — opposite.md\n\nRevision: 37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12; character range: 51–77\n\n> - Prepare the inert batch:\n\n[Open original](<../opposite.md>) — opposite.md\n\nRevision: 37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12; character range: 78–147\n\n>   - Open the cobalt inlet.\n>     - Example: keep the dummy gate closed.\n\n[Open original](<../opposite.md>) — opposite.md\n\nRevision: 37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12; character range: 220–264\n\n>   - Condition: never connect real equipment.\n\n[Open original](<../opposite.md>) — opposite.md\n\nRevision: 37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12; character range: 0–19\n\n> \\# Synthetic context\n\n[Open original](<../opposite.md>) — opposite.md\n\nRevision: 37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12; character range: 21–50\n\n> Only on a disconnected bench:\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_57053b9fb29b9bc3cb19170d424030fae03e23e6252fd931077e1d3e0b15c4d7": "---\nthird_brain_render: 2\naliases: [\"Synthetic context\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_57053b9fb29b9bc3cb19170d424030fae03e23e6252fd931077e1d3e0b15c4d7\"\nprivacy: normal\ntitle: \"Synthetic context\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"copy.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":220,\"end\":264},{\"path\":\"copy.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":78,\"end\":147},{\"path\":\"copy.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":51,\"end\":77},{\"path\":\"copy.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":0,\"end\":19},{\"path\":\"copy.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":21,\"end\":50},{\"path\":\"source.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":220,\"end\":264},{\"path\":\"source.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":78,\"end\":147},{\"path\":\"source.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":51,\"end\":77},{\"path\":\"source.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":0,\"end\":19},{\"path\":\"source.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":21,\"end\":50}]\n---\n\n# Synthetic context\n\n\\# Synthetic context\n\nOnly on a disconnected bench:\n\n- Prepare the inert batch:\n  - Seal the cobalt inlet.\n    - Example: keep the dummy gate closed.\n  - Condition: never connect real equipment.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 220–264\n\n>   - Condition: never connect real equipment.\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 78–147\n\n>   - Seal the cobalt inlet.\n>     - Example: keep the dummy gate closed.\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 51–77\n\n> - Prepare the inert batch:\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 0–19\n\n> \\# Synthetic context\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 21–50\n\n> Only on a disconnected bench:\n\n[Open original](<../source.md>) — source.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 220–264\n\n>   - Condition: never connect real equipment.\n\n[Open original](<../source.md>) — source.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 78–147\n\n>   - Seal the cobalt inlet.\n>     - Example: keep the dummy gate closed.\n\n[Open original](<../source.md>) — source.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 51–77\n\n> - Prepare the inert batch:\n\n[Open original](<../source.md>) — source.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 0–19\n\n> \\# Synthetic context\n\n[Open original](<../source.md>) — source.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 21–50\n\n> Only on a disconnected bench:\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_e07ba59ad5ad479f2aca9489b66406c77f199039a841c633ba200253e07956eb": "---\nthird_brain_render: 2\naliases: [\"Synthetic context\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_e07ba59ad5ad479f2aca9489b66406c77f199039a841c633ba200253e07956eb\"\nprivacy: normal\ntitle: \"Synthetic context\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"copy.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":220,\"end\":264},{\"path\":\"copy.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":148,\"end\":219},{\"path\":\"copy.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":51,\"end\":77},{\"path\":\"copy.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":0,\"end\":19},{\"path\":\"copy.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":21,\"end\":50},{\"path\":\"opposite.md\",\"revision\":\"37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12\",\"start\":220,\"end\":264},{\"path\":\"opposite.md\",\"revision\":\"37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12\",\"start\":148,\"end\":219},{\"path\":\"opposite.md\",\"revision\":\"37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12\",\"start\":51,\"end\":77},{\"path\":\"opposite.md\",\"revision\":\"37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12\",\"start\":0,\"end\":19},{\"path\":\"opposite.md\",\"revision\":\"37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12\",\"start\":21,\"end\":50},{\"path\":\"source.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":220,\"end\":264},{\"path\":\"source.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":148,\"end\":219},{\"path\":\"source.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":51,\"end\":77},{\"path\":\"source.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":0,\"end\":19},{\"path\":\"source.md\",\"revision\":\"2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25\",\"start\":21,\"end\":50}]\n---\n\n# Synthetic context\n\n\\# Synthetic context\n\nOnly on a disconnected bench:\n\n- Prepare the inert batch:\n  - Drain the violet chamber.\n    - Limitation: use inert samples only.\n  - Condition: never connect real equipment.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 220–264\n\n>   - Condition: never connect real equipment.\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 148–219\n\n>   - Drain the violet chamber.\n>     - Limitation: use inert samples only.\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 51–77\n\n> - Prepare the inert batch:\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 0–19\n\n> \\# Synthetic context\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 21–50\n\n> Only on a disconnected bench:\n\n[Open original](<../opposite.md>) — opposite.md\n\nRevision: 37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12; character range: 220–264\n\n>   - Condition: never connect real equipment.\n\n[Open original](<../opposite.md>) — opposite.md\n\nRevision: 37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12; character range: 148–219\n\n>   - Drain the violet chamber.\n>     - Limitation: use inert samples only.\n\n[Open original](<../opposite.md>) — opposite.md\n\nRevision: 37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12; character range: 51–77\n\n> - Prepare the inert batch:\n\n[Open original](<../opposite.md>) — opposite.md\n\nRevision: 37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12; character range: 0–19\n\n> \\# Synthetic context\n\n[Open original](<../opposite.md>) — opposite.md\n\nRevision: 37674f6725cbc13c5d25d6d4b7ba0990550a9322a7f6f7c860a5f74495186c12; character range: 21–50\n\n> Only on a disconnected bench:\n\n[Open original](<../source.md>) — source.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 220–264\n\n>   - Condition: never connect real equipment.\n\n[Open original](<../source.md>) — source.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 148–219\n\n>   - Drain the violet chamber.\n>     - Limitation: use inert samples only.\n\n[Open original](<../source.md>) — source.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 51–77\n\n> - Prepare the inert batch:\n\n[Open original](<../source.md>) — source.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 0–19\n\n> \\# Synthetic context\n\n[Open original](<../source.md>) — source.md\n\nRevision: 2a972e7529258449b25eb347f54e601894491ec2568914f5b4e21a8fd9531b25; character range: 21–50\n\n> Only on a disconnected bench:\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n"
+  }
+}
