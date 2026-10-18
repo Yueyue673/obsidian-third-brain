@@ -122,7 +122,14 @@ class Node {
   text(): string { return [this.textContent, ...this.children.map(n => n.text())].join('\n'); }
 }
 
-it.each(['md', 'canvas'])('actual %s files → strict reload → bilingual real renderer → all originals; upgrade/idempotency/current guards/cancel/recovery', async extension => {
+// Keep independent real-file journeys below the unchanged per-test deadline.
+// Each phase has a fresh vault; both language phases still invoke EVERY source
+// callback. No safety assertion, evidence entry or live store check is skipped.
+it.each([
+  ['md', 'storage'], ['canvas', 'storage'],
+  ['md', 'en'], ['md', 'zh'], ['canvas', 'en'], ['canvas', 'zh'],
+  ['md', 'guards'], ['canvas', 'guards'],
+] as const)('actual %s files / %s → strict reload, original integrity and complete owned journey', async (extension, phase) => {
   const scope = path.resolve('.local/local-nested-qualified'); await fs.mkdir(scope, { recursive: true });
   const root = await fs.mkdtemp(path.join(scope, 'vault-'));
   const raws = Object.fromEntries(Object.entries(legacy.raws as Record<string, string>).map(([n, r]) => [n.replace('.md', '.' + extension), extension === 'md' ? r : canvas('---\nprivacy: private\n---\n' + r)]));
@@ -136,14 +143,14 @@ it.each(['md', 'canvas'])('actual %s files → strict reload → bilingual real 
   let dispose: (() => void) | undefined, pending: Promise<unknown> | undefined;
   try {
     let oldId: string | undefined;
-    if (extension === 'md') { const inputs = await sources.list(); const old: IndexState = structuredClone(legacy.old); await store.commit(old, () => sources.verify(inputs)); oldId = Object.values(old.fragments)[0].id; }
+    if (extension === 'md' && phase === 'storage') { const inputs = await sources.list(); const old: IndexState = structuredClone(legacy.old); await store.commit(old, () => sources.verify(inputs)); oldId = Object.values(old.fragments)[0].id; }
     await c.initialize(); await c.refresh(); const index = (await store.load())!, all = Object.values(index.fragments);
     expect(all).toHaveLength(4); if (oldId) expect(index.fragments[oldId]).toBeUndefined();
     if (extension === 'canvas') expect(all.every(f => f.privacy === 'private')).toBe(true);
     const statePath = path.join(root, 'Derived/.third-brain/state.json'), state = await fs.readFile(statePath);
     await c.initialize(); await c.refresh(); expect(await store.load()).toEqual(index); expect(await fs.readFile(statePath)).toEqual(state);
     let evidence: Evidence[] = [], openCount = 0;
-    for (const locale of ['en', 'zh'] as const) {
+    for (const locale of phase === 'en' || phase === 'zh' ? [phase] : []) {
       vi.stubGlobal('document', { createElement: (tag: string) => new Node(tag) });
       const container = new Node('main'), opens: Promise<void>[] = [];
       dispose = mountPanel(container as unknown as HTMLElement, { status: () => c.status(), subscribe: h => c.subscribe(h), refresh: () => c.refresh(), cancel: () => c.cancel(), find: (...args) => { pending = c.find(...args); return pending as ReturnType<ThirdBrainController['find']>; }, open: e => { const p = c.verifyOpen(e); opens.push(p); return p; } }, locale);
@@ -162,26 +169,31 @@ it.each(['md', 'canvas'])('actual %s files → strict reload → bilingual real 
       dispose(); dispose = undefined; vi.unstubAllGlobals();
     }
     for (const [n, r] of Object.entries(raws)) { expect(hash(await fs.readFile(path.join(root, n)))).toBe(hash(r)); expect((await fs.stat(path.join(root, n), { bigint: true })).mtimeNs.toString()).toBe(mtimes.get(n)); }
-    const name = 'a.' + extension;
-    await fs.writeFile(path.join(root, name), raws[name].replace('disconnected copper', 'changed synthetic'));
-    for (const e of evidence) await expect(c.verifyOpen(e)).rejects.toThrow();
-    expect((await c.find('cobalt calibration point', 'medium')).some(r => r.fragment.id === all.find(f => f.summary.includes(legacy.action) && f.summary.includes('disconnected'))!.id)).toBe(false);
-    await fs.writeFile(path.join(root, name), raws[name]); settings.excludes.push(name);
-    for (const e of evidence) await expect(c.verifyOpen(e)).rejects.toThrow(); settings.excludes.pop(); for (const e of evidence) await c.verifyOpen(e);
-    const commit = vi.spyOn(store, 'commit');
-    const huge = body.replace('a disposable mock.', '合'.repeat(16384));
-    await fs.writeFile(path.join(root, name), extension === 'md' ? huge : canvas(huge)); await expect(c.refresh()).rejects.toThrow(); expect(commit).not.toHaveBeenCalled(); expect(await fs.readFile(statePath)).toEqual(state);
-    await fs.writeFile(path.join(root, name), raws[name]); await c.refresh(); expect(await fs.readFile(statePath)).toEqual(state);
-    const list = sources.list.bind(sources); let release!: () => void, entered!: () => void;
-    const started = new Promise<void>(r => { entered = r; }), latch = new Promise<void>(r => { release = r; });
-    vi.spyOn(sources, 'list').mockImplementationOnce(async o => { entered(); await latch; return list(o); }); commit.mockClear();
-    const refresh = c.refresh(); await started; c.cancel(); release(); await expect(refresh).rejects.toMatchObject({ name: 'AbortError' }); expect(commit).not.toHaveBeenCalled(); expect(await fs.readFile(statePath)).toEqual(state);
-    await c.refresh(); expect(await fs.readFile(statePath)).toEqual(state);
-    const target = path.join(root, await store.fragmentPath(all[0].id)), bytes = await fs.readFile(target);
-    await fs.writeFile(target, Buffer.concat([bytes, Buffer.from('\nSynthetic human amendment.')])); await expect(c.refresh()).rejects.toThrow(); expect(await fs.readFile(target, 'utf8')).toContain('Synthetic human amendment.'); expect(await fs.readFile(statePath)).toEqual(state);
-    await fs.writeFile(target, bytes); await c.initialize(); await c.refresh(); expect(await fs.readFile(statePath)).toEqual(state);
+    if (phase === 'guards') {
+      const current = await c.find('cobalt calibration point', 'medium');
+      evidence = current.find(r => r.fragment.summary.includes(legacy.action) && r.fragment.summary.includes('disconnected'))!.fragment.evidence;
+      expect(evidence.length).toBeGreaterThan(0);
+      const name = 'a.' + extension;
+      await fs.writeFile(path.join(root, name), raws[name].replace('disconnected copper', 'changed synthetic'));
+      for (const e of evidence) await expect(c.verifyOpen(e)).rejects.toThrow();
+      expect((await c.find('cobalt calibration point', 'medium')).some(r => r.fragment.id === all.find(f => f.summary.includes(legacy.action) && f.summary.includes('disconnected'))!.id)).toBe(false);
+      await fs.writeFile(path.join(root, name), raws[name]); settings.excludes.push(name);
+      for (const e of evidence) await expect(c.verifyOpen(e)).rejects.toThrow(); settings.excludes.pop(); for (const e of evidence) await c.verifyOpen(e);
+      const commit = vi.spyOn(store, 'commit');
+      const huge = body.replace('a disposable mock.', '合'.repeat(16384));
+      await fs.writeFile(path.join(root, name), extension === 'md' ? huge : canvas(huge)); await expect(c.refresh()).rejects.toThrow(); expect(commit).not.toHaveBeenCalled(); expect(await fs.readFile(statePath)).toEqual(state);
+      await fs.writeFile(path.join(root, name), raws[name]); await c.refresh(); expect(await fs.readFile(statePath)).toEqual(state);
+      const list = sources.list.bind(sources); let release!: () => void, entered!: () => void;
+      const started = new Promise<void>(r => { entered = r; }), latch = new Promise<void>(r => { release = r; });
+      vi.spyOn(sources, 'list').mockImplementationOnce(async o => { entered(); await latch; return list(o); }); commit.mockClear();
+      const refresh = c.refresh(); await started; c.cancel(); release(); await expect(refresh).rejects.toMatchObject({ name: 'AbortError' }); expect(commit).not.toHaveBeenCalled(); expect(await fs.readFile(statePath)).toEqual(state);
+      await c.refresh(); expect(await fs.readFile(statePath)).toEqual(state);
+      const target = path.join(root, await store.fragmentPath(all[0].id)), bytes = await fs.readFile(target);
+      await fs.writeFile(target, Buffer.concat([bytes, Buffer.from('\nSynthetic human amendment.')])); await expect(c.refresh()).rejects.toThrow(); expect(await fs.readFile(target, 'utf8')).toContain('Synthetic human amendment.'); expect(await fs.readFile(statePath)).toEqual(state);
+      await fs.writeFile(target, bytes); await c.initialize(); await c.refresh(); expect(await fs.readFile(statePath)).toEqual(state);
+    }
     expect(await fs.readFile(path.join(root, 'Derived/manual.txt'), 'utf8')).toBe('Synthetic human-owned file.'); for (const [n, r] of Object.entries(raws)) expect(await fs.readFile(path.join(root, n), 'utf8')).toBe(r); expect(request).not.toHaveBeenCalled();
-    await fs.writeFile(path.join(scope, extension + '-receipt.json'), JSON.stringify({ strictReload: true, independentlyQualifiedFragments: 4, openCount, upgrade: extension === 'md', idempotent: true, realModelRequests: 0, nativeHost: false }, null, 2));
+    await fs.writeFile(path.join(scope, extension + '-' + phase + '-receipt.json'), JSON.stringify({ phase, strictReload: true, independentlyQualifiedFragments: 4, openCount, upgrade: extension === 'md' && phase === 'storage', idempotent: true, realModelRequests: 0, nativeHost: false }, null, 2));
   } finally { await pending?.catch(() => {}); dispose?.(); c.dispose(); vi.unstubAllGlobals(); vi.restoreAllMocks(); }
 });
 
