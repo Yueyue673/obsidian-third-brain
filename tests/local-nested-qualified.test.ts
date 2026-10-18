@@ -47,7 +47,7 @@ it.each(['md', 'canvas', 'quoted-md', 'quoted-canvas'])('%s separates individual
 
 it.each([
   ['Chinese', '- 仅在离线合成环境中允许：\n  - 将青铜旋钮调到七档。\n    - 例子：离线沙盒。\n  - 将翡翠记录按日期归档。\n    - 反例：真实身份禁止记录。'],
-  ['numbered', '1. Only the synthetic fixture:\n   1. Remember the amber point.\n      - Example: a disposable mock.\n   2. File the jade ledger.\n      - Caveat: no real identity.'],
+  ['numbered root with unordered points', '1. Only the synthetic fixture:\n   - Remember the amber point.\n      - Example: a disposable mock.\n   - File the jade ledger.\n      - Caveat: no real identity.'],
   ['tabs', '- Only the synthetic fixture:\n\t- Remember the amber point.\n\t\t- Example: a disposable mock.\n\t- File the jade ledger.\n\t\t- Caveat: no real identity.'],
   ['loose', body.replace(/\n  - /gu, '\n\n  - ')],
 ])('%s keeps complete qualified branches and exact CR/CRLF mappings', async (_label, raw) => {
@@ -75,6 +75,7 @@ it('retains direct-child shared labels, their descendants and root-level qualifi
 
 it('does not infer independence for unqualified siblings, non-colon or multiline parents, one qualified branch or deeper coupled work', async () => {
   for (const raw of [
+    '1. Only the synthetic fixture:\n   1. Remember the amber point.\n      - Example: a disposable mock.\n   2. File the jade ledger.\n      - Caveat: no real identity.',
     body.replace('    - Example: a disposable mock.\n', ''),
     body.replace('fixture:', 'fixture.'),
     body.replace('fixture:\n', 'fixture:\n  Complete both branches before restarting.\n'),
