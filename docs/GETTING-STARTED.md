@@ -55,6 +55,8 @@ Unreleased source builds preserve complete local paragraphs and nested list grou
 
 Open a Markdown note. **Use current note** fills the idea box with the selected text, or the current draft if nothing is selected; it does not start a search. Review the text, then click **Find connections**. For long notes, select a shorter passage first. The plugin does not monitor typing or insert text into your note.
 
+Unreleased local builds also keep an immediately preceding paragraph ending in `:` or `：` with every root item of its list. Blank lines are allowed; intervening prose, headings, code/hidden boundaries and Canvas nodes end that scope. This preserves explicit introductions, not implied conditions from arbitrary earlier text. The introduction shares the same size/quotation bounds and has its own exact source evidence; AI processing and download 0.3.7 are unchanged.
+
 While the idea box is focused, **Enter** adds a new line; **Ctrl + Enter** (**Command + Enter** on Mac) runs **Find connections**. Unreleased source builds show this hint below the box and associate it with the input for assistive technology; the 0.3.7 download has the shortcut but not the hint.
 
 ## Explore the results
@@ -155,6 +157,8 @@ Get-FileHash .\third-brain-0.3.7.zip -Algorithm SHA256
 尚未发布的源码构建会完整保留本地段落、嵌套列表组及其各级 `#`–`######` 标题，合计最多 16,384 个 UTF-16 代码单元，避免末尾命中丢掉开头或仅写在标题里的条件。正文相同但标题语境不同会保留为不同片段；标题与正文分别核验引文，显示时组合，不伪造一段连续原文。超限会阻止本轮更新并给出提示；请先在副本中检查，保留条件和例子，再明确重试。这是结构保留，不代表已自动拆成语义原子观点；下载版 0.3.7 尚未包含，AI 分块不变。详见[测试记录](VERIFICATION.md)。
 
 打开一篇 Markdown 笔记，点「使用当前笔记」，会把选中的文字填入想法输入框；没有选区时使用当前草稿，不会立即搜索。检查内容后，再点「寻找关联」。长笔记可以先选一段。插件不会持续监控输入，也不会自动写入原笔记。
+
+尚未发布的本地构建也会把紧邻列表、以 `:` 或 `：` 结尾的完整前导段落带到每个顶层条目里，中间允许空行。普通正文、新标题、代码／隐藏内容边界和 Canvas 节点会结束这段语境；不会猜测更早文字里的隐含条件。前导段落有自己的精确出处，并计入相同的长度和引文上限；AI 处理与下载版 0.3.7 不变。
 
 焦点在想法输入框内时，**Enter** 换行；**Ctrl + Enter**（Mac 上为 **Command + Enter**）寻找关联。尚未发布的源码版本会在框下显示这条提示，并将它关联为输入框的无障碍说明；0.3.7 下载包已有快捷键，尚不包含提示。
 

@@ -1,0 +1,448 @@
+{
+  "schema": "synthetic-list-leadin-baseline/v1",
+  "body": "- Rotate the synthetic amber calibration ring.\n  - Example: a disconnected disposable sandbox.\n  - Counterexample: live equipment is not a sandbox.",
+  "lead": "Only in a disconnected offline simulator may these actions be performed:",
+  "opposite": "On connected production equipment the following actions are forbidden:",
+  "raws": {
+    "a.md": "# Calibration\n\nOnly in a disconnected offline simulator may these actions be performed:\n\n- Rotate the synthetic amber calibration ring.\n  - Example: a disconnected disposable sandbox.\n  - Counterexample: live equipment is not a sandbox.",
+    "b.md": "# Calibration\n\nOn connected production equipment the following actions are forbidden:\n\n- Rotate the synthetic amber calibration ring.\n  - Example: a disconnected disposable sandbox.\n  - Counterexample: live equipment is not a sandbox.",
+    "copy.md": "# Calibration\n\nOnly in a disconnected offline simulator may these actions be performed:\n\n- Rotate the synthetic amber calibration ring.\n  - Example: a disconnected disposable sandbox.\n  - Counterexample: live equipment is not a sandbox."
+  },
+  "old": {
+    "version": 1,
+    "signature": "editorial-core-2:e5448af2a3819d7db455949fe079a08ca3053299ce8faf4586d714beba74e481",
+    "updatedAt": "2026-10-18T18:05:01.326Z",
+    "sources": {
+      "a.md": {
+        "hash": "93cdb90b175ea0033c3ce6a34a3271ca90966dbb1b0a82a1da293582a1b1640a",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_8649028b882a176510ee87ed65fa6ad139dfcba52b12bd5c6aa93a51631d4b4f",
+          "f_f619c8882b37060cf014a1808779bf2cd01c1d8fcc011ea3b2a7aec1ebf85b2f"
+        ]
+      },
+      "b.md": {
+        "hash": "e21cbbc55b42de6628c35ca61a04eb11f0377ff894201c3f6366ad46c181ef6d",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_4e6f147a48ca79051920f8852e81329ba0ab2279d079ecfb766056ff6c59a4c3",
+          "f_f619c8882b37060cf014a1808779bf2cd01c1d8fcc011ea3b2a7aec1ebf85b2f"
+        ]
+      },
+      "copy.md": {
+        "hash": "93cdb90b175ea0033c3ce6a34a3271ca90966dbb1b0a82a1da293582a1b1640a",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_8649028b882a176510ee87ed65fa6ad139dfcba52b12bd5c6aa93a51631d4b4f",
+          "f_f619c8882b37060cf014a1808779bf2cd01c1d8fcc011ea3b2a7aec1ebf85b2f"
+        ]
+      }
+    },
+    "fragments": {
+      "f_4e6f147a48ca79051920f8852e81329ba0ab2279d079ecfb766056ff6c59a4c3": {
+        "id": "f_4e6f147a48ca79051920f8852e81329ba0ab2279d079ecfb766056ff6c59a4c3",
+        "privacy": "normal",
+        "title": "Calibration",
+        "summary": "# Calibration\n\nOn connected production equipment the following actions are forbidden:",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "e21cbbc55b42de6628c35ca61a04eb11f0377ff894201c3f6366ad46c181ef6d",
+            "quote": "On connected production equipment the following actions are forbidden:",
+            "start": 15,
+            "end": 85
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "e21cbbc55b42de6628c35ca61a04eb11f0377ff894201c3f6366ad46c181ef6d",
+            "quote": "# Calibration",
+            "start": 0,
+            "end": 13
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T18:05:01.326Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_8649028b882a176510ee87ed65fa6ad139dfcba52b12bd5c6aa93a51631d4b4f": {
+        "id": "f_8649028b882a176510ee87ed65fa6ad139dfcba52b12bd5c6aa93a51631d4b4f",
+        "privacy": "normal",
+        "title": "Calibration",
+        "summary": "# Calibration\n\nOnly in a disconnected offline simulator may these actions be performed:",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "93cdb90b175ea0033c3ce6a34a3271ca90966dbb1b0a82a1da293582a1b1640a",
+            "quote": "# Calibration",
+            "start": 0,
+            "end": 13
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "93cdb90b175ea0033c3ce6a34a3271ca90966dbb1b0a82a1da293582a1b1640a",
+            "quote": "Only in a disconnected offline simulator may these actions be performed:",
+            "start": 15,
+            "end": 87
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "93cdb90b175ea0033c3ce6a34a3271ca90966dbb1b0a82a1da293582a1b1640a",
+            "quote": "# Calibration",
+            "start": 0,
+            "end": 13
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "93cdb90b175ea0033c3ce6a34a3271ca90966dbb1b0a82a1da293582a1b1640a",
+            "quote": "Only in a disconnected offline simulator may these actions be performed:",
+            "start": 15,
+            "end": 87
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T18:05:01.326Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_f619c8882b37060cf014a1808779bf2cd01c1d8fcc011ea3b2a7aec1ebf85b2f": {
+        "id": "f_f619c8882b37060cf014a1808779bf2cd01c1d8fcc011ea3b2a7aec1ebf85b2f",
+        "privacy": "normal",
+        "title": "Calibration",
+        "summary": "# Calibration\n\n- Rotate the synthetic amber calibration ring.\n  - Example: a disconnected disposable sandbox.\n  - Counterexample: live equipment is not a sandbox.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "93cdb90b175ea0033c3ce6a34a3271ca90966dbb1b0a82a1da293582a1b1640a",
+            "quote": "- Rotate the synthetic amber calibration ring.\n  - Example: a disconnected disposable sandbox.\n  - Counterexample: live equipment is not a sandbox.",
+            "start": 89,
+            "end": 236
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "93cdb90b175ea0033c3ce6a34a3271ca90966dbb1b0a82a1da293582a1b1640a",
+            "quote": "# Calibration",
+            "start": 0,
+            "end": 13
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "e21cbbc55b42de6628c35ca61a04eb11f0377ff894201c3f6366ad46c181ef6d",
+            "quote": "- Rotate the synthetic amber calibration ring.\n  - Example: a disconnected disposable sandbox.\n  - Counterexample: live equipment is not a sandbox.",
+            "start": 87,
+            "end": 234
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "e21cbbc55b42de6628c35ca61a04eb11f0377ff894201c3f6366ad46c181ef6d",
+            "quote": "# Calibration",
+            "start": 0,
+            "end": 13
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "93cdb90b175ea0033c3ce6a34a3271ca90966dbb1b0a82a1da293582a1b1640a",
+            "quote": "- Rotate the synthetic amber calibration ring.\n  - Example: a disconnected disposable sandbox.\n  - Counterexample: live equipment is not a sandbox.",
+            "start": 89,
+            "end": 236
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "93cdb90b175ea0033c3ce6a34a3271ca90966dbb1b0a82a1da293582a1b1640a",
+            "quote": "# Calibration",
+            "start": 0,
+            "end": 13
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T18:05:01.326Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      }
+    }
+  },
+  "signatures": {
+    "local-excerpts": "{\"version\":1,\"localExcerptPolicy\":\"block-heading-context-1\",\"mode\":\"local-excerpts\",\"endpoint\":\"\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "local-model": "{\"version\":1,\"mode\":\"local-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "cloud-model": "{\"version\":1,\"mode\":\"cloud-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}"
+  },
+  "requests": {
+    "local-model": [
+      {
+        "task": "extract",
+        "text": "Only in a disconnected offline simulator may these actions be performed:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Calibration",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Rotate the synthetic amber calibration ring.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Calibration",
+          "before": "Only in a disconnected offline simulator may these actions be performed:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Example: a disconnected disposable sandbox.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Calibration",
+          "before": "- Rotate the synthetic amber calibration ring."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Counterexample: live equipment is not a sandbox.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Calibration",
+          "before": "- Example: a disconnected disposable sandbox."
+        }
+      }
+    ],
+    "cloud-model": [
+      {
+        "task": "extract",
+        "text": "Only in a disconnected offline simulator may these actions be performed:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Calibration",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Rotate the synthetic amber calibration ring.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Calibration",
+          "before": "Only in a disconnected offline simulator may these actions be performed:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Example: a disconnected disposable sandbox.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Calibration",
+          "before": "- Rotate the synthetic amber calibration ring."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Counterexample: live equipment is not a sandbox.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Calibration",
+          "before": "- Example: a disconnected disposable sandbox."
+        }
+      }
+    ]
+  },
+  "baseline": {
+    "resultCount": 3,
+    "results": [
+      {
+        "id": "f_f619c8882b37060cf014a1808779bf2cd01c1d8fcc011ea3b2a7aec1ebf85b2f",
+        "summary": "# Calibration\n\n- Rotate the synthetic amber calibration ring.\n  - Example: a disconnected disposable sandbox.\n  - Counterexample: live equipment is not a sandbox.",
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "93cdb90b175ea0033c3ce6a34a3271ca90966dbb1b0a82a1da293582a1b1640a",
+            "quote": "- Rotate the synthetic amber calibration ring.\n  - Example: a disconnected disposable sandbox.\n  - Counterexample: live equipment is not a sandbox.",
+            "start": 89,
+            "end": 236
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "93cdb90b175ea0033c3ce6a34a3271ca90966dbb1b0a82a1da293582a1b1640a",
+            "quote": "# Calibration",
+            "start": 0,
+            "end": 13
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "e21cbbc55b42de6628c35ca61a04eb11f0377ff894201c3f6366ad46c181ef6d",
+            "quote": "- Rotate the synthetic amber calibration ring.\n  - Example: a disconnected disposable sandbox.\n  - Counterexample: live equipment is not a sandbox.",
+            "start": 87,
+            "end": 234
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "e21cbbc55b42de6628c35ca61a04eb11f0377ff894201c3f6366ad46c181ef6d",
+            "quote": "# Calibration",
+            "start": 0,
+            "end": 13
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "93cdb90b175ea0033c3ce6a34a3271ca90966dbb1b0a82a1da293582a1b1640a",
+            "quote": "- Rotate the synthetic amber calibration ring.\n  - Example: a disconnected disposable sandbox.\n  - Counterexample: live equipment is not a sandbox.",
+            "start": 89,
+            "end": 236
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "93cdb90b175ea0033c3ce6a34a3271ca90966dbb1b0a82a1da293582a1b1640a",
+            "quote": "# Calibration",
+            "start": 0,
+            "end": 13
+          }
+        ]
+      },
+      {
+        "id": "f_4e6f147a48ca79051920f8852e81329ba0ab2279d079ecfb766056ff6c59a4c3",
+        "summary": "# Calibration\n\nOn connected production equipment the following actions are forbidden:",
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "e21cbbc55b42de6628c35ca61a04eb11f0377ff894201c3f6366ad46c181ef6d",
+            "quote": "On connected production equipment the following actions are forbidden:",
+            "start": 15,
+            "end": 85
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "e21cbbc55b42de6628c35ca61a04eb11f0377ff894201c3f6366ad46c181ef6d",
+            "quote": "# Calibration",
+            "start": 0,
+            "end": 13
+          }
+        ]
+      },
+      {
+        "id": "f_8649028b882a176510ee87ed65fa6ad139dfcba52b12bd5c6aa93a51631d4b4f",
+        "summary": "# Calibration\n\nOnly in a disconnected offline simulator may these actions be performed:",
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "93cdb90b175ea0033c3ce6a34a3271ca90966dbb1b0a82a1da293582a1b1640a",
+            "quote": "# Calibration",
+            "start": 0,
+            "end": 13
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "93cdb90b175ea0033c3ce6a34a3271ca90966dbb1b0a82a1da293582a1b1640a",
+            "quote": "Only in a disconnected offline simulator may these actions be performed:",
+            "start": 15,
+            "end": 87
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "93cdb90b175ea0033c3ce6a34a3271ca90966dbb1b0a82a1da293582a1b1640a",
+            "quote": "# Calibration",
+            "start": 0,
+            "end": 13
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "93cdb90b175ea0033c3ce6a34a3271ca90966dbb1b0a82a1da293582a1b1640a",
+            "quote": "Only in a disconnected offline simulator may these actions be performed:",
+            "start": 15,
+            "end": 87
+          }
+        ]
+      }
+    ],
+    "allOriginalsVerified": true,
+    "realModelRequests": 0,
+    "nativeHost": false
+  }
+}

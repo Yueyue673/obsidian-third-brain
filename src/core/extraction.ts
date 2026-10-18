@@ -45,14 +45,15 @@ export async function analyzeSource(input: SourceSnapshot, options: AnalyzeOptio
       checkAbort(options.signal);
       if (++visited % 32 === 0) await yieldToHost(options.signal);
       if (!meaningful(piece.text)) continue;
-      const parts = [...(snapshot.format === 'canvas' && piece.localList ? localEvidencePieces(piece) : [piece]), ...(piece.localHeadings ?? [])];
+      const parts = [...(snapshot.format === 'canvas' && piece.localList ? localEvidencePieces(piece) : [piece]), ...(piece.localHeadings ?? []), ...(piece.localLeadIn ? [piece.localLeadIn] : [])];
       if (parts.length > FRAGMENT_EVIDENCE_LIMIT) {
         const error = new CoreError('Local list context exceeds the quotation evidence limit; no partial index was saved.');
         bindSourceDiagnostic(error,{ relativePath:snapshot.path,stage:'analysis',reason:'local-context-evidence-limit' });
         throw error;
       }
       const evidence = parts.map(part => evidenceFor(snapshot,part.text,part.offsets));
-      const summary = piece.localHeadings?.length ? piece.localHeadings.map(item => item.text).join('\n') + '\n\n' + piece.text : piece.text;
+      const body = piece.localLeadIn ? piece.localLeadIn.text + '\n\n' + piece.text : piece.text;
+      const summary = piece.localHeadings?.length ? piece.localHeadings.map(item => item.text).join('\n') + '\n\n' + body : body;
       const fragment: Fragment = { id:'',privacy:snapshot.privacy,title:piece.heading || piece.text.replace(/^[\s>*+\-\[\]xX0-9.)]+/u,'').slice(0,100),summary,kind:'excerpt',facets:explicit,evidence,mode:'local',updatedAt:now,conditions:[],caveats:[LOCAL_LABEL] };
       if (evidence.some(item => item.start < 0)) fragment.caveats.push(CANVAS_OFFSET_CAVEAT);
       fragment.id = fragmentId(fragment); fragments.push(fragment);

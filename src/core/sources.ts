@@ -4,7 +4,7 @@ import { CoreError, FACET_KEYS, boundedString, canonicalFacets, isPrivacy, parse
 import { mapped, safeVocabulary, type MappedText } from './privacy';
 import { bindSourceDiagnostic } from './source-diagnostics';
 
-export interface TextBlock extends MappedText { heading: string; localList?: boolean; localHeadings?: MappedText[]; }
+export interface TextBlock extends MappedText { heading: string; localList?: boolean; localHeadings?: MappedText[]; localLeadIn?: MappedText; }
 /** Complete local structural context is bounded, never truncated or re-split. */
 export const LOCAL_EXCERPT_CONTEXT_LIMIT = 16384;
 function frontmatter(raw: string): { body: number; metadata: string } {
@@ -95,17 +95,26 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
   const ancestors: { depth: number; block: MappedText }[] = [];
   let heading = '', start = -1, end = -1, fence = '', fenceLength = 0, hidden = '', drawing = false;
   let listIndent = -1, contentIndent = -1, blockedIndent = -1, blockedContentIndent = -1, blank = false;
+  let introduction: { block: TextBlock; end: number } | undefined, listLeadIn: MappedText | undefined;
   const columns = (text: string) => { let width = 0; for (const char of text) width += char === '\t' ? 4 - width % 4 : 1; return width; };
   const clearBlocked = () => { blockedIndent = blockedContentIndent = -1; };
-  const barrier = () => { if (local && listIndent >= 0) { blockedIndent = listIndent; blockedContentIndent = contentIndent; } flush(); };
+  const barrier = () => { if (local && listIndent >= 0) { blockedIndent = listIndent; blockedContentIndent = contentIndent; } flush(); introduction = undefined; listLeadIn = undefined; };
   const flush = () => {
     const headingLength = ancestors.length ? ancestors.reduce((size, item) => size + item.block.text.length + 1, 1) : 0;
-    if (local && start >= 0 && end - start + headingLength > LOCAL_EXCERPT_CONTEXT_LIMIT) {
+    const introductionLength = listIndent >= 0 && listLeadIn ? listLeadIn.text.length + 2 : 0;
+    if (local && start >= 0 && end - start + headingLength + introductionLength > LOCAL_EXCERPT_CONTEXT_LIMIT) {
       const error = new CoreError(listIndent >= 0 ? 'Local list context exceeds 16384 characters; no partial index was saved.' : 'Local paragraph context exceeds 16384 characters; no partial index was saved.');
       bindSourceDiagnostic(error,{ relativePath:sourcePath,stage:'analysis',reason:'local-context-size-limit' });
       throw error;
     }
-    if (start >= 0 && end > start) { const text = raw.slice(start, end); const trimStart = text.length - text.trimStart().length; const trimmed = text.trim(); if (trimmed) blocks.push({ ...mapped(trimmed, base < 0 ? -1 : base + start + trimStart), heading, ...(local && listIndent >= 0 ? { localList:true } : {}), ...(local && ancestors.length ? { localHeadings:ancestors.map(item => item.block) } : {}) }); }
+    if (start >= 0 && end > start) {
+      const text = raw.slice(start, end), trimStart = text.length - text.trimStart().length, trimmed = text.trim();
+      if (trimmed) {
+        const block: TextBlock = { ...mapped(trimmed, base < 0 ? -1 : base + start + trimStart), heading, ...(local && listIndent >= 0 ? { localList:true, ...(listLeadIn ? { localLeadIn:listLeadIn } : {}) } : {}), ...(local && ancestors.length ? { localHeadings:ancestors.map(item => item.block) } : {}) };
+        blocks.push(block);
+        if (local && listIndent < 0) introduction = /[:：]$/u.test(trimmed) ? { block,end } : undefined;
+      }
+    }
     start = end = -1; listIndent = contentIndent = -1;
   };
   const linePattern = /[^\r\n]+(?:\r\n|\r|\n|$)|(?:\r\n|\r|\n)/gu;
@@ -124,7 +133,7 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
     if (line.trim().startsWith('%%')) { barrier(); if (line.trim() === '%%' || !line.trim().slice(2).includes('%%')) hidden = '%%'; continue; }
     const title = /^\s{0,3}#{1,6}\s+(.+?)\s*#*\s*$/u.exec(line);
     if (title) {
-      flush(); clearBlocked();
+      flush(); clearBlocked(); introduction = undefined; listLeadIn = undefined;
       heading = title[1].replace(/\s+\^[a-z0-9-]+$/iu, '').slice(0,160);
       drawing = excalidraw && /^(?:drawing|绘图)$/iu.test(heading);
       if (local || includeHeadings) {
@@ -148,7 +157,7 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
     // Unrelated prose after a blank line is outside the previous list. Keep its
     // existing parsing policy, including literal markup examples in inline code.
     if (local && !item && line.trim()) {
-      if (listIndent >= 0 && blank && indent < contentIndent) { flush(); clearBlocked(); }
+      if (listIndent >= 0 && blank && indent < contentIndent) { flush(); clearBlocked(); listLeadIn = undefined; }
       if (blockedIndent >= 0 && indent < blockedContentIndent) clearBlocked();
     }
     // Check the first parent item too: skipping it would expose bare children.
@@ -166,7 +175,22 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
           flush();
         }
         clearBlocked();
-        if (listIndent < 0 || indent <= listIndent) { flush(); listIndent = indent; contentIndent = columns(item[0]); }
+        if (listIndent < 0 || indent <= listIndent) {
+          const continuing = listIndent >= 0;
+          flush();
+          if (!continuing) {
+            listLeadIn = undefined;
+            // A literal terminal colon explicitly introduces the adjacent list.
+            // Do not infer semantic dependence from arbitrary previous prose.
+            if (introduction && blocks.at(-1) === introduction.block && !raw.slice(introduction.end,offset).trim()) {
+              if (introduction.block.text.includes('<!--') || introduction.block.text.includes('%%')) throw new CoreError('Local list context intersects hidden content; no partial index was saved.');
+              listLeadIn = introduction.block;
+              blocks.pop(); // The introduction belongs to its actions, not an orphan excerpt.
+            }
+            introduction = undefined;
+          }
+          listIndent = indent; contentIndent = columns(item[0]);
+        }
       }
     } else if (item && start >= 0) flush();
     blank = false;
