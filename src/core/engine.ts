@@ -1,4 +1,5 @@
 import type { Facets, Fragment, IndexState, RunOptions, SourceRecord, SourceSnapshot, SourceStatus } from './types';
+import { FRAGMENT_EVIDENCE_LIMIT } from './types';
 import { CoreError, CORE_REVISION, FACET_KEYS, checkAbort, digest, exactKeys, facetKey, isPrivacy, plainObject, relativePath, restrictive, stringList, timestamp, unionFacets, yieldToHost } from './util';
 import { extendVocabulary, hasCredentials, safeFacet, safeVocabulary } from './privacy';
 import { checkedSource, sourceFacets, textBlocks } from './sources';
@@ -21,6 +22,7 @@ function validatePrevious(state: IndexState): void {
     for (const key of FACET_KEYS) if (stringList(fragment.facets[key],256,120).some(value => !safeFacet(value))) throw new CoreError('Unsafe stored facet');
     stringList(fragment.conditions,12,500); stringList(fragment.caveats,24,1000);
     if (!Array.isArray(fragment.evidence) || !fragment.evidence.length || fragmentId(fragment) !== id) throw new CoreError('Invalid fragment identifier or evidence');
+    if (fragment.evidence.length > FRAGMENT_EVIDENCE_LIMIT) throw new CoreError('Fragment evidence limit exceeded; no partial index was saved.');
     for (const evidence of fragment.evidence) {
       exactKeys(evidence,['sourceId','relativePath','sourceHash','quote','start','end']);
       if (typeof evidence.sourceId !== 'string' || !evidence.sourceId || typeof evidence.relativePath !== 'string' || typeof evidence.sourceHash !== 'string' || typeof evidence.quote !== 'string' || !evidence.quote || !Number.isInteger(evidence.start) || !Number.isInteger(evidence.end) || hasCredentials(evidence.quote)) throw new CoreError('Invalid stored quotation');

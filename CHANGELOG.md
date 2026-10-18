@@ -4,6 +4,8 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Keep each local-excerpt list item together with its descendants, so parent conditions, examples and counterexamples remain visible and opposing contexts do not collapse into an unqualified excerpt. Complete groups are limited to 16,384 UTF-16 code units; oversized or ambiguous groups refuse the refresh rather than publish partial context. The existing 256-quotation store limit is also enforced before commit, including after cross-source merging; evidence is never truncated to fit. Local caches are refreshed once for this policy. AI input and cache policies are unchanged.
+
 - Explain in English/Chinese when the Refresh notes command is used while the generated layer is loading: no refresh started; wait for loading to finish and explicitly choose Refresh notes again. Do not call or queue maintenance during loading; retain initialization-failure diagnostics and protected files. Verified through the registered command, real synthetic file stores and controlled load latches, not native Obsidian or real disk faults.
 
 - Show the live loading state immediately after changing the generated folder, pausing search, refresh and current-note controls until initialization settles. Keep the carried idea, privacy, breadth and selected type/property; update readiness or safe failure guidance through the new controller subscription without remounting an input being composed in. No automatic search, file-I/O cancellation or folder migration is implied. Verified with registered settings/view callbacks, real synthetic file stores and controlled load timing/failures, not native Obsidian or actual disk faults.

@@ -5,6 +5,7 @@ import * as path from 'node:path';
 import { createHash, createHmac, randomBytes, timingSafeEqual } from 'node:crypto';
 import { AsyncLocalStorage } from 'node:async_hooks';
 import type { Facets, Fragment, IndexState, StorePort } from '../core/types';
+import { FRAGMENT_EVIDENCE_LIMIT } from '../core/types';
 import { buildFragmentNetwork, type FragmentNetwork } from '../core/connections';
 import { generatedFileError } from '../core/generated-diagnostics';
 import { storeBusyError } from '../core/store-diagnostics';
@@ -127,7 +128,7 @@ function validateIndex(v: unknown): IndexState {
     if (f.id !== id || !['normal', 'local', 'private'].includes(f.privacy as string) || !['local', 'ai'].includes(f.mode as string)) fail();
     text(f.title, 1024); text(f.summary, 100000); text(f.kind, 256); text(f.updatedAt, 64, true);
     facets(f.facets); strings(f.conditions); strings(f.caveats);
-    if (!Array.isArray(f.evidence) || !f.evidence.length || f.evidence.length > 256) fail();
+    if (!Array.isArray(f.evidence) || !f.evidence.length || f.evidence.length > FRAGMENT_EVIDENCE_LIMIT) fail();
     for (const value of f.evidence) {
       const e = keys(value, ['sourceId', 'relativePath', 'sourceHash', 'quote', 'start', 'end']);
       text(e.sourceId, 512); const p = relative(e.relativePath); const h = digest(e.sourceHash);

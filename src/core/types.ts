@@ -11,6 +11,8 @@ export interface KindSelection { channel: 'kind'; value: FragmentKind; }
 export type QuerySelection = FacetSelection | KindSelection;
 export interface SourceSnapshot { id: string; path: string; text: string; hash: string; privacy: Privacy; format: 'markdown' | 'canvas'; }
 export interface Evidence { sourceId: string; relativePath: string; sourceHash: string; quote: string; start: number; end: number; }
+// Shared by core staging and the strict owned-store validator.
+export const FRAGMENT_EVIDENCE_LIMIT = 256;
 export interface Fragment { id: string; privacy: Privacy; title: string; summary: string; kind: string; facets: Facets; evidence: Evidence[]; mode: 'local' | 'ai'; updatedAt: string; conditions: string[]; caveats: string[]; }
 export type SourceStatus = 'indexed' | 'empty' | 'insufficient-context' | 'sensitive' | 'local-only' | 'error';
 export interface SourceRecord { hash: string; status: SourceStatus; fragmentIds: string[]; }

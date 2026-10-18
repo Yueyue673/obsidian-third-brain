@@ -1,0 +1,260 @@
+{
+  "frozenCommit": "c56a08fe06a995ba408f16a0497c0b2e39e0ef21",
+  "notSemanticGraded": true,
+  "old": {
+    "version": 1,
+    "signature": "editorial-core-2:0303a458d71b2857b71144fb451e2f18fa14d1986e7a973103fb23ea81acac2f",
+    "updatedAt": "2026-01-01T00:00:00.000Z",
+    "sources": {
+      "source.md": {
+        "hash": "26fec40ea5f3b2879eba1b721414c33f94389903034e93c3fb4bc488d48f133c",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_1ad7155e9aaef63bc62a96ac79fa08fd2815e254b559702350af6f3c8ee5d4ac",
+          "f_47deed3454fb737c101cabaa3469bbd6c1b396f3221387d8f2284308dd131c5c",
+          "f_adbf66a199aba9372d7f26a44f14c8a207dc2cf45bfaf4586c68dfc2d9b1b57c"
+        ]
+      }
+    },
+    "fragments": {
+      "f_1ad7155e9aaef63bc62a96ac79fa08fd2815e254b559702350af6f3c8ee5d4ac": {
+        "id": "f_1ad7155e9aaef63bc62a96ac79fa08fd2815e254b559702350af6f3c8ee5d4ac",
+        "privacy": "normal",
+        "title": "合成检修",
+        "summary": "- 反例：在线设备禁止操作。",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "52a44c849668711c167f3cfa",
+            "relativePath": "source.md",
+            "sourceHash": "26fec40ea5f3b2879eba1b721414c33f94389903034e93c3fb4bc488d48f133c",
+            "quote": "- 反例：在线设备禁止操作。",
+            "start": 47,
+            "end": 61
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_47deed3454fb737c101cabaa3469bbd6c1b396f3221387d8f2284308dd131c5c": {
+        "id": "f_47deed3454fb737c101cabaa3469bbd6c1b396f3221387d8f2284308dd131c5c",
+        "privacy": "normal",
+        "title": "合成检修",
+        "summary": "- 将紫铜阀门旋转到九十度。",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "52a44c849668711c167f3cfa",
+            "relativePath": "source.md",
+            "sourceHash": "26fec40ea5f3b2879eba1b721414c33f94389903034e93c3fb4bc488d48f133c",
+            "quote": "- 将紫铜阀门旋转到九十度。",
+            "start": 30,
+            "end": 44
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_adbf66a199aba9372d7f26a44f14c8a207dc2cf45bfaf4586c68dfc2d9b1b57c": {
+        "id": "f_adbf66a199aba9372d7f26a44f14c8a207dc2cf45bfaf4586c68dfc2d9b1b57c",
+        "privacy": "normal",
+        "title": "合成检修",
+        "summary": "- 仅在离线仿真且隔离真实设备时才允许：",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "52a44c849668711c167f3cfa",
+            "relativePath": "source.md",
+            "sourceHash": "26fec40ea5f3b2879eba1b721414c33f94389903034e93c3fb4bc488d48f133c",
+            "quote": "- 仅在离线仿真且隔离真实设备时才允许：",
+            "start": 7,
+            "end": 27
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      }
+    }
+  },
+  "signatures": {
+    "local-excerpts": "{\"version\":1,\"mode\":\"local-excerpts\",\"endpoint\":\"\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "local-model": "{\"version\":1,\"mode\":\"local-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "cloud-model": "{\"version\":1,\"mode\":\"cloud-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}"
+  },
+  "requests": {
+    "local-model": [
+      {
+        "task": "extract",
+        "text": "- 仅在离线仿真且隔离真实设备时才允许：",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Source heading",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- 将紫铜阀门旋转到九十度。",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Source heading",
+          "before": "- 仅在离线仿真且隔离真实设备时才允许："
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- 例子：离线沙盒。",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Source heading",
+          "before": "- 将紫铜阀门旋转到九十度。"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- 反例：在线设备禁止操作。",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Source heading",
+          "before": "- 例子：离线沙盒。"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Later independent synthetic paragraph.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Source heading",
+          "before": "- 反例：在线设备禁止操作。"
+        }
+      }
+    ],
+    "cloud-model": [
+      {
+        "task": "extract",
+        "text": "- 仅在离线仿真且隔离真实设备时才允许：",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Source heading",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- 将紫铜阀门旋转到九十度。",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Source heading",
+          "before": "- 仅在离线仿真且隔离真实设备时才允许："
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- 例子：离线沙盒。",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Source heading",
+          "before": "- 将紫铜阀门旋转到九十度。"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- 反例：在线设备禁止操作。",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Source heading",
+          "before": "- 例子：离线沙盒。"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Later independent synthetic paragraph.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Source heading",
+          "before": "- 反例：在线设备禁止操作。"
+        }
+      }
+    ]
+  }
+}

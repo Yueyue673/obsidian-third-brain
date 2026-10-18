@@ -1,8 +1,8 @@
 import type { Analysis, AnalyzeOptions, Fragment, SourceSnapshot } from './types';
-import { SOURCE_CONTEXT_LIMITS } from './types';
+import { FRAGMENT_EVIDENCE_LIMIT, SOURCE_CONTEXT_LIMITS } from './types';
 import { CoreError, LOCAL_LABEL, MODEL_TEXT_LIMIT, cancellable, checkAbort, timestamp, yieldToHost } from './util';
 import { extendVocabulary, hasCredentials, mapped, redact, safeVocabulary } from './privacy';
-import { checkedSource, meaningful, sourceFacets, splitBlock, textBlocks, type TextBlock } from './sources';
+import { checkedSource, localExcerptBlocks, localEvidencePieces, meaningful, sourceFacets, splitBlock, textBlocks, type TextBlock } from './sources';
 import { CANVAS_OFFSET_CAVEAT, evidenceFor, fragmentId, mergeFragments } from './fragments';
 import { parseExtraction } from './model';
 
@@ -30,20 +30,22 @@ export async function analyzeSource(input: SourceSnapshot, options: AnalyzeOptio
   if (options.mode === 'cloud-model' && snapshot.privacy !== 'normal') return { status:'local-only',fragments:[] };
   if (hasCredentials(snapshot.text)) return { status:'sensitive',fragments:[] };
   if (options.mode === 'cloud-model' && !options.cloudConsent) throw new CoreError('Cloud processing requires explicit consent');
-  const blocks = textBlocks(snapshot);
+  const blocks = options.mode === 'local-excerpts' ? localExcerptBlocks(snapshot) : textBlocks(snapshot);
   if (!blocks.length) return { status:'empty',fragments:[] };
   const usable = blocks.filter(block => meaningful(block.text));
   if (!usable.length) return { status:'insufficient-context',fragments:[] };
   const now = timestamp(options.now), explicit = sourceFacets(snapshot);
   if (options.mode === 'local-excerpts') {
     const fragments: Fragment[] = []; let visited = 0;
-    for (const block of usable) for (const piece of splitBlock(block,1400)) {
+    for (const block of usable) for (const piece of (block.localList ? [block] : splitBlock(block,1400))) {
       checkAbort(options.signal);
       if (++visited % 32 === 0) await yieldToHost(options.signal);
       if (!meaningful(piece.text)) continue;
-      const evidence = evidenceFor(snapshot,piece.text,piece.offsets);
-      const fragment: Fragment = { id:'',privacy:snapshot.privacy,title:piece.heading || piece.text.replace(/^[\s>*+\-\[\]xX0-9.)]+/u,'').slice(0,100),summary:piece.text,kind:'excerpt',facets:explicit,evidence:[evidence],mode:'local',updatedAt:now,conditions:[],caveats:[LOCAL_LABEL] };
-      if (evidence.start < 0) fragment.caveats.push(CANVAS_OFFSET_CAVEAT);
+      const parts = snapshot.format === 'canvas' && piece.localList ? localEvidencePieces(piece) : [piece];
+      if (parts.length > FRAGMENT_EVIDENCE_LIMIT) throw new CoreError('Local list context exceeds the quotation evidence limit; no partial index was saved.');
+      const evidence = parts.map(part => evidenceFor(snapshot,part.text,part.offsets));
+      const fragment: Fragment = { id:'',privacy:snapshot.privacy,title:piece.heading || piece.text.replace(/^[\s>*+\-\[\]xX0-9.)]+/u,'').slice(0,100),summary:piece.text,kind:'excerpt',facets:explicit,evidence,mode:'local',updatedAt:now,conditions:[],caveats:[LOCAL_LABEL] };
+      if (evidence.some(item => item.start < 0)) fragment.caveats.push(CANVAS_OFFSET_CAVEAT);
       fragment.id = fragmentId(fragment); fragments.push(fragment);
     }
     return { status:fragments.length ? 'indexed' : 'insufficient-context',fragments:mergeFragments(fragments) };

@@ -3,7 +3,9 @@ import { emptyFacets } from './types';
 import { CoreError, FACET_KEYS, boundedString, canonicalFacets, isPrivacy, parseCompleteJson, plainObject, relativePath, restrictive, unionFacets } from './util';
 import { mapped, safeVocabulary, type MappedText } from './privacy';
 
-export interface TextBlock extends MappedText { heading: string; }
+export interface TextBlock extends MappedText { heading: string; localList?: boolean; }
+/** Complete local list groups are bounded, never truncated or re-split. */
+export const LOCAL_LIST_CONTEXT_LIMIT = 16384;
 function frontmatter(raw: string): { body: number; metadata: string } {
   const first = /^(?:\ufeff)?---[ \t]*(?:\r\n|\n|\r)/u.exec(raw);
   if (!first) return { body: 0, metadata: '' };
@@ -87,48 +89,86 @@ export function sourceFacets(snapshot: SourceSnapshot): Facets {
   for (const match of body.matchAll(/(?:^|[\s(])#([\p{L}\p{N}_-][\p{L}\p{N}_/-]*)/gu)) if (!match[1].includes('/')) result.topics.push(match[1]);
   return safeVocabulary({ ...result, topics: result.topics.slice(0,256) });
 }
-function markdownBlocks(raw: string, base: number, excalidraw = false): TextBlock[] {
+function markdownBlocks(raw: string, base: number, excalidraw = false, local = false): TextBlock[] {
   const meta = frontmatter(raw), blocks: TextBlock[] = [];
   let heading = '', start = -1, end = -1, fence = '', fenceLength = 0, hidden = '', drawing = false;
+  let listIndent = -1, contentIndent = -1, blockedIndent = -1, blockedContentIndent = -1, blank = false;
+  const columns = (text: string) => { let width = 0; for (const char of text) width += char === '\t' ? 4 - width % 4 : 1; return width; };
+  const clearBlocked = () => { blockedIndent = blockedContentIndent = -1; };
+  const barrier = () => { if (local && listIndent >= 0) { blockedIndent = listIndent; blockedContentIndent = contentIndent; } flush(); };
   const flush = () => {
-    if (start >= 0 && end > start) { const text = raw.slice(start, end); const trimStart = text.length - text.trimStart().length; const trimmed = text.trim(); if (trimmed) blocks.push({ ...mapped(trimmed, base < 0 ? -1 : base + start + trimStart), heading }); }
-    start = end = -1;
+    if (local && listIndent >= 0 && end - start > LOCAL_LIST_CONTEXT_LIMIT) throw new CoreError('Local list context exceeds 16384 characters; no partial index was saved.');
+    if (start >= 0 && end > start) { const text = raw.slice(start, end); const trimStart = text.length - text.trimStart().length; const trimmed = text.trim(); if (trimmed) blocks.push({ ...mapped(trimmed, base < 0 ? -1 : base + start + trimStart), heading, ...(local && listIndent >= 0 ? { localList:true } : {}) }); }
+    start = end = -1; listIndent = contentIndent = -1;
   };
   const linePattern = /[^\r\n]+(?:\r\n|\r|\n|$)|(?:\r\n|\r|\n)/gu;
   for (const hit of raw.slice(meta.body).matchAll(linePattern)) {
     const offset = meta.body + hit.index, line = hit[0].replace(/[\r\n]+$/u, '');
     const code = /^\s*(`{3,}|~{3,})/u.exec(line);
     if (code) {
-      flush();
+      barrier();
       if (!fence) { fence=code[1][0]; fenceLength=code[1].length; }
       else if (fence === code[1][0] && code[1].length >= fenceLength && !line.slice(line.indexOf(code[1]) + code[1].length).trim()) { fence=''; fenceLength=0; }
       continue;
     }
     if (fence) continue;
     if (hidden) { if (line.includes(hidden)) hidden = ''; continue; }
-    if (line.trim().startsWith('<!--')) { flush(); if (!line.includes('-->')) hidden = '-->'; continue; }
-    if (line.trim().startsWith('%%')) { flush(); if (line.trim() === '%%' || !line.trim().slice(2).includes('%%')) hidden = '%%'; continue; }
+    if (line.trim().startsWith('<!--')) { barrier(); if (!line.includes('-->')) hidden = '-->'; continue; }
+    if (line.trim().startsWith('%%')) { barrier(); if (line.trim() === '%%' || !line.trim().slice(2).includes('%%')) hidden = '%%'; continue; }
     const title = /^\s{0,3}#{1,6}\s+(.+?)\s*#*\s*$/u.exec(line);
-    if (title) { flush(); heading = title[1].replace(/\s+\^[a-z0-9-]+$/iu, '').slice(0,160); drawing = excalidraw && /^(?:drawing|绘图)$/iu.test(heading); continue; }
+    if (title) { flush(); clearBlocked(); heading = title[1].replace(/\s+\^[a-z0-9-]+$/iu, '').slice(0,160); drawing = excalidraw && /^(?:drawing|绘图)$/iu.test(heading); continue; }
     if (drawing) continue;
-    if (!line.trim() || /^\s*(?:[-*_]\s*){3,}$/u.test(line) || /^\s*\^[a-z0-9-]+\s*$/iu.test(line)) { flush(); continue; }
-    if (/^\s*(?:[-*+]\s+|\d+[.)]\s+)/u.test(line) && start >= 0) flush();
+    const item = /^(\s*)(?:[-*+]\s+|\d+[.)]\s+)/u.exec(line);
+    const indent = columns(item?.[1] ?? /^\s*/u.exec(line)![0]);
+    // Unrelated prose after a blank line is outside the previous list. Keep its
+    // existing parsing policy, including literal markup examples in inline code.
+    if (local && !item && line.trim()) {
+      if (listIndent >= 0 && blank && indent < contentIndent) { flush(); clearBlocked(); }
+      if (blockedIndent >= 0 && indent < blockedContentIndent) clearBlocked();
+    }
+    // Check the first parent item too: skipping it would expose bare children.
+    // Outside list groups this change must not silently discard ordinary prose.
+    if (local && (listIndent >= 0 || item) && (line.includes('<!--') || line.includes('%%'))) {
+      throw new CoreError('Local list context intersects hidden content; no partial index was saved.');
+    }
+    if (!line.trim()) { blank = true; if (!(local && listIndent >= 0)) flush(); continue; }
+    if (/^\s*(?:[-*_]\s*){3,}$/u.test(line) || /^\s*\^[a-z0-9-]+\s*$/iu.test(line)) { barrier(); continue; }
+    if (local) {
+      if (item) {
+        if (blockedIndent >= 0 && indent > blockedIndent) throw new CoreError('Local list context crosses a structural boundary; no partial index was saved.');
+        if (listIndent >= 0 && indent > listIndent && indent < contentIndent) {
+          if (!blank) throw new CoreError('Local list context has ambiguous indentation; no partial index was saved.');
+          flush();
+        }
+        clearBlocked();
+        if (listIndent < 0 || indent <= listIndent) { flush(); listIndent = indent; contentIndent = columns(item[0]); }
+      }
+    } else if (item && start >= 0) flush();
+    blank = false;
     if (start < 0) start = offset;
     end = offset + line.length;
   }
   flush(); return blocks;
 }
-export function textBlocks(snapshot: SourceSnapshot): TextBlock[] {
-  if (snapshot.format === 'markdown') return markdownBlocks(snapshot.text, 0, /(?:^|\n)\s*excalidraw-plugin\s*:/iu.test(frontmatter(snapshot.text).metadata) || /\.excalidraw\.md$/iu.test(snapshot.path));
+function sourceBlocks(snapshot: SourceSnapshot, local = false): TextBlock[] {
+  if (snapshot.format === 'markdown') return markdownBlocks(snapshot.text, 0, /(?:^|\n)\s*excalidraw-plugin\s*:/iu.test(frontmatter(snapshot.text).metadata) || /\.excalidraw\.md$/iu.test(snapshot.path), local);
   const nodes = canvasObject(snapshot.text).nodes as unknown[], blocks: TextBlock[] = [];
   for (const node of nodes) {
     if (!plainObject(node) || node.type !== 'text' || typeof node.text !== 'string') continue;
     const text = node.text;
     // Escaped Canvas strings have no contiguous original-byte span. Never fake one.
     const literal = JSON.stringify(text), rawPosition = literal.includes('\\') ? -1 : snapshot.text.indexOf(literal);
-    blocks.push(...markdownBlocks(text, rawPosition < 0 ? -1 : rawPosition + 1));
+    blocks.push(...markdownBlocks(text, rawPosition < 0 ? -1 : rawPosition + 1, false, local));
   }
   return blocks;
+}
+/** Existing AI, vocabulary and cached quotation parsing remain unchanged. */
+export function textBlocks(snapshot: SourceSnapshot): TextBlock[] { return sourceBlocks(snapshot); }
+export function localExcerptBlocks(snapshot: SourceSnapshot): TextBlock[] { return sourceBlocks(snapshot,true); }
+/** Decoded Canvas groups use existing individually verifiable quotations rather
+ * than pretending their escaped JSON has one contiguous original span. */
+export function localEvidencePieces(block: TextBlock): TextBlock[] {
+  return markdownBlocks(block.text,block.offsets[0] ?? -1);
 }
 export function splitBlock(block: TextBlock, limit: number): TextBlock[] {
   const parts: TextBlock[] = []; let start = 0;
