@@ -4,6 +4,8 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Explain in English/Chinese when the Refresh notes command is used while the generated layer is loading: no refresh started; wait for loading to finish and explicitly choose Refresh notes again. Do not call or queue maintenance during loading; retain initialization-failure diagnostics and protected files. Verified through the registered command, real synthetic file stores and controlled load latches, not native Obsidian or real disk faults.
+
 - Show the live loading state immediately after changing the generated folder, pausing search, refresh and current-note controls until initialization settles. Keep the carried idea, privacy, breadth and selected type/property; update readiness or safe failure guidance through the new controller subscription without remounting an input being composed in. No automatic search, file-I/O cancellation or folder migration is implied. Verified with registered settings/view callbacks, real synthetic file stores and controlled load timing/failures, not native Obsidian or actual disk faults.
 
 - Keep an earlier generated-folder initialization from redrawing the panel or showing an obsolete failure after a newer setting or plugin unload. New search results, pending current-note reads and composing ideas keep their current view; a failure in the current configuration still shows safe guidance. This guards delayed UI delivery, not interruption of file I/O or migration between folders. Verified through registered settings/view callbacks, real local stores and synthetic completion/failure latches, not native Obsidian or real disk faults.

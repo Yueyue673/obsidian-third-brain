@@ -28,7 +28,12 @@ export default class ThirdBrainPlugin extends Plugin {
     this.addRibbonIcon('brain', 'Third Brain', () => { void this.openPanel(); });
     const t = messages(this.settings.locale);
     this.addCommand({ id: 'open-activation', name: t.find, callback: () => { void this.openPanel(); } });
-    this.addCommand({ id: 'refresh-derived-layer', name: t.index, callback: () => { void this.controller?.refresh().catch(() => new Notice(presentFailure(this.controller.status(), this.settings.locale))); } });
+    this.addCommand({ id: 'refresh-derived-layer', name: t.index, callback: () => {
+      const controller = this.controller;
+      if (!controller) return;
+      if (controller.status().phase === 'loading') { new Notice(messages(this.settings.locale).refreshLoading); return; }
+      void controller.refresh().catch(() => new Notice(presentFailure(controller.status(), this.settings.locale)));
+    } });
     this.addSettingTab(new ThirdBrainSettings(this.app, this));
     await this.configure();
     this.app.workspace.onLayoutReady(() => { void this.runScheduled(); });
