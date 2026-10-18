@@ -5,6 +5,7 @@ import { extendVocabulary, hasCredentials, mapped, redact, safeVocabulary } from
 import { checkedSource, localExcerptBlocks, localEvidencePieces, meaningful, sourceFacets, splitBlock, textBlocks, type TextBlock } from './sources';
 import { CANVAS_OFFSET_CAVEAT, evidenceFor, fragmentId, mergeFragments } from './fragments';
 import { parseExtraction } from './model';
+import { bindSourceDiagnostic } from './source-diagnostics';
 
 function contextSlice(text: string, limit: number, tail = false): string {
   let start = tail ? Math.max(0,text.length - limit) : 0, end = tail ? text.length : Math.min(limit,text.length);
@@ -42,7 +43,11 @@ export async function analyzeSource(input: SourceSnapshot, options: AnalyzeOptio
       if (++visited % 32 === 0) await yieldToHost(options.signal);
       if (!meaningful(piece.text)) continue;
       const parts = snapshot.format === 'canvas' && piece.localList ? localEvidencePieces(piece) : [piece];
-      if (parts.length > FRAGMENT_EVIDENCE_LIMIT) throw new CoreError('Local list context exceeds the quotation evidence limit; no partial index was saved.');
+      if (parts.length > FRAGMENT_EVIDENCE_LIMIT) {
+        const error = new CoreError('Local list context exceeds the quotation evidence limit; no partial index was saved.');
+        bindSourceDiagnostic(error,{ relativePath:snapshot.path,stage:'analysis',reason:'local-context-evidence-limit' });
+        throw error;
+      }
       const evidence = parts.map(part => evidenceFor(snapshot,part.text,part.offsets));
       const fragment: Fragment = { id:'',privacy:snapshot.privacy,title:piece.heading || piece.text.replace(/^[\s>*+\-\[\]xX0-9.)]+/u,'').slice(0,100),summary:piece.text,kind:'excerpt',facets:explicit,evidence,mode:'local',updatedAt:now,conditions:[],caveats:[LOCAL_LABEL] };
       if (evidence.some(item => item.start < 0)) fragment.caveats.push(CANVAS_OFFSET_CAVEAT);

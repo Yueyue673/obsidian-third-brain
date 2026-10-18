@@ -4,6 +4,8 @@ These releases are desktop previews. Version-specific test results and outstandi
 
 ## Unreleased
 
+- Explain which source blocks a local refresh when a complete list group exceeds 16,384 UTF-16 code units or a Canvas group needs more than 256 quotations. English/Chinese guidance preserves conditions and examples, suggests reviewing a copy, and requires an explicit retry. Limits, original-note protection, complete-index commits and AI policies are unchanged. Verified through real synthetic file stores and panel events, not native Obsidian clicks.
+
 - Keep each local-excerpt list item together with its descendants, so parent conditions, examples and counterexamples remain visible and opposing contexts do not collapse into an unqualified excerpt. Complete groups are limited to 16,384 UTF-16 code units; oversized or ambiguous groups refuse the refresh rather than publish partial context. The existing 256-quotation store limit is also enforced before commit, including after cross-source merging; evidence is never truncated to fit. Local caches are refreshed once for this policy. AI input and cache policies are unchanged.
 
 - Explain in English/Chinese when the Refresh notes command is used while the generated layer is loading: no refresh started; wait for loading to finish and explicitly choose Refresh notes again. Do not call or queue maintenance during loading; retain initialization-failure diagnostics and protected files. Verified through the registered command, real synthetic file stores and controlled load latches, not native Obsidian or real disk faults.

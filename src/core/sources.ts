@@ -2,6 +2,7 @@ import type { Facets, Privacy, SourceSnapshot } from './types';
 import { emptyFacets } from './types';
 import { CoreError, FACET_KEYS, boundedString, canonicalFacets, isPrivacy, parseCompleteJson, plainObject, relativePath, restrictive, unionFacets } from './util';
 import { mapped, safeVocabulary, type MappedText } from './privacy';
+import { bindSourceDiagnostic } from './source-diagnostics';
 
 export interface TextBlock extends MappedText { heading: string; localList?: boolean; }
 /** Complete local list groups are bounded, never truncated or re-split. */
@@ -89,7 +90,7 @@ export function sourceFacets(snapshot: SourceSnapshot): Facets {
   for (const match of body.matchAll(/(?:^|[\s(])#([\p{L}\p{N}_-][\p{L}\p{N}_/-]*)/gu)) if (!match[1].includes('/')) result.topics.push(match[1]);
   return safeVocabulary({ ...result, topics: result.topics.slice(0,256) });
 }
-function markdownBlocks(raw: string, base: number, excalidraw = false, local = false): TextBlock[] {
+function markdownBlocks(raw: string, base: number, excalidraw = false, local = false, sourcePath = ''): TextBlock[] {
   const meta = frontmatter(raw), blocks: TextBlock[] = [];
   let heading = '', start = -1, end = -1, fence = '', fenceLength = 0, hidden = '', drawing = false;
   let listIndent = -1, contentIndent = -1, blockedIndent = -1, blockedContentIndent = -1, blank = false;
@@ -97,7 +98,11 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
   const clearBlocked = () => { blockedIndent = blockedContentIndent = -1; };
   const barrier = () => { if (local && listIndent >= 0) { blockedIndent = listIndent; blockedContentIndent = contentIndent; } flush(); };
   const flush = () => {
-    if (local && listIndent >= 0 && end - start > LOCAL_LIST_CONTEXT_LIMIT) throw new CoreError('Local list context exceeds 16384 characters; no partial index was saved.');
+    if (local && listIndent >= 0 && end - start > LOCAL_LIST_CONTEXT_LIMIT) {
+      const error = new CoreError('Local list context exceeds 16384 characters; no partial index was saved.');
+      bindSourceDiagnostic(error,{ relativePath:sourcePath,stage:'analysis',reason:'local-context-size-limit' });
+      throw error;
+    }
     if (start >= 0 && end > start) { const text = raw.slice(start, end); const trimStart = text.length - text.trimStart().length; const trimmed = text.trim(); if (trimmed) blocks.push({ ...mapped(trimmed, base < 0 ? -1 : base + start + trimStart), heading, ...(local && listIndent >= 0 ? { localList:true } : {}) }); }
     start = end = -1; listIndent = contentIndent = -1;
   };
@@ -151,14 +156,14 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
   flush(); return blocks;
 }
 function sourceBlocks(snapshot: SourceSnapshot, local = false): TextBlock[] {
-  if (snapshot.format === 'markdown') return markdownBlocks(snapshot.text, 0, /(?:^|\n)\s*excalidraw-plugin\s*:/iu.test(frontmatter(snapshot.text).metadata) || /\.excalidraw\.md$/iu.test(snapshot.path), local);
+  if (snapshot.format === 'markdown') return markdownBlocks(snapshot.text, 0, /(?:^|\n)\s*excalidraw-plugin\s*:/iu.test(frontmatter(snapshot.text).metadata) || /\.excalidraw\.md$/iu.test(snapshot.path), local, snapshot.path);
   const nodes = canvasObject(snapshot.text).nodes as unknown[], blocks: TextBlock[] = [];
   for (const node of nodes) {
     if (!plainObject(node) || node.type !== 'text' || typeof node.text !== 'string') continue;
     const text = node.text;
     // Escaped Canvas strings have no contiguous original-byte span. Never fake one.
     const literal = JSON.stringify(text), rawPosition = literal.includes('\\') ? -1 : snapshot.text.indexOf(literal);
-    blocks.push(...markdownBlocks(text, rawPosition < 0 ? -1 : rawPosition + 1, false, local));
+    blocks.push(...markdownBlocks(text, rawPosition < 0 ? -1 : rawPosition + 1, false, local, snapshot.path));
   }
   return blocks;
 }

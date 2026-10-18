@@ -10,10 +10,11 @@ export function presentFailure(state: Status, locale: 'auto' | 'en' | 'zh'): str
   const t = messages(locale);
   if (state.phase !== 'error') return t.failure;
   const d = state.sourceDiagnostic, generated = state.generatedFileDiagnostic, busy = state.storeDiagnostic === 'busy';
-  const reasons = { 'read-failed':t.readFailed,'decode-failed':t.decodeFailed,'parse-failed':t.parseFailed,'size-limit':t.sizeLimit,'analysis-failed':t.analysisFailed,'model-output-rejected':t.outputRejected };
+  const reasons = { 'read-failed':t.readFailed,'decode-failed':t.decodeFailed,'parse-failed':t.parseFailed,'size-limit':t.sizeLimit,'analysis-failed':t.analysisFailed,'model-output-rejected':t.outputRejected,'local-context-size-limit':t.localContextSizeLimit,'local-context-evidence-limit':t.localContextEvidenceLimit };
   const generatedCopy = { missing:t.generatedFileMissing,changed:t.generatedFileChanged,unavailable:t.generatedFileUnavailable };
   let text = d ? `${d.relativePath} · ${t[d.stage]} · ${reasons[d.reason]}.` : generated ? generatedCopy[generated] : busy ? t.storeBusy : state.errorCode === 'index-unavailable' ? t.unavailable : t.failure;
   if (busy && !d && !generated && state.errorCode === 'index-unavailable') text += ` ${t.storeBusyLoading}`;
+  if (d?.reason === 'local-context-size-limit' || d?.reason === 'local-context-evidence-limit') text += ` ${t.localContextGuidance}`;
   if (state.commitOutcome === 'unknown') text += ` ${t.commitUnknown}`;
   else if ((d || generated || busy) && state.commitOutcome === 'not-started') {
     text += ` ${t.notCommitted}`;

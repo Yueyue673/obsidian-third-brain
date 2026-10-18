@@ -10,7 +10,7 @@ export class SourceEvidenceUnavailableError extends Error {
 export interface SourceDiagnostic {
   relativePath: string;
   stage: 'reading' | 'decoding' | 'parsing' | 'analysis';
-  reason: 'read-failed' | 'decode-failed' | 'parse-failed' | 'size-limit' | 'analysis-failed' | 'model-output-rejected';
+  reason: 'read-failed' | 'decode-failed' | 'parse-failed' | 'size-limit' | 'analysis-failed' | 'model-output-rejected' | 'local-context-size-limit' | 'local-context-evidence-limit';
 }
 const diagnostics = new WeakMap<object, Readonly<SourceDiagnostic>>();
 const globalFailures = new WeakSet<object>();
