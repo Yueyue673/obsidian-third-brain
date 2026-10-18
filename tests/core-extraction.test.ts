@@ -40,12 +40,16 @@ describe('immutable source preparation and lexical extraction', () => {
     expect(analysis.fragments.some(fragment => fragment.summary.includes('terminal knowledge survives'))).toBe(true);
     for (const fragment of analysis.fragments) for (const evidence of fragment.evidence) expect(raw.slice(evidence.start,evidence.end)).toBe(evidence.quote);
   });
-  it('splits an oversized paragraph without dropping the end', async () => {
+  it('refuses an oversized local paragraph rather than detach its tail from unknown conditions', async () => {
     const raw = 'Long contiguous material preserves meaningful practice and observations. '.repeat(340) + 'Unique late marker: the last independent idea remains available.';
-    const analysis = await analyzeSource(source(raw),local);
-    expect(analysis.fragments.length).toBeGreaterThan(5);
-    expect(analysis.fragments.some(fragment => fragment.summary.includes('last independent idea remains available'))).toBe(true);
-    for (const fragment of analysis.fragments) expect(fragment.summary.length).toBeLessThanOrEqual(1400);
+    await expect(analyzeSource(source(raw),local)).rejects.toThrow(/Local paragraph context/);
+    // Within the explicit context bound, keep every byte including the late idea.
+    // Larger notes still work through independent paragraphs/sections above.
+    const bounded = 'Only in the disconnected synthetic simulator. ' + 'Meaningful bounded observations. '.repeat(100) + 'Unique late marker: the last independent idea remains available.';
+    const analysis = await analyzeSource(source(bounded),local);
+    expect(analysis.fragments).toHaveLength(1);
+    expect(analysis.fragments[0].summary).toBe(bounded);
+    expect(analysis.fragments[0].evidence[0].quote).toBe(bounded);
   });
   it('preserves distinct ideas with identical titles and merges only exact bodies', async () => {
     const raw = '# Shared title\nSpacing practice protects retrieval opportunities.\n\n# Shared title\nReducing task friction makes beginning easier.\n\n# Another title\nSpacing practice protects retrieval opportunities.';

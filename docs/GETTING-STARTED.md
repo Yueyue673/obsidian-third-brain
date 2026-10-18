@@ -51,6 +51,8 @@ sha256sum third-brain-0.3.7.zip
 
 Local mode matches words and existing attributes; it does not infer meaning. An empty vault or unrelated search can return nothing. Refresh again after editing notes.
 
+Unreleased source builds preserve complete local paragraphs and nested list groups, up to 16,384 UTF-16 code units per group, so a matching ending is not detached from its opening conditions. An oversized group blocks the whole refresh with guidance; review a copy without dropping conditions/examples, then retry explicitly. This is structural preservation, not automatic semantic atomicity, and is not yet in download 0.3.7. AI chunking is unchanged. See [Testing status](VERIFICATION.md).
+
 Open a Markdown note. **Use current note** fills the idea box with the selected text, or the current draft if nothing is selected; it does not start a search. Review the text, then click **Find connections**. For long notes, select a shorter passage first. The plugin does not monitor typing or insert text into your note.
 
 While the idea box is focused, **Enter** adds a new line; **Ctrl + Enter** (**Command + Enter** on Mac) runs **Find connections**. Unreleased source builds show this hint below the box and associate it with the input for assistive technology; the 0.3.7 download has the shortcut but not the hint.
@@ -149,6 +151,8 @@ Get-FileHash .\third-brain-0.3.7.zip -Algorithm SHA256
 3. 展开「来源证据」，阅读引用，点「查看原文」。
 
 本地模式按文字和已有属性匹配，不推断语义。空库、信息不足或无关搜索可以没有结果。原笔记改动后，请再点一次「更新笔记」。
+
+尚未发布的源码构建会完整保留本地段落和嵌套列表组，每组最多 16,384 个 UTF-16 代码单元，避免末尾命中丢掉开头条件。超限会阻止本轮更新并给出提示；请先在副本中检查，保留条件和例子，再明确重试。这是结构保留，不代表已自动拆成语义原子观点；下载版 0.3.7 尚未包含，AI 分块不变。详见[测试记录](VERIFICATION.md)。
 
 打开一篇 Markdown 笔记，点「使用当前笔记」，会把选中的文字填入想法输入框；没有选区时使用当前草稿，不会立即搜索。检查内容后，再点「寻找关联」。长笔记可以先选一段。插件不会持续监控输入，也不会自动写入原笔记。
 

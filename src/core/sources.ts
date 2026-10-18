@@ -5,8 +5,8 @@ import { mapped, safeVocabulary, type MappedText } from './privacy';
 import { bindSourceDiagnostic } from './source-diagnostics';
 
 export interface TextBlock extends MappedText { heading: string; localList?: boolean; }
-/** Complete local list groups are bounded, never truncated or re-split. */
-export const LOCAL_LIST_CONTEXT_LIMIT = 16384;
+/** Complete local structural context is bounded, never truncated or re-split. */
+export const LOCAL_EXCERPT_CONTEXT_LIMIT = 16384;
 function frontmatter(raw: string): { body: number; metadata: string } {
   const first = /^(?:\ufeff)?---[ \t]*(?:\r\n|\n|\r)/u.exec(raw);
   if (!first) return { body: 0, metadata: '' };
@@ -98,8 +98,8 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
   const clearBlocked = () => { blockedIndent = blockedContentIndent = -1; };
   const barrier = () => { if (local && listIndent >= 0) { blockedIndent = listIndent; blockedContentIndent = contentIndent; } flush(); };
   const flush = () => {
-    if (local && listIndent >= 0 && end - start > LOCAL_LIST_CONTEXT_LIMIT) {
-      const error = new CoreError('Local list context exceeds 16384 characters; no partial index was saved.');
+    if (local && end - start > LOCAL_EXCERPT_CONTEXT_LIMIT) {
+      const error = new CoreError(listIndent >= 0 ? 'Local list context exceeds 16384 characters; no partial index was saved.' : 'Local paragraph context exceeds 16384 characters; no partial index was saved.');
       bindSourceDiagnostic(error,{ relativePath:sourcePath,stage:'analysis',reason:'local-context-size-limit' });
       throw error;
     }

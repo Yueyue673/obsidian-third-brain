@@ -38,7 +38,10 @@ export async function analyzeSource(input: SourceSnapshot, options: AnalyzeOptio
   const now = timestamp(options.now), explicit = sourceFacets(snapshot);
   if (options.mode === 'local-excerpts') {
     const fragments: Fragment[] = []; let visited = 0;
-    for (const block of usable) for (const piece of (block.localList ? [block] : splitBlock(block,1400))) {
+    // A character boundary cannot establish that a later statement is independent
+    // of the paragraph's opening conditions. Keep bounded authored context whole;
+    // this is structural preservation, not semantic atomicity or an AI summary.
+    for (const piece of usable) {
       checkAbort(options.signal);
       if (++visited % 32 === 0) await yieldToHost(options.signal);
       if (!meaningful(piece.text)) continue;

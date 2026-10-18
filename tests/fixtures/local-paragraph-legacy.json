@@ -1,0 +1,109 @@
+{
+  "baseline": "8277d26e131f0b648472162239d0cb23e787187e",
+  "raw": "Only in the disconnected amber simulator is this procedure permitted. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. Final step: rotate the copper calibration lever.",
+  "old": {
+    "version": 1,
+    "signature": "editorial-core-2:d859c10a2669a5f691f968c95d1f836e796b7b6d082d964f73b4119486d822ab",
+    "updatedAt": "2026-10-18T17:24:37.793Z",
+    "sources": {
+      "synthetic.md": {
+        "hash": "d37f4af48bb442a8e476381592d67accef8cddae25a8c339703ad06bc1aa0464",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_1b4ad11577ee46951cee0e4bd3169b081dbaa75749f91c2620a4ffeb4820097d",
+          "f_7771f9e67b2cc6224c862cd28c838a3bf790e4899808a2ff81ba1d0618a2a8cd"
+        ]
+      }
+    },
+    "fragments": {
+      "f_1b4ad11577ee46951cee0e4bd3169b081dbaa75749f91c2620a4ffeb4820097d": {
+        "id": "f_1b4ad11577ee46951cee0e4bd3169b081dbaa75749f91c2620a4ffeb4820097d",
+        "privacy": "normal",
+        "title": "bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic obs",
+        "summary": "bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. Final step: rotate the copper calibration lever.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "c4c16429b42b01b7934c9227",
+            "relativePath": "synthetic.md",
+            "sourceHash": "d37f4af48bb442a8e476381592d67accef8cddae25a8c339703ad06bc1aa0464",
+            "quote": "bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. Final step: rotate the copper calibration lever.",
+            "start": 1393,
+            "end": 2166
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T17:24:37.793Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_7771f9e67b2cc6224c862cd28c838a3bf790e4899808a2ff81ba1d0618a2a8cd": {
+        "id": "f_7771f9e67b2cc6224c862cd28c838a3bf790e4899808a2ff81ba1d0618a2a8cd",
+        "privacy": "normal",
+        "title": "Only in the disconnected amber simulator is this procedure permitted. A synthetic observation descri",
+        "summary": "Only in the disconnected amber simulator is this procedure permitted. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "c4c16429b42b01b7934c9227",
+            "relativePath": "synthetic.md",
+            "sourceHash": "d37f4af48bb442a8e476381592d67accef8cddae25a8c339703ad06bc1aa0464",
+            "quote": "Only in the disconnected amber simulator is this procedure permitted. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same",
+            "start": 0,
+            "end": 1392
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T17:24:37.793Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      }
+    }
+  },
+  "requests": {
+    "local-model": [
+      {
+        "task": "extract",
+        "text": "Only in the disconnected amber simulator is this procedure permitted. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. Final step: rotate the copper calibration lever.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        }
+      }
+    ],
+    "cloud-model": [
+      {
+        "task": "extract",
+        "text": "Only in the disconnected amber simulator is this procedure permitted. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. A synthetic observation describes the same bounded calibration. Final step: rotate the copper calibration lever.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        }
+      }
+    ]
+  },
+  "signatures": {
+    "local-model": "{\"version\":1,\"mode\":\"local-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "cloud-model": "{\"version\":1,\"mode\":\"cloud-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}"
+  }
+}
