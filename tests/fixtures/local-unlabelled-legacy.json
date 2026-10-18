@@ -1,0 +1,433 @@
+{
+  "sourceCommit": "b87ae2604a9dbd0fbc8aa6609ae4bbed13c21d45",
+  "raw": "# Synthetic observations\n\nOnly the isolated practice archive:\n\n- Notes from the disconnected bench:\n  - The amber prism scatters daylight.\n  - Archive the jade ledger by date.\n  - The cobalt dial remains at three marks.\n- Independent white-card record.",
+  "raws": {
+    "a.md": "# Synthetic observations\n\nOnly the isolated practice archive:\n\n- Notes from the disconnected bench:\n  - The amber prism scatters daylight.\n  - Archive the jade ledger by date.\n  - The cobalt dial remains at three marks.\n- Independent white-card record.",
+    "copy.md": "# Synthetic observations\n\nOnly the isolated practice archive:\n\n- Notes from the disconnected bench:\n  - The amber prism scatters daylight.\n  - Archive the jade ledger by date.\n  - The cobalt dial remains at three marks.\n- Independent white-card record.",
+    "opposite.md": "# Synthetic observations\n\nOnly the isolated practice archive:\n\n- Notes from the connected bench (not for operation):\n  - The amber prism scatters daylight.\n  - Archive the jade ledger by date.\n  - The cobalt dial remains at three marks.\n- Independent white-card record."
+  },
+  "oldIndex": {
+    "version": 1,
+    "signature": "editorial-core-2:05985886982c49e6a83a7684c7f16b8aa59f8d9704ab7907cc7c72150f331dd5",
+    "updatedAt": "2026-10-18T22:33:50.581Z",
+    "sources": {
+      "a.md": {
+        "hash": "cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_1cda67acbe22cbb187fd3f3c250cb63fcad4e08436efa388fce923ebd1672c3c",
+          "f_93becb8881bcb4fd92bcd4c5e8bf61e18b9161be3915f84d3cae26c13d049022"
+        ]
+      },
+      "copy.md": {
+        "hash": "cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_1cda67acbe22cbb187fd3f3c250cb63fcad4e08436efa388fce923ebd1672c3c",
+          "f_93becb8881bcb4fd92bcd4c5e8bf61e18b9161be3915f84d3cae26c13d049022"
+        ]
+      },
+      "opposite.md": {
+        "hash": "5dce0444dd45dd35fd255d03c709f8e8304110433630388558a0065bdab3d5eb",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_812451f3eba00fab973076ef13e4259b5f59b47696dd5e05723e9c695ce4000c",
+          "f_93becb8881bcb4fd92bcd4c5e8bf61e18b9161be3915f84d3cae26c13d049022"
+        ]
+      }
+    },
+    "fragments": {
+      "f_1cda67acbe22cbb187fd3f3c250cb63fcad4e08436efa388fce923ebd1672c3c": {
+        "id": "f_1cda67acbe22cbb187fd3f3c250cb63fcad4e08436efa388fce923ebd1672c3c",
+        "privacy": "normal",
+        "title": "Synthetic observations",
+        "summary": "# Synthetic observations\n\nOnly the isolated practice archive:\n\n- Notes from the disconnected bench:\n  - The amber prism scatters daylight.\n  - Archive the jade ledger by date.\n  - The cobalt dial remains at three marks.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7",
+            "quote": "- Notes from the disconnected bench:\n  - The amber prism scatters daylight.\n  - Archive the jade ledger by date.\n  - The cobalt dial remains at three marks.",
+            "start": 63,
+            "end": 219
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7",
+            "quote": "# Synthetic observations",
+            "start": 0,
+            "end": 24
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7",
+            "quote": "Only the isolated practice archive:",
+            "start": 26,
+            "end": 61
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7",
+            "quote": "- Notes from the disconnected bench:\n  - The amber prism scatters daylight.\n  - Archive the jade ledger by date.\n  - The cobalt dial remains at three marks.",
+            "start": 63,
+            "end": 219
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7",
+            "quote": "# Synthetic observations",
+            "start": 0,
+            "end": 24
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7",
+            "quote": "Only the isolated practice archive:",
+            "start": 26,
+            "end": 61
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T22:33:50.581Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_812451f3eba00fab973076ef13e4259b5f59b47696dd5e05723e9c695ce4000c": {
+        "id": "f_812451f3eba00fab973076ef13e4259b5f59b47696dd5e05723e9c695ce4000c",
+        "privacy": "normal",
+        "title": "Synthetic observations",
+        "summary": "# Synthetic observations\n\nOnly the isolated practice archive:\n\n- Notes from the connected bench (not for operation):\n  - The amber prism scatters daylight.\n  - Archive the jade ledger by date.\n  - The cobalt dial remains at three marks.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "5dce0444dd45dd35fd255d03c709f8e8304110433630388558a0065bdab3d5eb",
+            "quote": "- Notes from the connected bench (not for operation):\n  - The amber prism scatters daylight.\n  - Archive the jade ledger by date.\n  - The cobalt dial remains at three marks.",
+            "start": 63,
+            "end": 236
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "5dce0444dd45dd35fd255d03c709f8e8304110433630388558a0065bdab3d5eb",
+            "quote": "# Synthetic observations",
+            "start": 0,
+            "end": 24
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "5dce0444dd45dd35fd255d03c709f8e8304110433630388558a0065bdab3d5eb",
+            "quote": "Only the isolated practice archive:",
+            "start": 26,
+            "end": 61
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T22:33:50.581Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_93becb8881bcb4fd92bcd4c5e8bf61e18b9161be3915f84d3cae26c13d049022": {
+        "id": "f_93becb8881bcb4fd92bcd4c5e8bf61e18b9161be3915f84d3cae26c13d049022",
+        "privacy": "normal",
+        "title": "Synthetic observations",
+        "summary": "# Synthetic observations\n\nOnly the isolated practice archive:\n\n- Independent white-card record.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7",
+            "quote": "- Independent white-card record.",
+            "start": 220,
+            "end": 252
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7",
+            "quote": "# Synthetic observations",
+            "start": 0,
+            "end": 24
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7",
+            "quote": "Only the isolated practice archive:",
+            "start": 26,
+            "end": 61
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "5dce0444dd45dd35fd255d03c709f8e8304110433630388558a0065bdab3d5eb",
+            "quote": "- Independent white-card record.",
+            "start": 237,
+            "end": 269
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "5dce0444dd45dd35fd255d03c709f8e8304110433630388558a0065bdab3d5eb",
+            "quote": "# Synthetic observations",
+            "start": 0,
+            "end": 24
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "5dce0444dd45dd35fd255d03c709f8e8304110433630388558a0065bdab3d5eb",
+            "quote": "Only the isolated practice archive:",
+            "start": 26,
+            "end": 61
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7",
+            "quote": "- Independent white-card record.",
+            "start": 220,
+            "end": 252
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7",
+            "quote": "# Synthetic observations",
+            "start": 0,
+            "end": 24
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7",
+            "quote": "Only the isolated practice archive:",
+            "start": 26,
+            "end": 61
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T22:33:50.581Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      }
+    }
+  },
+  "rendered": {
+    "f_1cda67acbe22cbb187fd3f3c250cb63fcad4e08436efa388fce923ebd1672c3c": "---\nthird_brain_render: 2\naliases: [\"Synthetic observations\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_1cda67acbe22cbb187fd3f3c250cb63fcad4e08436efa388fce923ebd1672c3c\"\nprivacy: normal\ntitle: \"Synthetic observations\"\nextraction: local-excerpt\nupdated_at: \"2026-10-18T22:33:50.581Z\"\nprovenance: [{\"path\":\"copy.md\",\"revision\":\"cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7\",\"start\":63,\"end\":219},{\"path\":\"copy.md\",\"revision\":\"cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7\",\"start\":0,\"end\":24},{\"path\":\"copy.md\",\"revision\":\"cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7\",\"start\":26,\"end\":61},{\"path\":\"a.md\",\"revision\":\"cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7\",\"start\":63,\"end\":219},{\"path\":\"a.md\",\"revision\":\"cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7\",\"start\":0,\"end\":24},{\"path\":\"a.md\",\"revision\":\"cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7\",\"start\":26,\"end\":61}]\n---\n\n# Synthetic observations\n\n\\# Synthetic observations\n\nOnly the isolated practice archive:\n\n- Notes from the disconnected bench:\n  - The amber prism scatters daylight.\n  - Archive the jade ledger by date.\n  - The cobalt dial remains at three marks.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7; character range: 63–219\n\n> - Notes from the disconnected bench:\n>   - The amber prism scatters daylight.\n>   - Archive the jade ledger by date.\n>   - The cobalt dial remains at three marks.\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7; character range: 0–24\n\n> \\# Synthetic observations\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7; character range: 26–61\n\n> Only the isolated practice archive:\n\n[Open original](<../a.md>) — a.md\n\nRevision: cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7; character range: 63–219\n\n> - Notes from the disconnected bench:\n>   - The amber prism scatters daylight.\n>   - Archive the jade ledger by date.\n>   - The cobalt dial remains at three marks.\n\n[Open original](<../a.md>) — a.md\n\nRevision: cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7; character range: 0–24\n\n> \\# Synthetic observations\n\n[Open original](<../a.md>) — a.md\n\nRevision: cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7; character range: 26–61\n\n> Only the isolated practice archive:\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_812451f3eba00fab973076ef13e4259b5f59b47696dd5e05723e9c695ce4000c": "---\nthird_brain_render: 2\naliases: [\"Synthetic observations\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_812451f3eba00fab973076ef13e4259b5f59b47696dd5e05723e9c695ce4000c\"\nprivacy: normal\ntitle: \"Synthetic observations\"\nextraction: local-excerpt\nupdated_at: \"2026-10-18T22:33:50.581Z\"\nprovenance: [{\"path\":\"opposite.md\",\"revision\":\"5dce0444dd45dd35fd255d03c709f8e8304110433630388558a0065bdab3d5eb\",\"start\":63,\"end\":236},{\"path\":\"opposite.md\",\"revision\":\"5dce0444dd45dd35fd255d03c709f8e8304110433630388558a0065bdab3d5eb\",\"start\":0,\"end\":24},{\"path\":\"opposite.md\",\"revision\":\"5dce0444dd45dd35fd255d03c709f8e8304110433630388558a0065bdab3d5eb\",\"start\":26,\"end\":61}]\n---\n\n# Synthetic observations\n\n\\# Synthetic observations\n\nOnly the isolated practice archive:\n\n- Notes from the connected bench \\(not for operation\\):\n  - The amber prism scatters daylight.\n  - Archive the jade ledger by date.\n  - The cobalt dial remains at three marks.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../opposite.md>) — opposite.md\n\nRevision: 5dce0444dd45dd35fd255d03c709f8e8304110433630388558a0065bdab3d5eb; character range: 63–236\n\n> - Notes from the connected bench \\(not for operation\\):\n>   - The amber prism scatters daylight.\n>   - Archive the jade ledger by date.\n>   - The cobalt dial remains at three marks.\n\n[Open original](<../opposite.md>) — opposite.md\n\nRevision: 5dce0444dd45dd35fd255d03c709f8e8304110433630388558a0065bdab3d5eb; character range: 0–24\n\n> \\# Synthetic observations\n\n[Open original](<../opposite.md>) — opposite.md\n\nRevision: 5dce0444dd45dd35fd255d03c709f8e8304110433630388558a0065bdab3d5eb; character range: 26–61\n\n> Only the isolated practice archive:\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_93becb8881bcb4fd92bcd4c5e8bf61e18b9161be3915f84d3cae26c13d049022": "---\nthird_brain_render: 2\naliases: [\"Synthetic observations\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_93becb8881bcb4fd92bcd4c5e8bf61e18b9161be3915f84d3cae26c13d049022\"\nprivacy: normal\ntitle: \"Synthetic observations\"\nextraction: local-excerpt\nupdated_at: \"2026-10-18T22:33:50.581Z\"\nprovenance: [{\"path\":\"copy.md\",\"revision\":\"cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7\",\"start\":220,\"end\":252},{\"path\":\"copy.md\",\"revision\":\"cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7\",\"start\":0,\"end\":24},{\"path\":\"copy.md\",\"revision\":\"cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7\",\"start\":26,\"end\":61},{\"path\":\"opposite.md\",\"revision\":\"5dce0444dd45dd35fd255d03c709f8e8304110433630388558a0065bdab3d5eb\",\"start\":237,\"end\":269},{\"path\":\"opposite.md\",\"revision\":\"5dce0444dd45dd35fd255d03c709f8e8304110433630388558a0065bdab3d5eb\",\"start\":0,\"end\":24},{\"path\":\"opposite.md\",\"revision\":\"5dce0444dd45dd35fd255d03c709f8e8304110433630388558a0065bdab3d5eb\",\"start\":26,\"end\":61},{\"path\":\"a.md\",\"revision\":\"cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7\",\"start\":220,\"end\":252},{\"path\":\"a.md\",\"revision\":\"cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7\",\"start\":0,\"end\":24},{\"path\":\"a.md\",\"revision\":\"cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7\",\"start\":26,\"end\":61}]\n---\n\n# Synthetic observations\n\n\\# Synthetic observations\n\nOnly the isolated practice archive:\n\n- Independent white-card record.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7; character range: 220–252\n\n> - Independent white-card record.\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7; character range: 0–24\n\n> \\# Synthetic observations\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7; character range: 26–61\n\n> Only the isolated practice archive:\n\n[Open original](<../opposite.md>) — opposite.md\n\nRevision: 5dce0444dd45dd35fd255d03c709f8e8304110433630388558a0065bdab3d5eb; character range: 237–269\n\n> - Independent white-card record.\n\n[Open original](<../opposite.md>) — opposite.md\n\nRevision: 5dce0444dd45dd35fd255d03c709f8e8304110433630388558a0065bdab3d5eb; character range: 0–24\n\n> \\# Synthetic observations\n\n[Open original](<../opposite.md>) — opposite.md\n\nRevision: 5dce0444dd45dd35fd255d03c709f8e8304110433630388558a0065bdab3d5eb; character range: 26–61\n\n> Only the isolated practice archive:\n\n[Open original](<../a.md>) — a.md\n\nRevision: cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7; character range: 220–252\n\n> - Independent white-card record.\n\n[Open original](<../a.md>) — a.md\n\nRevision: cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7; character range: 0–24\n\n> \\# Synthetic observations\n\n[Open original](<../a.md>) — a.md\n\nRevision: cf75c719942aac1aa43f7b080056287fd15126954ab4a9bc25421752a2c5fec7; character range: 26–61\n\n> Only the isolated practice archive:\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n"
+  },
+  "signatures": {
+    "local-excerpts": "{\"version\":1,\"localExcerptPolicy\":\"visible-sibling-context-1\",\"mode\":\"local-excerpts\",\"endpoint\":\"\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "local-model": "{\"version\":1,\"mode\":\"local-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "cloud-model": "{\"version\":1,\"mode\":\"cloud-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}"
+  },
+  "requests": {
+    "local-model": [
+      {
+        "task": "extract",
+        "text": "Only the isolated practice archive:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic observations",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Notes from the disconnected bench:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic observations",
+          "before": "Only the isolated practice archive:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- The amber prism scatters daylight.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic observations",
+          "before": "- Notes from the disconnected bench:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Archive the jade ledger by date.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic observations",
+          "before": "- The amber prism scatters daylight."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- The cobalt dial remains at three marks.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic observations",
+          "before": "- Archive the jade ledger by date."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Independent white-card record.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic observations",
+          "before": "- The cobalt dial remains at three marks."
+        }
+      }
+    ],
+    "cloud-model": [
+      {
+        "task": "extract",
+        "text": "Only the isolated practice archive:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic observations",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Notes from the disconnected bench:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic observations",
+          "before": "Only the isolated practice archive:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- The amber prism scatters daylight.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic observations",
+          "before": "- Notes from the disconnected bench:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Archive the jade ledger by date.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic observations",
+          "before": "- The amber prism scatters daylight."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- The cobalt dial remains at three marks.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic observations",
+          "before": "- Archive the jade ledger by date."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Independent white-card record.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic observations",
+          "before": "- The cobalt dial remains at three marks."
+        }
+      }
+    ]
+  }
+}

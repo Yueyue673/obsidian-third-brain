@@ -103,7 +103,9 @@ it(`explains ${reason}, ${incremental ? 'incremental' : 'initial'}, ${locale}; p
     expect(await store.load()).toEqual(loaded);
     expect(await fs.readFile(statePath)).toEqual(bytes);
     const result = (await controller.find('calibration', 'medium'))[0];
-    expect(result.fragment.summary).toBe(validBody);
+    expect(result.fragment.summary).toBe(validBody.split('\n').slice(0,2).join('\n'));
+    expect(result.fragment.localContext).toBe(validBody.split('\n')[2]);
+    for (const line of validBody.split('\n')) expect(result.fragment.summary + '\n' + result.fragment.localContext).toContain(line);
     for (const evidence of result.fragment.evidence) await controller.verifyOpen(evidence);
     expect(await fs.readFile(original, 'utf8')).toBe(valid);
     expect(await fs.readFile(human, 'utf8')).toBe('Synthetic human-owned file.');

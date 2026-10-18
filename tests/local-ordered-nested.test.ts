@@ -41,12 +41,20 @@ it('retains numbered Chinese/tabbed/loose branches and explicit shared restricti
   for (const input of [text, text.replace('  2.', '\n  2.'), text.replace(/     - /gu, '\t\t- ').replace(/  (?=[12])/gu, '\t')]) expect((await analyzeSource(snap(input), opts)).fragments.map(f => f.summary)).toEqual([input]);
 });
 
-it('does not broaden unqualified sibling splitting or join already independent root items', async () => {
+it('focuses unqualified unordered peers with full context, keeps numbered groups whole and separates independent roots', async () => {
   for (const text of [
     '- Independent archive observations, not a procedure:\n  - The amber coating becomes opaque under filtered blue light.\n  - The jade binder preserves rough-surfaced cards without tearing their edges.',
     '- Complete the shared synthetic preparation:\n  - Seal the cobalt inlet.\n  - Drain the violet chamber after sealing the inlet.',
-    raw.replace(/     - (?:Example|Limitation):[^\n]+\n/gu, ''),
-  ]) expect((await analyzeSource(snap(text), opts)).fragments).toHaveLength(1);
+  ]) {
+    const all = (await analyzeSource(snap(text), opts)).fragments;
+    expect(all).toHaveLength(2);
+    for (const f of all) {
+      expect(f.localContext).toBeTruthy();
+      for (const line of text.split('\n')) expect(f.summary + '\n' + f.localContext).toContain(line.trim());
+    }
+  }
+  const unqualifiedNumbered = raw.replace(/     - (?:Example|Limitation):[^\n]+\n/gu, '');
+  expect((await analyzeSource(snap(unqualifiedNumbered), opts)).fragments.map(f => f.summary)).toEqual([unqualifiedNumbered]);
   const roots = '- The amber coating becomes opaque under filtered blue light.\n- The jade binder preserves rough-surfaced cards without tearing their edges.';
   expect((await analyzeSource(snap(roots), opts)).fragments).toHaveLength(2);
 });

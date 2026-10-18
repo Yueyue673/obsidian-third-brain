@@ -53,7 +53,7 @@ Local mode matches words and existing attributes; it does not infer meaning. An 
 
 Unreleased source builds preserve complete local paragraphs and nested list groups with their full ancestor `#`–`######` headings, up to 16,384 UTF-16 code units for the combined context, so a matching ending is not detached from opening or heading-only conditions. Different heading contexts stay separate when body text matches. Each heading and body has its own verified quotation; the displayed context is assembled, not one contiguous quote. An oversized group blocks the whole refresh with guidance; review a copy without dropping conditions/examples, then retry explicitly. This is structural preservation, not automatic semantic atomicity, and is not yet in download 0.3.7. AI chunking is unchanged. See [Testing status](VERIFICATION.md).
 
-In unreleased source builds, a qualified unordered nested-list result keeps its focused excerpt and shows omitted siblings under **Same-list source context** without another click. Compare this conservatively retained original text before reusing the point; the plugin has not inferred which siblings are necessary. This context does not turn sibling words into a direct search match. Download 0.3.7 does not include this change.
+In unreleased source builds, unordered direct children under a one-line list parent ending in `:` or `：` can yield focused excerpts, without requiring `Example:` or `Condition:` labels. The complete parent and shared restrictions remain with the point; omitted siblings appear under **Same-list source context** without another click. Groups with more than 16 points, numbered/standard checklist groups and ambiguous structures remain whole rather than multiplying context or guessing independence. Compare this conservatively retained original text before reusing the point; the plugin has not inferred which siblings are necessary. This context does not turn sibling words into a direct search match. Download 0.3.7 does not include this change.
 
 Open a Markdown note. **Use current note** fills the idea box with the selected text, or the current draft if nothing is selected; it does not start a search. Review the text, then click **Find connections**. For long notes, select a shorter passage first. The plugin does not monitor typing or insert text into your note.
 
@@ -160,7 +160,7 @@ Get-FileHash .\third-brain-0.3.7.zip -Algorithm SHA256
 
 尚未发布的源码构建会完整保留本地段落、嵌套列表组及其各级 `#`–`######` 标题，合计最多 16,384 个 UTF-16 代码单元，避免末尾命中丢掉开头或仅写在标题里的条件。正文相同但标题语境不同会保留为不同片段；标题与正文分别核验引文，显示时组合，不伪造一段连续原文。超限会阻止本轮更新并给出提示；请先在副本中检查，保留条件和例子，再明确重试。这是结构保留，不代表已自动拆成语义原子观点；下载版 0.3.7 尚未包含，AI 分块不变。详见[测试记录](VERIFICATION.md)。
 
-尚未发布的源码构建会保留合格无序嵌套列表的聚焦摘录，并直接显示「同组原文语境」，无需另点展开。复用要点前请对照这些保守保留的同组原文；插件未推断哪些条目是必要前提，也不会把语境里的词算成该要点的直接搜索命中。下载版 0.3.7 尚未包含此改动。
+尚未发布的源码构建中，单行列表父项以 `:` 或 `：` 结尾时，其直接无序子项可生成聚焦摘录，不必先补写「例子：」「条件：」标签。完整父项和共同限制仍随要点保留，其余同组原文直接显示在「同组原文语境」下，无需另点展开。超过 16 个要点的组、编号／标准复选清单和结构含糊的列表仍整组保留，避免大量重复语境或猜测独立性。复用要点前请对照这些保守保留的同组原文；插件未推断哪些条目是必要前提，也不会把语境里的词算成该要点的直接搜索命中。下载版 0.3.7 尚未包含此改动。
 
 打开一篇 Markdown 笔记，点「使用当前笔记」，会把选中的文字填入想法输入框；没有选区时使用当前草稿，不会立即搜索。检查内容后，再点「寻找关联」。长笔记可以先选一段。插件不会持续监控输入，也不会自动写入原笔记。
 

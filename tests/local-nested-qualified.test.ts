@@ -73,10 +73,10 @@ it('retains direct-child shared labels, their descendants and root-level qualifi
   }
 });
 
-it('does not infer independence for unqualified siblings, non-colon or multiline parents, one qualified branch or deeper coupled work', async () => {
+it('keeps ambiguous or single-branch groups whole; partly qualified peers retain complete visible context', async () => {
   for (const raw of [
     '1. Only the synthetic fixture:\n   1. Remember the amber point.\n      - Example: a disposable mock.\n   2. File the jade ledger.\n      - Caveat: no real identity.',
-    body.replace('    - Example: a disposable mock.\n', ''),
+
     body.replace('fixture:', 'fixture.'),
     body.replace('fixture:\n', 'fixture:\n  Complete both branches before restarting.\n'),
     body + '\n  Both branches must finish before restarting.',
@@ -84,6 +84,14 @@ it('does not infer independence for unqualified siblings, non-colon or multiline
     '- Only the synthetic fixture:\n  - Remember the amber point.\n    - Example: a disposable mock.\n  - Caveat: keep the fixture isolated.',
     '- Only the synthetic fixture:\n  - Complete the coupled sequence:\n    - Remember the amber point.\n      - Example: a disposable mock.\n    - File the jade ledger.\n      - Caveat: no real identity.',
   ]) expect((await analyzeSource(snap(raw), opts)).fragments.map(f => f.summary)).toEqual([raw]);
+  const partial = body.replace('    - Example: a disposable mock.\n', '');
+  const all = (await analyzeSource(snap(partial), opts)).fragments;
+  expect(all).toHaveLength(2);
+  for (const f of all) {
+    expect(f.localContext).toBeTruthy();
+    for (const line of partial.split('\n')) expect(f.summary + '\n' + f.localContext).toContain(line.trim());
+  }
+  expect(all.find(f => f.summary.includes('File the jade'))!.summary).not.toContain('Remember the amber');
 });
 
 it('retains every long qualified subtree intact; existing whole-group and hidden-boundary protections do not become a fan-out bypass', async () => {

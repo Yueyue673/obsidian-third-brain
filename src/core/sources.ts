@@ -5,8 +5,11 @@ import { mapped, safeVocabulary, type MappedText } from './privacy';
 import { bindSourceDiagnostic } from './source-diagnostics';
 
 export interface TextBlock extends MappedText { heading: string; localList?: boolean; localHeadings?: MappedText[]; localLeadIn?: MappedText; localParts?: MappedText[]; localSiblings?: MappedText[]; }
-/** Bound complete local structural context before any qualified-branch fan-out. Never truncate. */
+/** Bound complete local structural context before any focused-branch fan-out. Never truncate. */
 export const LOCAL_EXCERPT_CONTEXT_LIMIT = 16384;
+// Each focused copy retains every sibling's text/evidence. Bound that quadratic
+// expansion; wider groups remain one complete excerpt, never a truncated subset.
+const LOCAL_BRANCH_FOCUS_LIMIT = 16;
 function frontmatter(raw: string): { body: number; metadata: string } {
   const first = /^(?:\ufeff)?---[ \t]*(?:\r\n|\n|\r)/u.exec(raw);
   if (!first) return { body: 0, metadata: '' };
@@ -262,14 +265,14 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
   }
   flush(); return blocks;
 }
-/** A deliberately narrow local fan-out: a one-line colon parent with at least
- * two direct branches, each carrying its own explicitly labelled descendant.
- * Numbered, checklist or unqualified groups stay whole. All shared-level labels and
+/** Focus direct unordered branches under a one-line colon parent, without
+ * requiring authors to add example/condition labels or asserting independence.
+ * Numbered and checklist groups stay whole. All shared-level labels and
  * root-level qualifiers accompany every branch, rather than guessing scope.
  * Run AFTER ordinary parsing/restoration so original whole-group limits and
  * structural/hidden barriers still apply before any smaller display is made.
  */
-function qualifiedListBranches(block: TextBlock): TextBlock[] {
+function focusedListBranches(block: TextBlock): TextBlock[] {
   if (!block.localList) return [block];
   const columns = (text: string) => { let width = 0; for (const char of text) width += char === '\t' ? 4 - width % 4 : 1; return width; };
   const context = (text: string) => /^(?:examples?|counterexamples?|conditions?|caveats?|limitations?|例子|示例|反例|条件|前提|限制)[ \t]*[:：]/iu.test(text);
@@ -298,15 +301,13 @@ function qualifiedListBranches(block: TextBlock): TextBlock[] {
   if (rows.slice(first,end).some(row => row.item ? row.indent < depth : row.text.trim() && columns(/^\s*/u.exec(row.text)![0]) <= depth)) return [block];
   const groups = starts.map((start,i) => ({ start, end:starts[i+1] ?? end, shared:context(rows[start].content) }));
   const points = groups.filter(group => !group.shared);
-  if (points.length < 2) return [block];
-  // A descendant label provides a visible boundary for this small slice. It is
-  // not evidence of semantic independence. Preserve omitted siblings separately
-  // without resolving references or recursively splitting a qualified branch.
+  if (points.length < 2 || points.length > LOCAL_BRANCH_FOCUS_LIMIT) return [block];
+  // Indentation supplies a display boundary, not semantic independence. Keep all
+  // omitted siblings as visible, evidenced context; do not guess dependencies or
+  // recursively split a selected branch. Reject malformed descendant boundaries.
   if (points.some(group => {
     const descendants = rows.slice(group.start+1,group.end).filter(row => row.item && row.indent > depth);
-    if (descendants.some(row => row.indent < columns(rows[group.start].item![0]))) return true;
-    const immediate = Math.min(...descendants.map(row => row.indent));
-    return !descendants.some(row => row.indent === immediate && context(row.content));
+    return descendants.some(row => row.indent < columns(rows[group.start].item![0]));
   })) return [block];
   if (tail >= 0 && rows.slice(tail).some(row => row.item && row.indent <= root.indent && !context(row.content))) return [block];
   const part = (start: number, end: number): MappedText => {
@@ -323,7 +324,7 @@ function qualifiedListBranches(block: TextBlock): TextBlock[] {
 function sourceBlocks(snapshot: SourceSnapshot, local = false, includeHeadings = false): TextBlock[] {
   if (snapshot.format === 'markdown') {
     const blocks = markdownBlocks(snapshot.text, 0, /(?:^|\n)\s*excalidraw-plugin\s*:/iu.test(frontmatter(snapshot.text).metadata) || /\.excalidraw\.md$/iu.test(snapshot.path), local, snapshot.path, includeHeadings);
-    return local ? blocks.flatMap(qualifiedListBranches) : blocks;
+    return local ? blocks.flatMap(focusedListBranches) : blocks;
   }
   const nodes = canvasObject(snapshot.text).nodes as unknown[], blocks: TextBlock[] = [];
   for (const node of nodes) {
@@ -333,7 +334,7 @@ function sourceBlocks(snapshot: SourceSnapshot, local = false, includeHeadings =
     const literal = JSON.stringify(text), rawPosition = literal.includes('\\') ? -1 : snapshot.text.indexOf(literal);
     blocks.push(...markdownBlocks(text, rawPosition < 0 ? -1 : rawPosition + 1, false, local, snapshot.path, includeHeadings));
   }
-  return local ? blocks.flatMap(qualifiedListBranches) : blocks;
+  return local ? blocks.flatMap(focusedListBranches) : blocks;
 }
 /** Existing AI, vocabulary and cached quotation parsing remain unchanged. */
 export function textBlocks(snapshot: SourceSnapshot): TextBlock[] { return sourceBlocks(snapshot); }
