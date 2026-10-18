@@ -90,6 +90,15 @@ export function sourceFacets(snapshot: SourceSnapshot): Facets {
   for (const match of body.matchAll(/(?:^|[\s(])#([\p{L}\p{N}_-][\p{L}\p{N}_/-]*)/gu)) if (!match[1].includes('/')) result.topics.push(match[1]);
   return safeVocabulary({ ...result, topics: result.topics.slice(0,256) });
 }
+function introducesList(text: string): boolean {
+  if (/[:：]$/u.test(text)) return true;
+  // A quoted blank line is syntax, not the end of the visible introduction.
+  // Inspect only fully quoted blocks, without changing their exact evidence.
+  const lines = text.split(/\r\n|\n|\r/u);
+  if (!lines.every(line => /^ {0,3}>/u.test(line))) return false;
+  while (lines.length && /^(?: {0,3}>[ \t]*)+$/u.test(lines.at(-1)!)) lines.pop();
+  return /[:：]$/u.test(lines.at(-1)?.trimEnd() ?? '');
+}
 function markdownBlocks(raw: string, base: number, excalidraw = false, local = false, sourcePath = '', includeHeadings = false): TextBlock[] {
   const meta = frontmatter(raw), blocks: TextBlock[] = [];
   const ancestors: { depth: number; block: MappedText }[] = [];
@@ -112,7 +121,7 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
       if (trimmed) {
         const block: TextBlock = { ...mapped(trimmed, base < 0 ? -1 : base + start + trimStart), heading, ...(local && listIndent >= 0 ? { localList:true, ...(listLeadIn ? { localLeadIn:listLeadIn } : {}) } : {}), ...(local && ancestors.length ? { localHeadings:ancestors.map(item => item.block) } : {}) };
         blocks.push(block);
-        if (local && listIndent < 0) introduction = /[:：]$/u.test(trimmed) ? { block,end } : undefined;
+        if (local && listIndent < 0) introduction = introducesList(trimmed) ? { block,end } : undefined;
       }
     }
     start = end = -1; listIndent = contentIndent = -1; rootIsContext = false;
@@ -186,7 +195,7 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
           flush();
           if (!continuing) {
             listLeadIn = undefined;
-            // A literal terminal colon explicitly introduces the adjacent list.
+            // A literal final visible colon explicitly introduces the adjacent list.
             // Do not infer semantic dependence from arbitrary previous prose.
             if (introduction && blocks.at(-1) === introduction.block && !raw.slice(introduction.end,offset).trim()) {
               if (introduction.block.text.includes('<!--') || introduction.block.text.includes('%%')) throw new CoreError('Local list context intersects hidden content; no partial index was saved.');

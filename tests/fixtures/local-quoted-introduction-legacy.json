@@ -1,0 +1,401 @@
+{
+  "synthetic": true,
+  "capturedRuntime": "79cb28956e7f8fc2710bd430eae88407ae723f7e",
+  "heading": "# Synthetic relay",
+  "lead": "> [!warning] Synthetic scope\n> Only in the disconnected copper simulator:\n>",
+  "alternate": "> [!warning] Synthetic scope\n> Never on the connected copper simulator:\n>",
+  "action": "- Rotate the synthetic cobalt memory dial.",
+  "other": "- Record the independent synthetic teal reading.",
+  "raws": {
+    "a.md": "# Synthetic relay\n\n> [!warning] Synthetic scope\n> Only in the disconnected copper simulator:\n>\n\n- Rotate the synthetic cobalt memory dial.\n- Example: a disconnected synthetic bench.\n- Record the independent synthetic teal reading.",
+    "b.md": "# Synthetic relay\n\n> [!warning] Synthetic scope\n> Never on the connected copper simulator:\n>\n\n- Rotate the synthetic cobalt memory dial.\n- Example: a disconnected synthetic bench.\n- Record the independent synthetic teal reading.",
+    "c.md": "# Synthetic relay\n\n> [!warning] Synthetic scope\n> Only in the disconnected copper simulator:\n>\n\n- Rotate the synthetic cobalt memory dial.\n- Example: a disconnected synthetic bench.\n- Record the independent synthetic teal reading."
+  },
+  "signatures": {
+    "local-excerpts": "{\"version\":1,\"localExcerptPolicy\":\"list-sibling-context-1\",\"mode\":\"local-excerpts\",\"endpoint\":\"\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "local-model": "{\"version\":1,\"mode\":\"local-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "cloud-model": "{\"version\":1,\"mode\":\"cloud-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}"
+  },
+  "requests": {
+    "local-model": [
+      {
+        "task": "extract",
+        "text": "> [!warning] Synthetic scope\n> Only in the disconnected copper simulator:\n>",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic relay",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Rotate the synthetic cobalt memory dial.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic relay",
+          "before": "> [!warning] Synthetic scope\n> Only in the disconnected copper simulator:\n>"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Example: a disconnected synthetic bench.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic relay",
+          "before": "- Rotate the synthetic cobalt memory dial."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Record the independent synthetic teal reading.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic relay",
+          "before": "- Example: a disconnected synthetic bench."
+        }
+      }
+    ],
+    "cloud-model": [
+      {
+        "task": "extract",
+        "text": "> [!warning] Synthetic scope\n> Only in the disconnected copper simulator:\n>",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic relay",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Rotate the synthetic cobalt memory dial.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic relay",
+          "before": "> [!warning] Synthetic scope\n> Only in the disconnected copper simulator:\n>"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Example: a disconnected synthetic bench.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic relay",
+          "before": "- Rotate the synthetic cobalt memory dial."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Record the independent synthetic teal reading.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic relay",
+          "before": "- Example: a disconnected synthetic bench."
+        }
+      }
+    ]
+  },
+  "old": {
+    "version": 1,
+    "signature": "editorial-core-2:03e6fecd17ee0d0b25780fb9620d1dcd123e74f0529d8e9df678855ce567ace6",
+    "updatedAt": "2026-10-18T19:38:47.295Z",
+    "sources": {
+      "a.md": {
+        "hash": "af668d80635961f7a94e258b421b25af4579b6fb5bcacc30710ca134681b11d6",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_b61f18023db7fdc53695de9f25bae76905b8a6e41c55ab43f82005660041630b",
+          "f_ba36d9d19707d2c7867501672b68b8ff28f601bfb256717ddcb00ab1325c18a4",
+          "f_e3beca4973317af7abf0aa7785590bd066ee77a281205aaead4cd4e16dadfd4f"
+        ]
+      },
+      "b.md": {
+        "hash": "2e36413da607df14df41a27eef3c82e8035aa8a3d0dd45912de1d4f2bfaf3442",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_0e73c50ae69bd0ef70daedc035cc89511372d279b71f217e1dfc61e426bf245a",
+          "f_b61f18023db7fdc53695de9f25bae76905b8a6e41c55ab43f82005660041630b",
+          "f_ba36d9d19707d2c7867501672b68b8ff28f601bfb256717ddcb00ab1325c18a4"
+        ]
+      },
+      "c.md": {
+        "hash": "af668d80635961f7a94e258b421b25af4579b6fb5bcacc30710ca134681b11d6",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_b61f18023db7fdc53695de9f25bae76905b8a6e41c55ab43f82005660041630b",
+          "f_ba36d9d19707d2c7867501672b68b8ff28f601bfb256717ddcb00ab1325c18a4",
+          "f_e3beca4973317af7abf0aa7785590bd066ee77a281205aaead4cd4e16dadfd4f"
+        ]
+      }
+    },
+    "fragments": {
+      "f_0e73c50ae69bd0ef70daedc035cc89511372d279b71f217e1dfc61e426bf245a": {
+        "id": "f_0e73c50ae69bd0ef70daedc035cc89511372d279b71f217e1dfc61e426bf245a",
+        "privacy": "normal",
+        "title": "Synthetic relay",
+        "summary": "# Synthetic relay\n\n> [!warning] Synthetic scope\n> Never on the connected copper simulator:\n>",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "2e36413da607df14df41a27eef3c82e8035aa8a3d0dd45912de1d4f2bfaf3442",
+            "quote": "> [!warning] Synthetic scope\n> Never on the connected copper simulator:\n>",
+            "start": 19,
+            "end": 92
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "2e36413da607df14df41a27eef3c82e8035aa8a3d0dd45912de1d4f2bfaf3442",
+            "quote": "# Synthetic relay",
+            "start": 0,
+            "end": 17
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T19:38:47.295Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_b61f18023db7fdc53695de9f25bae76905b8a6e41c55ab43f82005660041630b": {
+        "id": "f_b61f18023db7fdc53695de9f25bae76905b8a6e41c55ab43f82005660041630b",
+        "privacy": "normal",
+        "title": "Synthetic relay",
+        "summary": "# Synthetic relay\n\n- Rotate the synthetic cobalt memory dial.\n- Example: a disconnected synthetic bench.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "2e36413da607df14df41a27eef3c82e8035aa8a3d0dd45912de1d4f2bfaf3442",
+            "quote": "- Rotate the synthetic cobalt memory dial.\n- Example: a disconnected synthetic bench.",
+            "start": 94,
+            "end": 179
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "2e36413da607df14df41a27eef3c82e8035aa8a3d0dd45912de1d4f2bfaf3442",
+            "quote": "# Synthetic relay",
+            "start": 0,
+            "end": 17
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "af668d80635961f7a94e258b421b25af4579b6fb5bcacc30710ca134681b11d6",
+            "quote": "- Rotate the synthetic cobalt memory dial.\n- Example: a disconnected synthetic bench.",
+            "start": 96,
+            "end": 181
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "af668d80635961f7a94e258b421b25af4579b6fb5bcacc30710ca134681b11d6",
+            "quote": "# Synthetic relay",
+            "start": 0,
+            "end": 17
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af668d80635961f7a94e258b421b25af4579b6fb5bcacc30710ca134681b11d6",
+            "quote": "- Rotate the synthetic cobalt memory dial.\n- Example: a disconnected synthetic bench.",
+            "start": 96,
+            "end": 181
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af668d80635961f7a94e258b421b25af4579b6fb5bcacc30710ca134681b11d6",
+            "quote": "# Synthetic relay",
+            "start": 0,
+            "end": 17
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T19:38:47.295Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_ba36d9d19707d2c7867501672b68b8ff28f601bfb256717ddcb00ab1325c18a4": {
+        "id": "f_ba36d9d19707d2c7867501672b68b8ff28f601bfb256717ddcb00ab1325c18a4",
+        "privacy": "normal",
+        "title": "Synthetic relay",
+        "summary": "# Synthetic relay\n\n- Record the independent synthetic teal reading.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "2e36413da607df14df41a27eef3c82e8035aa8a3d0dd45912de1d4f2bfaf3442",
+            "quote": "- Record the independent synthetic teal reading.",
+            "start": 180,
+            "end": 228
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "2e36413da607df14df41a27eef3c82e8035aa8a3d0dd45912de1d4f2bfaf3442",
+            "quote": "# Synthetic relay",
+            "start": 0,
+            "end": 17
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "af668d80635961f7a94e258b421b25af4579b6fb5bcacc30710ca134681b11d6",
+            "quote": "- Record the independent synthetic teal reading.",
+            "start": 182,
+            "end": 230
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "af668d80635961f7a94e258b421b25af4579b6fb5bcacc30710ca134681b11d6",
+            "quote": "# Synthetic relay",
+            "start": 0,
+            "end": 17
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af668d80635961f7a94e258b421b25af4579b6fb5bcacc30710ca134681b11d6",
+            "quote": "- Record the independent synthetic teal reading.",
+            "start": 182,
+            "end": 230
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af668d80635961f7a94e258b421b25af4579b6fb5bcacc30710ca134681b11d6",
+            "quote": "# Synthetic relay",
+            "start": 0,
+            "end": 17
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T19:38:47.295Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_e3beca4973317af7abf0aa7785590bd066ee77a281205aaead4cd4e16dadfd4f": {
+        "id": "f_e3beca4973317af7abf0aa7785590bd066ee77a281205aaead4cd4e16dadfd4f",
+        "privacy": "normal",
+        "title": "Synthetic relay",
+        "summary": "# Synthetic relay\n\n> [!warning] Synthetic scope\n> Only in the disconnected copper simulator:\n>",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "af668d80635961f7a94e258b421b25af4579b6fb5bcacc30710ca134681b11d6",
+            "quote": "# Synthetic relay",
+            "start": 0,
+            "end": 17
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "af668d80635961f7a94e258b421b25af4579b6fb5bcacc30710ca134681b11d6",
+            "quote": "> [!warning] Synthetic scope\n> Only in the disconnected copper simulator:\n>",
+            "start": 19,
+            "end": 94
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af668d80635961f7a94e258b421b25af4579b6fb5bcacc30710ca134681b11d6",
+            "quote": "# Synthetic relay",
+            "start": 0,
+            "end": 17
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af668d80635961f7a94e258b421b25af4579b6fb5bcacc30710ca134681b11d6",
+            "quote": "> [!warning] Synthetic scope\n> Only in the disconnected copper simulator:\n>",
+            "start": 19,
+            "end": 94
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T19:38:47.295Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      }
+    }
+  }
+}
