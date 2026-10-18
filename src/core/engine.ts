@@ -2,7 +2,7 @@ import type { Facets, Fragment, IndexState, RunOptions, SourceRecord, SourceSnap
 import { FRAGMENT_EVIDENCE_LIMIT } from './types';
 import { CoreError, CORE_REVISION, FACET_KEYS, checkAbort, digest, exactKeys, facetKey, isPrivacy, plainObject, relativePath, restrictive, stringList, timestamp, unionFacets, yieldToHost } from './util';
 import { extendVocabulary, hasCredentials, safeFacet, safeVocabulary } from './privacy';
-import { checkedSource, sourceFacets, textBlocks } from './sources';
+import { checkedSource, hasReadableQuote, sourceFacets, textBlocks } from './sources';
 import { analyzeSource } from './extraction';
 import { fragmentId, mergeFragments } from './fragments';
 import { bindSourceDiagnostic, markGlobalSourceFailure } from './source-diagnostics';
@@ -56,7 +56,8 @@ function currentVocabulary(vocabulary: Facets, previous: IndexState | null, reus
 function currentEvidence(fragment: Fragment, snapshot: SourceSnapshot): Fragment {
   const evidence = fragment.evidence.filter(item => item.relativePath === snapshot.path && item.sourceHash === snapshot.hash && item.sourceId === snapshot.id);
   for (const item of evidence) {
-    if (item.start >= 0 ? snapshot.text.slice(item.start,item.end) !== item.quote : !textBlocks(snapshot).some(block => block.text.includes(item.quote))) throw new CoreError('Cached quotation does not match the immutable source');
+    const readable = () => fragment.mode === 'local' ? hasReadableQuote(snapshot,item.quote) : textBlocks(snapshot).some(block => block.text.includes(item.quote));
+    if (item.start >= 0 ? snapshot.text.slice(item.start,item.end) !== item.quote : !readable()) throw new CoreError('Cached quotation does not match the immutable source');
   }
   return { ...fragment,privacy:snapshot.privacy,evidence:evidence.map(item => ({ ...item })),facets:unionFacets(fragment.facets),conditions:[...fragment.conditions],caveats:[...fragment.caveats] };
 }

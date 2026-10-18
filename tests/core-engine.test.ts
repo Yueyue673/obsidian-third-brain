@@ -80,9 +80,14 @@ describe('source-grounded lexical and separate facet retrieval', () => {
 describe('incremental complete-revision staging', () => {
   it('keys source records by exact canonical path, deduplicates across sources and unions all provenance', async () => {
     const raw = 'An identical useful excerpt keeps every independent source.';
-    const a = source('synthetic/a.md',`---\ntopics: [public-topic]\n---\n# Same title\n${raw}`), b = source('synthetic/b.md',`---\nprivacy: private\ntopics: [private-topic]\n---\n# Different title\n${raw}`);
+    const a = source('synthetic/a.md',`---\ntopics: [public-topic]\n---\n# Same title\n${raw}`), b = source('synthetic/b.md',`---\nprivacy: private\ntopics: [private-topic]\n---\n# Same title\n${raw}`);
     const state = await buildIndex([a,b],options()), fragments = Object.values(state.fragments);
-    expect(Object.keys(state.sources)).toEqual(['synthetic/a.md','synthetic/b.md']); expect(fragments).toHaveLength(1); expect(fragments[0].evidence).toHaveLength(2);
+    expect(Object.keys(state.sources)).toEqual(['synthetic/a.md','synthetic/b.md']); expect(fragments).toHaveLength(1); expect(fragments[0].evidence).toHaveLength(4);
+    for (const s of [a,b]) {
+      const evidence = fragments[0].evidence.filter(item => item.relativePath === s.path);
+      expect(evidence).toHaveLength(2); expect(evidence.map(item => item.quote)).toContain(raw);
+      for (const item of evidence) expect(s.text.slice(item.start,item.end)).toBe(item.quote);
+    }
     expect(fragments[0].privacy).toBe('private'); expect(fragments[0].facets.topics).toEqual(['private-topic','public-topic']);
     expect(state.sources[a.path].fragmentIds).toEqual(state.sources[b.path].fragmentIds); expect(vocabularyOf(fragments,true)).toEqual(emptyFacets());
   });

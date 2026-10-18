@@ -23,7 +23,10 @@ describe('immutable source preparation and lexical extraction', () => {
     const fragment = analysis.fragments[0], evidence = fragment.evidence[0];
     expect(fragment.mode).toBe('local'); expect(fragment.caveats.join(' ')).toMatch(/lexical baseline/);
     expect(evidence.relativePath).toBe('synthetic/practice.md'); expect(evidence.sourceId).toBe('opaque-source-id'); expect(evidence.sourceHash).toBe('host-raw-byte-hash');
-    expect(raw.slice(evidence.start,evidence.end)).toBe(evidence.quote); expect(fragment.summary).toBe(evidence.quote); expect(fragment.facets.topics).toEqual(['study']);
+    expect(raw.slice(evidence.start,evidence.end)).toBe(evidence.quote); expect(fragment.summary).toBe('# Practice\n\n' + evidence.quote); expect(fragment.facets.topics).toEqual(['study']);
+    expect(fragment.evidence).toHaveLength(2);
+    expect(fragment.evidence[1].quote).toBe('# Practice');
+    for (const item of fragment.evidence) expect(raw.slice(item.start,item.end)).toBe(item.quote);
   });
   it.each(['../note.md','a/../note.md','/absolute.md','C:/synthetic/note.md','a\\note.md','a//note.md','./note.md','a/./note.md','https://example.invalid/note.md','bad\u0000.md'])('rejects noncanonical paths: %s', path => {
     expect(() => prepareSource(path,'A useful sentence.','hash','id')).toThrow(/relative source path/);
@@ -51,12 +54,16 @@ describe('immutable source preparation and lexical extraction', () => {
     expect(analysis.fragments[0].summary).toBe(bounded);
     expect(analysis.fragments[0].evidence[0].quote).toBe(bounded);
   });
-  it('preserves distinct ideas with identical titles and merges only exact bodies', async () => {
+  it('preserves distinct ideas and heading contexts, merging only exact contextual bodies', async () => {
     const raw = '# Shared title\nSpacing practice protects retrieval opportunities.\n\n# Shared title\nReducing task friction makes beginning easier.\n\n# Another title\nSpacing practice protects retrieval opportunities.';
     const analysis = await analyzeSource(source(raw),local);
-    expect(analysis.fragments).toHaveLength(2);
-    const repeated = analysis.fragments.find(fragment => fragment.summary.includes('Spacing'))!;
-    expect(repeated.evidence).toHaveLength(2); expect(new Set(repeated.evidence.map(item => item.start)).size).toBe(2);
+    expect(analysis.fragments).toHaveLength(3);
+    expect(analysis.fragments.filter(fragment => fragment.summary.includes('Spacing'))).toHaveLength(2);
+    const identical = await analyzeSource(source(raw + '\n\n# Shared title\nSpacing practice protects retrieval opportunities.'),local);
+    expect(identical.fragments).toHaveLength(3);
+    const repeated = identical.fragments.find(fragment => fragment.summary === '# Shared title\n\nSpacing practice protects retrieval opportunities.')!;
+    expect(repeated.evidence).toHaveLength(4); expect(new Set(repeated.evidence.map(item => item.start)).size).toBe(4);
+    for (const fragment of analysis.fragments) for (const item of fragment.evidence) expect(raw.slice(item.start,item.end)).toBe(item.quote);
   });
   it('retains meaningful small notes without forcing a domain or vocabulary', async () => {
     for (const text of ['间隔练习帮助回忆。','Practice spaced retrieval.','Drink water.']) {

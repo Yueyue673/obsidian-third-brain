@@ -17,7 +17,7 @@ describe('local lexical recall within existing facet labels', () => {
     expect(results).toHaveLength(1);
     expect(results[0].reasons[0].label).toContain('Facet keyword match:');
     expect(results[0].reasons[0].label).toContain(query);
-    expect(results[0].reasons[0].quotes).toContain(fragments[0].summary);
+    for (const evidence of fragments[0].evidence) expect(results[0].reasons[0].quotes).toContain(evidence.quote);
     expect(results[0].reasons[0].caveat).toContain('not evidence');
     expect(JSON.stringify(fragments)).toBe(before);
     expect(presentExplanation(results[0].reasons[0].label,'zh')).toContain('属性关键词匹配：');

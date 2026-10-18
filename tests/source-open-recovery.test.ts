@@ -116,7 +116,8 @@ it.each(['en', 'zh'] as const)('changed source gives actionable recovery, then t
 it.each(['other-donor', 'excluded', 'missing', 'privacy'] as const)('%s refuses the entire old merged card with recovery guidance', async fault => {
   const h = await fixture('en', 'merged');
   try {
-    expect(h.initial[0].fragment.evidence).toHaveLength(2);
+    expect(h.initial[0].fragment.evidence).toHaveLength(4);
+    expect(new Set(h.initial[0].fragment.evidence.map(item => item.relativePath)).size).toBe(2);
     if (fault === 'other-donor') await h.change('b.md', h.text + '\nA new donor condition.');
     if (fault === 'excluded') h.settings.excludes.push('b.md');
     if (fault === 'missing') { await fs.unlink(path.join(h.root, 'b.md')); h.originals.delete('b.md'); }
@@ -134,7 +135,7 @@ it('indirect explanation buttons on both sides retain full endpoint checks and r
   try {
     expect(h.initial.some(item => item.reasons.some(r => r.indirect))).toBe(true);
     const trace = h.get('tb-indirect-evidence'); expect(trace).toBeDefined();
-    const nodes = trace.all().filter(n => n.className === 'tb-source'); expect(nodes).toHaveLength(2);
+    const nodes = trace.all().filter(n => n.className === 'tb-source'); expect(nodes).toHaveLength(4);
     for (const node of nodes) await h.click(node);
     h.openFile.mockClear(); await h.change('a.md', h.originals.get('a.md')! + '\nChanged anchor context.');
     for (const node of nodes) {

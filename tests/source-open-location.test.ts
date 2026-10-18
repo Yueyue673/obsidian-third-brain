@@ -69,7 +69,7 @@ async function fixture(locale: 'en' | 'zh' = 'en', newline = '\n', canvas = fals
   get('tb-idea').value = 'PreciseNeedle'; get('tb-idea').fire('input');
   container.all().find(n => n.tag === 'button' && n.textContent === t.find)!.fire('click');
   const items = await queries.at(-1)!; await Promise.resolve();
-  expect(items).toHaveLength(1);
+  expect(items).toHaveLength(canvas ? 1 : 2);
   const buttons = container.all().filter(n => n.className === 'tb-source');
   const click = (i = 0) => { buttons[i].fire('click'); return opens.at(-1)!; };
   const unchanged = async () => {
@@ -85,8 +85,14 @@ async function fixture(locale: 'en' | 'zh' = 'en', newline = '\n', canvas = fals
 for (const newline of ['\n', '\r\n']) it.each(['en', 'zh'] as const)(`opens the precise later quotation and repeated occurrence (${JSON.stringify(newline)}) in %s`, async locale => {
   const h = await fixture(locale, newline);
   try {
-    const evidence = h.items[0].fragment.evidence;
-    expect(evidence).toHaveLength(2); expect(h.buttons).toHaveLength(2);
+    // Different heading contexts now remain distinct; still navigate to both
+    // exact repeated body occurrences and each independently quoted heading.
+    const evidence = h.items.flatMap(item => item.fragment.evidence);
+    expect(evidence).toHaveLength(4); expect(h.buttons).toHaveLength(4);
+    const repeated = evidence.filter(item => normalize(item.quote) === h.quote);
+    expect(repeated).toHaveLength(2); expect(repeated[0].start).not.toBe(repeated[1].start);
+    expect(h.items.some(item => item.fragment.summary.includes('# Later evidence'))).toBe(true);
+    expect(h.items.some(item => item.fragment.summary.includes('# Repeated evidence'))).toBe(true);
     for (const [i, e] of evidence.entries()) {
       expect(h.text.slice(e.start, e.end)).toBe(e.quote); expect(position(h.text.slice(0, e.start)).line).toBeGreaterThan(100);
       await h.click(i);

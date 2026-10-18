@@ -4,7 +4,7 @@ import { CoreError, FACET_KEYS, boundedString, canonicalFacets, isPrivacy, parse
 import { mapped, safeVocabulary, type MappedText } from './privacy';
 import { bindSourceDiagnostic } from './source-diagnostics';
 
-export interface TextBlock extends MappedText { heading: string; localList?: boolean; }
+export interface TextBlock extends MappedText { heading: string; localList?: boolean; localHeadings?: MappedText[]; }
 /** Complete local structural context is bounded, never truncated or re-split. */
 export const LOCAL_EXCERPT_CONTEXT_LIMIT = 16384;
 function frontmatter(raw: string): { body: number; metadata: string } {
@@ -90,20 +90,22 @@ export function sourceFacets(snapshot: SourceSnapshot): Facets {
   for (const match of body.matchAll(/(?:^|[\s(])#([\p{L}\p{N}_-][\p{L}\p{N}_/-]*)/gu)) if (!match[1].includes('/')) result.topics.push(match[1]);
   return safeVocabulary({ ...result, topics: result.topics.slice(0,256) });
 }
-function markdownBlocks(raw: string, base: number, excalidraw = false, local = false, sourcePath = ''): TextBlock[] {
+function markdownBlocks(raw: string, base: number, excalidraw = false, local = false, sourcePath = '', includeHeadings = false): TextBlock[] {
   const meta = frontmatter(raw), blocks: TextBlock[] = [];
+  const ancestors: { depth: number; block: MappedText }[] = [];
   let heading = '', start = -1, end = -1, fence = '', fenceLength = 0, hidden = '', drawing = false;
   let listIndent = -1, contentIndent = -1, blockedIndent = -1, blockedContentIndent = -1, blank = false;
   const columns = (text: string) => { let width = 0; for (const char of text) width += char === '\t' ? 4 - width % 4 : 1; return width; };
   const clearBlocked = () => { blockedIndent = blockedContentIndent = -1; };
   const barrier = () => { if (local && listIndent >= 0) { blockedIndent = listIndent; blockedContentIndent = contentIndent; } flush(); };
   const flush = () => {
-    if (local && end - start > LOCAL_EXCERPT_CONTEXT_LIMIT) {
+    const headingLength = ancestors.length ? ancestors.reduce((size, item) => size + item.block.text.length + 1, 1) : 0;
+    if (local && start >= 0 && end - start + headingLength > LOCAL_EXCERPT_CONTEXT_LIMIT) {
       const error = new CoreError(listIndent >= 0 ? 'Local list context exceeds 16384 characters; no partial index was saved.' : 'Local paragraph context exceeds 16384 characters; no partial index was saved.');
       bindSourceDiagnostic(error,{ relativePath:sourcePath,stage:'analysis',reason:'local-context-size-limit' });
       throw error;
     }
-    if (start >= 0 && end > start) { const text = raw.slice(start, end); const trimStart = text.length - text.trimStart().length; const trimmed = text.trim(); if (trimmed) blocks.push({ ...mapped(trimmed, base < 0 ? -1 : base + start + trimStart), heading, ...(local && listIndent >= 0 ? { localList:true } : {}) }); }
+    if (start >= 0 && end > start) { const text = raw.slice(start, end); const trimStart = text.length - text.trimStart().length; const trimmed = text.trim(); if (trimmed) blocks.push({ ...mapped(trimmed, base < 0 ? -1 : base + start + trimStart), heading, ...(local && listIndent >= 0 ? { localList:true } : {}), ...(local && ancestors.length ? { localHeadings:ancestors.map(item => item.block) } : {}) }); }
     start = end = -1; listIndent = contentIndent = -1;
   };
   const linePattern = /[^\r\n]+(?:\r\n|\r|\n|$)|(?:\r\n|\r|\n)/gu;
@@ -121,7 +123,25 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
     if (line.trim().startsWith('<!--')) { barrier(); if (!line.includes('-->')) hidden = '-->'; continue; }
     if (line.trim().startsWith('%%')) { barrier(); if (line.trim() === '%%' || !line.trim().slice(2).includes('%%')) hidden = '%%'; continue; }
     const title = /^\s{0,3}#{1,6}\s+(.+?)\s*#*\s*$/u.exec(line);
-    if (title) { flush(); clearBlocked(); heading = title[1].replace(/\s+\^[a-z0-9-]+$/iu, '').slice(0,160); drawing = excalidraw && /^(?:drawing|绘图)$/iu.test(heading); continue; }
+    if (title) {
+      flush(); clearBlocked();
+      heading = title[1].replace(/\s+\^[a-z0-9-]+$/iu, '').slice(0,160);
+      drawing = excalidraw && /^(?:drawing|绘图)$/iu.test(heading);
+      if (local || includeHeadings) {
+        const text = line.trim(), leading = line.length - line.trimStart().length;
+        const block = mapped(text,base < 0 ? -1 : base + offset + leading);
+        if (local) {
+          // A neutral child title cannot erase a restrictive ancestor. Keep the
+          // full authored lines, not the capped display title or an inference.
+          if (line.includes('<!--') || line.includes('%%')) throw new CoreError('Local heading context intersects hidden content; no partial index was saved.');
+          const depth = /^#+/u.exec(text)![0].length;
+          while (ancestors.length && ancestors.at(-1)!.depth >= depth) ancestors.pop();
+          ancestors.push({ depth,block });
+        }
+        if (includeHeadings && !drawing) blocks.push({ ...block,heading });
+      }
+      continue;
+    }
     if (drawing) continue;
     const item = /^(\s*)(?:[-*+]\s+|\d+[.)]\s+)/u.exec(line);
     const indent = columns(item?.[1] ?? /^\s*/u.exec(line)![0]);
@@ -155,21 +175,26 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
   }
   flush(); return blocks;
 }
-function sourceBlocks(snapshot: SourceSnapshot, local = false): TextBlock[] {
-  if (snapshot.format === 'markdown') return markdownBlocks(snapshot.text, 0, /(?:^|\n)\s*excalidraw-plugin\s*:/iu.test(frontmatter(snapshot.text).metadata) || /\.excalidraw\.md$/iu.test(snapshot.path), local, snapshot.path);
+function sourceBlocks(snapshot: SourceSnapshot, local = false, includeHeadings = false): TextBlock[] {
+  if (snapshot.format === 'markdown') return markdownBlocks(snapshot.text, 0, /(?:^|\n)\s*excalidraw-plugin\s*:/iu.test(frontmatter(snapshot.text).metadata) || /\.excalidraw\.md$/iu.test(snapshot.path), local, snapshot.path, includeHeadings);
   const nodes = canvasObject(snapshot.text).nodes as unknown[], blocks: TextBlock[] = [];
   for (const node of nodes) {
     if (!plainObject(node) || node.type !== 'text' || typeof node.text !== 'string') continue;
     const text = node.text;
     // Escaped Canvas strings have no contiguous original-byte span. Never fake one.
     const literal = JSON.stringify(text), rawPosition = literal.includes('\\') ? -1 : snapshot.text.indexOf(literal);
-    blocks.push(...markdownBlocks(text, rawPosition < 0 ? -1 : rawPosition + 1, false, local, snapshot.path));
+    blocks.push(...markdownBlocks(text, rawPosition < 0 ? -1 : rawPosition + 1, false, local, snapshot.path, includeHeadings));
   }
   return blocks;
 }
 /** Existing AI, vocabulary and cached quotation parsing remain unchanged. */
 export function textBlocks(snapshot: SourceSnapshot): TextBlock[] { return sourceBlocks(snapshot); }
 export function localExcerptBlocks(snapshot: SourceSnapshot): TextBlock[] { return sourceBlocks(snapshot,true); }
+/** Evidence verification may read full visible headings in decoded Canvas text.
+ * This is not model primary input: textBlocks and background-only guards stay unchanged. */
+export function hasReadableQuote(snapshot: SourceSnapshot, quote: string): boolean {
+  return sourceBlocks(snapshot,false,true).some(block => block.text.includes(quote));
+}
 /** Decoded Canvas groups use existing individually verifiable quotations rather
  * than pretending their escaped JSON has one contiguous original span. */
 export function localEvidencePieces(block: TextBlock): TextBlock[] {

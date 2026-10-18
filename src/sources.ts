@@ -2,7 +2,7 @@ import { createHash } from 'node:crypto';
 import { promises as fs } from 'node:fs';
 import path from 'node:path';
 import { prepareSource } from './core/index';
-import { textBlocks } from './core/sources';
+import { hasReadableQuote } from './core/sources';
 import type { Evidence, Privacy, RunProgress, SourceSnapshot } from './core/types';
 import { cancellable, checkAbort } from './core/util';
 import { bindSourceDiagnostic } from './core/source-diagnostics';
@@ -131,7 +131,7 @@ export async function currentEvidence(evidence: Evidence[], sources: SourcePort,
     const live = cache.get(item.relativePath);
     if (!live || live.hash !== item.sourceHash || live.id !== item.sourceId || !item.quote || !Number.isSafeInteger(item.start) || !Number.isSafeInteger(item.end)) continue;
     const contiguous = item.start >= 0 && item.end > item.start && live.text.slice(item.start, item.end) === item.quote;
-    const decodedCanvas = live.format === 'canvas' && item.start === -1 && item.end === -1 && textBlocks(live).some(block => block.text.includes(item.quote));
+    const decodedCanvas = live.format === 'canvas' && item.start === -1 && item.end === -1 && hasReadableQuote(live,item.quote);
     if (contiguous || decodedCanvas) result.push(item);
   }
   return result;

@@ -1,0 +1,123 @@
+{
+  "synthetic": true,
+  "semanticGraded": false,
+  "body": "Rotate the synthetic amber calibration ring after the blue light appears.",
+  "raws": {
+    "a.md": "# Only in a disconnected offline simulator\n\n## Calibration action\n\nRotate the synthetic amber calibration ring after the blue light appears.",
+    "b.md": "# Forbidden on connected live equipment\n\n## Calibration action\n\nRotate the synthetic amber calibration ring after the blue light appears.",
+    "copy.md": "# Only in a disconnected offline simulator\n\n## Calibration action\n\nRotate the synthetic amber calibration ring after the blue light appears."
+  },
+  "old": {
+    "version": 1,
+    "signature": "editorial-core-2:ef5c3e6f3fee4afec956c04ea7acc5b5bdcc759ba59d9b29e0ae0cf54634fe32",
+    "updatedAt": "2026-10-18T17:42:47.788Z",
+    "sources": {
+      "a.md": {
+        "hash": "26d9b068d2261f079aa2ada4088eada444dfdfbc2cdab0e766b0ca7f8323444b",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_9fadf57aa16ddcb2fd8dcba26ff9b59d81aae27a13c1a6106b5bbcaa391693c4"
+        ]
+      },
+      "b.md": {
+        "hash": "adbd869f946d853d3b11c4b90eb7c86fa34d8e47c7ad5d39e23ebc33551d73cc",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_9fadf57aa16ddcb2fd8dcba26ff9b59d81aae27a13c1a6106b5bbcaa391693c4"
+        ]
+      },
+      "copy.md": {
+        "hash": "26d9b068d2261f079aa2ada4088eada444dfdfbc2cdab0e766b0ca7f8323444b",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_9fadf57aa16ddcb2fd8dcba26ff9b59d81aae27a13c1a6106b5bbcaa391693c4"
+        ]
+      }
+    },
+    "fragments": {
+      "f_9fadf57aa16ddcb2fd8dcba26ff9b59d81aae27a13c1a6106b5bbcaa391693c4": {
+        "id": "f_9fadf57aa16ddcb2fd8dcba26ff9b59d81aae27a13c1a6106b5bbcaa391693c4",
+        "privacy": "normal",
+        "title": "Calibration action",
+        "summary": "Rotate the synthetic amber calibration ring after the blue light appears.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "26d9b068d2261f079aa2ada4088eada444dfdfbc2cdab0e766b0ca7f8323444b",
+            "quote": "Rotate the synthetic amber calibration ring after the blue light appears.",
+            "start": 67,
+            "end": 140
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "adbd869f946d853d3b11c4b90eb7c86fa34d8e47c7ad5d39e23ebc33551d73cc",
+            "quote": "Rotate the synthetic amber calibration ring after the blue light appears.",
+            "start": 64,
+            "end": 137
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "26d9b068d2261f079aa2ada4088eada444dfdfbc2cdab0e766b0ca7f8323444b",
+            "quote": "Rotate the synthetic amber calibration ring after the blue light appears.",
+            "start": 67,
+            "end": 140
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T17:42:47.788Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      }
+    }
+  },
+  "requests": {
+    "local-model": [
+      {
+        "task": "extract",
+        "text": "Rotate the synthetic amber calibration ring after the blue light appears.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Calibration action",
+          "before": ""
+        }
+      }
+    ],
+    "cloud-model": [
+      {
+        "task": "extract",
+        "text": "Rotate the synthetic amber calibration ring after the blue light appears.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Calibration action",
+          "before": ""
+        }
+      }
+    ]
+  },
+  "signatures": {
+    "local-model": "{\"version\":1,\"mode\":\"local-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "cloud-model": "{\"version\":1,\"mode\":\"cloud-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}"
+  }
+}

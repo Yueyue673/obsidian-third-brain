@@ -54,9 +54,9 @@ it('keeps independent paragraphs/sections/nodes separate and never borrows hidde
   const second = '独立蓝鲸书架按日期整理，不属于模拟校准。';
   const raw = '# 合成章节\n' + first + '\n\n' + second + '\n\n```\nHidden synthetic code must stay hidden.\n```\n<!-- Hidden synthetic comment. -->\n# 另一章节\n另一章节有独立雪松观点。';
   const result = await analyzeSource(snapshot(raw), local);
-  expect(result.fragments.find(f => f.summary.includes('赭石校验'))!.summary).toBe(first);
-  expect(result.fragments.some(f => f.summary === second)).toBe(true);
-  expect(result.fragments.some(f => f.summary === '另一章节有独立雪松观点。')).toBe(true);
+  expect(result.fragments.find(f => f.summary.includes('赭石校验'))!.summary).toBe('# 合成章节\n\n' + first);
+  expect(result.fragments.some(f => f.summary === '# 合成章节\n\n' + second)).toBe(true);
+  expect(result.fragments.some(f => f.summary === '# 另一章节\n\n另一章节有独立雪松观点。')).toBe(true);
   expect(JSON.stringify(result)).not.toContain('Hidden synthetic');
   const decoded = await analyzeSource(snapshot(canvas(first), 'synthetic.canvas'), local);
   const f = decoded.fragments.find(f => f.summary.includes('赭石校验'))!;
