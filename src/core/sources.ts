@@ -4,8 +4,8 @@ import { CoreError, FACET_KEYS, boundedString, canonicalFacets, isPrivacy, parse
 import { mapped, safeVocabulary, type MappedText } from './privacy';
 import { bindSourceDiagnostic } from './source-diagnostics';
 
-export interface TextBlock extends MappedText { heading: string; localList?: boolean; localHeadings?: MappedText[]; localLeadIn?: MappedText; }
-/** Complete local structural context is bounded, never truncated or re-split. */
+export interface TextBlock extends MappedText { heading: string; localList?: boolean; localHeadings?: MappedText[]; localLeadIn?: MappedText; localParts?: MappedText[]; }
+/** Bound complete local structural context before any qualified-branch fan-out. Never truncate. */
 export const LOCAL_EXCERPT_CONTEXT_LIMIT = 16384;
 function frontmatter(raw: string): { body: number; metadata: string } {
   const first = /^(?:\ufeff)?---[ \t]*(?:\r\n|\n|\r)/u.exec(raw);
@@ -262,8 +262,61 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
   }
   flush(); return blocks;
 }
+/** A deliberately narrow local fan-out: a one-line colon parent with at least
+ * two direct branches, each carrying its own explicitly labelled descendant.
+ * Unqualified/coupled work stays whole. All labels at the shared level (and
+ * root-level qualifiers) accompany every branch, rather than guessing scope.
+ * Run AFTER ordinary parsing/restoration so original whole-group limits and
+ * structural/hidden barriers still apply before any smaller display is made.
+ */
+function qualifiedListBranches(block: TextBlock): TextBlock[] {
+  if (!block.localList) return [block];
+  const columns = (text: string) => { let width = 0; for (const char of text) width += char === '\t' ? 4 - width % 4 : 1; return width; };
+  const context = (text: string) => /^(?:examples?|counterexamples?|conditions?|caveats?|limitations?|例子|示例|反例|条件|前提|限制)[ \t]*[:：]/iu.test(text);
+  const quoted = /^ {0,3}>/u.test(block.text);
+  const rows = [...block.text.matchAll(/[^\r\n]+(?:\r\n|\r|\n|$)|(?:\r\n|\r|\n)/gu)].map(hit => {
+    const original = hit[0].replace(/[\r\n]+$/u,''), prefix = quoted ? /^ {0,3}>[ \t]?/u.exec(original)?.[0] : '';
+    const text = prefix === undefined ? '' : original.slice(prefix.length);
+    const item = /^(\s*)(?:[-*+]\s+|\d+[.)]\s+)/u.exec(text);
+    return { offset:hit.index, text, valid:prefix !== undefined, item, indent:columns(item?.[1] ?? ''), content:item ? text.slice(item[0].length) : '' };
+  });
+  const root = rows[0];
+  if (!root?.item || !/[:：]$/u.test(root.text.trimEnd()) || rows.some(row => !row.valid)) return [block];
+  const tail = rows.findIndex((row,i) => i > 0 && row.item && row.indent <= root.indent);
+  const end = tail < 0 ? rows.length : tail;
+  const first = rows.findIndex((row,i) => i > 0 && i < end && row.text.trim());
+  if (first < 0 || !rows[first].item || rows[first].indent < columns(root.item[0])) return [block];
+  const depth = rows[first].indent;
+  const starts = rows.flatMap((row,i) => i >= first && i < end && row.item && row.indent === depth ? [i] : []);
+  if (rows.slice(first,end).some(row => row.item ? row.indent < depth : row.text.trim() && columns(/^\s*/u.exec(row.text)![0]) <= depth)) return [block];
+  const groups = starts.map((start,i) => ({ start, end:starts[i+1] ?? end, shared:context(rows[start].content) }));
+  const points = groups.filter(group => !group.shared);
+  if (points.length < 2) return [block];
+  // A descendant label provides a visible boundary for this small slice. It is
+  // not evidence of semantic independence; references and unlabelled sequences
+  // are deliberately not resolved. Never recursively split a qualified branch.
+  if (points.some(group => {
+    const descendants = rows.slice(group.start+1,group.end).filter(row => row.item && row.indent > depth);
+    if (descendants.some(row => row.indent < columns(rows[group.start].item![0]))) return true;
+    const immediate = Math.min(...descendants.map(row => row.indent));
+    return !descendants.some(row => row.indent === immediate && context(row.content));
+  })) return [block];
+  if (tail >= 0 && rows.slice(tail).some(row => row.item && row.indent <= root.indent && !context(row.content))) return [block];
+  const part = (start: number, end: number): MappedText => {
+    const begin = rows[start].offset, stop = end < rows.length ? rows[end].offset : block.text.length;
+    const text = block.text.slice(begin,stop).trimEnd();
+    return { text,offsets:block.offsets.slice(begin,begin+text.length) };
+  };
+  return points.map(point => {
+    const parts = [part(0,first),...groups.filter(group => group.shared || group === point).map(group => part(group.start,group.end)),...(tail < 0 ? [] : [part(tail,rows.length)])];
+    return { ...block,text:parts.map(piece => piece.text).join('\n'),offsets:parts.flatMap((piece,i) => [...(i ? [-1] : []),...piece.offsets]),localParts:parts };
+  });
+}
 function sourceBlocks(snapshot: SourceSnapshot, local = false, includeHeadings = false): TextBlock[] {
-  if (snapshot.format === 'markdown') return markdownBlocks(snapshot.text, 0, /(?:^|\n)\s*excalidraw-plugin\s*:/iu.test(frontmatter(snapshot.text).metadata) || /\.excalidraw\.md$/iu.test(snapshot.path), local, snapshot.path, includeHeadings);
+  if (snapshot.format === 'markdown') {
+    const blocks = markdownBlocks(snapshot.text, 0, /(?:^|\n)\s*excalidraw-plugin\s*:/iu.test(frontmatter(snapshot.text).metadata) || /\.excalidraw\.md$/iu.test(snapshot.path), local, snapshot.path, includeHeadings);
+    return local ? blocks.flatMap(qualifiedListBranches) : blocks;
+  }
   const nodes = canvasObject(snapshot.text).nodes as unknown[], blocks: TextBlock[] = [];
   for (const node of nodes) {
     if (!plainObject(node) || node.type !== 'text' || typeof node.text !== 'string') continue;
@@ -272,7 +325,7 @@ function sourceBlocks(snapshot: SourceSnapshot, local = false, includeHeadings =
     const literal = JSON.stringify(text), rawPosition = literal.includes('\\') ? -1 : snapshot.text.indexOf(literal);
     blocks.push(...markdownBlocks(text, rawPosition < 0 ? -1 : rawPosition + 1, false, local, snapshot.path, includeHeadings));
   }
-  return blocks;
+  return local ? blocks.flatMap(qualifiedListBranches) : blocks;
 }
 /** Existing AI, vocabulary and cached quotation parsing remain unchanged. */
 export function textBlocks(snapshot: SourceSnapshot): TextBlock[] { return sourceBlocks(snapshot); }

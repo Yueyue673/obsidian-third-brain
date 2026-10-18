@@ -1,0 +1,468 @@
+{
+  "raws": {
+    "a.md": "# Synthetic maintenance\n## Isolated bench\n\nOnly in the synthetic laboratory:\n\n- Only the disconnected copper simulator:\n  - Remember the cobalt calibration point.\n    - Example: the amber sandbox.\n    - Counterexample: connected machinery is forbidden.\n  - File the jade ledger by date.\n    - Example: the separate mock archive.\n    - Caveat: do not record a real identity.\n  - Limitation: no production equipment.\n- Condition: use a disposable mock fixture.",
+    "b.md": "# Synthetic maintenance\n## Isolated bench\n\nOnly in the synthetic laboratory:\n\n- Only the disconnected copper simulator:\n  - Remember the cobalt calibration point.\n    - Example: the amber sandbox.\n    - Counterexample: connected machinery is forbidden.\n  - File the jade ledger by date.\n    - Example: the separate mock archive.\n    - Caveat: do not record a real identity.\n  - Limitation: no production equipment.\n- Condition: use a disposable mock fixture.",
+    "c.md": "# Synthetic maintenance\n## Isolated bench\n\nOnly in the synthetic laboratory:\n\n- Never the connected copper simulator:\n  - Remember the cobalt calibration point.\n    - Example: the amber sandbox.\n    - Counterexample: connected machinery is forbidden.\n  - File the jade ledger by date.\n    - Example: the separate mock archive.\n    - Caveat: do not record a real identity.\n  - Limitation: no production equipment.\n- Condition: use a disposable mock fixture."
+  },
+  "action": "Remember the cobalt calibration point.",
+  "other": "File the jade ledger by date.",
+  "signatures": {
+    "local-excerpts": "{\"version\":1,\"localExcerptPolicy\":\"quoted-list-roots-1\",\"mode\":\"local-excerpts\",\"endpoint\":\"\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "local-model": "{\"version\":1,\"mode\":\"local-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "cloud-model": "{\"version\":1,\"mode\":\"cloud-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}"
+  },
+  "requests": {
+    "local-model": [
+      {
+        "task": "extract",
+        "text": "Only in the synthetic laboratory:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Isolated bench",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Only the disconnected copper simulator:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Isolated bench",
+          "before": "Only in the synthetic laboratory:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Remember the cobalt calibration point.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Isolated bench",
+          "before": "- Only the disconnected copper simulator:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Example: the amber sandbox.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Isolated bench",
+          "before": "- Remember the cobalt calibration point."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Counterexample: connected machinery is forbidden.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Isolated bench",
+          "before": "- Example: the amber sandbox."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- File the jade ledger by date.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Isolated bench",
+          "before": "- Counterexample: connected machinery is forbidden."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Example: the separate mock archive.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Isolated bench",
+          "before": "- File the jade ledger by date."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Caveat: do not record a real identity.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Isolated bench",
+          "before": "- Example: the separate mock archive."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Limitation: no production equipment.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Isolated bench",
+          "before": "- Caveat: do not record a real identity."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Condition: use a disposable mock fixture.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Isolated bench",
+          "before": "- Limitation: no production equipment."
+        }
+      }
+    ],
+    "cloud-model": [
+      {
+        "task": "extract",
+        "text": "Only in the synthetic laboratory:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Isolated bench",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Only the disconnected copper simulator:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Isolated bench",
+          "before": "Only in the synthetic laboratory:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Remember the cobalt calibration point.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Isolated bench",
+          "before": "- Only the disconnected copper simulator:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Example: the amber sandbox.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Isolated bench",
+          "before": "- Remember the cobalt calibration point."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Counterexample: connected machinery is forbidden.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Isolated bench",
+          "before": "- Example: the amber sandbox."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- File the jade ledger by date.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Isolated bench",
+          "before": "- Counterexample: connected machinery is forbidden."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Example: the separate mock archive.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Isolated bench",
+          "before": "- File the jade ledger by date."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Caveat: do not record a real identity.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Isolated bench",
+          "before": "- Example: the separate mock archive."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Limitation: no production equipment.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Isolated bench",
+          "before": "- Caveat: do not record a real identity."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Condition: use a disposable mock fixture.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Isolated bench",
+          "before": "- Limitation: no production equipment."
+        }
+      }
+    ]
+  },
+  "old": {
+    "version": 1,
+    "signature": "editorial-core-2:c8cb1f0be03e442e0d23d711599616b48db1e4a4cf3d7f7e409b47ceac98f11b",
+    "updatedAt": "2026-10-18T20:23:15.319Z",
+    "sources": {
+      "a.md": {
+        "hash": "e6052a3f70e9227c05f297856a5b820b291292a6bb2b24a63e68adaeed01a2fd",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_97caac846b8db448746a72cd56ffa3e23f6f2a1686b0134961fb7875021651df"
+        ]
+      },
+      "b.md": {
+        "hash": "e6052a3f70e9227c05f297856a5b820b291292a6bb2b24a63e68adaeed01a2fd",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_97caac846b8db448746a72cd56ffa3e23f6f2a1686b0134961fb7875021651df"
+        ]
+      },
+      "c.md": {
+        "hash": "a6cbf73d474784bac4c7d7f04d833f82500b8486fc341a92cf326448ee6203f7",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_f314795fb1346e2f536af9f20f1fd130def8d672de9f8b2b3bc9c91416ed46be"
+        ]
+      }
+    },
+    "fragments": {
+      "f_97caac846b8db448746a72cd56ffa3e23f6f2a1686b0134961fb7875021651df": {
+        "id": "f_97caac846b8db448746a72cd56ffa3e23f6f2a1686b0134961fb7875021651df",
+        "privacy": "normal",
+        "title": "Isolated bench",
+        "summary": "# Synthetic maintenance\n## Isolated bench\n\nOnly in the synthetic laboratory:\n\n- Only the disconnected copper simulator:\n  - Remember the cobalt calibration point.\n    - Example: the amber sandbox.\n    - Counterexample: connected machinery is forbidden.\n  - File the jade ledger by date.\n    - Example: the separate mock archive.\n    - Caveat: do not record a real identity.\n  - Limitation: no production equipment.\n- Condition: use a disposable mock fixture.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "e6052a3f70e9227c05f297856a5b820b291292a6bb2b24a63e68adaeed01a2fd",
+            "quote": "- Only the disconnected copper simulator:\n  - Remember the cobalt calibration point.\n    - Example: the amber sandbox.\n    - Counterexample: connected machinery is forbidden.\n  - File the jade ledger by date.\n    - Example: the separate mock archive.\n    - Caveat: do not record a real identity.\n  - Limitation: no production equipment.\n- Condition: use a disposable mock fixture.",
+            "start": 78,
+            "end": 458
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "e6052a3f70e9227c05f297856a5b820b291292a6bb2b24a63e68adaeed01a2fd",
+            "quote": "# Synthetic maintenance",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "e6052a3f70e9227c05f297856a5b820b291292a6bb2b24a63e68adaeed01a2fd",
+            "quote": "## Isolated bench",
+            "start": 24,
+            "end": 41
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "e6052a3f70e9227c05f297856a5b820b291292a6bb2b24a63e68adaeed01a2fd",
+            "quote": "Only in the synthetic laboratory:",
+            "start": 43,
+            "end": 76
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "e6052a3f70e9227c05f297856a5b820b291292a6bb2b24a63e68adaeed01a2fd",
+            "quote": "- Only the disconnected copper simulator:\n  - Remember the cobalt calibration point.\n    - Example: the amber sandbox.\n    - Counterexample: connected machinery is forbidden.\n  - File the jade ledger by date.\n    - Example: the separate mock archive.\n    - Caveat: do not record a real identity.\n  - Limitation: no production equipment.\n- Condition: use a disposable mock fixture.",
+            "start": 78,
+            "end": 458
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "e6052a3f70e9227c05f297856a5b820b291292a6bb2b24a63e68adaeed01a2fd",
+            "quote": "# Synthetic maintenance",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "e6052a3f70e9227c05f297856a5b820b291292a6bb2b24a63e68adaeed01a2fd",
+            "quote": "## Isolated bench",
+            "start": 24,
+            "end": 41
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "e6052a3f70e9227c05f297856a5b820b291292a6bb2b24a63e68adaeed01a2fd",
+            "quote": "Only in the synthetic laboratory:",
+            "start": 43,
+            "end": 76
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T20:23:15.319Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_f314795fb1346e2f536af9f20f1fd130def8d672de9f8b2b3bc9c91416ed46be": {
+        "id": "f_f314795fb1346e2f536af9f20f1fd130def8d672de9f8b2b3bc9c91416ed46be",
+        "privacy": "normal",
+        "title": "Isolated bench",
+        "summary": "# Synthetic maintenance\n## Isolated bench\n\nOnly in the synthetic laboratory:\n\n- Never the connected copper simulator:\n  - Remember the cobalt calibration point.\n    - Example: the amber sandbox.\n    - Counterexample: connected machinery is forbidden.\n  - File the jade ledger by date.\n    - Example: the separate mock archive.\n    - Caveat: do not record a real identity.\n  - Limitation: no production equipment.\n- Condition: use a disposable mock fixture.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "a6cbf73d474784bac4c7d7f04d833f82500b8486fc341a92cf326448ee6203f7",
+            "quote": "- Never the connected copper simulator:\n  - Remember the cobalt calibration point.\n    - Example: the amber sandbox.\n    - Counterexample: connected machinery is forbidden.\n  - File the jade ledger by date.\n    - Example: the separate mock archive.\n    - Caveat: do not record a real identity.\n  - Limitation: no production equipment.\n- Condition: use a disposable mock fixture.",
+            "start": 78,
+            "end": 456
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "a6cbf73d474784bac4c7d7f04d833f82500b8486fc341a92cf326448ee6203f7",
+            "quote": "# Synthetic maintenance",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "a6cbf73d474784bac4c7d7f04d833f82500b8486fc341a92cf326448ee6203f7",
+            "quote": "## Isolated bench",
+            "start": 24,
+            "end": 41
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "a6cbf73d474784bac4c7d7f04d833f82500b8486fc341a92cf326448ee6203f7",
+            "quote": "Only in the synthetic laboratory:",
+            "start": 43,
+            "end": 76
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T20:23:15.319Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      }
+    }
+  }
+}

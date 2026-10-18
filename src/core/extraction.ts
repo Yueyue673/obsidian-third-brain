@@ -45,7 +45,8 @@ export async function analyzeSource(input: SourceSnapshot, options: AnalyzeOptio
       checkAbort(options.signal);
       if (++visited % 32 === 0) await yieldToHost(options.signal);
       if (!meaningful(piece.text)) continue;
-      const parts = [...(snapshot.format === 'canvas' && piece.localList ? localEvidencePieces(piece) : [piece]), ...(piece.localHeadings ?? []), ...(piece.localLeadIn ? [piece.localLeadIn] : [])];
+      const own = piece.localParts ?? [piece];
+      const parts = [...(snapshot.format === 'canvas' && piece.localList ? own.flatMap(part => localEvidencePieces({ ...part,heading:piece.heading })) : own), ...(piece.localHeadings ?? []), ...(piece.localLeadIn ? [piece.localLeadIn] : [])];
       if (parts.length > FRAGMENT_EVIDENCE_LIMIT) {
         const error = new CoreError('Local list context exceeds the quotation evidence limit; no partial index was saved.');
         bindSourceDiagnostic(error,{ relativePath:snapshot.path,stage:'analysis',reason:'local-context-evidence-limit' });
