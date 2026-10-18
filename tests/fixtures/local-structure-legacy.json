@@ -1,0 +1,488 @@
+{
+  "baseline": "7ded985848da8383a35781d606353447051c54b8",
+  "raws": {
+    "a.md": "# Synthetic bench rules\n- One disconnected experiment:\n  - Handle the jade ledger:\n    - Only while the amber lamp is lit:\n      - Mix the inert pigment.\n      - Seal the cobalt vial.\n    - Never use production equipment.\n  - Cool the synthetic tray.",
+    "b.md": "# Synthetic bench rules\n- One disconnected experiment:\n  - Handle the jade ledger:\n    - Only while the amber lamp is lit:\n      - Mix the inert pigment.\n    - Seal the cobalt vial.\n    - Never use production equipment.\n  - Cool the synthetic tray.",
+    "copy.md": "# Synthetic bench rules\n- One disconnected experiment:\n  - Handle the jade ledger:\n    - Only while the amber lamp is lit:\n      - Mix the inert pigment.\n      - Seal the cobalt vial.\n    - Never use production equipment.\n  - Cool the synthetic tray."
+  },
+  "oldIndex": {
+    "version": 1,
+    "signature": "editorial-core-2:aa4426c80bedecbbd78a314ba7b8d6551ea65fce3b786d77bce74c484ef46c42",
+    "updatedAt": "2026-10-18T23:10:52.509Z",
+    "sources": {
+      "a.md": {
+        "hash": "239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_06f01cf1cb07b3115ae59b5072fcab9e48ee41d7c77fe09f97ac812c2b8a0dd9",
+          "f_b690b6f8d86548d605530e694a009539f09453a9ef5b1bf99aef00236cb7e5e9"
+        ]
+      },
+      "b.md": {
+        "hash": "95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_06f01cf1cb07b3115ae59b5072fcab9e48ee41d7c77fe09f97ac812c2b8a0dd9",
+          "f_b690b6f8d86548d605530e694a009539f09453a9ef5b1bf99aef00236cb7e5e9"
+        ]
+      },
+      "copy.md": {
+        "hash": "239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_06f01cf1cb07b3115ae59b5072fcab9e48ee41d7c77fe09f97ac812c2b8a0dd9",
+          "f_b690b6f8d86548d605530e694a009539f09453a9ef5b1bf99aef00236cb7e5e9"
+        ]
+      }
+    },
+    "fragments": {
+      "f_06f01cf1cb07b3115ae59b5072fcab9e48ee41d7c77fe09f97ac812c2b8a0dd9": {
+        "id": "f_06f01cf1cb07b3115ae59b5072fcab9e48ee41d7c77fe09f97ac812c2b8a0dd9",
+        "privacy": "normal",
+        "title": "Synthetic bench rules",
+        "summary": "# Synthetic bench rules\n\n- One disconnected experiment:\n  - Cool the synthetic tray.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622",
+            "quote": "  - Cool the synthetic tray.",
+            "start": 222,
+            "end": 250
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622",
+            "quote": "  - Handle the jade ledger:\n    - Only while the amber lamp is lit:\n      - Mix the inert pigment.\n      - Seal the cobalt vial.\n    - Never use production equipment.",
+            "start": 55,
+            "end": 221
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622",
+            "quote": "- One disconnected experiment:",
+            "start": 24,
+            "end": 54
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622",
+            "quote": "# Synthetic bench rules",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a",
+            "quote": "  - Cool the synthetic tray.",
+            "start": 220,
+            "end": 248
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a",
+            "quote": "  - Handle the jade ledger:\n    - Only while the amber lamp is lit:\n      - Mix the inert pigment.\n    - Seal the cobalt vial.\n    - Never use production equipment.",
+            "start": 55,
+            "end": 219
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a",
+            "quote": "- One disconnected experiment:",
+            "start": 24,
+            "end": 54
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a",
+            "quote": "# Synthetic bench rules",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622",
+            "quote": "  - Cool the synthetic tray.",
+            "start": 222,
+            "end": 250
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622",
+            "quote": "  - Handle the jade ledger:\n    - Only while the amber lamp is lit:\n      - Mix the inert pigment.\n      - Seal the cobalt vial.\n    - Never use production equipment.",
+            "start": 55,
+            "end": 221
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622",
+            "quote": "- One disconnected experiment:",
+            "start": 24,
+            "end": 54
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622",
+            "quote": "# Synthetic bench rules",
+            "start": 0,
+            "end": 23
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T23:10:52.509Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ],
+        "localContext": "  - Handle the jade ledger:\n    - Only while the amber lamp is lit:\n      - Mix the inert pigment.\n      - Seal the cobalt vial.\n    - Never use production equipment."
+      },
+      "f_b690b6f8d86548d605530e694a009539f09453a9ef5b1bf99aef00236cb7e5e9": {
+        "id": "f_b690b6f8d86548d605530e694a009539f09453a9ef5b1bf99aef00236cb7e5e9",
+        "privacy": "normal",
+        "title": "Synthetic bench rules",
+        "summary": "# Synthetic bench rules\n\n- One disconnected experiment:\n  - Handle the jade ledger:\n    - Only while the amber lamp is lit:\n      - Mix the inert pigment.\n      - Seal the cobalt vial.\n    - Never use production equipment.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622",
+            "quote": "  - Cool the synthetic tray.",
+            "start": 222,
+            "end": 250
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622",
+            "quote": "  - Handle the jade ledger:\n    - Only while the amber lamp is lit:\n      - Mix the inert pigment.\n      - Seal the cobalt vial.\n    - Never use production equipment.",
+            "start": 55,
+            "end": 221
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622",
+            "quote": "- One disconnected experiment:",
+            "start": 24,
+            "end": 54
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622",
+            "quote": "# Synthetic bench rules",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a",
+            "quote": "  - Cool the synthetic tray.",
+            "start": 220,
+            "end": 248
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a",
+            "quote": "  - Handle the jade ledger:\n    - Only while the amber lamp is lit:\n      - Mix the inert pigment.\n    - Seal the cobalt vial.\n    - Never use production equipment.",
+            "start": 55,
+            "end": 219
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a",
+            "quote": "- One disconnected experiment:",
+            "start": 24,
+            "end": 54
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a",
+            "quote": "# Synthetic bench rules",
+            "start": 0,
+            "end": 23
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622",
+            "quote": "  - Cool the synthetic tray.",
+            "start": 222,
+            "end": 250
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622",
+            "quote": "  - Handle the jade ledger:\n    - Only while the amber lamp is lit:\n      - Mix the inert pigment.\n      - Seal the cobalt vial.\n    - Never use production equipment.",
+            "start": 55,
+            "end": 221
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622",
+            "quote": "- One disconnected experiment:",
+            "start": 24,
+            "end": 54
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622",
+            "quote": "# Synthetic bench rules",
+            "start": 0,
+            "end": 23
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-18T23:10:52.509Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ],
+        "localContext": "  - Cool the synthetic tray."
+      }
+    }
+  },
+  "rendered": {
+    "f_06f01cf1cb07b3115ae59b5072fcab9e48ee41d7c77fe09f97ac812c2b8a0dd9": "---\nthird_brain_render: 2\naliases: [\"Synthetic bench rules\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_06f01cf1cb07b3115ae59b5072fcab9e48ee41d7c77fe09f97ac812c2b8a0dd9\"\nprivacy: normal\ntitle: \"Synthetic bench rules\"\nextraction: local-excerpt\nupdated_at: \"2026-10-18T23:10:52.509Z\"\nprovenance: [{\"path\":\"copy.md\",\"revision\":\"239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622\",\"start\":222,\"end\":250},{\"path\":\"copy.md\",\"revision\":\"239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622\",\"start\":55,\"end\":221},{\"path\":\"copy.md\",\"revision\":\"239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622\",\"start\":24,\"end\":54},{\"path\":\"copy.md\",\"revision\":\"239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622\",\"start\":0,\"end\":23},{\"path\":\"b.md\",\"revision\":\"95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a\",\"start\":220,\"end\":248},{\"path\":\"b.md\",\"revision\":\"95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a\",\"start\":55,\"end\":219},{\"path\":\"b.md\",\"revision\":\"95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a\",\"start\":24,\"end\":54},{\"path\":\"b.md\",\"revision\":\"95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a\",\"start\":0,\"end\":23},{\"path\":\"a.md\",\"revision\":\"239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622\",\"start\":222,\"end\":250},{\"path\":\"a.md\",\"revision\":\"239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622\",\"start\":55,\"end\":221},{\"path\":\"a.md\",\"revision\":\"239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622\",\"start\":24,\"end\":54},{\"path\":\"a.md\",\"revision\":\"239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622\",\"start\":0,\"end\":23}]\n---\n\n# Synthetic bench rules\n\n\\# Synthetic bench rules\n\n- One disconnected experiment:\n  - Cool the synthetic tray.\n\n_Local excerpt; not an AI summary._\n\n## Same-list source context\n\nConservatively retained sibling text, not an inferred dependency or connection. The focused excerpt remains above.\n\n>   - Handle the jade ledger:\n>     - Only while the amber lamp is lit:\n>       - Mix the inert pigment.\n>       - Seal the cobalt vial.\n>     - Never use production equipment.\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622; character range: 222–250\n\n>   - Cool the synthetic tray.\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622; character range: 55–221\n\n>   - Handle the jade ledger:\n>     - Only while the amber lamp is lit:\n>       - Mix the inert pigment.\n>       - Seal the cobalt vial.\n>     - Never use production equipment.\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622; character range: 24–54\n\n> - One disconnected experiment:\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622; character range: 0–23\n\n> \\# Synthetic bench rules\n\n[Open original](<../b.md>) — b.md\n\nRevision: 95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a; character range: 220–248\n\n>   - Cool the synthetic tray.\n\n[Open original](<../b.md>) — b.md\n\nRevision: 95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a; character range: 55–219\n\n>   - Handle the jade ledger:\n>     - Only while the amber lamp is lit:\n>       - Mix the inert pigment.\n>     - Seal the cobalt vial.\n>     - Never use production equipment.\n\n[Open original](<../b.md>) — b.md\n\nRevision: 95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a; character range: 24–54\n\n> - One disconnected experiment:\n\n[Open original](<../b.md>) — b.md\n\nRevision: 95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a; character range: 0–23\n\n> \\# Synthetic bench rules\n\n[Open original](<../a.md>) — a.md\n\nRevision: 239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622; character range: 222–250\n\n>   - Cool the synthetic tray.\n\n[Open original](<../a.md>) — a.md\n\nRevision: 239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622; character range: 55–221\n\n>   - Handle the jade ledger:\n>     - Only while the amber lamp is lit:\n>       - Mix the inert pigment.\n>       - Seal the cobalt vial.\n>     - Never use production equipment.\n\n[Open original](<../a.md>) — a.md\n\nRevision: 239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622; character range: 24–54\n\n> - One disconnected experiment:\n\n[Open original](<../a.md>) — a.md\n\nRevision: 239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622; character range: 0–23\n\n> \\# Synthetic bench rules\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_b690b6f8d86548d605530e694a009539f09453a9ef5b1bf99aef00236cb7e5e9": "---\nthird_brain_render: 2\naliases: [\"Synthetic bench rules\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_b690b6f8d86548d605530e694a009539f09453a9ef5b1bf99aef00236cb7e5e9\"\nprivacy: normal\ntitle: \"Synthetic bench rules\"\nextraction: local-excerpt\nupdated_at: \"2026-10-18T23:10:52.509Z\"\nprovenance: [{\"path\":\"copy.md\",\"revision\":\"239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622\",\"start\":222,\"end\":250},{\"path\":\"copy.md\",\"revision\":\"239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622\",\"start\":55,\"end\":221},{\"path\":\"copy.md\",\"revision\":\"239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622\",\"start\":24,\"end\":54},{\"path\":\"copy.md\",\"revision\":\"239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622\",\"start\":0,\"end\":23},{\"path\":\"b.md\",\"revision\":\"95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a\",\"start\":220,\"end\":248},{\"path\":\"b.md\",\"revision\":\"95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a\",\"start\":55,\"end\":219},{\"path\":\"b.md\",\"revision\":\"95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a\",\"start\":24,\"end\":54},{\"path\":\"b.md\",\"revision\":\"95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a\",\"start\":0,\"end\":23},{\"path\":\"a.md\",\"revision\":\"239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622\",\"start\":222,\"end\":250},{\"path\":\"a.md\",\"revision\":\"239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622\",\"start\":55,\"end\":221},{\"path\":\"a.md\",\"revision\":\"239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622\",\"start\":24,\"end\":54},{\"path\":\"a.md\",\"revision\":\"239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622\",\"start\":0,\"end\":23}]\n---\n\n# Synthetic bench rules\n\n\\# Synthetic bench rules\n\n- One disconnected experiment:\n  - Handle the jade ledger:\n    - Only while the amber lamp is lit:\n      - Mix the inert pigment.\n      - Seal the cobalt vial.\n    - Never use production equipment.\n\n_Local excerpt; not an AI summary._\n\n## Same-list source context\n\nConservatively retained sibling text, not an inferred dependency or connection. The focused excerpt remains above.\n\n>   - Cool the synthetic tray.\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622; character range: 222–250\n\n>   - Cool the synthetic tray.\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622; character range: 55–221\n\n>   - Handle the jade ledger:\n>     - Only while the amber lamp is lit:\n>       - Mix the inert pigment.\n>       - Seal the cobalt vial.\n>     - Never use production equipment.\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622; character range: 24–54\n\n> - One disconnected experiment:\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: 239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622; character range: 0–23\n\n> \\# Synthetic bench rules\n\n[Open original](<../b.md>) — b.md\n\nRevision: 95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a; character range: 220–248\n\n>   - Cool the synthetic tray.\n\n[Open original](<../b.md>) — b.md\n\nRevision: 95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a; character range: 55–219\n\n>   - Handle the jade ledger:\n>     - Only while the amber lamp is lit:\n>       - Mix the inert pigment.\n>     - Seal the cobalt vial.\n>     - Never use production equipment.\n\n[Open original](<../b.md>) — b.md\n\nRevision: 95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a; character range: 24–54\n\n> - One disconnected experiment:\n\n[Open original](<../b.md>) — b.md\n\nRevision: 95645f59f31e65ba391681281539458c091d1d5821a7754175610be9734bb64a; character range: 0–23\n\n> \\# Synthetic bench rules\n\n[Open original](<../a.md>) — a.md\n\nRevision: 239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622; character range: 222–250\n\n>   - Cool the synthetic tray.\n\n[Open original](<../a.md>) — a.md\n\nRevision: 239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622; character range: 55–221\n\n>   - Handle the jade ledger:\n>     - Only while the amber lamp is lit:\n>       - Mix the inert pigment.\n>       - Seal the cobalt vial.\n>     - Never use production equipment.\n\n[Open original](<../a.md>) — a.md\n\nRevision: 239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622; character range: 24–54\n\n> - One disconnected experiment:\n\n[Open original](<../a.md>) — a.md\n\nRevision: 239d74c8136cbb721053bb2afaba5cf8ab9c3e937a30f15bce7a670f8099f622; character range: 0–23\n\n> \\# Synthetic bench rules\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n"
+  },
+  "signatures": {
+    "local-excerpts": "{\"version\":1,\"localExcerptPolicy\":\"unordered-sibling-context-2\",\"mode\":\"local-excerpts\",\"endpoint\":\"\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "local-model": "{\"version\":1,\"mode\":\"local-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "cloud-model": "{\"version\":1,\"mode\":\"cloud-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}"
+  },
+  "requests": {
+    "local-model": [
+      {
+        "task": "extract",
+        "text": "- One disconnected experiment:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic bench rules",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Handle the jade ledger:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic bench rules",
+          "before": "- One disconnected experiment:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Only while the amber lamp is lit:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic bench rules",
+          "before": "- Handle the jade ledger:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Mix the inert pigment.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic bench rules",
+          "before": "- Only while the amber lamp is lit:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Seal the cobalt vial.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic bench rules",
+          "before": "- Mix the inert pigment."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Never use production equipment.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic bench rules",
+          "before": "- Seal the cobalt vial."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Cool the synthetic tray.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic bench rules",
+          "before": "- Never use production equipment."
+        }
+      }
+    ],
+    "cloud-model": [
+      {
+        "task": "extract",
+        "text": "- One disconnected experiment:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic bench rules",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Handle the jade ledger:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic bench rules",
+          "before": "- One disconnected experiment:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Only while the amber lamp is lit:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic bench rules",
+          "before": "- Handle the jade ledger:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Mix the inert pigment.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic bench rules",
+          "before": "- Only while the amber lamp is lit:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Seal the cobalt vial.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic bench rules",
+          "before": "- Mix the inert pigment."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Never use production equipment.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic bench rules",
+          "before": "- Seal the cobalt vial."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Cool the synthetic tray.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic bench rules",
+          "before": "- Never use production equipment."
+        }
+      }
+    ]
+  }
+}

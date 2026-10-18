@@ -4,7 +4,7 @@ import { CoreError, CORE_REVISION, FACET_KEYS, checkAbort, digest, exactKeys, fa
 import { extendVocabulary, hasCredentials, safeFacet, safeVocabulary } from './privacy';
 import { checkedSource, hasReadableQuote, sourceFacets, textBlocks } from './sources';
 import { analyzeSource } from './extraction';
-import { fragmentId, mergeFragments, validateLocalContext } from './fragments';
+import { validFragmentId, mergeFragments, validateLocalContext } from './fragments';
 import { bindSourceDiagnostic, markGlobalSourceFailure } from './source-diagnostics';
 
 const STATUSES: SourceStatus[] = ['indexed','empty','insufficient-context','sensitive','local-only'];
@@ -22,7 +22,7 @@ function validatePrevious(state: IndexState): void {
     for (const key of FACET_KEYS) if (stringList(fragment.facets[key],256,120).some(value => !safeFacet(value))) throw new CoreError('Unsafe stored facet');
     stringList(fragment.conditions,12,500); stringList(fragment.caveats,24,1000);
     validateLocalContext(fragment);
-    if (!Array.isArray(fragment.evidence) || !fragment.evidence.length || fragmentId(fragment) !== id) throw new CoreError('Invalid fragment identifier or evidence');
+    if (!Array.isArray(fragment.evidence) || !fragment.evidence.length || !validFragmentId(fragment)) throw new CoreError('Invalid fragment identifier or evidence');
     if (fragment.evidence.length > FRAGMENT_EVIDENCE_LIMIT) throw new CoreError('Fragment evidence limit exceeded; no partial index was saved.');
     for (const evidence of fragment.evidence) {
       exactKeys(evidence,['sourceId','relativePath','sourceHash','quote','start','end']);

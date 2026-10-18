@@ -1140,7 +1140,15 @@ it.each(['en', 'zh'] as const)('replacement-folder loading handoff preserves typ
     h.button(h.t.find).fire('click'); const items = await h.searches.at(-1)!; await nextTurn();
     expect(items.map(item => item.fragment.id)).toEqual(typed.map(item => item.fragment.id));
     expect(find.mock.calls.at(-1)).toEqual([value, 'high', 'normal', { channel: 'kind', value: prior[0].fragment.kind }]);
+    // Type results are ID-ordered, not guaranteed to put alpha.md first. Make
+    // the synthetic opened editor represent the actual selected source, as a
+    // host open would; keep exact-revision and selection checks in production.
+    const evidence = items[0].fragment.evidence[0], source = await h.plugin.controller.snapshot(evidence.relativePath);
+    expect(source).not.toBeNull(); expect(source!.text.slice(evidence.start, evidence.end)).toBe(evidence.quote);
+    h.openedView.file = { path: evidence.relativePath }; h.openedView.editor.getValue = () => source!.text;
     h.get('tb-source').fire('click'); await h.opens.at(-1); await nextTurn(); expect(h.openFile).toHaveBeenCalledOnce();
+    expect((h.openFile.mock.calls[0] as unknown as [{ path: string }])[0].path).toBe(evidence.relativePath);
+    expect(h.openedView.editor.setSelection).toHaveBeenCalledOnce(); expect(h.openedView.editor.scrollIntoView).toHaveBeenCalledOnce();
     expect(await fs.readFile(path.join(h.root, 'Another Derived/.third-brain/state.json'))).toEqual(alternate.bytes);
     expect(await alternate.store.load()).toEqual(alternate.loaded); await h.unchanged();
   } finally { held?.release(); await Promise.allSettled([saving].filter(Boolean)); await h.cleanup(); }

@@ -52,12 +52,26 @@ export function validateLocalContext(fragment: Fragment): void {
   const lines = context.split(/\r\n|\r|\n/u).map(line => line.trim()).filter(Boolean);
   for (const quotes of donors.values()) if (lines.some(line => !quotes.some(quote => quote.includes(line)))) throw new CoreError('Local source context lacks quotation evidence');
 }
-export function bodyKey(fragment: Pick<Fragment, 'summary' | 'kind' | 'conditions' | 'caveats' | 'localContext'>): string {
-  const body = [canonicalText(fragment.summary), fragment.kind, fragment.conditions.map(canonicalText).sort(), fragment.caveats.filter(value => value !== CANVAS_OFFSET_CAVEAT).map(canonicalText).sort()];
-  if (fragment.localContext !== undefined) body.push(canonicalText(fragment.localContext));
+type FragmentBody = Pick<Fragment, 'summary' | 'kind' | 'conditions' | 'caveats' | 'localContext' | 'mode'>;
+function identityBody(fragment: FragmentBody, legacy = false): string {
+  // Literal local excerpts retain authored line/indentation boundaries. Flattening
+  // whitespace can merge different list scopes and display one donor's hierarchy
+  // as another's. Only line-ending representation is immaterial here; this does
+  // not infer semantic equivalence. AI editorial identity remains unchanged.
+  const canonical = !legacy && fragment.mode === 'local' && fragment.kind === 'excerpt'
+    ? (text: string) => text.replace(/\r\n|\r/gu,'\n').trim()
+    : canonicalText;
+  const body = [canonical(fragment.summary), fragment.kind, fragment.conditions.map(canonicalText).sort(), fragment.caveats.filter(value => value !== CANVAS_OFFSET_CAVEAT).map(canonicalText).sort()];
+  if (fragment.localContext !== undefined) body.push(canonical(fragment.localContext));
   return JSON.stringify(body);
 }
-export function fragmentId(fragment: Pick<Fragment, 'summary' | 'kind' | 'conditions' | 'caveats' | 'localContext'>): string { return `f_${digest(bodyKey(fragment))}`; }
+export function bodyKey(fragment: FragmentBody): string { return identityBody(fragment); }
+export function fragmentId(fragment: FragmentBody): string { return `f_${digest(bodyKey(fragment))}`; }
+/** Compatibility only: strict reload/recovery must reproduce old owned bytes.
+ * New local generations never emit the flattened legacy key for a new excerpt. */
+export function validFragmentId(fragment: Fragment): boolean {
+  return fragment.id === fragmentId(fragment) || (fragment.mode === 'local' && fragment.kind === 'excerpt' && fragment.id === `f_${digest(identityBody(fragment,true))}`);
+}
 export function evidenceKey(evidence: Evidence): string { return JSON.stringify([evidence.sourceId,evidence.relativePath,evidence.sourceHash,evidence.quote,evidence.start,evidence.end]); }
 export function mergeFragments(input: Fragment[]): Fragment[] {
   const merged = new Map<string, Fragment>();
