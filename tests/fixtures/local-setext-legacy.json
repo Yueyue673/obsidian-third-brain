@@ -1,0 +1,1593 @@
+{
+  "raws": {
+    "a.md": "# Synthetic conservatory journal\n## Earlier log 0\nSynthetic archived observation 0: the paper dial records a separate rehearsal.\n\n## Earlier log 1\nSynthetic archived observation 1: the paper dial records a separate rehearsal.\n\n## Earlier log 2\nSynthetic archived observation 2: the paper dial records a separate rehearsal.\n\n## Earlier log 3\nSynthetic archived observation 3: the paper dial records a separate rehearsal.\n\n## Earlier log 4\nSynthetic archived observation 4: the paper dial records a separate rehearsal.\n\n## Earlier log 5\nSynthetic archived observation 5: the paper dial records a separate rehearsal.\n\n## Earlier log 6\nSynthetic archived observation 6: the paper dial records a separate rehearsal.\n\n## Earlier log 7\nSynthetic archived observation 7: the paper dial records a separate rehearsal.\n\n## Earlier log 8\nSynthetic archived observation 8: the paper dial records a separate rehearsal.\n\nOnly disconnected synthetic cabinets\n====================\n## Closure routine\nSeal the lilac jar only after the rehearsal.\n\n### Later independent observation\nThe verdigris witness stripe reveals a leak only in the cold dummy chamber; warm chalk is a counterexample.",
+    "copy.md": "# Synthetic conservatory journal\n## Earlier log 0\nSynthetic archived observation 0: the paper dial records a separate rehearsal.\n\n## Earlier log 1\nSynthetic archived observation 1: the paper dial records a separate rehearsal.\n\n## Earlier log 2\nSynthetic archived observation 2: the paper dial records a separate rehearsal.\n\n## Earlier log 3\nSynthetic archived observation 3: the paper dial records a separate rehearsal.\n\n## Earlier log 4\nSynthetic archived observation 4: the paper dial records a separate rehearsal.\n\n## Earlier log 5\nSynthetic archived observation 5: the paper dial records a separate rehearsal.\n\n## Earlier log 6\nSynthetic archived observation 6: the paper dial records a separate rehearsal.\n\n## Earlier log 7\nSynthetic archived observation 7: the paper dial records a separate rehearsal.\n\n## Earlier log 8\nSynthetic archived observation 8: the paper dial records a separate rehearsal.\n\nOnly disconnected synthetic cabinets\n====================\n## Closure routine\nSeal the lilac jar only after the rehearsal.\n\n### Later independent observation\nThe verdigris witness stripe reveals a leak only in the cold dummy chamber; warm chalk is a counterexample.",
+    "b.md": "# Synthetic conservatory journal\n## Earlier log 0\nSynthetic archived observation 0: the paper dial records a separate rehearsal.\n\n## Earlier log 1\nSynthetic archived observation 1: the paper dial records a separate rehearsal.\n\n## Earlier log 2\nSynthetic archived observation 2: the paper dial records a separate rehearsal.\n\n## Earlier log 3\nSynthetic archived observation 3: the paper dial records a separate rehearsal.\n\n## Earlier log 4\nSynthetic archived observation 4: the paper dial records a separate rehearsal.\n\n## Earlier log 5\nSynthetic archived observation 5: the paper dial records a separate rehearsal.\n\n## Earlier log 6\nSynthetic archived observation 6: the paper dial records a separate rehearsal.\n\n## Earlier log 7\nSynthetic archived observation 7: the paper dial records a separate rehearsal.\n\n## Earlier log 8\nSynthetic archived observation 8: the paper dial records a separate rehearsal.\n\nNever disconnected synthetic cabinets\n====================\n## Closure routine\nSeal the lilac jar only after the rehearsal.\n\n### Later independent observation\nThe verdigris witness stripe reveals a leak only in the cold dummy chamber; warm chalk is a counterexample."
+  },
+  "oldIndex": {
+    "version": 1,
+    "signature": "editorial-core-2:13c62820215ca354f763f6cd422e45bea12f9aafa5418bdd2cc4c1a89bbade52",
+    "updatedAt": "2026-10-19T00:31:14.961Z",
+    "sources": {
+      "a.md": {
+        "hash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_05c304fb9cd2718e5d3bd9a72033b3ee86cb5324b88aba56d26d11e1961c4928",
+          "f_0c55851e5e9356d42394cf2f7d48514fb7a6b69c82a73372cac30c2e2f561a90",
+          "f_1362c29fdb59e0c999bc30649902da19a066eea95322d566a3a4d1338415bcc1",
+          "f_376dfa9bb7b9ff722eed90e839687ea2ba818665ba688b9f0277de86f695b6f2",
+          "f_6155115a53091a9c32df759a1e6075894f7d9131f11bfd6ee8e4b423f4be0923",
+          "f_690bd9b34bccaa27547ade8f2826c8387364d385906368a55bc8cb4798cef613",
+          "f_75ccac08b91375b99c095664af4b6cfeafd58b9129ee646cd7b2ac053906ab43",
+          "f_793fef2d787d58c1f4ddc5a13293168b33af394464121c85d1c023f223234c65",
+          "f_9f9f3ea6c0fbe25cf674ded82db0ac9eb2601104740eca3fd1feceb44af598cb",
+          "f_b74cfe4a53f420ed8732feb382023db4acb605f4486eff142f3855637e89f1b3",
+          "f_e749d0ef73fc82ff505b4e46fdc4382543155e9c80fc1354e765f7d1bea90f44",
+          "f_eea2f57588490affedcc029f8a7116031499c39e242cb2db01b469c7da29e796"
+        ]
+      },
+      "b.md": {
+        "hash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_05c304fb9cd2718e5d3bd9a72033b3ee86cb5324b88aba56d26d11e1961c4928",
+          "f_0c55851e5e9356d42394cf2f7d48514fb7a6b69c82a73372cac30c2e2f561a90",
+          "f_1362c29fdb59e0c999bc30649902da19a066eea95322d566a3a4d1338415bcc1",
+          "f_161baa634fce4e927b1a727acd623f7093720df903ca01e24849baf527ae93b9",
+          "f_376dfa9bb7b9ff722eed90e839687ea2ba818665ba688b9f0277de86f695b6f2",
+          "f_6155115a53091a9c32df759a1e6075894f7d9131f11bfd6ee8e4b423f4be0923",
+          "f_690bd9b34bccaa27547ade8f2826c8387364d385906368a55bc8cb4798cef613",
+          "f_75ccac08b91375b99c095664af4b6cfeafd58b9129ee646cd7b2ac053906ab43",
+          "f_793fef2d787d58c1f4ddc5a13293168b33af394464121c85d1c023f223234c65",
+          "f_9f9f3ea6c0fbe25cf674ded82db0ac9eb2601104740eca3fd1feceb44af598cb",
+          "f_e749d0ef73fc82ff505b4e46fdc4382543155e9c80fc1354e765f7d1bea90f44",
+          "f_eea2f57588490affedcc029f8a7116031499c39e242cb2db01b469c7da29e796"
+        ]
+      },
+      "copy.md": {
+        "hash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_05c304fb9cd2718e5d3bd9a72033b3ee86cb5324b88aba56d26d11e1961c4928",
+          "f_0c55851e5e9356d42394cf2f7d48514fb7a6b69c82a73372cac30c2e2f561a90",
+          "f_1362c29fdb59e0c999bc30649902da19a066eea95322d566a3a4d1338415bcc1",
+          "f_376dfa9bb7b9ff722eed90e839687ea2ba818665ba688b9f0277de86f695b6f2",
+          "f_6155115a53091a9c32df759a1e6075894f7d9131f11bfd6ee8e4b423f4be0923",
+          "f_690bd9b34bccaa27547ade8f2826c8387364d385906368a55bc8cb4798cef613",
+          "f_75ccac08b91375b99c095664af4b6cfeafd58b9129ee646cd7b2ac053906ab43",
+          "f_793fef2d787d58c1f4ddc5a13293168b33af394464121c85d1c023f223234c65",
+          "f_9f9f3ea6c0fbe25cf674ded82db0ac9eb2601104740eca3fd1feceb44af598cb",
+          "f_b74cfe4a53f420ed8732feb382023db4acb605f4486eff142f3855637e89f1b3",
+          "f_e749d0ef73fc82ff505b4e46fdc4382543155e9c80fc1354e765f7d1bea90f44",
+          "f_eea2f57588490affedcc029f8a7116031499c39e242cb2db01b469c7da29e796"
+        ]
+      }
+    },
+    "fragments": {
+      "f_05c304fb9cd2718e5d3bd9a72033b3ee86cb5324b88aba56d26d11e1961c4928": {
+        "id": "f_05c304fb9cd2718e5d3bd9a72033b3ee86cb5324b88aba56d26d11e1961c4928",
+        "privacy": "normal",
+        "title": "Closure routine",
+        "summary": "# Synthetic conservatory journal\n## Closure routine\n\nSeal the lilac jar only after the rehearsal.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Closure routine",
+            "start": 964,
+            "end": 982
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Seal the lilac jar only after the rehearsal.",
+            "start": 983,
+            "end": 1027
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "## Closure routine",
+            "start": 965,
+            "end": 983
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "Seal the lilac jar only after the rehearsal.",
+            "start": 984,
+            "end": 1028
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Closure routine",
+            "start": 964,
+            "end": 982
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Seal the lilac jar only after the rehearsal.",
+            "start": 983,
+            "end": 1027
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-19T00:31:14.961Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_0c55851e5e9356d42394cf2f7d48514fb7a6b69c82a73372cac30c2e2f561a90": {
+        "id": "f_0c55851e5e9356d42394cf2f7d48514fb7a6b69c82a73372cac30c2e2f561a90",
+        "privacy": "normal",
+        "title": "Earlier log 3",
+        "summary": "# Synthetic conservatory journal\n## Earlier log 3\n\nSynthetic archived observation 3: the paper dial records a separate rehearsal.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Earlier log 3",
+            "start": 324,
+            "end": 340
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Synthetic archived observation 3: the paper dial records a separate rehearsal.",
+            "start": 341,
+            "end": 419
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "## Earlier log 3",
+            "start": 324,
+            "end": 340
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "Synthetic archived observation 3: the paper dial records a separate rehearsal.",
+            "start": 341,
+            "end": 419
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Earlier log 3",
+            "start": 324,
+            "end": 340
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Synthetic archived observation 3: the paper dial records a separate rehearsal.",
+            "start": 341,
+            "end": 419
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-19T00:31:14.961Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_1362c29fdb59e0c999bc30649902da19a066eea95322d566a3a4d1338415bcc1": {
+        "id": "f_1362c29fdb59e0c999bc30649902da19a066eea95322d566a3a4d1338415bcc1",
+        "privacy": "normal",
+        "title": "Earlier log 4",
+        "summary": "# Synthetic conservatory journal\n## Earlier log 4\n\nSynthetic archived observation 4: the paper dial records a separate rehearsal.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Earlier log 4",
+            "start": 421,
+            "end": 437
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Synthetic archived observation 4: the paper dial records a separate rehearsal.",
+            "start": 438,
+            "end": 516
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "## Earlier log 4",
+            "start": 421,
+            "end": 437
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "Synthetic archived observation 4: the paper dial records a separate rehearsal.",
+            "start": 438,
+            "end": 516
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Earlier log 4",
+            "start": 421,
+            "end": 437
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Synthetic archived observation 4: the paper dial records a separate rehearsal.",
+            "start": 438,
+            "end": 516
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-19T00:31:14.961Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_161baa634fce4e927b1a727acd623f7093720df903ca01e24849baf527ae93b9": {
+        "id": "f_161baa634fce4e927b1a727acd623f7093720df903ca01e24849baf527ae93b9",
+        "privacy": "normal",
+        "title": "Earlier log 8",
+        "summary": "# Synthetic conservatory journal\n## Earlier log 8\n\nNever disconnected synthetic cabinets\n====================",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "Never disconnected synthetic cabinets\n====================",
+            "start": 906,
+            "end": 964
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "## Earlier log 8",
+            "start": 809,
+            "end": 825
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-19T00:31:14.961Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_376dfa9bb7b9ff722eed90e839687ea2ba818665ba688b9f0277de86f695b6f2": {
+        "id": "f_376dfa9bb7b9ff722eed90e839687ea2ba818665ba688b9f0277de86f695b6f2",
+        "privacy": "normal",
+        "title": "Earlier log 0",
+        "summary": "# Synthetic conservatory journal\n## Earlier log 0\n\nSynthetic archived observation 0: the paper dial records a separate rehearsal.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Earlier log 0",
+            "start": 33,
+            "end": 49
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Synthetic archived observation 0: the paper dial records a separate rehearsal.",
+            "start": 50,
+            "end": 128
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "## Earlier log 0",
+            "start": 33,
+            "end": 49
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "Synthetic archived observation 0: the paper dial records a separate rehearsal.",
+            "start": 50,
+            "end": 128
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Earlier log 0",
+            "start": 33,
+            "end": 49
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Synthetic archived observation 0: the paper dial records a separate rehearsal.",
+            "start": 50,
+            "end": 128
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-19T00:31:14.961Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_6155115a53091a9c32df759a1e6075894f7d9131f11bfd6ee8e4b423f4be0923": {
+        "id": "f_6155115a53091a9c32df759a1e6075894f7d9131f11bfd6ee8e4b423f4be0923",
+        "privacy": "normal",
+        "title": "Earlier log 2",
+        "summary": "# Synthetic conservatory journal\n## Earlier log 2\n\nSynthetic archived observation 2: the paper dial records a separate rehearsal.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Earlier log 2",
+            "start": 227,
+            "end": 243
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Synthetic archived observation 2: the paper dial records a separate rehearsal.",
+            "start": 244,
+            "end": 322
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "## Earlier log 2",
+            "start": 227,
+            "end": 243
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "Synthetic archived observation 2: the paper dial records a separate rehearsal.",
+            "start": 244,
+            "end": 322
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Earlier log 2",
+            "start": 227,
+            "end": 243
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Synthetic archived observation 2: the paper dial records a separate rehearsal.",
+            "start": 244,
+            "end": 322
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-19T00:31:14.961Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_690bd9b34bccaa27547ade8f2826c8387364d385906368a55bc8cb4798cef613": {
+        "id": "f_690bd9b34bccaa27547ade8f2826c8387364d385906368a55bc8cb4798cef613",
+        "privacy": "normal",
+        "title": "Earlier log 7",
+        "summary": "# Synthetic conservatory journal\n## Earlier log 7\n\nSynthetic archived observation 7: the paper dial records a separate rehearsal.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Earlier log 7",
+            "start": 712,
+            "end": 728
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Synthetic archived observation 7: the paper dial records a separate rehearsal.",
+            "start": 729,
+            "end": 807
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "## Earlier log 7",
+            "start": 712,
+            "end": 728
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "Synthetic archived observation 7: the paper dial records a separate rehearsal.",
+            "start": 729,
+            "end": 807
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Earlier log 7",
+            "start": 712,
+            "end": 728
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Synthetic archived observation 7: the paper dial records a separate rehearsal.",
+            "start": 729,
+            "end": 807
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-19T00:31:14.961Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_75ccac08b91375b99c095664af4b6cfeafd58b9129ee646cd7b2ac053906ab43": {
+        "id": "f_75ccac08b91375b99c095664af4b6cfeafd58b9129ee646cd7b2ac053906ab43",
+        "privacy": "normal",
+        "title": "Earlier log 6",
+        "summary": "# Synthetic conservatory journal\n## Earlier log 6\n\nSynthetic archived observation 6: the paper dial records a separate rehearsal.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Earlier log 6",
+            "start": 615,
+            "end": 631
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Synthetic archived observation 6: the paper dial records a separate rehearsal.",
+            "start": 632,
+            "end": 710
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "## Earlier log 6",
+            "start": 615,
+            "end": 631
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "Synthetic archived observation 6: the paper dial records a separate rehearsal.",
+            "start": 632,
+            "end": 710
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Earlier log 6",
+            "start": 615,
+            "end": 631
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Synthetic archived observation 6: the paper dial records a separate rehearsal.",
+            "start": 632,
+            "end": 710
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-19T00:31:14.961Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_793fef2d787d58c1f4ddc5a13293168b33af394464121c85d1c023f223234c65": {
+        "id": "f_793fef2d787d58c1f4ddc5a13293168b33af394464121c85d1c023f223234c65",
+        "privacy": "normal",
+        "title": "Earlier log 1",
+        "summary": "# Synthetic conservatory journal\n## Earlier log 1\n\nSynthetic archived observation 1: the paper dial records a separate rehearsal.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Earlier log 1",
+            "start": 130,
+            "end": 146
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Synthetic archived observation 1: the paper dial records a separate rehearsal.",
+            "start": 147,
+            "end": 225
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "## Earlier log 1",
+            "start": 130,
+            "end": 146
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "Synthetic archived observation 1: the paper dial records a separate rehearsal.",
+            "start": 147,
+            "end": 225
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Earlier log 1",
+            "start": 130,
+            "end": 146
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Synthetic archived observation 1: the paper dial records a separate rehearsal.",
+            "start": 147,
+            "end": 225
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-19T00:31:14.961Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_9f9f3ea6c0fbe25cf674ded82db0ac9eb2601104740eca3fd1feceb44af598cb": {
+        "id": "f_9f9f3ea6c0fbe25cf674ded82db0ac9eb2601104740eca3fd1feceb44af598cb",
+        "privacy": "normal",
+        "title": "Earlier log 5",
+        "summary": "# Synthetic conservatory journal\n## Earlier log 5\n\nSynthetic archived observation 5: the paper dial records a separate rehearsal.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Earlier log 5",
+            "start": 518,
+            "end": 534
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Synthetic archived observation 5: the paper dial records a separate rehearsal.",
+            "start": 535,
+            "end": 613
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "## Earlier log 5",
+            "start": 518,
+            "end": 534
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "Synthetic archived observation 5: the paper dial records a separate rehearsal.",
+            "start": 535,
+            "end": 613
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Earlier log 5",
+            "start": 518,
+            "end": 534
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Synthetic archived observation 5: the paper dial records a separate rehearsal.",
+            "start": 535,
+            "end": 613
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-19T00:31:14.961Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_b74cfe4a53f420ed8732feb382023db4acb605f4486eff142f3855637e89f1b3": {
+        "id": "f_b74cfe4a53f420ed8732feb382023db4acb605f4486eff142f3855637e89f1b3",
+        "privacy": "normal",
+        "title": "Earlier log 8",
+        "summary": "# Synthetic conservatory journal\n## Earlier log 8\n\nOnly disconnected synthetic cabinets\n====================",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Earlier log 8",
+            "start": 809,
+            "end": 825
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Only disconnected synthetic cabinets\n====================",
+            "start": 906,
+            "end": 963
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Earlier log 8",
+            "start": 809,
+            "end": 825
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Only disconnected synthetic cabinets\n====================",
+            "start": 906,
+            "end": 963
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-19T00:31:14.961Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_e749d0ef73fc82ff505b4e46fdc4382543155e9c80fc1354e765f7d1bea90f44": {
+        "id": "f_e749d0ef73fc82ff505b4e46fdc4382543155e9c80fc1354e765f7d1bea90f44",
+        "privacy": "normal",
+        "title": "Earlier log 8",
+        "summary": "# Synthetic conservatory journal\n## Earlier log 8\n\nSynthetic archived observation 8: the paper dial records a separate rehearsal.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Earlier log 8",
+            "start": 809,
+            "end": 825
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Synthetic archived observation 8: the paper dial records a separate rehearsal.",
+            "start": 826,
+            "end": 904
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "## Earlier log 8",
+            "start": 809,
+            "end": 825
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "Synthetic archived observation 8: the paper dial records a separate rehearsal.",
+            "start": 826,
+            "end": 904
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Earlier log 8",
+            "start": 809,
+            "end": 825
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "Synthetic archived observation 8: the paper dial records a separate rehearsal.",
+            "start": 826,
+            "end": 904
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-19T00:31:14.961Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_eea2f57588490affedcc029f8a7116031499c39e242cb2db01b469c7da29e796": {
+        "id": "f_eea2f57588490affedcc029f8a7116031499c39e242cb2db01b469c7da29e796",
+        "privacy": "normal",
+        "title": "Later independent observation",
+        "summary": "# Synthetic conservatory journal\n## Closure routine\n### Later independent observation\n\nThe verdigris witness stripe reveals a leak only in the cold dummy chamber; warm chalk is a counterexample.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Closure routine",
+            "start": 964,
+            "end": 982
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "### Later independent observation",
+            "start": 1029,
+            "end": 1062
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "The verdigris witness stripe reveals a leak only in the cold dummy chamber; warm chalk is a counterexample.",
+            "start": 1063,
+            "end": 1170
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "## Closure routine",
+            "start": 965,
+            "end": 983
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "### Later independent observation",
+            "start": 1030,
+            "end": 1063
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c",
+            "quote": "The verdigris witness stripe reveals a leak only in the cold dummy chamber; warm chalk is a counterexample.",
+            "start": 1064,
+            "end": 1171
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "# Synthetic conservatory journal",
+            "start": 0,
+            "end": 32
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "## Closure routine",
+            "start": 964,
+            "end": 982
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "### Later independent observation",
+            "start": 1029,
+            "end": 1062
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5",
+            "quote": "The verdigris witness stripe reveals a leak only in the cold dummy chamber; warm chalk is a counterexample.",
+            "start": 1063,
+            "end": 1170
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-19T00:31:14.961Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      }
+    }
+  },
+  "rendered": {
+    "f_05c304fb9cd2718e5d3bd9a72033b3ee86cb5324b88aba56d26d11e1961c4928": "---\nthird_brain_render: 2\naliases: [\"Closure routine\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_05c304fb9cd2718e5d3bd9a72033b3ee86cb5324b88aba56d26d11e1961c4928\"\nprivacy: normal\ntitle: \"Closure routine\"\nextraction: local-excerpt\nupdated_at: \"2026-10-19T00:31:14.961Z\"\nprovenance: [{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":964,\"end\":982},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":983,\"end\":1027},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":0,\"end\":32},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":965,\"end\":983},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":984,\"end\":1028},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":964,\"end\":982},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":983,\"end\":1027}]\n---\n\n# Closure routine\n\n\\# Synthetic conservatory journal\n\\#\\# Closure routine\n\nSeal the lilac jar only after the rehearsal.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 964–982\n\n> \\#\\# Closure routine\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 983–1027\n\n> Seal the lilac jar only after the rehearsal.\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 965–983\n\n> \\#\\# Closure routine\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 984–1028\n\n> Seal the lilac jar only after the rehearsal.\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 964–982\n\n> \\#\\# Closure routine\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 983–1027\n\n> Seal the lilac jar only after the rehearsal.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_0c55851e5e9356d42394cf2f7d48514fb7a6b69c82a73372cac30c2e2f561a90": "---\nthird_brain_render: 2\naliases: [\"Earlier log 3\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_0c55851e5e9356d42394cf2f7d48514fb7a6b69c82a73372cac30c2e2f561a90\"\nprivacy: normal\ntitle: \"Earlier log 3\"\nextraction: local-excerpt\nupdated_at: \"2026-10-19T00:31:14.961Z\"\nprovenance: [{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":324,\"end\":340},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":341,\"end\":419},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":0,\"end\":32},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":324,\"end\":340},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":341,\"end\":419},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":324,\"end\":340},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":341,\"end\":419}]\n---\n\n# Earlier log 3\n\n\\# Synthetic conservatory journal\n\\#\\# Earlier log 3\n\nSynthetic archived observation 3: the paper dial records a separate rehearsal.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 324–340\n\n> \\#\\# Earlier log 3\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 341–419\n\n> Synthetic archived observation 3: the paper dial records a separate rehearsal.\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 324–340\n\n> \\#\\# Earlier log 3\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 341–419\n\n> Synthetic archived observation 3: the paper dial records a separate rehearsal.\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 324–340\n\n> \\#\\# Earlier log 3\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 341–419\n\n> Synthetic archived observation 3: the paper dial records a separate rehearsal.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_1362c29fdb59e0c999bc30649902da19a066eea95322d566a3a4d1338415bcc1": "---\nthird_brain_render: 2\naliases: [\"Earlier log 4\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_1362c29fdb59e0c999bc30649902da19a066eea95322d566a3a4d1338415bcc1\"\nprivacy: normal\ntitle: \"Earlier log 4\"\nextraction: local-excerpt\nupdated_at: \"2026-10-19T00:31:14.961Z\"\nprovenance: [{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":421,\"end\":437},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":438,\"end\":516},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":0,\"end\":32},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":421,\"end\":437},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":438,\"end\":516},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":421,\"end\":437},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":438,\"end\":516}]\n---\n\n# Earlier log 4\n\n\\# Synthetic conservatory journal\n\\#\\# Earlier log 4\n\nSynthetic archived observation 4: the paper dial records a separate rehearsal.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 421–437\n\n> \\#\\# Earlier log 4\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 438–516\n\n> Synthetic archived observation 4: the paper dial records a separate rehearsal.\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 421–437\n\n> \\#\\# Earlier log 4\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 438–516\n\n> Synthetic archived observation 4: the paper dial records a separate rehearsal.\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 421–437\n\n> \\#\\# Earlier log 4\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 438–516\n\n> Synthetic archived observation 4: the paper dial records a separate rehearsal.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_161baa634fce4e927b1a727acd623f7093720df903ca01e24849baf527ae93b9": "---\nthird_brain_render: 2\naliases: [\"Earlier log 8\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_161baa634fce4e927b1a727acd623f7093720df903ca01e24849baf527ae93b9\"\nprivacy: normal\ntitle: \"Earlier log 8\"\nextraction: local-excerpt\nupdated_at: \"2026-10-19T00:31:14.961Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":906,\"end\":964},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":0,\"end\":32},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":809,\"end\":825}]\n---\n\n# Earlier log 8\n\n\\# Synthetic conservatory journal\n\\#\\# Earlier log 8\n\nNever disconnected synthetic cabinets\n====================\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 906–964\n\n> Never disconnected synthetic cabinets\n> ====================\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 809–825\n\n> \\#\\# Earlier log 8\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_376dfa9bb7b9ff722eed90e839687ea2ba818665ba688b9f0277de86f695b6f2": "---\nthird_brain_render: 2\naliases: [\"Earlier log 0\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_376dfa9bb7b9ff722eed90e839687ea2ba818665ba688b9f0277de86f695b6f2\"\nprivacy: normal\ntitle: \"Earlier log 0\"\nextraction: local-excerpt\nupdated_at: \"2026-10-19T00:31:14.961Z\"\nprovenance: [{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":33,\"end\":49},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":50,\"end\":128},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":0,\"end\":32},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":33,\"end\":49},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":50,\"end\":128},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":33,\"end\":49},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":50,\"end\":128}]\n---\n\n# Earlier log 0\n\n\\# Synthetic conservatory journal\n\\#\\# Earlier log 0\n\nSynthetic archived observation 0: the paper dial records a separate rehearsal.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 33–49\n\n> \\#\\# Earlier log 0\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 50–128\n\n> Synthetic archived observation 0: the paper dial records a separate rehearsal.\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 33–49\n\n> \\#\\# Earlier log 0\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 50–128\n\n> Synthetic archived observation 0: the paper dial records a separate rehearsal.\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 33–49\n\n> \\#\\# Earlier log 0\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 50–128\n\n> Synthetic archived observation 0: the paper dial records a separate rehearsal.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_6155115a53091a9c32df759a1e6075894f7d9131f11bfd6ee8e4b423f4be0923": "---\nthird_brain_render: 2\naliases: [\"Earlier log 2\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_6155115a53091a9c32df759a1e6075894f7d9131f11bfd6ee8e4b423f4be0923\"\nprivacy: normal\ntitle: \"Earlier log 2\"\nextraction: local-excerpt\nupdated_at: \"2026-10-19T00:31:14.961Z\"\nprovenance: [{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":227,\"end\":243},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":244,\"end\":322},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":0,\"end\":32},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":227,\"end\":243},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":244,\"end\":322},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":227,\"end\":243},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":244,\"end\":322}]\n---\n\n# Earlier log 2\n\n\\# Synthetic conservatory journal\n\\#\\# Earlier log 2\n\nSynthetic archived observation 2: the paper dial records a separate rehearsal.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 227–243\n\n> \\#\\# Earlier log 2\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 244–322\n\n> Synthetic archived observation 2: the paper dial records a separate rehearsal.\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 227–243\n\n> \\#\\# Earlier log 2\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 244–322\n\n> Synthetic archived observation 2: the paper dial records a separate rehearsal.\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 227–243\n\n> \\#\\# Earlier log 2\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 244–322\n\n> Synthetic archived observation 2: the paper dial records a separate rehearsal.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_690bd9b34bccaa27547ade8f2826c8387364d385906368a55bc8cb4798cef613": "---\nthird_brain_render: 2\naliases: [\"Earlier log 7\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_690bd9b34bccaa27547ade8f2826c8387364d385906368a55bc8cb4798cef613\"\nprivacy: normal\ntitle: \"Earlier log 7\"\nextraction: local-excerpt\nupdated_at: \"2026-10-19T00:31:14.961Z\"\nprovenance: [{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":712,\"end\":728},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":729,\"end\":807},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":0,\"end\":32},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":712,\"end\":728},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":729,\"end\":807},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":712,\"end\":728},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":729,\"end\":807}]\n---\n\n# Earlier log 7\n\n\\# Synthetic conservatory journal\n\\#\\# Earlier log 7\n\nSynthetic archived observation 7: the paper dial records a separate rehearsal.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 712–728\n\n> \\#\\# Earlier log 7\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 729–807\n\n> Synthetic archived observation 7: the paper dial records a separate rehearsal.\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 712–728\n\n> \\#\\# Earlier log 7\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 729–807\n\n> Synthetic archived observation 7: the paper dial records a separate rehearsal.\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 712–728\n\n> \\#\\# Earlier log 7\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 729–807\n\n> Synthetic archived observation 7: the paper dial records a separate rehearsal.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_75ccac08b91375b99c095664af4b6cfeafd58b9129ee646cd7b2ac053906ab43": "---\nthird_brain_render: 2\naliases: [\"Earlier log 6\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_75ccac08b91375b99c095664af4b6cfeafd58b9129ee646cd7b2ac053906ab43\"\nprivacy: normal\ntitle: \"Earlier log 6\"\nextraction: local-excerpt\nupdated_at: \"2026-10-19T00:31:14.961Z\"\nprovenance: [{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":615,\"end\":631},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":632,\"end\":710},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":0,\"end\":32},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":615,\"end\":631},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":632,\"end\":710},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":615,\"end\":631},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":632,\"end\":710}]\n---\n\n# Earlier log 6\n\n\\# Synthetic conservatory journal\n\\#\\# Earlier log 6\n\nSynthetic archived observation 6: the paper dial records a separate rehearsal.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 615–631\n\n> \\#\\# Earlier log 6\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 632–710\n\n> Synthetic archived observation 6: the paper dial records a separate rehearsal.\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 615–631\n\n> \\#\\# Earlier log 6\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 632–710\n\n> Synthetic archived observation 6: the paper dial records a separate rehearsal.\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 615–631\n\n> \\#\\# Earlier log 6\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 632–710\n\n> Synthetic archived observation 6: the paper dial records a separate rehearsal.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_793fef2d787d58c1f4ddc5a13293168b33af394464121c85d1c023f223234c65": "---\nthird_brain_render: 2\naliases: [\"Earlier log 1\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_793fef2d787d58c1f4ddc5a13293168b33af394464121c85d1c023f223234c65\"\nprivacy: normal\ntitle: \"Earlier log 1\"\nextraction: local-excerpt\nupdated_at: \"2026-10-19T00:31:14.961Z\"\nprovenance: [{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":130,\"end\":146},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":147,\"end\":225},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":0,\"end\":32},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":130,\"end\":146},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":147,\"end\":225},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":130,\"end\":146},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":147,\"end\":225}]\n---\n\n# Earlier log 1\n\n\\# Synthetic conservatory journal\n\\#\\# Earlier log 1\n\nSynthetic archived observation 1: the paper dial records a separate rehearsal.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 130–146\n\n> \\#\\# Earlier log 1\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 147–225\n\n> Synthetic archived observation 1: the paper dial records a separate rehearsal.\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 130–146\n\n> \\#\\# Earlier log 1\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 147–225\n\n> Synthetic archived observation 1: the paper dial records a separate rehearsal.\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 130–146\n\n> \\#\\# Earlier log 1\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 147–225\n\n> Synthetic archived observation 1: the paper dial records a separate rehearsal.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_9f9f3ea6c0fbe25cf674ded82db0ac9eb2601104740eca3fd1feceb44af598cb": "---\nthird_brain_render: 2\naliases: [\"Earlier log 5\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_9f9f3ea6c0fbe25cf674ded82db0ac9eb2601104740eca3fd1feceb44af598cb\"\nprivacy: normal\ntitle: \"Earlier log 5\"\nextraction: local-excerpt\nupdated_at: \"2026-10-19T00:31:14.961Z\"\nprovenance: [{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":518,\"end\":534},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":535,\"end\":613},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":0,\"end\":32},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":518,\"end\":534},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":535,\"end\":613},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":518,\"end\":534},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":535,\"end\":613}]\n---\n\n# Earlier log 5\n\n\\# Synthetic conservatory journal\n\\#\\# Earlier log 5\n\nSynthetic archived observation 5: the paper dial records a separate rehearsal.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 518–534\n\n> \\#\\# Earlier log 5\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 535–613\n\n> Synthetic archived observation 5: the paper dial records a separate rehearsal.\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 518–534\n\n> \\#\\# Earlier log 5\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 535–613\n\n> Synthetic archived observation 5: the paper dial records a separate rehearsal.\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 518–534\n\n> \\#\\# Earlier log 5\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 535–613\n\n> Synthetic archived observation 5: the paper dial records a separate rehearsal.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_b74cfe4a53f420ed8732feb382023db4acb605f4486eff142f3855637e89f1b3": "---\nthird_brain_render: 2\naliases: [\"Earlier log 8\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_b74cfe4a53f420ed8732feb382023db4acb605f4486eff142f3855637e89f1b3\"\nprivacy: normal\ntitle: \"Earlier log 8\"\nextraction: local-excerpt\nupdated_at: \"2026-10-19T00:31:14.961Z\"\nprovenance: [{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":809,\"end\":825},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":906,\"end\":963},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":809,\"end\":825},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":906,\"end\":963}]\n---\n\n# Earlier log 8\n\n\\# Synthetic conservatory journal\n\\#\\# Earlier log 8\n\nOnly disconnected synthetic cabinets\n====================\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 809–825\n\n> \\#\\# Earlier log 8\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 906–963\n\n> Only disconnected synthetic cabinets\n> ====================\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 809–825\n\n> \\#\\# Earlier log 8\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 906–963\n\n> Only disconnected synthetic cabinets\n> ====================\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_e749d0ef73fc82ff505b4e46fdc4382543155e9c80fc1354e765f7d1bea90f44": "---\nthird_brain_render: 2\naliases: [\"Earlier log 8\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_e749d0ef73fc82ff505b4e46fdc4382543155e9c80fc1354e765f7d1bea90f44\"\nprivacy: normal\ntitle: \"Earlier log 8\"\nextraction: local-excerpt\nupdated_at: \"2026-10-19T00:31:14.961Z\"\nprovenance: [{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":809,\"end\":825},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":826,\"end\":904},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":0,\"end\":32},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":809,\"end\":825},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":826,\"end\":904},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":809,\"end\":825},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":826,\"end\":904}]\n---\n\n# Earlier log 8\n\n\\# Synthetic conservatory journal\n\\#\\# Earlier log 8\n\nSynthetic archived observation 8: the paper dial records a separate rehearsal.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 809–825\n\n> \\#\\# Earlier log 8\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 826–904\n\n> Synthetic archived observation 8: the paper dial records a separate rehearsal.\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 809–825\n\n> \\#\\# Earlier log 8\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 826–904\n\n> Synthetic archived observation 8: the paper dial records a separate rehearsal.\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 809–825\n\n> \\#\\# Earlier log 8\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 826–904\n\n> Synthetic archived observation 8: the paper dial records a separate rehearsal.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_eea2f57588490affedcc029f8a7116031499c39e242cb2db01b469c7da29e796": "---\nthird_brain_render: 2\naliases: [\"Later independent observation\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_eea2f57588490affedcc029f8a7116031499c39e242cb2db01b469c7da29e796\"\nprivacy: normal\ntitle: \"Later independent observation\"\nextraction: local-excerpt\nupdated_at: \"2026-10-19T00:31:14.961Z\"\nprovenance: [{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":964,\"end\":982},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":1029,\"end\":1062},{\"path\":\"copy.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":1063,\"end\":1170},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":0,\"end\":32},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":965,\"end\":983},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":1030,\"end\":1063},{\"path\":\"b.md\",\"revision\":\"b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c\",\"start\":1064,\"end\":1171},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":0,\"end\":32},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":964,\"end\":982},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":1029,\"end\":1062},{\"path\":\"a.md\",\"revision\":\"af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5\",\"start\":1063,\"end\":1170}]\n---\n\n# Later independent observation\n\n\\# Synthetic conservatory journal\n\\#\\# Closure routine\n\\#\\#\\# Later independent observation\n\nThe verdigris witness stripe reveals a leak only in the cold dummy chamber; warm chalk is a counterexample.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 964–982\n\n> \\#\\# Closure routine\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 1029–1062\n\n> \\#\\#\\# Later independent observation\n\n[Open original](<../copy.md>) — copy.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 1063–1170\n\n> The verdigris witness stripe reveals a leak only in the cold dummy chamber; warm chalk is a counterexample.\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 965–983\n\n> \\#\\# Closure routine\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 1030–1063\n\n> \\#\\#\\# Later independent observation\n\n[Open original](<../b.md>) — b.md\n\nRevision: b4dbe2a522b86c7762481af1dc7eef6b03b47237deab59c6c407abc6ba24b92c; character range: 1064–1171\n\n> The verdigris witness stripe reveals a leak only in the cold dummy chamber; warm chalk is a counterexample.\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 0–32\n\n> \\# Synthetic conservatory journal\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 964–982\n\n> \\#\\# Closure routine\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 1029–1062\n\n> \\#\\#\\# Later independent observation\n\n[Open original](<../a.md>) — a.md\n\nRevision: af850d5b954863eb311224ed133a597d16117a667beb40d8fdecb1622a4330c5; character range: 1063–1170\n\n> The verdigris witness stripe reveals a leak only in the cold dummy chamber; warm chalk is a counterexample.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n"
+  },
+  "signatures": {
+    "local-excerpts": "{\"version\":1,\"localExcerptPolicy\":\"root-task-context-1\",\"mode\":\"local-excerpts\",\"endpoint\":\"\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "local-model": "{\"version\":1,\"mode\":\"local-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "cloud-model": "{\"version\":1,\"mode\":\"cloud-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}"
+  },
+  "requests": {
+    "local-model": [
+      {
+        "task": "extract",
+        "text": "Synthetic archived observation 0: the paper dial records a separate rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier log 0",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Synthetic archived observation 1: the paper dial records a separate rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier log 1",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Synthetic archived observation 2: the paper dial records a separate rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier log 2",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Synthetic archived observation 3: the paper dial records a separate rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier log 3",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Synthetic archived observation 4: the paper dial records a separate rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier log 4",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Synthetic archived observation 5: the paper dial records a separate rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier log 5",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Synthetic archived observation 6: the paper dial records a separate rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier log 6",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Synthetic archived observation 7: the paper dial records a separate rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier log 7",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Synthetic archived observation 8: the paper dial records a separate rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier log 8",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Only disconnected synthetic cabinets\n====================",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier log 8",
+          "before": "Synthetic archived observation 8: the paper dial records a separate rehearsal."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Seal the lilac jar only after the rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Closure routine",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "The verdigris witness stripe reveals a leak only in the cold dummy chamber; warm chalk is a counterexample.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Later independent observation",
+          "before": ""
+        }
+      }
+    ],
+    "cloud-model": [
+      {
+        "task": "extract",
+        "text": "Synthetic archived observation 0: the paper dial records a separate rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier log 0",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Synthetic archived observation 1: the paper dial records a separate rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier log 1",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Synthetic archived observation 2: the paper dial records a separate rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier log 2",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Synthetic archived observation 3: the paper dial records a separate rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier log 3",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Synthetic archived observation 4: the paper dial records a separate rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier log 4",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Synthetic archived observation 5: the paper dial records a separate rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier log 5",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Synthetic archived observation 6: the paper dial records a separate rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier log 6",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Synthetic archived observation 7: the paper dial records a separate rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier log 7",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Synthetic archived observation 8: the paper dial records a separate rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier log 8",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Only disconnected synthetic cabinets\n====================",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier log 8",
+          "before": "Synthetic archived observation 8: the paper dial records a separate rehearsal."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Seal the lilac jar only after the rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Closure routine",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "The verdigris witness stripe reveals a leak only in the cold dummy chamber; warm chalk is a counterexample.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Later independent observation",
+          "before": ""
+        }
+      }
+    ]
+  }
+}

@@ -166,6 +166,31 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
       continue;
     }
     if (drawing) continue;
+    // Setext is an authored heading, not an independent paragraph whose scope
+    // disappears at the next neutral ATX child. Consume only ordinary paragraph
+    // text; list/quote/HTML/code-like prefixes must not become global ancestors.
+    // AI primary parsing stays unchanged. Readable-quote verification recognises
+    // the complete heading so decoded Canvas evidence can retain its underline.
+    const underline = (local || includeHeadings) && /^ {0,3}(=+|-+)[ \t]*$/u.exec(line);
+    if (underline && start >= 0 && listIndent < 0 && !blank) {
+      const paragraph = raw.slice(start,end);
+      const rows = paragraph.split(/\r\n|\r|\n/u);
+      if (/^ {0,3}\S/u.test(rows[0]) && !rows.some(row => /^\s*(?:>|<|[-*+]\s+|\d+[.)]\s+)/u.test(row))) {
+        const original = raw.slice(start,offset + line.length), leading = original.length - original.trimStart().length;
+        const block = mapped(original.trim(),base < 0 ? -1 : base + start + leading);
+        heading = paragraph.trim().replace(/\s+\^[a-z0-9-]+$/iu,'').slice(0,160);
+        drawing = excalidraw && /^(?:drawing|绘图)$/iu.test(heading);
+        start = end = -1; clearBlocked(); introduction = undefined; listLeadIn = undefined;
+        if (local) {
+          if (block.text.includes('<!--') || block.text.includes('%%')) throw new CoreError('Local heading context intersects hidden content; no partial index was saved.');
+          const depth = underline[1][0] === '=' ? 1 : 2;
+          while (ancestors.length && ancestors.at(-1)!.depth >= depth) ancestors.pop();
+          ancestors.push({ depth,block });
+        }
+        if (includeHeadings && !drawing) blocks.push({ ...block,heading });
+        continue;
+      }
+    }
     // Only explicit, contiguous, single-level quote runs are structural input.
     // Parse their visible list syntax with the existing local rules, then restore
     // every component to an exact original span (including its quote prefixes).
