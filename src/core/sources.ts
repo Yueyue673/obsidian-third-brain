@@ -106,7 +106,7 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
   const meta = frontmatter(raw), blocks: TextBlock[] = [];
   const ancestors: { depth: number; block: MappedText }[] = [];
   let heading = '', start = -1, end = -1, fence = '', fenceLength = 0, hidden = '', drawing = false;
-  let listIndent = -1, contentIndent = -1, blockedIndent = -1, blockedContentIndent = -1, blank = false, rootIsContext = false, orderedRoot = '';
+  let listIndent = -1, contentIndent = -1, blockedIndent = -1, blockedContentIndent = -1, blank = false, rootIsContext = false, orderedRoot = '', taskRoot = '';
   let introduction: { block: TextBlock; end: number } | undefined, listLeadIn: MappedText | undefined;
   const columns = (text: string) => { let width = 0; for (const char of text) width += char === '\t' ? 4 - width % 4 : 1; return width; };
   const clearBlocked = () => { blockedIndent = blockedContentIndent = -1; };
@@ -127,7 +127,7 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
         if (local && listIndent < 0) introduction = introducesList(trimmed) ? { block,end } : undefined;
       }
     }
-    start = end = -1; listIndent = contentIndent = -1; rootIsContext = false; orderedRoot = '';
+    start = end = -1; listIndent = contentIndent = -1; rootIsContext = false; orderedRoot = taskRoot = '';
   };
   const linePattern = /[^\r\n]+(?:\r\n|\r|\n|$)|(?:\r\n|\r|\n)/gu;
   let quotedThrough = -1, quoteScannedThrough = -1;
@@ -244,7 +244,12 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
         // intact; changing delimiter/list type keeps the existing boundary.
         // This is local-only conservative retention, not dependency inference.
         const ordered = /^\s*\d{1,9}([.)])\s+/u.exec(line)?.[1] ?? '';
-        if (listIndent >= 0 && indent === listIndent && ((orderedRoot && ordered === orderedRoot) || (!rootIsContext && context))) {
+        // A checked preparation still belongs to its unchecked operation group.
+        // Retain only same-bullet standard task peers; ordinary bullets, custom
+        // checkbox states and changed list types keep their existing boundaries.
+        const task = /^[ \t]*\[[ \txX]\](?:[ \t]+|$)/u.test(line.slice(item[0].length))
+          ? /^\s*([-*+])\s+/u.exec(line)?.[1] ?? '' : '';
+        if (listIndent >= 0 && indent === listIndent && ((orderedRoot && ordered === orderedRoot) || (taskRoot && task === taskRoot) || (!rootIsContext && context))) {
           contentIndent = columns(item[0]);
         } else if (listIndent < 0 || indent <= listIndent) {
           const continuing = listIndent >= 0;
@@ -260,7 +265,7 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
             }
             introduction = undefined;
           }
-          listIndent = indent; contentIndent = columns(item[0]); rootIsContext = context; orderedRoot = ordered;
+          listIndent = indent; contentIndent = columns(item[0]); rootIsContext = context; orderedRoot = ordered; taskRoot = task;
         }
       }
     } else if (item && start >= 0) flush();

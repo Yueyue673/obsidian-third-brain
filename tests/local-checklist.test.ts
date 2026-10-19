@@ -53,7 +53,11 @@ it('still separates qualified ordinary peers, with branch-local checkboxes and l
   expect(amber.summary).toContain('[ ] Label'); expect(amber.summary).toContain('[x] Place'); expect(amber.summary).not.toContain('File the jade');
   expect(all.every(f => f.summary.includes('Condition: only in the disconnected archive.'))).toBe(true);
   const roots = '- [ ] Remember the amber archive point.\n- [x] File the jade ledger.';
-  expect((await analyzeSource(snap(roots), opts)).fragments).toHaveLength(2);
+  const rootTasks = (await analyzeSource(snap(roots), opts)).fragments;
+  expect(rootTasks).toHaveLength(1); expect(rootTasks[0].summary).toBe(roots);
+  for (const e of rootTasks[0].evidence) expect(roots.slice(e.start, e.end)).toBe(e.quote);
+  const ordinaryRoots = roots.replace(/\[[ x]\] /gu, '');
+  expect((await analyzeSource(snap(ordinaryRoots), opts)).fragments).toHaveLength(2);
   const nodes = JSON.stringify({ nodes: [{ type: 'text', text: raw }, { type: 'text', text: '- Independent white archive record.' }], edges: [] });
   expect((await analyzeSource(snap(nodes, 'synthetic.canvas'), opts)).fragments.find(f => f.summary.includes('white'))!.summary).toBe('- Independent white archive record.');
 });
