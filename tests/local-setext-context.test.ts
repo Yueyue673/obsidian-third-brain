@@ -96,18 +96,46 @@ async function fixture(extension: string) {
   return { root, settings, store, sources, c, put, originals };
 }
 
+async function commitLegacy(f: Awaited<ReturnType<typeof fixture>>) {
+  const snapshots = await f.sources.list();
+  await f.store.commit(structuredClone(legacy.oldIndex), () => f.sources.verify(snapshots));
+}
+async function upgradeLegacy(f: Awaited<ReturnType<typeof fixture>>) {
+  const statePath = path.join(f.root, 'Derived/.third-brain/state.json'), oldState = await fs.readFile(statePath);
+  await f.c.initialize(); expect(await f.store.load()).toEqual(legacy.oldIndex); expect(await fs.readFile(statePath)).toEqual(oldState);
+  await f.c.refresh(); await f.c.initialize();
+  const index = (await f.store.load())!;
+  expect(index.signature).not.toBe(legacy.oldIndex.signature);
+  return index;
+}
+
+// Keep storage/history and each complete open journey in separate fresh vaults.
+// Repeated endpoint checks read the real owned layer; do not mock them away or
+// give the combined journey a longer deadline on slower filesystems.
 it('actual legacy store keeps frozen bytes, upgrades/reloads once, retains history and stays byte-idempotent', async () => {
   const f = await fixture('md'); try {
-    const snapshots = await f.sources.list(); await f.store.commit(structuredClone(legacy.oldIndex), () => f.sources.verify(snapshots));
+    await commitLegacy(f);
     const marker = JSON.parse(await fs.readFile(path.join(f.root, 'Derived/.third-brain/marker.json'), 'utf8')), oldFiles: Buffer[] = [];
     for (const id of Object.keys(legacy.oldIndex.fragments)) { const bytes = await fs.readFile(path.join(f.root, await f.store.fragmentPath(id))); expect(bytes.toString().replaceAll(marker.storeId, 'SYNTHETIC_STORE_ID')).toBe(legacy.rendered[id]); oldFiles.push(bytes); }
-    await f.c.initialize(); expect(await f.store.load()).toEqual(legacy.oldIndex); await f.c.refresh(); await f.c.initialize();
-    const index = (await f.store.load())!; expect(index.signature).not.toBe(legacy.oldIndex.signature); const found = await f.c.find('lilac jar', 'medium'); expect(found).toHaveLength(2);
-    const tails = await f.c.find(later, 'medium'); expect(tails).toHaveLength(2); expect(tails.every(r => r.fragment.summary.includes('cold dummy chamber') && r.fragment.summary.includes('warm chalk is a counterexample'))).toBe(true);
-    const statePath = path.join(f.root, 'Derived/.third-brain/state.json'), state = await fs.readFile(statePath); await f.c.refresh(); expect(await fs.readFile(statePath)).toEqual(state); expect(await f.store.load()).toEqual(index);
+    const statePath = path.join(f.root, 'Derived/.third-brain/state.json');
+    const index = await upgradeLegacy(f);
+    const state = await fs.readFile(statePath); await f.c.refresh(); expect(await fs.readFile(statePath)).toEqual(state); expect(await f.store.load()).toEqual(index);
     const history = await fs.readdir(path.join(f.root, 'Derived/.third-brain/history'), { recursive: true, withFileTypes: true }), saved = await Promise.all(history.filter(item => item.isFile()).map(item => fs.readFile(path.join(item.parentPath, item.name))));
     for (const bytes of oldFiles) { const text = bytes.toString(); if (text.includes(point) || text.includes(later)) expect(saved.some(value => value.equals(bytes))).toBe(true); }
-    for (const r of [...found, ...tails]) { for (const e of r.fragment.evidence) await f.c.verifyOpen(e); await f.c.verifyFragmentOpen(r.fragment.id); } await f.originals();
+    await f.originals();
+  } finally { f.c.dispose(); }
+});
+
+it.each(['lilac jar', later])('actual legacy upgrade finds %s and verifies every current original/generated endpoint', async query => {
+  const f = await fixture('md'); try {
+    await commitLegacy(f); const index = await upgradeLegacy(f);
+    const found = await f.c.find(query, 'medium'); expect(found).toHaveLength(2);
+    if (query === later) expect(found.every(r => r.fragment.summary.includes('cold dummy chamber') && r.fragment.summary.includes('warm chalk is a counterexample'))).toBe(true);
+    else expect(found.every(r => r.fragment.summary.includes(point) && r.fragment.summary.includes('disconnected synthetic cabinets'))).toBe(true);
+    const statePath = path.join(f.root, 'Derived/.third-brain/state.json'), state = await fs.readFile(statePath);
+    await f.c.refresh(); expect(await fs.readFile(statePath)).toEqual(state); expect(await f.store.load()).toEqual(index);
+    for (const r of found) { for (const e of r.fragment.evidence) await f.c.verifyOpen(e); await f.c.verifyFragmentOpen(r.fragment.id); }
+    await f.originals();
   } finally { f.c.dispose(); }
 });
 
