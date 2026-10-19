@@ -67,9 +67,51 @@ export function checkedSource(snapshot: SourceSnapshot): SourceSnapshot {
   return Object.freeze({ ...checked, privacy: restrictive(checked.privacy, snapshot.privacy) });
 }
 function valueList(text: string): string[] {
-  const clean = text.trim().replace(/\s+#.*$/u, '');
-  if (clean.startsWith('[') && clean.endsWith(']')) return clean.slice(1, -1).split(',').map(item => item.trim().replace(/^["']|["']$/gu, '')).filter(Boolean);
-  return clean.split(/[,，]/u).map(item => item.trim().replace(/^["']|["']$/gu, '')).filter(Boolean);
+  // A bounded single-line scalar/list reader, not a general YAML loader. Keep
+  // quoted values whole BEFORE safeVocabulary validates them: splitting an
+  // unsupported comma-containing label must not invent two safe partial labels.
+  const input = text.trim(), flow = input.startsWith('['), values: string[] = [];
+  let i = flow ? 1 : 0;
+  const separator = (char: string) => char === ',' || (!flow && char === '，');
+  while (i < input.length) {
+    while (/\s/u.test(input[i] ?? '') && i < input.length) i++;
+    if (flow && input[i] === ']') {
+      const tail = input.slice(i + 1).trim();
+      return !tail || tail.startsWith('#') ? values : [];
+    }
+    if (separator(input[i])) { i++; continue; }
+    if (i >= input.length) break;
+    let value: string;
+    const begin = i, quote = input[i];
+    if (quote === '"' || quote === "'") {
+      i++; let closed = false;
+      while (i < input.length) {
+        if (quote === '"' && input[i] === '\\') { i += 2; continue; }
+        if (input[i] === quote) {
+          if (quote === "'" && input[i + 1] === "'") { i += 2; continue; }
+          i++; closed = true; break;
+        }
+        i++;
+      }
+      if (!closed) return [];
+      const scalar = input.slice(begin,i);
+      try { value = quote === '"' ? JSON.parse(scalar) as string : scalar.slice(1,-1).replace(/''/gu,"'"); }
+      catch { return []; }
+    } else {
+      while (i < input.length && !separator(input[i]) && !(flow && input[i] === ']') && !(input[i] === '#' && i > begin && /\s/u.test(input[i - 1]))) i++;
+      value = input.slice(begin,i).trim();
+      // Nested collections/aliases are not supported, never flattened into tags.
+      if (/[\[\]{}"']/u.test(value)) return [];
+    }
+    if (value) values.push(value);
+    while (i < input.length && /\s/u.test(input[i])) i++;
+    if (separator(input[i])) { i++; continue; }
+    if (flow && input[i] === ']') continue;
+    if (!flow && (i === input.length || input[i] === '#')) return values;
+    return [];
+  }
+  // An incomplete flow list/quote contributes no guessed labels.
+  return flow ? [] : values;
 }
 function metadataFacets(metadata: string): Facets {
   const result = emptyFacets(); let current: keyof Facets | undefined;

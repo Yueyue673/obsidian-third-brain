@@ -67,6 +67,8 @@ While the idea box is focused, **Enter** adds a new line; **Ctrl + Enter** (**Co
 
 Click a topic, concept, mechanism or type on a result card to find more material with that attribute. This does not make another model request. Editing the search text returns to ordinary search.
 
+Source labels use the existing restricted plain-text grammar (letters/numbers, spaces, underscores, plus signs and dashes), not arbitrary YAML values. In unreleased source builds, a quoted unsupported value such as `"inlet, then outlet"` is ignored whole rather than turned into two properties; neighboring supported values remain available. A normal local **Refresh notes** repairs previously parsed explicit labels and their generated links. AI generation settings are unchanged: this does not re-edit cached AI interpretations. Only single-line scalar/list entries are supported, not a general YAML schema. Download 0.3.7 is unchanged.
+
 **Low** focuses on direct matches; **Medium** includes mechanisms; **High** can include cross-domain and indirect suggestions. A mechanism needs Medium or High; atmosphere needs High. The panel explains when a selection needs a wider range.
 
 High can show up to two indirect suggestions separately from the main results. Expand **Compare both original sources** to read both quotations. A shared mechanism is a reason to compare the notes, not proof of equivalence or causation.
@@ -173,6 +175,8 @@ Get-FileHash .\third-brain-0.3.7.zip -Algorithm SHA256
 ### 继续查找
 
 点卡片上的主题、概念、机制或类型，可查找具有相同属性的片段，不会再调用模型。这里的“机制”指共同的做法或原理。编辑输入后会回到普通搜索；切换发散度会保留属性选择。
+
+来源属性沿用受限的纯文本规则（文字、数字、空格、下划线、加号和连字符），不接受任意 YAML 内容。尚未发布的源码版本会整体忽略 `"inlet, then outlet"` 这类含不支持标点的值，不再拆成两个用户未声明的属性；旁边合法的值仍可使用。本地模式正常「更新笔记」即可修正旧解析属性及生成链接，不重置生成设置，也不会重新提炼已有 AI 缓存。仅支持单行标量／列表条目，不是完整 YAML 解析器；下载版 0.3.7 不变。
 
 低发散侧重直接匹配，中发散可看相同机制，高发散可看跨领域和间接建议。机制需要中或高，氛围需要高；范围不够时面板会提示。
 

@@ -1,0 +1,115 @@
+{
+  "synthetic": true,
+  "sourceCommit": "c9260a68df87ff334132cbc112d6a97b8f2d3842",
+  "raws": {
+    "a.md": "---\nconcepts: [\"staged inlet, delayed outlet\", witness]\n---\n# Synthetic jars\n\nOnly inert trials use the violet marker to record a seal.",
+    "b.md": "---\nconcepts: [staged inlet]\n---\n# Independent bench\n\nAn unrelated lime disc marks an empty-tank inspection."
+  },
+  "oldIndex": {
+    "version": 1,
+    "signature": "editorial-core-2:dbe6b6c8b083ea009cf73eab72f287312d9f58ab81fe55ab6fc6c3b1d3c57db3",
+    "updatedAt": "2026-10-19T01:09:25.356Z",
+    "sources": {
+      "a.md": {
+        "hash": "ecb6db8d62a43d97472e023b964d0dfbf8886ab50092e1f11eacf9995d655b8c",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_50131bab5ed2a776215e61909db6eae142af91c17ce31e46d88b2f018b06385a"
+        ]
+      },
+      "b.md": {
+        "hash": "6988b7696d149b132be98d45f028c9b220ee90ccbb75b5e637076b2386f7936f",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_2c819ee63d26431af6e44fb615be638d65f092452fb66bc74834c610505359b5"
+        ]
+      }
+    },
+    "fragments": {
+      "f_2c819ee63d26431af6e44fb615be638d65f092452fb66bc74834c610505359b5": {
+        "id": "f_2c819ee63d26431af6e44fb615be638d65f092452fb66bc74834c610505359b5",
+        "privacy": "normal",
+        "title": "Independent bench",
+        "summary": "# Independent bench\n\nAn unrelated lime disc marks an empty-tank inspection.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [
+            "staged inlet"
+          ],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "6988b7696d149b132be98d45f028c9b220ee90ccbb75b5e637076b2386f7936f",
+            "quote": "An unrelated lime disc marks an empty-tank inspection.",
+            "start": 54,
+            "end": 108
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "6988b7696d149b132be98d45f028c9b220ee90ccbb75b5e637076b2386f7936f",
+            "quote": "# Independent bench",
+            "start": 33,
+            "end": 52
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-19T01:09:25.356Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_50131bab5ed2a776215e61909db6eae142af91c17ce31e46d88b2f018b06385a": {
+        "id": "f_50131bab5ed2a776215e61909db6eae142af91c17ce31e46d88b2f018b06385a",
+        "privacy": "normal",
+        "title": "Synthetic jars",
+        "summary": "# Synthetic jars\n\nOnly inert trials use the violet marker to record a seal.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [
+            "delayed outlet",
+            "staged inlet",
+            "witness"
+          ],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "ecb6db8d62a43d97472e023b964d0dfbf8886ab50092e1f11eacf9995d655b8c",
+            "quote": "Only inert trials use the violet marker to record a seal.",
+            "start": 78,
+            "end": 135
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "ecb6db8d62a43d97472e023b964d0dfbf8886ab50092e1f11eacf9995d655b8c",
+            "quote": "# Synthetic jars",
+            "start": 60,
+            "end": 76
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-19T01:09:25.356Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      }
+    }
+  },
+  "rendered": {
+    "f_2c819ee63d26431af6e44fb615be638d65f092452fb66bc74834c610505359b5": "---\nthird_brain_render: 2\naliases: [\"Independent bench\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_2c819ee63d26431af6e44fb615be638d65f092452fb66bc74834c610505359b5\"\nprivacy: normal\ntitle: \"Independent bench\"\nextraction: local-excerpt\nupdated_at: \"2026-10-19T01:09:25.356Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"6988b7696d149b132be98d45f028c9b220ee90ccbb75b5e637076b2386f7936f\",\"start\":54,\"end\":108},{\"path\":\"b.md\",\"revision\":\"6988b7696d149b132be98d45f028c9b220ee90ccbb75b5e637076b2386f7936f\",\"start\":33,\"end\":52}]\n---\n\n# Independent bench\n\n\\# Independent bench\n\nAn unrelated lime disc marks an empty-tank inspection.\n\n_Local excerpt; not an AI summary._\n\n**concepts:** staged inlet\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: 6988b7696d149b132be98d45f028c9b220ee90ccbb75b5e637076b2386f7936f; character range: 54–108\n\n> An unrelated lime disc marks an empty-tank inspection.\n\n[Open original](<../b.md>) — b.md\n\nRevision: 6988b7696d149b132be98d45f028c9b220ee90ccbb75b5e637076b2386f7936f; character range: 33–52\n\n> \\# Independent bench\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\n- [Synthetic jars](<fragment-cf9fcba6ce3e12fd86f91872fd4f488e75bdaebefdc365c8499d244328cf1028.md>) — Shared concepts: staged inlet.\n",
+    "f_50131bab5ed2a776215e61909db6eae142af91c17ce31e46d88b2f018b06385a": "---\nthird_brain_render: 2\naliases: [\"Synthetic jars\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_50131bab5ed2a776215e61909db6eae142af91c17ce31e46d88b2f018b06385a\"\nprivacy: normal\ntitle: \"Synthetic jars\"\nextraction: local-excerpt\nupdated_at: \"2026-10-19T01:09:25.356Z\"\nprovenance: [{\"path\":\"a.md\",\"revision\":\"ecb6db8d62a43d97472e023b964d0dfbf8886ab50092e1f11eacf9995d655b8c\",\"start\":78,\"end\":135},{\"path\":\"a.md\",\"revision\":\"ecb6db8d62a43d97472e023b964d0dfbf8886ab50092e1f11eacf9995d655b8c\",\"start\":60,\"end\":76}]\n---\n\n# Synthetic jars\n\n\\# Synthetic jars\n\nOnly inert trials use the violet marker to record a seal.\n\n_Local excerpt; not an AI summary._\n\n**concepts:** delayed outlet, staged inlet, witness\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../a.md>) — a.md\n\nRevision: ecb6db8d62a43d97472e023b964d0dfbf8886ab50092e1f11eacf9995d655b8c; character range: 78–135\n\n> Only inert trials use the violet marker to record a seal.\n\n[Open original](<../a.md>) — a.md\n\nRevision: ecb6db8d62a43d97472e023b964d0dfbf8886ab50092e1f11eacf9995d655b8c; character range: 60–76\n\n> \\# Synthetic jars\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\n- [Independent bench](<fragment-20fd674e0fcd9b9648a6bfe8dad8d569f884d150722f5656afdbbc15a4688e8e.md>) — Shared concepts: staged inlet.\n"
+  }
+}
