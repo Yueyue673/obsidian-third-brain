@@ -136,13 +136,22 @@ export function sourceFacets(snapshot: SourceSnapshot): Facets {
   return safeVocabulary({ ...result, topics: result.topics.slice(0,256) });
 }
 function introducesList(text: string): boolean {
-  if (/[:：]$/u.test(text)) return true;
+  const colonEnded = (value: string) => {
+    if (/[:：]$/u.test(value)) return true;
+    // Only a complete final visible line wrapped in one matching emphasis pair.
+    // Do not strip arbitrary inline markup, code, escapes or partial emphasis.
+    // Keep authored bytes/offsets; this predicate changes only local grouping.
+    const last = value.split(/\r\n|\n|\r/u).at(-1) ?? '';
+    const emphasis = /^(\*\*?|__?)([^*_\\`\r\n]+)\1$/u.exec(last);
+    return !!emphasis && emphasis[2].trim() === emphasis[2] && /[:：]$/u.test(emphasis[2]);
+  };
+  if (colonEnded(text)) return true;
   // A quoted blank line is syntax, not the end of the visible introduction.
   // Inspect only fully quoted blocks, without changing their exact evidence.
   const lines = text.split(/\r\n|\n|\r/u);
   if (!lines.every(line => /^ {0,3}>/u.test(line))) return false;
   while (lines.length && /^(?: {0,3}>[ \t]*)+$/u.test(lines.at(-1)!)) lines.pop();
-  return /[:：]$/u.test(lines.at(-1)?.trimEnd() ?? '');
+  return colonEnded(lines.at(-1)?.replace(/^(?: {0,3}>[ \t]?)+/u,'').trimEnd() ?? '');
 }
 /** Recognise only a top-level pipe header and matching delimiter row. Retain
  * the whole authored table paragraph; do not infer row independence or scope.

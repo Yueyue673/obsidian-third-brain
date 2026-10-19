@@ -35,5 +35,5 @@ export function isDue(settings: Settings, now = Date.now()): boolean {
   return !Number.isFinite(last) || now - last >= (settings.schedule === 'daily' ? 86400000 : 604800000);
 }
 export function generationSignature(s: Settings): string {
-  return JSON.stringify({ version: 1, ...(s.mode === 'local-excerpts' ? { localExcerptPolicy: 'emphasized-context-labels-1' } : {}), mode: s.mode, endpoint: s.mode === 'local-excerpts' ? '' : s.endpoint, model: s.model, excludes: [...s.excludes].sort(), maxFileBytes: s.maxFileBytes });
+  return JSON.stringify({ version: 1, ...(s.mode === 'local-excerpts' ? { localExcerptPolicy: 'emphasized-introductions-1' } : {}), mode: s.mode, endpoint: s.mode === 'local-excerpts' ? '' : s.endpoint, model: s.model, excludes: [...s.excludes].sort(), maxFileBytes: s.maxFileBytes });
 }
