@@ -75,14 +75,16 @@ it('keeps ordinary roots independent and ends checklist scope at structural, lis
     const all = (await analyzeSource(snap(first + boundary + second), opts)).fragments;
     expect(all.find(f => f.summary.includes('Vent'))!.summary).not.toContain('Latch');
   }
-  for (const other of ['* [ ] Vent the silver capsule.', '- Vent the silver capsule.', '- [-] Vent the silver capsule.', '- [x]Vent the silver capsule.', '1. Vent the silver capsule.']) {
+  for (const other of ['* [ ] Vent the silver capsule.', '- [-] Vent the silver capsule.', '- [x]Vent the silver capsule.', '1. Vent the silver capsule.']) {
     const all = (await analyzeSource(snap(first + '\n' + other), opts)).fragments;
     expect(all).toHaveLength(2); expect(all.find(f => f.summary.includes('Vent'))!.summary).not.toContain('Latch');
   }
   const ordinary = '- Remember the amber archive.\n- File the jade ledger.';
   expect((await analyzeSource(snap(ordinary), opts)).fragments).toHaveLength(2);
   const mixed = first + '\n- Ordinary independent archive observation.\n' + second;
-  expect((await analyzeSource(snap(mixed), opts)).fragments).toHaveLength(3);
+  const retained = (await analyzeSource(snap(mixed), opts)).fragments;
+  expect(retained).toHaveLength(1); expect(retained[0].summary).toBe(mixed);
+  for (const e of retained[0].evidence) expect(mixed.slice(e.start,e.end)).toBe(e.quote);
   const nested = '- Only in the synthetic archive:\n  - Remember the amber archive.\n  - File the jade ledger.';
   const focused = (await analyzeSource(snap(nested), opts)).fragments; expect(focused).toHaveLength(2); expect(focused.every(f => f.localContext)).toBe(true);
   const nodes = JSON.stringify({ nodes: [{ type: 'text', text: first }, { type: 'text', text: second }], edges: [] });

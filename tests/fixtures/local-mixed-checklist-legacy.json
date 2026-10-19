@@ -1,0 +1,723 @@
+{
+  "scope": "Authored synthetic/offline legacy runtime; not semantic graded.",
+  "raws": {
+    "a.md": "# Synthetic rehearsal\n\n## Earlier observations\nThe synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. \n\n## Coupled operations\nOnly in the isolated dummy bench:\n\n- [x] Close the cobalt inlet before the trial.\n  - Example: a cold dummy gate.\n- Drain the violet chamber after the inlet is closed.\n  - Limitation: inert samples only.\n- Condition: never connect real equipment.\n\n## Independent final observation\nA silver spool preserves the paper witness only in a dry dummy cabinet; damp felt is the counterexample.",
+    "copy.md": "# Synthetic rehearsal\n\n## Earlier observations\nThe synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. \n\n## Coupled operations\nOnly in the isolated dummy bench:\n\n- [x] Close the cobalt inlet before the trial.\n  - Example: a cold dummy gate.\n- Drain the violet chamber after the inlet is closed.\n  - Limitation: inert samples only.\n- Condition: never connect real equipment.\n\n## Independent final observation\nA silver spool preserves the paper witness only in a dry dummy cabinet; damp felt is the counterexample.",
+    "opposite.md": "# Synthetic rehearsal\n\n## Earlier observations\nThe synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. \n\n## Coupled operations\nOnly in the isolated dummy bench:\n\n- [x] Keep the cobalt inlet open throughout the trial.\n  - Example: a cold dummy gate.\n- Drain the violet chamber after the inlet is closed.\n  - Limitation: inert samples only.\n- Condition: never connect real equipment.\n\n## Independent final observation\nA silver spool preserves the paper witness only in a dry dummy cabinet; damp felt is the counterexample."
+  },
+  "old": {
+    "version": 1,
+    "signature": "editorial-core-2:c95b368b5b555502dbf3655fdec966923541b96b8296d311ff3e10fe651ab8ae",
+    "updatedAt": "2026-01-01T00:00:00.000Z",
+    "sources": {
+      "a.md": {
+        "hash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_3a5786a5214ccb943d9d8826271433799bcc894133aecc2462114186b021a225",
+          "f_669f3d840f66e3d97458f80cd24f2680f4ebdee292e201b166270f652864c4df",
+          "f_86c5c70425644b1d3258850e9feddebe65ebfd51c5d21f6df8011a82688c4efd",
+          "f_ee797497cb87e800687e740b35e097a8e535042aaa9ea1e93900ea556258d999"
+        ]
+      },
+      "copy.md": {
+        "hash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_3a5786a5214ccb943d9d8826271433799bcc894133aecc2462114186b021a225",
+          "f_669f3d840f66e3d97458f80cd24f2680f4ebdee292e201b166270f652864c4df",
+          "f_86c5c70425644b1d3258850e9feddebe65ebfd51c5d21f6df8011a82688c4efd",
+          "f_ee797497cb87e800687e740b35e097a8e535042aaa9ea1e93900ea556258d999"
+        ]
+      },
+      "opposite.md": {
+        "hash": "4168ab3725724e188f02ee3ced3f351251d681cb42b5c98c835f1a24024440fd",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_3a5786a5214ccb943d9d8826271433799bcc894133aecc2462114186b021a225",
+          "f_669f3d840f66e3d97458f80cd24f2680f4ebdee292e201b166270f652864c4df",
+          "f_7358d14246456bfda3e640f0f1e4ab4a6908141176468d3ae9d02f77cfb56b23",
+          "f_86c5c70425644b1d3258850e9feddebe65ebfd51c5d21f6df8011a82688c4efd"
+        ]
+      }
+    },
+    "fragments": {
+      "f_3a5786a5214ccb943d9d8826271433799bcc894133aecc2462114186b021a225": {
+        "id": "f_3a5786a5214ccb943d9d8826271433799bcc894133aecc2462114186b021a225",
+        "privacy": "normal",
+        "title": "Earlier observations",
+        "summary": "# Synthetic rehearsal\n## Earlier observations\n\nThe synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "# Synthetic rehearsal",
+            "start": 0,
+            "end": 21
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "## Earlier observations",
+            "start": 23,
+            "end": 46
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal.",
+            "start": 47,
+            "end": 1872
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "4168ab3725724e188f02ee3ced3f351251d681cb42b5c98c835f1a24024440fd",
+            "quote": "# Synthetic rehearsal",
+            "start": 0,
+            "end": 21
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "4168ab3725724e188f02ee3ced3f351251d681cb42b5c98c835f1a24024440fd",
+            "quote": "## Earlier observations",
+            "start": 23,
+            "end": 46
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "4168ab3725724e188f02ee3ced3f351251d681cb42b5c98c835f1a24024440fd",
+            "quote": "The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal.",
+            "start": 47,
+            "end": 1872
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "# Synthetic rehearsal",
+            "start": 0,
+            "end": 21
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "## Earlier observations",
+            "start": 23,
+            "end": 46
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal.",
+            "start": 47,
+            "end": 1872
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_669f3d840f66e3d97458f80cd24f2680f4ebdee292e201b166270f652864c4df": {
+        "id": "f_669f3d840f66e3d97458f80cd24f2680f4ebdee292e201b166270f652864c4df",
+        "privacy": "normal",
+        "title": "Independent final observation",
+        "summary": "# Synthetic rehearsal\n## Independent final observation\n\nA silver spool preserves the paper witness only in a dry dummy cabinet; damp felt is the counterexample.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "# Synthetic rehearsal",
+            "start": 0,
+            "end": 21
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "## Independent final observation",
+            "start": 2145,
+            "end": 2177
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "A silver spool preserves the paper witness only in a dry dummy cabinet; damp felt is the counterexample.",
+            "start": 2178,
+            "end": 2282
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "4168ab3725724e188f02ee3ced3f351251d681cb42b5c98c835f1a24024440fd",
+            "quote": "# Synthetic rehearsal",
+            "start": 0,
+            "end": 21
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "4168ab3725724e188f02ee3ced3f351251d681cb42b5c98c835f1a24024440fd",
+            "quote": "## Independent final observation",
+            "start": 2153,
+            "end": 2185
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "4168ab3725724e188f02ee3ced3f351251d681cb42b5c98c835f1a24024440fd",
+            "quote": "A silver spool preserves the paper witness only in a dry dummy cabinet; damp felt is the counterexample.",
+            "start": 2186,
+            "end": 2290
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "# Synthetic rehearsal",
+            "start": 0,
+            "end": 21
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "## Independent final observation",
+            "start": 2145,
+            "end": 2177
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "A silver spool preserves the paper witness only in a dry dummy cabinet; damp felt is the counterexample.",
+            "start": 2178,
+            "end": 2282
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_7358d14246456bfda3e640f0f1e4ab4a6908141176468d3ae9d02f77cfb56b23": {
+        "id": "f_7358d14246456bfda3e640f0f1e4ab4a6908141176468d3ae9d02f77cfb56b23",
+        "privacy": "normal",
+        "title": "Coupled operations",
+        "summary": "# Synthetic rehearsal\n## Coupled operations\n\nOnly in the isolated dummy bench:\n\n- [x] Keep the cobalt inlet open throughout the trial.\n  - Example: a cold dummy gate.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "4168ab3725724e188f02ee3ced3f351251d681cb42b5c98c835f1a24024440fd",
+            "quote": "- [x] Keep the cobalt inlet open throughout the trial.\n  - Example: a cold dummy gate.",
+            "start": 1932,
+            "end": 2018
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "4168ab3725724e188f02ee3ced3f351251d681cb42b5c98c835f1a24024440fd",
+            "quote": "# Synthetic rehearsal",
+            "start": 0,
+            "end": 21
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "4168ab3725724e188f02ee3ced3f351251d681cb42b5c98c835f1a24024440fd",
+            "quote": "## Coupled operations",
+            "start": 1875,
+            "end": 1896
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "4168ab3725724e188f02ee3ced3f351251d681cb42b5c98c835f1a24024440fd",
+            "quote": "Only in the isolated dummy bench:",
+            "start": 1897,
+            "end": 1930
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_86c5c70425644b1d3258850e9feddebe65ebfd51c5d21f6df8011a82688c4efd": {
+        "id": "f_86c5c70425644b1d3258850e9feddebe65ebfd51c5d21f6df8011a82688c4efd",
+        "privacy": "normal",
+        "title": "Coupled operations",
+        "summary": "# Synthetic rehearsal\n## Coupled operations\n\nOnly in the isolated dummy bench:\n\n- Drain the violet chamber after the inlet is closed.\n  - Limitation: inert samples only.\n- Condition: never connect real equipment.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "- Drain the violet chamber after the inlet is closed.\n  - Limitation: inert samples only.\n- Condition: never connect real equipment.",
+            "start": 2011,
+            "end": 2143
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "# Synthetic rehearsal",
+            "start": 0,
+            "end": 21
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "## Coupled operations",
+            "start": 1875,
+            "end": 1896
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "Only in the isolated dummy bench:",
+            "start": 1897,
+            "end": 1930
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "4168ab3725724e188f02ee3ced3f351251d681cb42b5c98c835f1a24024440fd",
+            "quote": "- Drain the violet chamber after the inlet is closed.\n  - Limitation: inert samples only.\n- Condition: never connect real equipment.",
+            "start": 2019,
+            "end": 2151
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "4168ab3725724e188f02ee3ced3f351251d681cb42b5c98c835f1a24024440fd",
+            "quote": "# Synthetic rehearsal",
+            "start": 0,
+            "end": 21
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "4168ab3725724e188f02ee3ced3f351251d681cb42b5c98c835f1a24024440fd",
+            "quote": "## Coupled operations",
+            "start": 1875,
+            "end": 1896
+          },
+          {
+            "sourceId": "41c76432d9601b05cbee5c13",
+            "relativePath": "opposite.md",
+            "sourceHash": "4168ab3725724e188f02ee3ced3f351251d681cb42b5c98c835f1a24024440fd",
+            "quote": "Only in the isolated dummy bench:",
+            "start": 1897,
+            "end": 1930
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "- Drain the violet chamber after the inlet is closed.\n  - Limitation: inert samples only.\n- Condition: never connect real equipment.",
+            "start": 2011,
+            "end": 2143
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "# Synthetic rehearsal",
+            "start": 0,
+            "end": 21
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "## Coupled operations",
+            "start": 1875,
+            "end": 1896
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "Only in the isolated dummy bench:",
+            "start": 1897,
+            "end": 1930
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_ee797497cb87e800687e740b35e097a8e535042aaa9ea1e93900ea556258d999": {
+        "id": "f_ee797497cb87e800687e740b35e097a8e535042aaa9ea1e93900ea556258d999",
+        "privacy": "normal",
+        "title": "Coupled operations",
+        "summary": "# Synthetic rehearsal\n## Coupled operations\n\nOnly in the isolated dummy bench:\n\n- [x] Close the cobalt inlet before the trial.\n  - Example: a cold dummy gate.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "- [x] Close the cobalt inlet before the trial.\n  - Example: a cold dummy gate.",
+            "start": 1932,
+            "end": 2010
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "# Synthetic rehearsal",
+            "start": 0,
+            "end": 21
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "## Coupled operations",
+            "start": 1875,
+            "end": 1896
+          },
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "Only in the isolated dummy bench:",
+            "start": 1897,
+            "end": 1930
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "- [x] Close the cobalt inlet before the trial.\n  - Example: a cold dummy gate.",
+            "start": 1932,
+            "end": 2010
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "# Synthetic rehearsal",
+            "start": 0,
+            "end": 21
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "## Coupled operations",
+            "start": 1875,
+            "end": 1896
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "7d06a2ee20b12c6f8e6c9a0043bf19c93972130635d5c43c34cd5f19e49cb043",
+            "quote": "Only in the isolated dummy bench:",
+            "start": 1897,
+            "end": 1930
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      }
+    }
+  },
+  "signatures": {
+    "local-excerpts": "{\"version\":1,\"localExcerptPolicy\":\"list-first-heading-1\",\"mode\":\"local-excerpts\",\"endpoint\":\"\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "local-model": "{\"version\":1,\"mode\":\"local-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "cloud-model": "{\"version\":1,\"mode\":\"cloud-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}"
+  },
+  "requests": {
+    "local-model": [
+      {
+        "task": "extract",
+        "text": "The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier observations",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Only in the isolated dummy bench:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Coupled operations",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- [x] Close the cobalt inlet before the trial.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Coupled operations",
+          "before": "Only in the isolated dummy bench:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Example: a cold dummy gate.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Coupled operations",
+          "before": "- [x] Close the cobalt inlet before the trial."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Drain the violet chamber after the inlet is closed.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Coupled operations",
+          "before": "- Example: a cold dummy gate."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Limitation: inert samples only.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Coupled operations",
+          "before": "- Drain the violet chamber after the inlet is closed."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Condition: never connect real equipment.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Coupled operations",
+          "before": "- Limitation: inert samples only."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "A silver spool preserves the paper witness only in a dry dummy cabinet; damp felt is the counterexample.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Independent final observation",
+          "before": ""
+        }
+      }
+    ],
+    "cloud-model": [
+      {
+        "task": "extract",
+        "text": "The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal. The synthetic paper archive records inert tiles before the disconnected rehearsal.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier observations",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Only in the isolated dummy bench:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Coupled operations",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- [x] Close the cobalt inlet before the trial.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Coupled operations",
+          "before": "Only in the isolated dummy bench:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Example: a cold dummy gate.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Coupled operations",
+          "before": "- [x] Close the cobalt inlet before the trial."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Drain the violet chamber after the inlet is closed.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Coupled operations",
+          "before": "- Example: a cold dummy gate."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Limitation: inert samples only.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Coupled operations",
+          "before": "- Drain the violet chamber after the inlet is closed."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Condition: never connect real equipment.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Coupled operations",
+          "before": "- Limitation: inert samples only."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "A silver spool preserves the paper witness only in a dry dummy cabinet; damp felt is the counterexample.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Independent final observation",
+          "before": ""
+        }
+      }
+    ]
+  }
+}
