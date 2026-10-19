@@ -103,11 +103,18 @@ it('retains long later conditions, enforces the complete 16384-unit bound and le
   for (const [name, raw] of Object.entries(legacy.raws as Record<string, string>)) expect(hash(JSON.stringify(textBlocks(snap(raw, name))))).toBe(legacy.blockHashes[name]);
 });
 
-async function fixture(ext: string) {
+async function fixture(ext: string, frozenLayout = false) {
   const scope = path.resolve('.local/lazy-list'); await fs.mkdir(scope, { recursive: true }); const root = await fs.mkdtemp(path.join(scope, ext + '-'));
   const originals = new Map<string, { text: string; mtime: string }>();
   const put = async (name: string, text: string) => { await fs.writeFile(path.join(root, name), text); originals.set(name, { text, mtime: (await fs.stat(path.join(root, name), { bigint: true })).mtimeNs.toString() }); };
-  for (const [name, raw] of Object.entries(legacy.raws as Record<string, string>)) await put(name.replace('.md', '.' + ext), ext === 'md' ? raw : canvas(raw));
+  for (const [name, raw] of Object.entries(legacy.raws as Record<string, string>)) {
+    // Keep long-note coverage and all target/independent text, but do not
+    // multiply unrelated generated prefix cards in every Main callback case.
+    // Only the legacy upgrade uses the exact captured historical layout.
+    const body = frozenLayout ? raw : raw.replace(/\n\n(?=Archive entry [1-3] records)/gu, ' ');
+    expect(body.indexOf(action)).toBeGreaterThan(1400); expect(body.indexOf(action)).toBeGreaterThan(body.length / 2);
+    await put(name.replace('.md', '.' + ext), ext === 'md' ? body : canvas(body));
+  }
   await fs.mkdir(path.join(root, 'Derived')); await put('Derived/manual.txt', 'Synthetic human-owned file, not generated.');
   const settings = { ...defaults, outputFolder: 'Derived', excludes: [] as string[] }, store = new OwnedStore(root, 'Derived'), sources = new FileSources(root, () => settings, () => store.managedSourcePaths());
   const factory = vi.fn(() => undefined), c = new ThirdBrainController(sources, store, () => settings, factory, async () => {});
@@ -118,7 +125,7 @@ async function fixture(ext: string) {
 }
 
 it('actual frozen legacy state loads byte-preserving, upgrades once with complete opposing contexts/history and reruns without writes', async () => {
-  const f = await fixture('md'); try {
+  const f = await fixture('md', true); try {
     const inputs = await f.sources.list(); await f.store.commit(structuredClone(legacy.old) as IndexState, () => f.sources.verify(inputs));
     const old = await f.targets(); await f.c.initialize(); expect(await f.store.load()).toEqual(legacy.old); await f.unchanged(old);
     const commit = vi.spyOn(f.store, 'commit'); await f.c.refresh(); expect(commit).toHaveBeenCalledTimes(1); await f.c.initialize();
