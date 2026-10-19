@@ -1,0 +1,338 @@
+{
+  "synthetic": true,
+  "sourceCommit": "e9779b2cb4b349dde9a326b2087e6d50ed0fce3a",
+  "oldIndex": {
+    "version": 1,
+    "signature": "editorial-core-2:dbe6b6c8b083ea009cf73eab72f287312d9f58ab81fe55ab6fc6c3b1d3c57db3",
+    "updatedAt": "2026-10-19T01:46:23.804Z",
+    "sources": {
+      "a.md": {
+        "hash": "9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_dac120759f9fdef88a532220fd896c61aff9ed52b4a87599130a34a2980b8666",
+          "f_de5dccd57e62f931adc7ac6747838745587737e79d28f4947e885009e982bc52",
+          "f_df671c7641bfc92156e6d0784128f864fc1aa928a273edc97dd7899bdc4b0ff1"
+        ]
+      },
+      "b.md": {
+        "hash": "9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_dac120759f9fdef88a532220fd896c61aff9ed52b4a87599130a34a2980b8666",
+          "f_de5dccd57e62f931adc7ac6747838745587737e79d28f4947e885009e982bc52",
+          "f_df671c7641bfc92156e6d0784128f864fc1aa928a273edc97dd7899bdc4b0ff1"
+        ]
+      }
+    },
+    "fragments": {
+      "f_dac120759f9fdef88a532220fd896c61aff9ed52b4a87599130a34a2980b8666": {
+        "id": "f_dac120759f9fdef88a532220fd896c61aff9ed52b4a87599130a34a2980b8666",
+        "privacy": "local",
+        "title": "Earlier independent register",
+        "summary": "# Synthetic rehearsal\n## Earlier independent register\n\nThe paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48",
+            "quote": "# Synthetic rehearsal",
+            "start": 23,
+            "end": 44
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48",
+            "quote": "## Earlier independent register",
+            "start": 46,
+            "end": 77
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48",
+            "quote": "The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation.",
+            "start": 78,
+            "end": 2577
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48",
+            "quote": "# Synthetic rehearsal",
+            "start": 23,
+            "end": 44
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48",
+            "quote": "## Earlier independent register",
+            "start": 46,
+            "end": 77
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48",
+            "quote": "The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation.",
+            "start": 78,
+            "end": 2577
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-19T01:46:23.804Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_de5dccd57e62f931adc7ac6747838745587737e79d28f4947e885009e982bc52": {
+        "id": "f_de5dccd57e62f931adc7ac6747838745587737e79d28f4947e885009e982bc52",
+        "privacy": "local",
+        "title": "Endnotes",
+        "summary": "# Synthetic rehearsal\n## Endnotes\n\n[^scope]: Only inside the disconnected synthetic chamber.\n  A warm rim is the counterexample; keep the dummy lid shut.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48",
+            "quote": "[^scope]: Only inside the disconnected synthetic chamber.\n  A warm rim is the counterexample; keep the dummy lid shut.",
+            "start": 2663,
+            "end": 2781
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48",
+            "quote": "# Synthetic rehearsal",
+            "start": 23,
+            "end": 44
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48",
+            "quote": "## Endnotes",
+            "start": 2651,
+            "end": 2662
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48",
+            "quote": "[^scope]: Only inside the disconnected synthetic chamber.\n  A warm rim is the counterexample; keep the dummy lid shut.",
+            "start": 2663,
+            "end": 2781
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48",
+            "quote": "# Synthetic rehearsal",
+            "start": 23,
+            "end": 44
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48",
+            "quote": "## Endnotes",
+            "start": 2651,
+            "end": 2662
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-19T01:46:23.804Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_df671c7641bfc92156e6d0784128f864fc1aa928a273edc97dd7899bdc4b0ff1": {
+        "id": "f_df671c7641bfc92156e6d0784128f864fc1aa928a273edc97dd7899bdc4b0ff1",
+        "privacy": "local",
+        "title": "Late independent point",
+        "summary": "# Synthetic rehearsal\n## Late independent point\n\nThe violet marker records the seal[^scope].",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48",
+            "quote": "# Synthetic rehearsal",
+            "start": 23,
+            "end": 44
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48",
+            "quote": "## Late independent point",
+            "start": 2580,
+            "end": 2605
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48",
+            "quote": "The violet marker records the seal[^scope].",
+            "start": 2606,
+            "end": 2649
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48",
+            "quote": "# Synthetic rehearsal",
+            "start": 23,
+            "end": 44
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48",
+            "quote": "## Late independent point",
+            "start": 2580,
+            "end": 2605
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48",
+            "quote": "The violet marker records the seal[^scope].",
+            "start": 2606,
+            "end": 2649
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-19T01:46:23.804Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      }
+    }
+  },
+  "rendered": {
+    "f_dac120759f9fdef88a532220fd896c61aff9ed52b4a87599130a34a2980b8666": "---\nthird_brain_render: 2\naliases: [\"Earlier independent register\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_dac120759f9fdef88a532220fd896c61aff9ed52b4a87599130a34a2980b8666\"\nprivacy: local\ntitle: \"Earlier independent register\"\nextraction: local-excerpt\nupdated_at: \"2026-10-19T01:46:23.804Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48\",\"start\":23,\"end\":44},{\"path\":\"b.md\",\"revision\":\"9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48\",\"start\":46,\"end\":77},{\"path\":\"b.md\",\"revision\":\"9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48\",\"start\":78,\"end\":2577},{\"path\":\"a.md\",\"revision\":\"9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48\",\"start\":23,\"end\":44},{\"path\":\"a.md\",\"revision\":\"9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48\",\"start\":46,\"end\":77},{\"path\":\"a.md\",\"revision\":\"9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48\",\"start\":78,\"end\":2577}]\n---\n\n# Earlier independent register\n\n\\# Synthetic rehearsal\n\\#\\# Earlier independent register\n\nThe paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: 9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48; character range: 23–44\n\n> \\# Synthetic rehearsal\n\n[Open original](<../b.md>) — b.md\n\nRevision: 9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48; character range: 46–77\n\n> \\#\\# Earlier independent register\n\n[Open original](<../b.md>) — b.md\n\nRevision: 9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48; character range: 78–2577\n\n> The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation.\n\n[Open original](<../a.md>) — a.md\n\nRevision: 9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48; character range: 23–44\n\n> \\# Synthetic rehearsal\n\n[Open original](<../a.md>) — a.md\n\nRevision: 9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48; character range: 46–77\n\n> \\#\\# Earlier independent register\n\n[Open original](<../a.md>) — a.md\n\nRevision: 9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48; character range: 78–2577\n\n> The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_de5dccd57e62f931adc7ac6747838745587737e79d28f4947e885009e982bc52": "---\nthird_brain_render: 2\naliases: [\"Endnotes\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_de5dccd57e62f931adc7ac6747838745587737e79d28f4947e885009e982bc52\"\nprivacy: local\ntitle: \"Endnotes\"\nextraction: local-excerpt\nupdated_at: \"2026-10-19T01:46:23.804Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48\",\"start\":2663,\"end\":2781},{\"path\":\"b.md\",\"revision\":\"9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48\",\"start\":23,\"end\":44},{\"path\":\"b.md\",\"revision\":\"9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48\",\"start\":2651,\"end\":2662},{\"path\":\"a.md\",\"revision\":\"9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48\",\"start\":2663,\"end\":2781},{\"path\":\"a.md\",\"revision\":\"9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48\",\"start\":23,\"end\":44},{\"path\":\"a.md\",\"revision\":\"9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48\",\"start\":2651,\"end\":2662}]\n---\n\n# Endnotes\n\n\\# Synthetic rehearsal\n\\#\\# Endnotes\n\n\\[^scope\\]: Only inside the disconnected synthetic chamber.\n  A warm rim is the counterexample; keep the dummy lid shut.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: 9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48; character range: 2663–2781\n\n> \\[^scope\\]: Only inside the disconnected synthetic chamber.\n>   A warm rim is the counterexample; keep the dummy lid shut.\n\n[Open original](<../b.md>) — b.md\n\nRevision: 9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48; character range: 23–44\n\n> \\# Synthetic rehearsal\n\n[Open original](<../b.md>) — b.md\n\nRevision: 9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48; character range: 2651–2662\n\n> \\#\\# Endnotes\n\n[Open original](<../a.md>) — a.md\n\nRevision: 9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48; character range: 2663–2781\n\n> \\[^scope\\]: Only inside the disconnected synthetic chamber.\n>   A warm rim is the counterexample; keep the dummy lid shut.\n\n[Open original](<../a.md>) — a.md\n\nRevision: 9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48; character range: 23–44\n\n> \\# Synthetic rehearsal\n\n[Open original](<../a.md>) — a.md\n\nRevision: 9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48; character range: 2651–2662\n\n> \\#\\# Endnotes\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_df671c7641bfc92156e6d0784128f864fc1aa928a273edc97dd7899bdc4b0ff1": "---\nthird_brain_render: 2\naliases: [\"Late independent point\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_df671c7641bfc92156e6d0784128f864fc1aa928a273edc97dd7899bdc4b0ff1\"\nprivacy: local\ntitle: \"Late independent point\"\nextraction: local-excerpt\nupdated_at: \"2026-10-19T01:46:23.804Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48\",\"start\":23,\"end\":44},{\"path\":\"b.md\",\"revision\":\"9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48\",\"start\":2580,\"end\":2605},{\"path\":\"b.md\",\"revision\":\"9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48\",\"start\":2606,\"end\":2649},{\"path\":\"a.md\",\"revision\":\"9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48\",\"start\":23,\"end\":44},{\"path\":\"a.md\",\"revision\":\"9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48\",\"start\":2580,\"end\":2605},{\"path\":\"a.md\",\"revision\":\"9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48\",\"start\":2606,\"end\":2649}]\n---\n\n# Late independent point\n\n\\# Synthetic rehearsal\n\\#\\# Late independent point\n\nThe violet marker records the seal\\[^scope\\].\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: 9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48; character range: 23–44\n\n> \\# Synthetic rehearsal\n\n[Open original](<../b.md>) — b.md\n\nRevision: 9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48; character range: 2580–2605\n\n> \\#\\# Late independent point\n\n[Open original](<../b.md>) — b.md\n\nRevision: 9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48; character range: 2606–2649\n\n> The violet marker records the seal\\[^scope\\].\n\n[Open original](<../a.md>) — a.md\n\nRevision: 9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48; character range: 23–44\n\n> \\# Synthetic rehearsal\n\n[Open original](<../a.md>) — a.md\n\nRevision: 9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48; character range: 2580–2605\n\n> \\#\\# Late independent point\n\n[Open original](<../a.md>) — a.md\n\nRevision: 9d032ee7dad0b324cc3111832e7768f3aa970e66c96cdaf30d06bfa791fe0e48; character range: 2606–2649\n\n> The violet marker records the seal\\[^scope\\].\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n"
+  },
+  "signatures": {
+    "local-excerpts": "{\"version\":1,\"localExcerptPolicy\":\"setext-heading-context-1\",\"mode\":\"local-excerpts\",\"endpoint\":\"\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "local-model": "{\"version\":1,\"mode\":\"local-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "cloud-model": "{\"version\":1,\"mode\":\"cloud-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}"
+  },
+  "requests": {
+    "local-model": [
+      {
+        "task": "extract",
+        "text": "The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier independent register",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "The violet marker records the seal[^scope].",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Late independent point",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "[^scope]: Only inside the disconnected synthetic chamber.\n  A warm rim is the counterexample; keep the dummy lid shut.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Endnotes",
+          "before": ""
+        }
+      }
+    ],
+    "cloud-model": [
+      {
+        "task": "extract",
+        "text": "The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation. The paper register records mock tile orientation.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier independent register",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "The violet marker records the seal[^scope].",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Late independent point",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "[^scope]: Only inside the disconnected synthetic chamber.\n  A warm rim is the counterexample; keep the dummy lid shut.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Endnotes",
+          "before": ""
+        }
+      }
+    ]
+  }
+}

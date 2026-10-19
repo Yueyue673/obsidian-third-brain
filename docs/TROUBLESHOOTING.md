@@ -26,6 +26,8 @@ Timeouts, redirects, oversized responses and invalid output stop the request. Th
 
 For a source failure, the panel shows the affected note, stage and last progress. Fix the reported format or access problem, or explicitly exclude the note, then refresh again. The plugin does not rewrite the original to fix it.
 
+In source builds, local excerpts keep named footnote definitions with the passage that refers to them. Use exact matching labels and top-level `[^label]:` definitions in the same note or Canvas text node; indent continuation lines by at least two spaces or a tab. Undefined, empty or duplicate referenced labels, hidden content and fenced code in a definition stop the whole refresh. Quoted/nested definitions, cross-node resolution and reference-style links are not supported by this change. Review the reported note in a copy, preserve its restrictions and retry explicitly; nothing is silently truncated. AI modes keep their existing policy. This is not yet in the 0.3.7 download.
+
 Source builds also explain known missing or changed generated files at refresh or startup, without first opening a fragment. The refresh command uses the same guidance; scheduled failures stay in the panel without repeated popups. Follow the protected-file guidance below instead of repeatedly refreshing. Unknown I/O or corrupt metadata is not classified as a missing-file problem. This improvement is not yet in the 0.3.7 download.
 
 A failure before saving retains any previous complete index, but changed or unreadable source references are still unavailable. On a first failed update, there is no complete index yet. If saving itself fails, or a generated file was edited by hand, keep the folder intact; do not assume that the disk index is safe to reuse.
@@ -85,6 +87,8 @@ Include the plugin version, Obsidian version, processing mode, steps and a small
 ### 更新失败或取消
 
 若是来源故障，查看面板提示的笔记、阶段和最后进度，处理文件格式或访问问题，也可以明确排除该来源后重试。插件不会替你修改原笔记。
+
+源码构建的本地摘录会保留所引用的命名脚注。标签须完全相同，`[^标签]:` 定义须位于同一笔记或 Canvas 文本节点的顶层；续行至少缩进两个空格或一个制表符。引用缺失、空白或重复定义，以及定义中包含隐藏内容或围栏代码，会使整次更新停止。引用块/嵌套定义、跨节点解析和引用式链接不在这项支持范围内。请先在副本中检查对应笔记，保留条件后明确重试，不会自动截断。AI 模式政策不变；0.3.7 下载包尚不包含此改动。
 
 从源码构建的版本还会在更新或启动时直接说明已确认的生成文件缺失、改动，不必先打开片段。更新命令显示相同指引，定时更新失败只留在面板、不重复弹窗。请按下方受保护文件的指引处理，不要反复更新。未知读取异常或元数据损坏不会被当作文件缺失；这项改进尚未包含在 0.3.7 下载包中。
 

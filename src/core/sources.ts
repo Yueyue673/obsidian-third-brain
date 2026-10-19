@@ -4,7 +4,7 @@ import { CoreError, FACET_KEYS, boundedString, canonicalFacets, isPrivacy, parse
 import { mapped, safeVocabulary, type MappedText } from './privacy';
 import { bindSourceDiagnostic } from './source-diagnostics';
 
-export interface TextBlock extends MappedText { heading: string; localList?: boolean; localHeadings?: MappedText[]; localLeadIn?: MappedText; localParts?: MappedText[]; localSiblings?: MappedText[]; }
+export interface TextBlock extends MappedText { heading: string; localList?: boolean; localHeadings?: MappedText[]; localLeadIn?: MappedText; localParts?: MappedText[]; localSiblings?: MappedText[]; localFootnote?: string; localFootnotes?: MappedText[]; }
 /** Bound complete local structural context before any focused-branch fan-out. Never truncate. */
 export const LOCAL_EXCERPT_CONTEXT_LIMIT = 16384;
 // Each focused copy retains every sibling's text/evidence. Bound that quadratic
@@ -144,7 +144,7 @@ function introducesList(text: string): boolean {
   while (lines.length && /^(?: {0,3}>[ \t]*)+$/u.test(lines.at(-1)!)) lines.pop();
   return /[:：]$/u.test(lines.at(-1)?.trimEnd() ?? '');
 }
-function markdownBlocks(raw: string, base: number, excalidraw = false, local = false, sourcePath = '', includeHeadings = false, quotedLists = true): TextBlock[] {
+function markdownBlocks(raw: string, base: number, excalidraw = false, local = false, sourcePath = '', includeHeadings = false, quotedLists = true, footnoteDefinitions = local): TextBlock[] {
   const meta = frontmatter(raw), blocks: TextBlock[] = [];
   const ancestors: { depth: number; block: MappedText }[] = [];
   let heading = '', start = -1, end = -1, fence = '', fenceLength = 0, hidden = '', drawing = false;
@@ -172,10 +172,10 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
     start = end = -1; listIndent = contentIndent = -1; rootIsContext = false; orderedRoot = taskRoot = '';
   };
   const linePattern = /[^\r\n]+(?:\r\n|\r|\n|$)|(?:\r\n|\r|\n)/gu;
-  let quotedThrough = -1, quoteScannedThrough = -1;
+  let quotedThrough = -1, quoteScannedThrough = -1, footnoteThrough = -1;
   for (const hit of raw.slice(meta.body).matchAll(linePattern)) {
     const offset = meta.body + hit.index, line = hit[0].replace(/[\r\n]+$/u, '');
-    if (offset < quotedThrough) continue;
+    if (offset < quotedThrough || offset < footnoteThrough) continue;
     const code = /^\s*(`{3,}|~{3,})/u.exec(line);
     if (code) {
       barrier();
@@ -187,6 +187,27 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
     if (hidden) { if (line.includes(hidden)) hidden = ''; continue; }
     if (line.trim().startsWith('<!--')) { barrier(); if (!line.includes('-->')) hidden = '-->'; continue; }
     if (line.trim().startsWith('%%')) { barrier(); if (line.trim() === '%%' || !line.trim().slice(2).includes('%%')) hidden = '%%'; continue; }
+    // Obsidian's top-level named footnotes allow indented continuation lines.
+    // Keep their complete authored spans before ordinary paragraph/list parsing
+    // can detach a restriction. Resolve references only within this note/node.
+    const footnote = footnoteDefinitions && !drawing && /^\[\^([^\]\s]+)\]:/u.exec(line);
+    if (footnote) {
+      barrier();
+      let stop = offset + line.length;
+      for (const next of raw.slice(offset + hit[0].length).matchAll(linePattern)) {
+        const row = next[0].replace(/[\r\n]+$/u,'');
+        if (!row.trim()) continue;
+        if (!/^(?: {2,}|\t)/u.test(row)) break;
+        stop = offset + hit[0].length + next.index + row.length;
+      }
+      const text = raw.slice(offset,stop).trimEnd();
+      // Never turn hidden content or code in a definition into prose context.
+      // Unsupported definitions fail the whole run, not just the referenced card.
+      if (text.includes('<!--') || text.includes('%%') || /^\s*(?:`{3,}|~{3,})/mu.test(text)) throw new CoreError('Local footnote context intersects hidden content or code; no partial index was saved.');
+      blocks.push({ ...mapped(text,base < 0 ? -1 : base + offset),heading,localFootnote:footnote[1],...(local && ancestors.length ? { localHeadings:ancestors.map(item => item.block) } : {}) });
+      footnoteThrough = stop; blank = false;
+      continue;
+    }
     const title = /^\s{0,3}#{1,6}\s+(.+?)\s*#*\s*$/u.exec(line);
     if (title) {
       flush(); clearBlocked(); introduction = undefined; listLeadIn = undefined;
@@ -260,7 +281,7 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
           const text = raw.slice(begin,end), leading = text.length - text.trimStart().length;
           return mapped(text.trim(),base < 0 ? -1 : base + begin + leading);
         };
-        const inner = markdownBlocks(visible,0,false,true,sourcePath,false,false);
+        const inner = markdownBlocks(visible,0,false,true,sourcePath,false,false,false);
         for (const block of inner) {
           const restored: TextBlock = { ...restore(block),heading:block.heading || heading,
             ...(block.localList ? { localList:true } : {}),
@@ -398,10 +419,42 @@ function focusedListBranches(block: TextBlock): TextBlock[] {
     return { ...block,text:parts.map(piece => piece.text).join('\n'),offsets:parts.flatMap((piece,i) => [...(i ? [-1] : []),...piece.offsets]),localParts:parts,localSiblings:siblings };
   });
 }
-function sourceBlocks(snapshot: SourceSnapshot, local = false, includeHeadings = false): TextBlock[] {
+/** Named footnotes are authored dependencies, not inferred semantic links. Keep
+ * each required definition (and its headings) once, including transitive/cyclic
+ * references. Unknown or ambiguous definitions cannot yield a bare statement.
+ * Inline code/escapes are syntax examples, not footnote requests. */
+function localFootnoteContext(blocks: TextBlock[]): TextBlock[] {
+  const definitions = new Map<string,TextBlock[]>(), used = new Set<TextBlock>();
+  for (const block of blocks) if (block.localFootnote !== undefined) definitions.set(block.localFootnote,[...definitions.get(block.localFootnote) ?? [],block]);
+  const references = (text: string): string[] => [...text.replace(/\\[\s\S]|(`+)[\s\S]*?\1(?!`)/gu,'').matchAll(/\[\^([^\]\s]+)\]/gu)].map(hit => hit[1]);
+  const resolve = (block: TextBlock): TextBlock => {
+    const text = block.localFootnote !== undefined ? block.text.replace(/^\[\^[^\]\s]+\]:/u,'') : block.text;
+    const queue = references([text,...(block.localHeadings ?? []).map(v => v.text),block.localLeadIn?.text ?? '',...(block.localSiblings ?? []).map(v => v.text)].join('\n'));
+    const seen = new Set<string>(block.localFootnote === undefined ? [] : [block.localFootnote]), parts: MappedText[] = [];
+    const locations = new Set((block.localHeadings ?? []).map(v => JSON.stringify([v.text,v.offsets[0]])));
+    for (let i = 0; i < queue.length; i++) {
+      const label = queue[i]; if (seen.has(label)) continue; seen.add(label);
+      const matches = definitions.get(label);
+      if (matches?.length !== 1 || !matches[0].text.replace(/^\[\^[^\]\s]+\]:/u,'').trim()) throw new CoreError('Local footnote reference is missing or ambiguous; no partial index was saved.');
+      const definition = matches[0]; used.add(definition);
+      for (const part of [...definition.localHeadings ?? [],definition]) {
+        const location = JSON.stringify([part.text,part.offsets[0]]);
+        if (!locations.has(location)) { locations.add(location); parts.push(part); }
+      }
+      queue.push(...references(definition.text.replace(/^\[\^[^\]\s]+\]:/u,'')),...references((definition.localHeadings ?? []).map(v => v.text).join('\n')));
+    }
+    return parts.length ? { ...block,localFootnotes:parts } : block;
+  };
+  const primary = blocks.filter(block => block.localFootnote === undefined).flatMap(focusedListBranches).map(resolve);
+  // An unused authored definition can still be material in its own right. Do
+  // not silently delete it; resolve any dependencies just like ordinary prose.
+  const unused = blocks.filter(block => block.localFootnote !== undefined && !used.has(block));
+  return [...primary,...unused.map(resolve)];
+}
+function sourceBlocks(snapshot: SourceSnapshot, local = false, includeHeadings = false, readableFootnotes = false): TextBlock[] {
   if (snapshot.format === 'markdown') {
-    const blocks = markdownBlocks(snapshot.text, 0, /(?:^|\n)\s*excalidraw-plugin\s*:/iu.test(frontmatter(snapshot.text).metadata) || /\.excalidraw\.md$/iu.test(snapshot.path), local, snapshot.path, includeHeadings);
-    return local ? blocks.flatMap(focusedListBranches) : blocks;
+    const blocks = markdownBlocks(snapshot.text, 0, /(?:^|\n)\s*excalidraw-plugin\s*:/iu.test(frontmatter(snapshot.text).metadata) || /\.excalidraw\.md$/iu.test(snapshot.path), local, snapshot.path, includeHeadings,true,local || readableFootnotes);
+    return local ? localFootnoteContext(blocks) : blocks;
   }
   const nodes = canvasObject(snapshot.text).nodes as unknown[], blocks: TextBlock[] = [];
   for (const node of nodes) {
@@ -409,9 +462,10 @@ function sourceBlocks(snapshot: SourceSnapshot, local = false, includeHeadings =
     const text = node.text;
     // Escaped Canvas strings have no contiguous original-byte span. Never fake one.
     const literal = JSON.stringify(text), rawPosition = literal.includes('\\') ? -1 : snapshot.text.indexOf(literal);
-    blocks.push(...markdownBlocks(text, rawPosition < 0 ? -1 : rawPosition + 1, false, local, snapshot.path, includeHeadings));
+    const parsed = markdownBlocks(text, rawPosition < 0 ? -1 : rawPosition + 1, false, local, snapshot.path, includeHeadings,true,local || readableFootnotes);
+    blocks.push(...(local ? localFootnoteContext(parsed) : parsed));
   }
-  return local ? blocks.flatMap(focusedListBranches) : blocks;
+  return blocks;
 }
 /** Existing AI, vocabulary and cached quotation parsing remain unchanged. */
 export function textBlocks(snapshot: SourceSnapshot): TextBlock[] { return sourceBlocks(snapshot); }
@@ -419,7 +473,8 @@ export function localExcerptBlocks(snapshot: SourceSnapshot): TextBlock[] { retu
 /** Evidence verification may read full visible headings in decoded Canvas text.
  * This is not model primary input: textBlocks and background-only guards stay unchanged. */
 export function hasReadableQuote(snapshot: SourceSnapshot, quote: string): boolean {
-  return sourceBlocks(snapshot,false,true).some(block => block.text.includes(quote));
+  return sourceBlocks(snapshot,false,true).some(block => block.text.includes(quote))
+    || sourceBlocks(snapshot,false,true,true).some(block => block.text.includes(quote));
 }
 /** Decoded Canvas groups use existing individually verifiable quotations rather
  * than pretending their escaped JSON has one contiguous original span. */
