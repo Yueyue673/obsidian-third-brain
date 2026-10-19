@@ -169,6 +169,19 @@ function referenceDefinition(raw: string): string | undefined {
   if (/^(?:\r\n|\r|\n)[ \t]*["'(]/u.test(tail)) return;
   return match[0].trimEnd();
 }
+/** Explicit local qualifier labels may use one matching emphasis/strong pair.
+ * Recognise only a complete label (colon inside or immediately after the pair),
+ * never strip arbitrary inline markup, code, escapes or partial-word emphasis.
+ * Display/evidence text and AI primary parsing stay untouched. */
+function localContextItem(text: string): boolean {
+  const label = /^(?:examples?|counterexamples?|conditions?|caveats?|limitations?|例子|示例|反例|条件|前提|限制)[ \t]*[:：]/iu;
+  if (label.test(text)) return true;
+  const emphasis = /^(\*\*?|__?)([^*_\r\n]+)\1/u.exec(text);
+  if (!emphasis || emphasis[2].trim() !== emphasis[2]) return false;
+  const inner = emphasis[2], after = text.slice(emphasis[0].length);
+  if (label.exec(inner)?.[0] === inner) return /^(?:[ \t]|$)/u.test(after);
+  return /^[ \t]*[:：]/u.test(after) && label.exec(inner + ':')?.[0] === inner + ':';
+}
 function markdownBlocks(raw: string, base: number, excalidraw = false, local = false, sourcePath = '', includeHeadings = false, quotedLists = true, footnoteDefinitions = local): TextBlock[] {
   const meta = frontmatter(raw), blocks: TextBlock[] = [];
   const ancestors: { depth: number; block: MappedText }[] = [];
@@ -414,7 +427,7 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
         // Explicit following example/condition/caveat labels qualify the preceding
         // root. Keep their exact text and descendants, without interpreting prose
         // or attaching labels backwards to a leading standalone context item.
-        const context = /^(?:examples?|counterexamples?|conditions?|caveats?|limitations?|例子|示例|反例|条件|前提|限制)[ \t]*[:：]/iu.test(line.slice(item[0].length));
+        const context = localContextItem(line.slice(item[0].length));
         // Numbered roots are one authored sequence, not evidence that a later
         // step can stand alone. Keep same-delimiter peers and their descendants
         // intact; changing delimiter/list type keeps the existing boundary.
@@ -473,7 +486,7 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
 function focusedListBranches(block: TextBlock): TextBlock[] {
   if (!block.localList) return [block];
   const columns = (text: string) => { let width = 0; for (const char of text) width += char === '\t' ? 4 - width % 4 : 1; return width; };
-  const context = (text: string) => /^(?:examples?|counterexamples?|conditions?|caveats?|limitations?|例子|示例|反例|条件|前提|限制)[ \t]*[:：]/iu.test(text);
+  const context = localContextItem;
   const quoted = /^ {0,3}>/u.test(block.text);
   const rows = [...block.text.matchAll(/[^\r\n]+(?:\r\n|\r|\n|$)|(?:\r\n|\r|\n)/gu)].map(hit => {
     const original = hit[0].replace(/[\r\n]+$/u,''), prefix = quoted ? /^ {0,3}>[ \t]?/u.exec(original)?.[0] : '';
