@@ -2,6 +2,14 @@
 
 ## Unreleased main — context-preserving local excerpts
 
+### Tables retain their explicit applicability introduction
+
+Fresh authored long Markdown/local and Canvas/private notes reproduced a later table row losing its blank-separated colon introduction; identical tables under opposing conditions merged. Six regressions failed on the unmodified runtime before repair, including actual FileSources → Controller/buildIndex → OwnedStore strict reload → bilingual Main/renderer search. The later expanded old/new comparison is not claimed to predate implementation.
+
+The bounded local reader now carries that adjacent introduction with the whole table paragraph, header and rows, using separate exact quotations. Complete copies merge, opposing introductions stay distinct, and a donor edit can introduce a separately findable late observation without losing the surviving original point. The syntax follows [Obsidian tables](https://help.obsidian.md/advanced-syntax#Tables): optional outer pipes, matching header/delimiter columns, at least two hyphens and optional alignment colons. Escaped pipes, Chinese/newline variants and quoted introductions are covered. Non-colon prose, ordinary pipe text, invalid headers, quoted/nested tables, intervening boundaries and other Canvas nodes do not gain inferred applicability. Attached introductions retain existing named-footnote/reference evidence; hidden introductions refuse the refresh.
+
+Actual synthetic stores verify frozen old bytes/signature load without rewriting, one explicit local upgrade with history, strict reload and byte-idempotent reruns. Both renderer languages invoke all actual Main original/generated callbacks; changed or excluded donors refuse old original actions. Failure/cancellation make no commit, repaired retries succeed, original hashes/nanosecond mtimes and human-owned/edited output stay protected. The unchanged 16,384-unit and combined 256/257-quotation limits include introductions, tables, definitions and merged donors. Historical generated-file opening is not current-source proof. Both AI signatures and complete offline primary/background/vocabulary captures stay identical; no genuine model, ignored cache, private vault or GUI is used. This preserves authored structure, not semantic atomicity, general Markdown compatibility or native clicks. Download 0.3.7 is unchanged.
+
 ### Reference-style links retain destinations and authored restrictions
 
 Fresh synthetic long Markdown/local and Canvas/private notes through actual FileSources → Controller/buildIndex → OwnedStore strict reload → Main/renderer idea search reproduced a late point losing its reference definition and merging with an opposing restriction. The initial seven failing regressions preceded the production edit on a frozen unmodified runtime. Expanded same-test old/new comparisons are later comparisons, not retroactively claimed as that initial red run.

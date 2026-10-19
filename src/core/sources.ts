@@ -144,6 +144,20 @@ function introducesList(text: string): boolean {
   while (lines.length && /^(?: {0,3}>[ \t]*)+$/u.test(lines.at(-1)!)) lines.pop();
   return /[:：]$/u.test(lines.at(-1)?.trimEnd() ?? '');
 }
+/** Recognise only a top-level pipe header and matching delimiter row. Retain
+ * the whole authored table paragraph; do not infer row independence or scope.
+ * Escaped pipes are cell text. No HTML, nesting or full Markdown parser here. */
+function startsLocalTable(text: string): boolean {
+  const [header, delimiter] = text.split(/\r\n|\r|\n/u,2);
+  if (!header || !delimiter || !/^ {0,3}\S/u.test(header) || !/^ {0,3}\S/u.test(delimiter) || /^ {0,3}>/u.test(header)) return false;
+  const cells = (row: string) => {
+    const visible = row.replace(/\\[\s\S]/gu,hit => 'x'.repeat(hit.length)).trim();
+    return visible.replace(/^\|/u,'').replace(/\|$/u,'').split('|').map(cell => cell.trim());
+  };
+  if (!header.replace(/\\[\s\S]/gu,'').includes('|')) return false;
+  const labels = cells(header), dividers = cells(delimiter);
+  return labels.length === dividers.length && dividers.every(cell => /^:?-{2,}:?$/u.test(cell));
+}
 // Bounded CommonMark-style labels: single-line, no escapes/nested brackets.
 // Matching folds case and whitespace; displayed/evidence text stays untouched.
 const referenceLabel = (text: string) => text.trim().replace(/[ \t]+/gu,' ').toUpperCase().toLowerCase();
@@ -165,8 +179,11 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
   const clearBlocked = () => { blockedIndent = blockedContentIndent = -1; };
   const barrier = () => { if (local && listIndent >= 0) { blockedIndent = listIndent; blockedContentIndent = contentIndent; } flush(); introduction = undefined; listLeadIn = undefined; };
   const flush = () => {
+    const tableLeadIn = local && listIndent < 0 && start >= 0 && introduction && blocks.at(-1) === introduction.block
+      && !raw.slice(introduction.end,start).trim() && startsLocalTable(raw.slice(start,end)) ? introduction.block : undefined;
+    const leadIn = listIndent >= 0 ? listLeadIn : tableLeadIn;
     const headingLength = ancestors.length ? ancestors.reduce((size, item) => size + item.block.text.length + 1, 1) : 0;
-    const introductionLength = listIndent >= 0 && listLeadIn ? listLeadIn.text.length + 2 : 0;
+    const introductionLength = leadIn ? leadIn.text.length + 2 : 0;
     if (local && start >= 0 && end - start + headingLength + introductionLength > LOCAL_EXCERPT_CONTEXT_LIMIT) {
       const error = new CoreError(listIndent >= 0 ? 'Local list context exceeds 16384 characters; no partial index was saved.' : 'Local paragraph context exceeds 16384 characters; no partial index was saved.');
       bindSourceDiagnostic(error,{ relativePath:sourcePath,stage:'analysis',reason:'local-context-size-limit' });
@@ -175,7 +192,11 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
     if (start >= 0 && end > start) {
       const text = raw.slice(start, end), trimStart = text.length - text.trimStart().length, trimmed = text.trim();
       if (trimmed) {
-        const block: TextBlock = { ...mapped(trimmed, base < 0 ? -1 : base + start + trimStart), heading, ...(local && listIndent >= 0 ? { localList:true, ...(listLeadIn ? { localLeadIn:listLeadIn } : {}) } : {}), ...(local && ancestors.length ? { localHeadings:ancestors.map(item => item.block) } : {}) };
+        if (tableLeadIn) {
+          if (tableLeadIn.text.includes('<!--') || tableLeadIn.text.includes('%%')) throw new CoreError('Local table context intersects hidden content; no partial index was saved.');
+          blocks.pop(); // The explicit introduction belongs to the table, not an orphan card.
+        }
+        const block: TextBlock = { ...mapped(trimmed, base < 0 ? -1 : base + start + trimStart), heading, ...(local && listIndent >= 0 ? { localList:true } : {}), ...(local && leadIn ? { localLeadIn:leadIn } : {}), ...(local && ancestors.length ? { localHeadings:ancestors.map(item => item.block) } : {}) };
         blocks.push(block);
         if (local && listIndent < 0) introduction = introducesList(trimmed) ? { block,end } : undefined;
       }
