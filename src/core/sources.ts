@@ -252,8 +252,18 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
       footnoteThrough = stop; blank = false;
       continue;
     }
+    const item = /^(\s*)(?:[-*+]\s+|\d+[.)]\s+)/u.exec(line);
+    const indent = columns(item?.[1] ?? /^\s*/u.exec(line)![0]);
+    // End the old list before classifying a dedented block. A heading inside
+    // its content belongs to that item, not to the note's global ancestors.
+    if (local && !item && line.trim()) {
+      if (listIndent >= 0 && blank && indent < contentIndent) { flush(); clearBlocked(); listLeadIn = undefined; }
+      if (blockedIndent >= 0 && indent < blockedContentIndent) clearBlocked();
+    }
+    const withinList = local && listIndent >= 0 && indent >= contentIndent;
     const title = /^\s{0,3}#{1,6}\s+(.+?)\s*#*\s*$/u.exec(line);
-    if (title) {
+    if (title && local && blockedIndent >= 0 && indent >= blockedContentIndent) throw new CoreError('Local list context crosses a structural boundary; no partial index was saved.');
+    if (title && !withinList) {
       flush(); clearBlocked(); introduction = undefined; listLeadIn = undefined;
       heading = title[1].replace(/\s+\^[a-z0-9-]+$/iu, '').slice(0,160);
       drawing = excalidraw && /^(?:drawing|绘图)$/iu.test(heading);
@@ -344,21 +354,20 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
         continue;
       }
     }
-    const item = /^(\s*)(?:[-*+]\s+|\d+[.)]\s+)/u.exec(line);
-    const indent = columns(item?.[1] ?? /^\s*/u.exec(line)![0]);
-    // Unrelated prose after a blank line is outside the previous list. Keep its
-    // existing parsing policy, including literal markup examples in inline code.
-    if (local && !item && line.trim()) {
-      if (listIndent >= 0 && blank && indent < contentIndent) { flush(); clearBlocked(); listLeadIn = undefined; }
-      if (blockedIndent >= 0 && indent < blockedContentIndent) clearBlocked();
-    }
     // Check the first parent item too: skipping it would expose bare children.
     // Outside list groups this change must not silently discard ordinary prose.
     if (local && (listIndent >= 0 || item) && (line.includes('<!--') || line.includes('%%'))) {
       throw new CoreError('Local list context intersects hidden content; no partial index was saved.');
     }
     if (!line.trim()) { blank = true; if (!(local && listIndent >= 0)) flush(); continue; }
-    if (/^\s*(?:[-*_]\s*){3,}$/u.test(line) || /^\s*\^[a-z0-9-]+\s*$/iu.test(line)) { barrier(); continue; }
+    // A contiguous dash underline below plain item text is an in-item heading,
+    // not a thematic barrier. Other rules and unsupported boundaries stay closed.
+    const nestedDash = withinList && indent <= contentIndent + 3 && /^-+[ \t]*$/u.test(line.trimStart());
+    const preceding = nestedDash && !blank ? raw.slice(start,end).split(/\r\n|\r|\n/u).at(-1) ?? '' : '';
+    const nestedUnderline = nestedDash
+      && /^[ \t]*\S/u.test(preceding) && columns(/^[ \t]*/u.exec(preceding)![0]) >= contentIndent
+      && !/^\s*(?:>|<|#{1,6}\s|[-*+]\s+|\d+[.)]\s+)/u.test(preceding);
+    if ((!nestedUnderline && /^\s*(?:[-*_]\s*){3,}$/u.test(line)) || /^\s*\^[a-z0-9-]+\s*$/iu.test(line)) { barrier(); continue; }
     if (local) {
       if (item) {
         if (blockedIndent >= 0 && indent > blockedIndent) throw new CoreError('Local list context crosses a structural boundary; no partial index was saved.');
@@ -570,7 +579,7 @@ export function hasReadableQuote(snapshot: SourceSnapshot, quote: string): boole
 /** Decoded Canvas groups use existing individually verifiable quotations rather
  * than pretending their escaped JSON has one contiguous original span. */
 export function localEvidencePieces(block: TextBlock): TextBlock[] {
-  return markdownBlocks(block.text,block.offsets[0] ?? -1);
+  return markdownBlocks(block.text,block.offsets[0] ?? -1,false,false,'',true);
 }
 export function splitBlock(block: TextBlock, limit: number): TextBlock[] {
   const parts: TextBlock[] = []; let start = 0;
