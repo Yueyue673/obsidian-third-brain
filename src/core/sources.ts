@@ -386,12 +386,20 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
           const text = raw.slice(begin,end), leading = text.length - text.trimStart().length;
           return mapped(text.trim(),base < 0 ? -1 : base + begin + leading);
         };
+        // The explicit Obsidian callout title scopes this quote container, not
+        // only its first list. Retain its exact authored line on later excerpts
+        // too; do not leak it into unquoted material or reinterpret ordinary quotes.
+        const calloutTitle = /^ {0,3}>[ \t]?\[![a-z0-9-]+\][+-]?(?:[ \t]+[^\r\n]*)?$/iu.test(line)
+          ? mapped(line.trim(),base < 0 ? -1 : base + offset + line.length - line.trimStart().length) : undefined;
         const inner = markdownBlocks(visible,0,false,true,sourcePath,false,false,false);
         for (const block of inner) {
           const restored: TextBlock = { ...restore(block),heading:block.heading || heading,
             ...(block.localList ? { localList:true } : {}),
             ...(block.localLeadIn ? { localLeadIn:restore(block.localLeadIn) } : {}),
             localHeadings:[...ancestors.map(item => item.block),...(block.localHeadings ?? []).map(restore)] };
+          if (calloutTitle && ![restored,restored.localLeadIn,...restored.localHeadings!].some(part => part?.text.includes(calloutTitle.text))) {
+            restored.localHeadings!.splice(ancestors.length,0,calloutTitle);
+          }
           const body = restored.localLeadIn ? restored.localLeadIn.text + '\n\n' + restored.text : restored.text;
           const size = body.length + (restored.localHeadings!.length ? restored.localHeadings!.map(item => item.text).join('\n').length + 2 : 0);
           if (size > LOCAL_EXCERPT_CONTEXT_LIMIT) {
