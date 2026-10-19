@@ -309,11 +309,39 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
         continue;
       }
     }
-    // Only explicit, contiguous, single-level quote runs are structural input.
+    // Explicit single-level quote runs may be focused. A plain lazy continuation
+    // can omit both quote and list indentation (CommonMark 5.1/5.2); retain that
+    // entire bounded run instead of separating a condition from its action.
+    // This is conservative retention, not a full container parser.
     // Parse their visible list syntax with the existing local rules, then restore
     // every component to an exact original span (including its quote prefixes).
     // Never split an unrecognised prose restriction off its following actions.
     if (local && quotedLists && listIndent < 0 && offset >= quoteScannedThrough && /^ {0,3}>/u.test(line)) {
+      let through = offset, paragraph = false, lazy = false, listed = false, unsafe = false;
+      const interrupts = (text: string) => /^ {0,3}(?:#{1,6}(?:[ \t]+|$)|`{3,}|~{3,}|[-*+](?:[ \t]+|$)|1[.)](?:[ \t]+|$)|<)/u.test(text)
+        || /^\s*(?:(?:[-*_][ \t]*){3,}|=+|-+)[ \t]*$/u.test(text);
+      for (const row of raw.slice(offset).matchAll(linePattern)) {
+        const original = row[0].replace(/[\r\n]+$/u,''), prefix = /^ {0,3}>[ \t]?/u.exec(original);
+        if (!prefix && (!paragraph || !original.trim() || interrupts(original))) break;
+        const visible = original.slice(prefix?.[0].length ?? 0);
+        const marker = /^[ \t]*(?:[-*+]\s+|\d+[.)]\s+)/u.exec(visible);
+        listed ||= !!prefix && !!marker;
+        if (!prefix) lazy = true;
+        const prose = marker ? visible.slice(marker[0].length) : visible;
+        paragraph = !!prose.trim() && !interrupts(prose) && !/^\s*>/u.test(prose);
+        unsafe ||= visible.includes('<!--') || visible.includes('%%') || /^\s*(?:`{3,}|~{3,}|>)/u.test(visible)
+          || /^\s*(?:[-*_]\s*){3,}$/u.test(visible);
+        through = offset + row.index + row[0].length;
+      }
+      if (lazy && listed) {
+        if (unsafe) throw new CoreError('Local quoted list context crosses a structural boundary; no partial index was saved.');
+        flush(); clearBlocked(); introduction = undefined; listLeadIn = undefined;
+        // Reuse the ordinary whole-list bound, exact mapping and heading context.
+        // Do not recursively focus this run or discard unprefixed authored text.
+        start = offset; end = through; listIndent = contentIndent = 0; flush();
+        quotedThrough = quoteScannedThrough = through; blank = false;
+        continue;
+      }
       const run = /(?: {0,3}>[^\r\n]*(?:\r\n|\r|\n|$))+/uy;
       run.lastIndex = offset;
       const match = run.exec(raw)!;
