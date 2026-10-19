@@ -361,12 +361,18 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
     }
     if (!line.trim()) { blank = true; if (!(local && listIndent >= 0)) flush(); continue; }
     // A contiguous dash underline below plain item text is an in-item heading,
-    // not a thematic barrier. Other rules and unsupported boundaries stay closed.
+    // including a paragraph that starts on the marker line. Compare its content
+    // column, not the marker's indentation; do not admit quoted/HTML/list syntax
+    // or a blank-separated thematic rule as heading text.
     const nestedDash = withinList && indent <= contentIndent + 3 && /^-+[ \t]*$/u.test(line.trimStart());
     const preceding = nestedDash && !blank ? raw.slice(start,end).split(/\r\n|\r|\n/u).at(-1) ?? '' : '';
+    const precedingItem = /^(\s*)(?:[-*+]\s+|\d+[.)]\s+)/u.exec(preceding);
+    const precedingText = precedingItem ? preceding.slice(precedingItem[0].length) : preceding;
+    const precedingColumn = columns(precedingItem?.[0] ?? /^[ \t]*/u.exec(preceding)![0]);
     const nestedUnderline = nestedDash
-      && /^[ \t]*\S/u.test(preceding) && columns(/^[ \t]*/u.exec(preceding)![0]) >= contentIndent
-      && !/^\s*(?:>|<|#{1,6}\s|[-*+]\s+|\d+[.)]\s+)/u.test(preceding);
+      && /^[ \t]*\S/u.test(precedingText) && precedingColumn >= contentIndent
+      && (!precedingItem || indent >= precedingColumn)
+      && !/^\s*(?:>|<|#{1,6}\s|[-*+]\s+|\d+[.)]\s+)/u.test(precedingText);
     if ((!nestedUnderline && /^\s*(?:[-*_]\s*){3,}$/u.test(line)) || /^\s*\^[a-z0-9-]+\s*$/iu.test(line)) { barrier(); continue; }
     if (local) {
       if (item) {

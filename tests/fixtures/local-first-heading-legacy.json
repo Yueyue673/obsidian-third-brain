@@ -1,0 +1,1559 @@
+{
+  "parent": "Only inside an unplugged synthetic amber chest:",
+  "other": "Never inside an unplugged synthetic amber chest:",
+  "point": "Turn the opal dial after recording its cold baseline.",
+  "raw": "# Synthetic archive\n\nIndependent rehearsal observation 0 records a violet tile.\n\nIndependent rehearsal observation 1 records a violet tile.\n\nIndependent rehearsal observation 2 records a violet tile.\n\nIndependent rehearsal observation 3 records a violet tile.\n\nIndependent rehearsal observation 4 records a violet tile.\n\nIndependent rehearsal observation 5 records a violet tile.\n\nIndependent rehearsal observation 6 records a violet tile.\n\nIndependent rehearsal observation 7 records a violet tile.\n\nIndependent rehearsal observation 8 records a violet tile.\n\nIndependent rehearsal observation 9 records a violet tile.\n\nIndependent rehearsal observation 10 records a violet tile.\n\nIndependent rehearsal observation 11 records a violet tile.\n\n## Late procedure\n- Only inside an unplugged synthetic amber chest:\n  ---\n\n  - Turn the opal dial after recording its cold baseline.\n    Example: warm chalk is a counterexample, not a live-apparatus procedure.\n\n- A copper ledger keeps an independent observation.",
+  "storedRaw": "# Synthetic archive\n\nIndependent rehearsal observation 0 records a violet tile.\n\nIndependent rehearsal observation 1 records a violet tile.\n\nIndependent rehearsal observation 2 records a violet tile.\n\nIndependent rehearsal observation 3 records a violet tile.\n\nIndependent rehearsal observation 4 records a violet tile.\n\nIndependent rehearsal observation 5 records a violet tile.\n\nIndependent rehearsal observation 6 records a violet tile.\n\nIndependent rehearsal observation 7 records a violet tile.\n\nIndependent rehearsal observation 8 records a violet tile.\n\nIndependent rehearsal observation 9 records a violet tile.\n\nIndependent rehearsal observation 10 records a violet tile.\n\nIndependent rehearsal observation 11 records a violet tile.\n\n## Late procedure\n- Only inside an unplugged synthetic amber chest:\n  ===\n\n  - Turn the opal dial after recording its cold baseline.\n    Example: warm chalk is a counterexample, not a live-apparatus procedure.\n\n- A copper ledger keeps an independent observation.",
+  "oldIndex": {
+    "version": 1,
+    "signature": "editorial-core-2:8cbb43468b24edf4bd152e51a3fb02deefb900f140075b0e649f26463da9d896",
+    "updatedAt": "2026-01-01T00:00:00.000Z",
+    "sources": {
+      "a.md": {
+        "hash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_0670a8f708a6e24227da4ea06ede355abb85195a3b46ebec76ae87c5f9327736",
+          "f_0cdbf136ff2ac5869ba79191aed879f64d0d391ba257fb24f9983a8dbe128791",
+          "f_0f4bf4e4f0cb946510bc468c782bf95e1c4683f64cb422ea14dab61404338c9a",
+          "f_14d3f83abaa2715862de966ecfab6d321d144ed1451e62d25b302c6d5f82c49e",
+          "f_29222be1ed20ba183a57d238b4372c1f9fe68d05320f35c0cf977a44b092ec58",
+          "f_2e7d6e498b1c2fba1c51a919f4af001a6e4bf25be3a46b7c7f5c08a207740e42",
+          "f_3f5dabc6b3641e97e4101263b5f4405d942e67681daefce9b11cf07c3648ad6f",
+          "f_4c04f6ba9a986f90d99b1da10bf483247eb12abd0ee9f0e25aea8e2cf94cec37",
+          "f_55ee45f4ddd7d9463d705f425697b8d34d5c55185a86f89d7b41b1d8ce0b185c",
+          "f_6919b8c0abb6fd70eb01b129346526d3cff638a2fef7b3638892b7fcbc9e59b6",
+          "f_6d04e5e75a1051e4e7b483899137e8e92c153bb1be7e1672f3047149ff7ab673",
+          "f_9fec7f29c0aefed7dcf8be799be18fc7b29ddeeda433be4a3e3d0cb6fcec653d",
+          "f_a8ebabda5b1d444716e7f20beeafd935b5add037e612cf70e11eaa76a38ed49d",
+          "f_d5a6d840c3d9b018aae78b79a595c678075165387fd1620abe544fe764bdbd4d"
+        ]
+      },
+      "b.md": {
+        "hash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_0670a8f708a6e24227da4ea06ede355abb85195a3b46ebec76ae87c5f9327736",
+          "f_0cdbf136ff2ac5869ba79191aed879f64d0d391ba257fb24f9983a8dbe128791",
+          "f_0f4bf4e4f0cb946510bc468c782bf95e1c4683f64cb422ea14dab61404338c9a",
+          "f_14d3f83abaa2715862de966ecfab6d321d144ed1451e62d25b302c6d5f82c49e",
+          "f_29222be1ed20ba183a57d238b4372c1f9fe68d05320f35c0cf977a44b092ec58",
+          "f_2e7d6e498b1c2fba1c51a919f4af001a6e4bf25be3a46b7c7f5c08a207740e42",
+          "f_3f5dabc6b3641e97e4101263b5f4405d942e67681daefce9b11cf07c3648ad6f",
+          "f_4c04f6ba9a986f90d99b1da10bf483247eb12abd0ee9f0e25aea8e2cf94cec37",
+          "f_55ee45f4ddd7d9463d705f425697b8d34d5c55185a86f89d7b41b1d8ce0b185c",
+          "f_6919b8c0abb6fd70eb01b129346526d3cff638a2fef7b3638892b7fcbc9e59b6",
+          "f_6d04e5e75a1051e4e7b483899137e8e92c153bb1be7e1672f3047149ff7ab673",
+          "f_9fec7f29c0aefed7dcf8be799be18fc7b29ddeeda433be4a3e3d0cb6fcec653d",
+          "f_a8ebabda5b1d444716e7f20beeafd935b5add037e612cf70e11eaa76a38ed49d",
+          "f_d5a6d840c3d9b018aae78b79a595c678075165387fd1620abe544fe764bdbd4d"
+        ]
+      },
+      "c.md": {
+        "hash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_0670a8f708a6e24227da4ea06ede355abb85195a3b46ebec76ae87c5f9327736",
+          "f_0cdbf136ff2ac5869ba79191aed879f64d0d391ba257fb24f9983a8dbe128791",
+          "f_0f4bf4e4f0cb946510bc468c782bf95e1c4683f64cb422ea14dab61404338c9a",
+          "f_14d3f83abaa2715862de966ecfab6d321d144ed1451e62d25b302c6d5f82c49e",
+          "f_29222be1ed20ba183a57d238b4372c1f9fe68d05320f35c0cf977a44b092ec58",
+          "f_2e7d6e498b1c2fba1c51a919f4af001a6e4bf25be3a46b7c7f5c08a207740e42",
+          "f_3d914c6250532172fd457b5e3d5f8980a64212650d659e1c6357176d76c70a6e",
+          "f_3f5dabc6b3641e97e4101263b5f4405d942e67681daefce9b11cf07c3648ad6f",
+          "f_4c04f6ba9a986f90d99b1da10bf483247eb12abd0ee9f0e25aea8e2cf94cec37",
+          "f_55ee45f4ddd7d9463d705f425697b8d34d5c55185a86f89d7b41b1d8ce0b185c",
+          "f_6d04e5e75a1051e4e7b483899137e8e92c153bb1be7e1672f3047149ff7ab673",
+          "f_9fec7f29c0aefed7dcf8be799be18fc7b29ddeeda433be4a3e3d0cb6fcec653d",
+          "f_a8ebabda5b1d444716e7f20beeafd935b5add037e612cf70e11eaa76a38ed49d",
+          "f_d5a6d840c3d9b018aae78b79a595c678075165387fd1620abe544fe764bdbd4d"
+        ]
+      }
+    },
+    "fragments": {
+      "f_0670a8f708a6e24227da4ea06ede355abb85195a3b46ebec76ae87c5f9327736": {
+        "id": "f_0670a8f708a6e24227da4ea06ede355abb85195a3b46ebec76ae87c5f9327736",
+        "privacy": "local",
+        "title": "Synthetic archive",
+        "summary": "# Synthetic archive\n\nIndependent rehearsal observation 11 records a violet tile.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 11 records a violet tile.",
+            "start": 705,
+            "end": 764
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "Independent rehearsal observation 11 records a violet tile.",
+            "start": 705,
+            "end": 764
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 11 records a violet tile.",
+            "start": 705,
+            "end": 764
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_0cdbf136ff2ac5869ba79191aed879f64d0d391ba257fb24f9983a8dbe128791": {
+        "id": "f_0cdbf136ff2ac5869ba79191aed879f64d0d391ba257fb24f9983a8dbe128791",
+        "privacy": "local",
+        "title": "Synthetic archive",
+        "summary": "# Synthetic archive\n\nIndependent rehearsal observation 0 records a violet tile.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 0 records a violet tile.",
+            "start": 44,
+            "end": 102
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "Independent rehearsal observation 0 records a violet tile.",
+            "start": 44,
+            "end": 102
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 0 records a violet tile.",
+            "start": 44,
+            "end": 102
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_0f4bf4e4f0cb946510bc468c782bf95e1c4683f64cb422ea14dab61404338c9a": {
+        "id": "f_0f4bf4e4f0cb946510bc468c782bf95e1c4683f64cb422ea14dab61404338c9a",
+        "privacy": "local",
+        "title": "Synthetic archive",
+        "summary": "# Synthetic archive\n\nIndependent rehearsal observation 1 records a violet tile.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 1 records a violet tile.",
+            "start": 104,
+            "end": 162
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "Independent rehearsal observation 1 records a violet tile.",
+            "start": 104,
+            "end": 162
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 1 records a violet tile.",
+            "start": 104,
+            "end": 162
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_14d3f83abaa2715862de966ecfab6d321d144ed1451e62d25b302c6d5f82c49e": {
+        "id": "f_14d3f83abaa2715862de966ecfab6d321d144ed1451e62d25b302c6d5f82c49e",
+        "privacy": "local",
+        "title": "Synthetic archive",
+        "summary": "# Synthetic archive\n\nIndependent rehearsal observation 9 records a violet tile.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 9 records a violet tile.",
+            "start": 584,
+            "end": 642
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "Independent rehearsal observation 9 records a violet tile.",
+            "start": 584,
+            "end": 642
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 9 records a violet tile.",
+            "start": 584,
+            "end": 642
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_29222be1ed20ba183a57d238b4372c1f9fe68d05320f35c0cf977a44b092ec58": {
+        "id": "f_29222be1ed20ba183a57d238b4372c1f9fe68d05320f35c0cf977a44b092ec58",
+        "privacy": "local",
+        "title": "Synthetic archive",
+        "summary": "# Synthetic archive\n\nIndependent rehearsal observation 4 records a violet tile.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 4 records a violet tile.",
+            "start": 284,
+            "end": 342
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "Independent rehearsal observation 4 records a violet tile.",
+            "start": 284,
+            "end": 342
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 4 records a violet tile.",
+            "start": 284,
+            "end": 342
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_2e7d6e498b1c2fba1c51a919f4af001a6e4bf25be3a46b7c7f5c08a207740e42": {
+        "id": "f_2e7d6e498b1c2fba1c51a919f4af001a6e4bf25be3a46b7c7f5c08a207740e42",
+        "privacy": "local",
+        "title": "Synthetic archive",
+        "summary": "# Synthetic archive\n\nIndependent rehearsal observation 6 records a violet tile.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 6 records a violet tile.",
+            "start": 404,
+            "end": 462
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "Independent rehearsal observation 6 records a violet tile.",
+            "start": 404,
+            "end": 462
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 6 records a violet tile.",
+            "start": 404,
+            "end": 462
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_3d914c6250532172fd457b5e3d5f8980a64212650d659e1c6357176d76c70a6e": {
+        "id": "f_3d914c6250532172fd457b5e3d5f8980a64212650d659e1c6357176d76c70a6e",
+        "privacy": "local",
+        "title": "Late procedure",
+        "summary": "# Synthetic archive\n## Late procedure\n\n- Never inside an unplugged synthetic amber chest:\n  ===\n\n  - Turn the opal dial after recording its cold baseline.\n    Example: warm chalk is a counterexample, not a live-apparatus procedure.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "- Never inside an unplugged synthetic amber chest:\n  ===\n\n  - Turn the opal dial after recording its cold baseline.\n    Example: warm chalk is a counterexample, not a live-apparatus procedure.",
+            "start": 784,
+            "end": 976
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "## Late procedure",
+            "start": 766,
+            "end": 783
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_3f5dabc6b3641e97e4101263b5f4405d942e67681daefce9b11cf07c3648ad6f": {
+        "id": "f_3f5dabc6b3641e97e4101263b5f4405d942e67681daefce9b11cf07c3648ad6f",
+        "privacy": "local",
+        "title": "Synthetic archive",
+        "summary": "# Synthetic archive\n\nIndependent rehearsal observation 10 records a violet tile.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 10 records a violet tile.",
+            "start": 644,
+            "end": 703
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "Independent rehearsal observation 10 records a violet tile.",
+            "start": 644,
+            "end": 703
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 10 records a violet tile.",
+            "start": 644,
+            "end": 703
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_4c04f6ba9a986f90d99b1da10bf483247eb12abd0ee9f0e25aea8e2cf94cec37": {
+        "id": "f_4c04f6ba9a986f90d99b1da10bf483247eb12abd0ee9f0e25aea8e2cf94cec37",
+        "privacy": "local",
+        "title": "Synthetic archive",
+        "summary": "# Synthetic archive\n\nIndependent rehearsal observation 3 records a violet tile.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 3 records a violet tile.",
+            "start": 224,
+            "end": 282
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "Independent rehearsal observation 3 records a violet tile.",
+            "start": 224,
+            "end": 282
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 3 records a violet tile.",
+            "start": 224,
+            "end": 282
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_55ee45f4ddd7d9463d705f425697b8d34d5c55185a86f89d7b41b1d8ce0b185c": {
+        "id": "f_55ee45f4ddd7d9463d705f425697b8d34d5c55185a86f89d7b41b1d8ce0b185c",
+        "privacy": "local",
+        "title": "Late procedure",
+        "summary": "# Synthetic archive\n## Late procedure\n\n- A copper ledger keeps an independent observation.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "- A copper ledger keeps an independent observation.",
+            "start": 977,
+            "end": 1028
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "## Late procedure",
+            "start": 766,
+            "end": 783
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "- A copper ledger keeps an independent observation.",
+            "start": 978,
+            "end": 1029
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "## Late procedure",
+            "start": 766,
+            "end": 783
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "- A copper ledger keeps an independent observation.",
+            "start": 977,
+            "end": 1028
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "## Late procedure",
+            "start": 766,
+            "end": 783
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_6919b8c0abb6fd70eb01b129346526d3cff638a2fef7b3638892b7fcbc9e59b6": {
+        "id": "f_6919b8c0abb6fd70eb01b129346526d3cff638a2fef7b3638892b7fcbc9e59b6",
+        "privacy": "local",
+        "title": "Late procedure",
+        "summary": "# Synthetic archive\n## Late procedure\n\n- Only inside an unplugged synthetic amber chest:\n  ===\n\n  - Turn the opal dial after recording its cold baseline.\n    Example: warm chalk is a counterexample, not a live-apparatus procedure.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "- Only inside an unplugged synthetic amber chest:\n  ===\n\n  - Turn the opal dial after recording its cold baseline.\n    Example: warm chalk is a counterexample, not a live-apparatus procedure.",
+            "start": 784,
+            "end": 975
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "## Late procedure",
+            "start": 766,
+            "end": 783
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "- Only inside an unplugged synthetic amber chest:\n  ===\n\n  - Turn the opal dial after recording its cold baseline.\n    Example: warm chalk is a counterexample, not a live-apparatus procedure.",
+            "start": 784,
+            "end": 975
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "## Late procedure",
+            "start": 766,
+            "end": 783
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_6d04e5e75a1051e4e7b483899137e8e92c153bb1be7e1672f3047149ff7ab673": {
+        "id": "f_6d04e5e75a1051e4e7b483899137e8e92c153bb1be7e1672f3047149ff7ab673",
+        "privacy": "local",
+        "title": "Synthetic archive",
+        "summary": "# Synthetic archive\n\nIndependent rehearsal observation 5 records a violet tile.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 5 records a violet tile.",
+            "start": 344,
+            "end": 402
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "Independent rehearsal observation 5 records a violet tile.",
+            "start": 344,
+            "end": 402
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 5 records a violet tile.",
+            "start": 344,
+            "end": 402
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_9fec7f29c0aefed7dcf8be799be18fc7b29ddeeda433be4a3e3d0cb6fcec653d": {
+        "id": "f_9fec7f29c0aefed7dcf8be799be18fc7b29ddeeda433be4a3e3d0cb6fcec653d",
+        "privacy": "local",
+        "title": "Synthetic archive",
+        "summary": "# Synthetic archive\n\nIndependent rehearsal observation 8 records a violet tile.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 8 records a violet tile.",
+            "start": 524,
+            "end": 582
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "Independent rehearsal observation 8 records a violet tile.",
+            "start": 524,
+            "end": 582
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 8 records a violet tile.",
+            "start": 524,
+            "end": 582
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_a8ebabda5b1d444716e7f20beeafd935b5add037e612cf70e11eaa76a38ed49d": {
+        "id": "f_a8ebabda5b1d444716e7f20beeafd935b5add037e612cf70e11eaa76a38ed49d",
+        "privacy": "local",
+        "title": "Synthetic archive",
+        "summary": "# Synthetic archive\n\nIndependent rehearsal observation 7 records a violet tile.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 7 records a violet tile.",
+            "start": 464,
+            "end": 522
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "Independent rehearsal observation 7 records a violet tile.",
+            "start": 464,
+            "end": 522
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 7 records a violet tile.",
+            "start": 464,
+            "end": 522
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_d5a6d840c3d9b018aae78b79a595c678075165387fd1620abe544fe764bdbd4d": {
+        "id": "f_d5a6d840c3d9b018aae78b79a595c678075165387fd1620abe544fe764bdbd4d",
+        "privacy": "local",
+        "title": "Synthetic archive",
+        "summary": "# Synthetic archive\n\nIndependent rehearsal observation 2 records a violet tile.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 2 records a violet tile.",
+            "start": 164,
+            "end": 222
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "c285dde67a08371eb17fcb98",
+            "relativePath": "c.md",
+            "sourceHash": "3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f",
+            "quote": "Independent rehearsal observation 2 records a violet tile.",
+            "start": 164,
+            "end": 222
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "# Synthetic archive",
+            "start": 23,
+            "end": 42
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d",
+            "quote": "Independent rehearsal observation 2 records a violet tile.",
+            "start": 164,
+            "end": 222
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      }
+    }
+  },
+  "rendered": {
+    "f_0670a8f708a6e24227da4ea06ede355abb85195a3b46ebec76ae87c5f9327736": "---\nthird_brain_render: 2\naliases: [\"Synthetic archive\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_0670a8f708a6e24227da4ea06ede355abb85195a3b46ebec76ae87c5f9327736\"\nprivacy: local\ntitle: \"Synthetic archive\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":705,\"end\":764},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":23,\"end\":42},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":705,\"end\":764},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":705,\"end\":764}]\n---\n\n# Synthetic archive\n\n\\# Synthetic archive\n\nIndependent rehearsal observation 11 records a violet tile.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 705–764\n\n> Independent rehearsal observation 11 records a violet tile.\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 705–764\n\n> Independent rehearsal observation 11 records a violet tile.\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 705–764\n\n> Independent rehearsal observation 11 records a violet tile.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_0cdbf136ff2ac5869ba79191aed879f64d0d391ba257fb24f9983a8dbe128791": "---\nthird_brain_render: 2\naliases: [\"Synthetic archive\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_0cdbf136ff2ac5869ba79191aed879f64d0d391ba257fb24f9983a8dbe128791\"\nprivacy: local\ntitle: \"Synthetic archive\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":44,\"end\":102},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":23,\"end\":42},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":44,\"end\":102},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":44,\"end\":102}]\n---\n\n# Synthetic archive\n\n\\# Synthetic archive\n\nIndependent rehearsal observation 0 records a violet tile.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 44–102\n\n> Independent rehearsal observation 0 records a violet tile.\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 44–102\n\n> Independent rehearsal observation 0 records a violet tile.\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 44–102\n\n> Independent rehearsal observation 0 records a violet tile.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_0f4bf4e4f0cb946510bc468c782bf95e1c4683f64cb422ea14dab61404338c9a": "---\nthird_brain_render: 2\naliases: [\"Synthetic archive\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_0f4bf4e4f0cb946510bc468c782bf95e1c4683f64cb422ea14dab61404338c9a\"\nprivacy: local\ntitle: \"Synthetic archive\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":104,\"end\":162},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":23,\"end\":42},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":104,\"end\":162},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":104,\"end\":162}]\n---\n\n# Synthetic archive\n\n\\# Synthetic archive\n\nIndependent rehearsal observation 1 records a violet tile.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 104–162\n\n> Independent rehearsal observation 1 records a violet tile.\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 104–162\n\n> Independent rehearsal observation 1 records a violet tile.\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 104–162\n\n> Independent rehearsal observation 1 records a violet tile.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_14d3f83abaa2715862de966ecfab6d321d144ed1451e62d25b302c6d5f82c49e": "---\nthird_brain_render: 2\naliases: [\"Synthetic archive\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_14d3f83abaa2715862de966ecfab6d321d144ed1451e62d25b302c6d5f82c49e\"\nprivacy: local\ntitle: \"Synthetic archive\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":584,\"end\":642},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":23,\"end\":42},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":584,\"end\":642},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":584,\"end\":642}]\n---\n\n# Synthetic archive\n\n\\# Synthetic archive\n\nIndependent rehearsal observation 9 records a violet tile.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 584–642\n\n> Independent rehearsal observation 9 records a violet tile.\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 584–642\n\n> Independent rehearsal observation 9 records a violet tile.\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 584–642\n\n> Independent rehearsal observation 9 records a violet tile.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_29222be1ed20ba183a57d238b4372c1f9fe68d05320f35c0cf977a44b092ec58": "---\nthird_brain_render: 2\naliases: [\"Synthetic archive\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_29222be1ed20ba183a57d238b4372c1f9fe68d05320f35c0cf977a44b092ec58\"\nprivacy: local\ntitle: \"Synthetic archive\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":284,\"end\":342},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":23,\"end\":42},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":284,\"end\":342},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":284,\"end\":342}]\n---\n\n# Synthetic archive\n\n\\# Synthetic archive\n\nIndependent rehearsal observation 4 records a violet tile.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 284–342\n\n> Independent rehearsal observation 4 records a violet tile.\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 284–342\n\n> Independent rehearsal observation 4 records a violet tile.\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 284–342\n\n> Independent rehearsal observation 4 records a violet tile.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_2e7d6e498b1c2fba1c51a919f4af001a6e4bf25be3a46b7c7f5c08a207740e42": "---\nthird_brain_render: 2\naliases: [\"Synthetic archive\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_2e7d6e498b1c2fba1c51a919f4af001a6e4bf25be3a46b7c7f5c08a207740e42\"\nprivacy: local\ntitle: \"Synthetic archive\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":404,\"end\":462},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":23,\"end\":42},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":404,\"end\":462},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":404,\"end\":462}]\n---\n\n# Synthetic archive\n\n\\# Synthetic archive\n\nIndependent rehearsal observation 6 records a violet tile.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 404–462\n\n> Independent rehearsal observation 6 records a violet tile.\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 404–462\n\n> Independent rehearsal observation 6 records a violet tile.\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 404–462\n\n> Independent rehearsal observation 6 records a violet tile.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_3d914c6250532172fd457b5e3d5f8980a64212650d659e1c6357176d76c70a6e": "---\nthird_brain_render: 2\naliases: [\"Late procedure\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_3d914c6250532172fd457b5e3d5f8980a64212650d659e1c6357176d76c70a6e\"\nprivacy: local\ntitle: \"Late procedure\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":784,\"end\":976},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":23,\"end\":42},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":766,\"end\":783}]\n---\n\n# Late procedure\n\n\\# Synthetic archive\n\\#\\# Late procedure\n\n- Never inside an unplugged synthetic amber chest:\n  ===\n\n  - Turn the opal dial after recording its cold baseline.\n    Example: warm chalk is a counterexample, not a live-apparatus procedure.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 784–976\n\n> - Never inside an unplugged synthetic amber chest:\n>   ===\n> \n>   - Turn the opal dial after recording its cold baseline.\n>     Example: warm chalk is a counterexample, not a live-apparatus procedure.\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 766–783\n\n> \\#\\# Late procedure\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_3f5dabc6b3641e97e4101263b5f4405d942e67681daefce9b11cf07c3648ad6f": "---\nthird_brain_render: 2\naliases: [\"Synthetic archive\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_3f5dabc6b3641e97e4101263b5f4405d942e67681daefce9b11cf07c3648ad6f\"\nprivacy: local\ntitle: \"Synthetic archive\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":644,\"end\":703},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":23,\"end\":42},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":644,\"end\":703},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":644,\"end\":703}]\n---\n\n# Synthetic archive\n\n\\# Synthetic archive\n\nIndependent rehearsal observation 10 records a violet tile.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 644–703\n\n> Independent rehearsal observation 10 records a violet tile.\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 644–703\n\n> Independent rehearsal observation 10 records a violet tile.\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 644–703\n\n> Independent rehearsal observation 10 records a violet tile.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_4c04f6ba9a986f90d99b1da10bf483247eb12abd0ee9f0e25aea8e2cf94cec37": "---\nthird_brain_render: 2\naliases: [\"Synthetic archive\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_4c04f6ba9a986f90d99b1da10bf483247eb12abd0ee9f0e25aea8e2cf94cec37\"\nprivacy: local\ntitle: \"Synthetic archive\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":224,\"end\":282},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":23,\"end\":42},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":224,\"end\":282},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":224,\"end\":282}]\n---\n\n# Synthetic archive\n\n\\# Synthetic archive\n\nIndependent rehearsal observation 3 records a violet tile.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 224–282\n\n> Independent rehearsal observation 3 records a violet tile.\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 224–282\n\n> Independent rehearsal observation 3 records a violet tile.\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 224–282\n\n> Independent rehearsal observation 3 records a violet tile.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_55ee45f4ddd7d9463d705f425697b8d34d5c55185a86f89d7b41b1d8ce0b185c": "---\nthird_brain_render: 2\naliases: [\"Late procedure\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_55ee45f4ddd7d9463d705f425697b8d34d5c55185a86f89d7b41b1d8ce0b185c\"\nprivacy: local\ntitle: \"Late procedure\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":977,\"end\":1028},{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":766,\"end\":783},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":978,\"end\":1029},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":23,\"end\":42},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":766,\"end\":783},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":977,\"end\":1028},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":766,\"end\":783}]\n---\n\n# Late procedure\n\n\\# Synthetic archive\n\\#\\# Late procedure\n\n- A copper ledger keeps an independent observation.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 977–1028\n\n> - A copper ledger keeps an independent observation.\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 766–783\n\n> \\#\\# Late procedure\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 978–1029\n\n> - A copper ledger keeps an independent observation.\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 766–783\n\n> \\#\\# Late procedure\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 977–1028\n\n> - A copper ledger keeps an independent observation.\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 766–783\n\n> \\#\\# Late procedure\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_6919b8c0abb6fd70eb01b129346526d3cff638a2fef7b3638892b7fcbc9e59b6": "---\nthird_brain_render: 2\naliases: [\"Late procedure\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_6919b8c0abb6fd70eb01b129346526d3cff638a2fef7b3638892b7fcbc9e59b6\"\nprivacy: local\ntitle: \"Late procedure\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":784,\"end\":975},{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":766,\"end\":783},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":784,\"end\":975},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":766,\"end\":783}]\n---\n\n# Late procedure\n\n\\# Synthetic archive\n\\#\\# Late procedure\n\n- Only inside an unplugged synthetic amber chest:\n  ===\n\n  - Turn the opal dial after recording its cold baseline.\n    Example: warm chalk is a counterexample, not a live-apparatus procedure.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 784–975\n\n> - Only inside an unplugged synthetic amber chest:\n>   ===\n> \n>   - Turn the opal dial after recording its cold baseline.\n>     Example: warm chalk is a counterexample, not a live-apparatus procedure.\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 766–783\n\n> \\#\\# Late procedure\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 784–975\n\n> - Only inside an unplugged synthetic amber chest:\n>   ===\n> \n>   - Turn the opal dial after recording its cold baseline.\n>     Example: warm chalk is a counterexample, not a live-apparatus procedure.\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 766–783\n\n> \\#\\# Late procedure\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_6d04e5e75a1051e4e7b483899137e8e92c153bb1be7e1672f3047149ff7ab673": "---\nthird_brain_render: 2\naliases: [\"Synthetic archive\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_6d04e5e75a1051e4e7b483899137e8e92c153bb1be7e1672f3047149ff7ab673\"\nprivacy: local\ntitle: \"Synthetic archive\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":344,\"end\":402},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":23,\"end\":42},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":344,\"end\":402},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":344,\"end\":402}]\n---\n\n# Synthetic archive\n\n\\# Synthetic archive\n\nIndependent rehearsal observation 5 records a violet tile.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 344–402\n\n> Independent rehearsal observation 5 records a violet tile.\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 344–402\n\n> Independent rehearsal observation 5 records a violet tile.\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 344–402\n\n> Independent rehearsal observation 5 records a violet tile.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_9fec7f29c0aefed7dcf8be799be18fc7b29ddeeda433be4a3e3d0cb6fcec653d": "---\nthird_brain_render: 2\naliases: [\"Synthetic archive\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_9fec7f29c0aefed7dcf8be799be18fc7b29ddeeda433be4a3e3d0cb6fcec653d\"\nprivacy: local\ntitle: \"Synthetic archive\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":524,\"end\":582},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":23,\"end\":42},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":524,\"end\":582},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":524,\"end\":582}]\n---\n\n# Synthetic archive\n\n\\# Synthetic archive\n\nIndependent rehearsal observation 8 records a violet tile.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 524–582\n\n> Independent rehearsal observation 8 records a violet tile.\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 524–582\n\n> Independent rehearsal observation 8 records a violet tile.\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 524–582\n\n> Independent rehearsal observation 8 records a violet tile.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_a8ebabda5b1d444716e7f20beeafd935b5add037e612cf70e11eaa76a38ed49d": "---\nthird_brain_render: 2\naliases: [\"Synthetic archive\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_a8ebabda5b1d444716e7f20beeafd935b5add037e612cf70e11eaa76a38ed49d\"\nprivacy: local\ntitle: \"Synthetic archive\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":464,\"end\":522},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":23,\"end\":42},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":464,\"end\":522},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":464,\"end\":522}]\n---\n\n# Synthetic archive\n\n\\# Synthetic archive\n\nIndependent rehearsal observation 7 records a violet tile.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 464–522\n\n> Independent rehearsal observation 7 records a violet tile.\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 464–522\n\n> Independent rehearsal observation 7 records a violet tile.\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 464–522\n\n> Independent rehearsal observation 7 records a violet tile.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_d5a6d840c3d9b018aae78b79a595c678075165387fd1620abe544fe764bdbd4d": "---\nthird_brain_render: 2\naliases: [\"Synthetic archive\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_d5a6d840c3d9b018aae78b79a595c678075165387fd1620abe544fe764bdbd4d\"\nprivacy: local\ntitle: \"Synthetic archive\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"b.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":164,\"end\":222},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":23,\"end\":42},{\"path\":\"c.md\",\"revision\":\"3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f\",\"start\":164,\"end\":222},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":23,\"end\":42},{\"path\":\"a.md\",\"revision\":\"077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d\",\"start\":164,\"end\":222}]\n---\n\n# Synthetic archive\n\n\\# Synthetic archive\n\nIndependent rehearsal observation 2 records a violet tile.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../b.md>) — b.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 164–222\n\n> Independent rehearsal observation 2 records a violet tile.\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../c.md>) — c.md\n\nRevision: 3799208c7ef113db81c0f5c318c2a093306e2f0855b076397825a899c9683b6f; character range: 164–222\n\n> Independent rehearsal observation 2 records a violet tile.\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 23–42\n\n> \\# Synthetic archive\n\n[Open original](<../a.md>) — a.md\n\nRevision: 077757fbf4f7b217f64106353823e8de013606c69b64ae40172c41cbfd5cc56d; character range: 164–222\n\n> Independent rehearsal observation 2 records a violet tile.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n"
+  },
+  "signatures": {
+    "local-excerpts": "{\"version\":1,\"localExcerptPolicy\":\"list-inner-heading-1\",\"mode\":\"local-excerpts\",\"endpoint\":\"\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "local-model": "{\"version\":1,\"mode\":\"local-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "cloud-model": "{\"version\":1,\"mode\":\"cloud-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}"
+  },
+  "requests": {
+    "local-model": [
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 0 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 1 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 0 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 2 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 1 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 3 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 2 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 4 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 3 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 5 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 4 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 6 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 5 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 7 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 6 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 8 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 7 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 9 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 8 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 10 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 9 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 11 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 10 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Only inside an unplugged synthetic amber chest:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Late procedure",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Turn the opal dial after recording its cold baseline.\n    Example: warm chalk is a counterexample, not a live-apparatus procedure.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Late procedure",
+          "before": "- Only inside an unplugged synthetic amber chest:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- A copper ledger keeps an independent observation.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Late procedure",
+          "before": "- Turn the opal dial after recording its cold baseline.\n    Example: warm chalk is a counterexample, not a live-apparatus procedure."
+        }
+      }
+    ],
+    "cloud-model": [
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 0 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 1 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 0 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 2 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 1 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 3 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 2 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 4 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 3 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 5 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 4 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 6 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 5 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 7 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 6 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 8 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 7 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 9 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 8 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 10 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 9 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Independent rehearsal observation 11 records a violet tile.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Synthetic archive",
+          "before": "Independent rehearsal observation 10 records a violet tile."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Only inside an unplugged synthetic amber chest:",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Late procedure",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- Turn the opal dial after recording its cold baseline.\n    Example: warm chalk is a counterexample, not a live-apparatus procedure.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Late procedure",
+          "before": "- Only inside an unplugged synthetic amber chest:"
+        }
+      },
+      {
+        "task": "extract",
+        "text": "- A copper ledger keeps an independent observation.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Late procedure",
+          "before": "- Turn the opal dial after recording its cold baseline.\n    Example: warm chalk is a counterexample, not a live-apparatus procedure."
+        }
+      }
+    ]
+  }
+}
