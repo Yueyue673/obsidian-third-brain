@@ -1,0 +1,338 @@
+{
+  "synthetic": true,
+  "runtime": "40210f4a2c840938220bcc9f63e050026800dbc4",
+  "oldIndex": {
+    "version": 1,
+    "signature": "editorial-core-2:d3cf7f7a4a21555610f5397f7accc89e8256d86170ccc25bd5cc64e5b7cb4969",
+    "updatedAt": "2026-01-01T00:00:00.000Z",
+    "sources": {
+      "a.md": {
+        "hash": "e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_a9d4e305d00d998c061cb6ef06c2ce5a9768427f370f1b10f6fa80b9a77f01e8",
+          "f_d33f7d4e3cf8aa2dc196b5e4f73b2ae513afd764af450d0073511b32d55451be",
+          "f_e385ba8c90af7b5f4c912eb9925f1ac76e9ec61a72e63fae64cc63945e1a86ba"
+        ]
+      },
+      "b.md": {
+        "hash": "e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_a9d4e305d00d998c061cb6ef06c2ce5a9768427f370f1b10f6fa80b9a77f01e8",
+          "f_d33f7d4e3cf8aa2dc196b5e4f73b2ae513afd764af450d0073511b32d55451be",
+          "f_e385ba8c90af7b5f4c912eb9925f1ac76e9ec61a72e63fae64cc63945e1a86ba"
+        ]
+      }
+    },
+    "fragments": {
+      "f_a9d4e305d00d998c061cb6ef06c2ce5a9768427f370f1b10f6fa80b9a77f01e8": {
+        "id": "f_a9d4e305d00d998c061cb6ef06c2ce5a9768427f370f1b10f6fa80b9a77f01e8",
+        "privacy": "local",
+        "title": "Link definitions",
+        "summary": "# Synthetic inspection\n## Link definitions\n\n[scope]: <synthetic-boundary.md> \"Only inside the disconnected synthetic enclosure.\"",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476",
+            "quote": "[scope]: <synthetic-boundary.md> \"Only inside the disconnected synthetic enclosure.\"",
+            "start": 2481,
+            "end": 2565
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476",
+            "quote": "# Synthetic inspection",
+            "start": 23,
+            "end": 45
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476",
+            "quote": "## Link definitions",
+            "start": 2461,
+            "end": 2480
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476",
+            "quote": "[scope]: <synthetic-boundary.md> \"Only inside the disconnected synthetic enclosure.\"",
+            "start": 2481,
+            "end": 2565
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476",
+            "quote": "# Synthetic inspection",
+            "start": 23,
+            "end": 45
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476",
+            "quote": "## Link definitions",
+            "start": 2461,
+            "end": 2480
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_d33f7d4e3cf8aa2dc196b5e4f73b2ae513afd764af450d0073511b32d55451be": {
+        "id": "f_d33f7d4e3cf8aa2dc196b5e4f73b2ae513afd764af450d0073511b32d55451be",
+        "privacy": "local",
+        "title": "Earlier independent register",
+        "summary": "# Synthetic inspection\n## Earlier independent register\n\nA paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476",
+            "quote": "# Synthetic inspection",
+            "start": 23,
+            "end": 45
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476",
+            "quote": "## Earlier independent register",
+            "start": 47,
+            "end": 78
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476",
+            "quote": "A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation.",
+            "start": 79,
+            "end": 2378
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476",
+            "quote": "# Synthetic inspection",
+            "start": 23,
+            "end": 45
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476",
+            "quote": "## Earlier independent register",
+            "start": 47,
+            "end": 78
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476",
+            "quote": "A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation.",
+            "start": 79,
+            "end": 2378
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_e385ba8c90af7b5f4c912eb9925f1ac76e9ec61a72e63fae64cc63945e1a86ba": {
+        "id": "f_e385ba8c90af7b5f4c912eb9925f1ac76e9ec61a72e63fae64cc63945e1a86ba",
+        "privacy": "local",
+        "title": "Late independent point",
+        "summary": "# Synthetic inspection\n## Late independent point\n\nThe indigo latch checks the [trial boundary][scope].",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476",
+            "quote": "# Synthetic inspection",
+            "start": 23,
+            "end": 45
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476",
+            "quote": "## Late independent point",
+            "start": 2381,
+            "end": 2406
+          },
+          {
+            "sourceId": "11dd481a3da4aeae885606cd",
+            "relativePath": "b.md",
+            "sourceHash": "e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476",
+            "quote": "The indigo latch checks the [trial boundary][scope].",
+            "start": 2407,
+            "end": 2459
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476",
+            "quote": "# Synthetic inspection",
+            "start": 23,
+            "end": 45
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476",
+            "quote": "## Late independent point",
+            "start": 2381,
+            "end": 2406
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476",
+            "quote": "The indigo latch checks the [trial boundary][scope].",
+            "start": 2407,
+            "end": 2459
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      }
+    }
+  },
+  "rendered": {
+    "f_a9d4e305d00d998c061cb6ef06c2ce5a9768427f370f1b10f6fa80b9a77f01e8": "---\nthird_brain_render: 2\naliases: [\"Link definitions\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_a9d4e305d00d998c061cb6ef06c2ce5a9768427f370f1b10f6fa80b9a77f01e8\"\nprivacy: local\ntitle: \"Link definitions\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476\",\"start\":2481,\"end\":2565},{\"path\":\"b.md\",\"revision\":\"e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476\",\"start\":23,\"end\":45},{\"path\":\"b.md\",\"revision\":\"e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476\",\"start\":2461,\"end\":2480},{\"path\":\"a.md\",\"revision\":\"e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476\",\"start\":2481,\"end\":2565},{\"path\":\"a.md\",\"revision\":\"e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476\",\"start\":23,\"end\":45},{\"path\":\"a.md\",\"revision\":\"e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476\",\"start\":2461,\"end\":2480}]\n---\n\n# Link definitions\n\n\\# Synthetic inspection\n\\#\\# Link definitions\n\n\\[scope\\]: \\<synthetic-boundary.md\\> \"Only inside the disconnected synthetic enclosure.\"\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476; character range: 2481–2565\n\n> \\[scope\\]: \\<synthetic-boundary.md\\> \"Only inside the disconnected synthetic enclosure.\"\n\n[Open original](<../b.md>) — b.md\n\nRevision: e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476; character range: 23–45\n\n> \\# Synthetic inspection\n\n[Open original](<../b.md>) — b.md\n\nRevision: e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476; character range: 2461–2480\n\n> \\#\\# Link definitions\n\n[Open original](<../a.md>) — a.md\n\nRevision: e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476; character range: 2481–2565\n\n> \\[scope\\]: \\<synthetic-boundary.md\\> \"Only inside the disconnected synthetic enclosure.\"\n\n[Open original](<../a.md>) — a.md\n\nRevision: e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476; character range: 23–45\n\n> \\# Synthetic inspection\n\n[Open original](<../a.md>) — a.md\n\nRevision: e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476; character range: 2461–2480\n\n> \\#\\# Link definitions\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_d33f7d4e3cf8aa2dc196b5e4f73b2ae513afd764af450d0073511b32d55451be": "---\nthird_brain_render: 2\naliases: [\"Earlier independent register\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_d33f7d4e3cf8aa2dc196b5e4f73b2ae513afd764af450d0073511b32d55451be\"\nprivacy: local\ntitle: \"Earlier independent register\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476\",\"start\":23,\"end\":45},{\"path\":\"b.md\",\"revision\":\"e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476\",\"start\":47,\"end\":78},{\"path\":\"b.md\",\"revision\":\"e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476\",\"start\":79,\"end\":2378},{\"path\":\"a.md\",\"revision\":\"e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476\",\"start\":23,\"end\":45},{\"path\":\"a.md\",\"revision\":\"e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476\",\"start\":47,\"end\":78},{\"path\":\"a.md\",\"revision\":\"e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476\",\"start\":79,\"end\":2378}]\n---\n\n# Earlier independent register\n\n\\# Synthetic inspection\n\\#\\# Earlier independent register\n\nA paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation.\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476; character range: 23–45\n\n> \\# Synthetic inspection\n\n[Open original](<../b.md>) — b.md\n\nRevision: e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476; character range: 47–78\n\n> \\#\\# Earlier independent register\n\n[Open original](<../b.md>) — b.md\n\nRevision: e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476; character range: 79–2378\n\n> A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation.\n\n[Open original](<../a.md>) — a.md\n\nRevision: e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476; character range: 23–45\n\n> \\# Synthetic inspection\n\n[Open original](<../a.md>) — a.md\n\nRevision: e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476; character range: 47–78\n\n> \\#\\# Earlier independent register\n\n[Open original](<../a.md>) — a.md\n\nRevision: e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476; character range: 79–2378\n\n> A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n",
+    "f_e385ba8c90af7b5f4c912eb9925f1ac76e9ec61a72e63fae64cc63945e1a86ba": "---\nthird_brain_render: 2\naliases: [\"Late independent point\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_e385ba8c90af7b5f4c912eb9925f1ac76e9ec61a72e63fae64cc63945e1a86ba\"\nprivacy: local\ntitle: \"Late independent point\"\nextraction: local-excerpt\nupdated_at: \"2026-01-01T00:00:00.000Z\"\nprovenance: [{\"path\":\"b.md\",\"revision\":\"e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476\",\"start\":23,\"end\":45},{\"path\":\"b.md\",\"revision\":\"e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476\",\"start\":2381,\"end\":2406},{\"path\":\"b.md\",\"revision\":\"e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476\",\"start\":2407,\"end\":2459},{\"path\":\"a.md\",\"revision\":\"e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476\",\"start\":23,\"end\":45},{\"path\":\"a.md\",\"revision\":\"e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476\",\"start\":2381,\"end\":2406},{\"path\":\"a.md\",\"revision\":\"e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476\",\"start\":2407,\"end\":2459}]\n---\n\n# Late independent point\n\n\\# Synthetic inspection\n\\#\\# Late independent point\n\nThe indigo latch checks the \\[trial boundary\\]\\[scope\\].\n\n_Local excerpt; not an AI summary._\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../b.md>) — b.md\n\nRevision: e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476; character range: 23–45\n\n> \\# Synthetic inspection\n\n[Open original](<../b.md>) — b.md\n\nRevision: e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476; character range: 2381–2406\n\n> \\#\\# Late independent point\n\n[Open original](<../b.md>) — b.md\n\nRevision: e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476; character range: 2407–2459\n\n> The indigo latch checks the \\[trial boundary\\]\\[scope\\].\n\n[Open original](<../a.md>) — a.md\n\nRevision: e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476; character range: 23–45\n\n> \\# Synthetic inspection\n\n[Open original](<../a.md>) — a.md\n\nRevision: e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476; character range: 2381–2406\n\n> \\#\\# Late independent point\n\n[Open original](<../a.md>) — a.md\n\nRevision: e82f8ffa51ded8e9561b4ad9e217280f4578306ed1f412871864a0247ee0c476; character range: 2407–2459\n\n> The indigo latch checks the \\[trial boundary\\]\\[scope\\].\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\nNo sufficiently specific shared facets within the bounded network.\n"
+  },
+  "signatures": {
+    "local-excerpts": "{\"version\":1,\"localExcerptPolicy\":\"footnote-context-1\",\"mode\":\"local-excerpts\",\"endpoint\":\"\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "local-model": "{\"version\":1,\"mode\":\"local-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "cloud-model": "{\"version\":1,\"mode\":\"cloud-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}"
+  },
+  "requests": {
+    "local-model": [
+      {
+        "task": "extract",
+        "text": "A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier independent register",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "The indigo latch checks the [trial boundary][scope].",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Late independent point",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "[scope]: <[REDACTED]> \"Only inside the disconnected synthetic enclosure.\"",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Link definitions",
+          "before": ""
+        }
+      }
+    ],
+    "cloud-model": [
+      {
+        "task": "extract",
+        "text": "A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation. A paper gauge records mock wheel orientation.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Earlier independent register",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "The indigo latch checks the [trial boundary][scope].",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Late independent point",
+          "before": ""
+        }
+      },
+      {
+        "task": "extract",
+        "text": "[scope]: <[REDACTED]> \"Only inside the disconnected synthetic enclosure.\"",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "Link definitions",
+          "before": ""
+        }
+      }
+    ]
+  }
+}

@@ -46,7 +46,8 @@ export async function analyzeSource(input: SourceSnapshot, options: AnalyzeOptio
       if (++visited % 32 === 0) await yieldToHost(options.signal);
       if (!meaningful(piece.text)) continue;
       const own = [...piece.localParts ?? [piece],...piece.localSiblings ?? []];
-      const parts = [...(snapshot.format === 'canvas' && piece.localList ? own.flatMap(part => localEvidencePieces({ ...part,heading:piece.heading })) : own), ...(piece.localHeadings ?? []), ...(piece.localLeadIn ? [piece.localLeadIn] : []),...(piece.localFootnotes ?? [])];
+      const definitions = [...piece.localFootnotes ?? [],...piece.localReferences ?? []];
+      const parts = [...(snapshot.format === 'canvas' && piece.localList ? own.flatMap(part => localEvidencePieces({ ...part,heading:piece.heading })) : own), ...(piece.localHeadings ?? []), ...(piece.localLeadIn ? [piece.localLeadIn] : []),...definitions];
       if (parts.length > FRAGMENT_EVIDENCE_LIMIT) {
         const error = new CoreError('Local list context exceeds the quotation evidence limit; no partial index was saved.');
         bindSourceDiagnostic(error,{ relativePath:snapshot.path,stage:'analysis',reason:'local-context-evidence-limit' });
@@ -55,9 +56,9 @@ export async function analyzeSource(input: SourceSnapshot, options: AnalyzeOptio
       const evidence = parts.map(part => evidenceFor(snapshot,part.text,part.offsets));
       const body = piece.localLeadIn ? piece.localLeadIn.text + '\n\n' + piece.text : piece.text;
       const primary = piece.localHeadings?.length ? piece.localHeadings.map(item => item.text).join('\n') + '\n\n' + body : body;
-      const summary = primary + (piece.localFootnotes?.length ? '\n\n' + piece.localFootnotes.map(part => part.text).join('\n\n') : '');
-      if ((piece.localFootnote !== undefined || piece.localFootnotes?.length) && summary.length + (piece.localSiblings?.length ? 1 + piece.localSiblings.map(part => part.text).join('\n').length : 0) > LOCAL_EXCERPT_CONTEXT_LIMIT) {
-        const error = new CoreError('Local footnote context exceeds 16384 characters; no partial index was saved.');
+      const summary = primary + (definitions.length ? '\n\n' + definitions.map(part => part.text).join('\n\n') : '');
+      if ((piece.localFootnote !== undefined || piece.localReference !== undefined || definitions.length) && summary.length + (piece.localSiblings?.length ? 1 + piece.localSiblings.map(part => part.text).join('\n').length : 0) > LOCAL_EXCERPT_CONTEXT_LIMIT) {
+        const error = new CoreError('Local definition context exceeds 16384 characters; no partial index was saved.');
         bindSourceDiagnostic(error,{ relativePath:snapshot.path,stage:'analysis',reason:'local-context-size-limit' });
         throw error;
       }
