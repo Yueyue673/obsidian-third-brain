@@ -145,8 +145,8 @@ export default class ThirdBrainPlugin extends Plugin {
         const original = await this.controller.snapshot(file.path); if (!original) throw new Error('Current-note source is no longer available.');
         return { text, privacy: contextPrivacy(original, fullDraft) };
       },
-      openFragment: async id => {
-        await this.controller.verifyFragmentOpen(id);
+      openFragment: async (id, evidence) => {
+        await this.controller.verifyFragmentOpen(id, evidence);
         const target = await this.store.fragmentPath(id);
         const file = this.app.vault.getFileByPath(target); if (!file) throw generatedFileError('unavailable');
         await this.app.workspace.getLeaf(false).openFile(file);

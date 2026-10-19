@@ -12,7 +12,7 @@ export interface PanelPort {
   refresh(): Promise<void>; find(query: string, breadth: Breadth, privacy?: Privacy, selection?: QuerySelection): Promise<SearchResult[]>;
   cancel(): void; current?(): Promise<{ text: string; privacy: Privacy } | null>;
   open(evidence: Evidence): Promise<void>;
-  openFragment?(id: string): Promise<void>;
+  openFragment?(id: string, evidence?: Evidence): Promise<void>;
 }
 // A one-time handoff within an open view, never settings/workspace persistence.
 // Results, evidence proofs and permission to auto-refine are deliberately absent.
@@ -149,7 +149,7 @@ export function mountPanel(container: HTMLElement, port: PanelPort, locale: 'aut
       }
       if (port.openFragment) {
         const open = element('button', 'tb-secondary', t.openFragment); open.type = 'button';
-        open.addEventListener('click', () => openResult(() => port.openFragment!(fragment.id), Object.values(generatedCopy)));
+        open.addEventListener('click', () => openResult(() => port.openFragment!(fragment.id, fragment.evidence[0]), Object.values(generatedCopy)));
         article.append(open);
       }
       if (item.reasons.length) {

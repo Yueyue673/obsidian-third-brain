@@ -57,7 +57,7 @@ it.each(['zh','en'] as const)('separates additional suggestions with no extra se
   const hits=searchFragments([a,b],'needle',{breadth:'high',index});
   hits[1]={...hits[1],group:'indirect-suggestion'};
   vi.stubGlobal('document',{createElement:(tag:string)=>new NodeStub(tag)});
-  const root=new NodeStub('main'), open=vi.fn(async()=>{}), openFragment=vi.fn(async()=>{});
+  const root=new NodeStub('main'), open=vi.fn(async()=>{}), openFragment=vi.fn(async(_id: string, _proof?: Evidence)=>{});
   const dispose=mountPanel(root as unknown as HTMLElement,{status:()=>({phase:'idle',sourceCount:2,fragmentCount:2,updatedAt:'',mode:'local-excerpts'}),subscribe:()=>()=>{},refresh:async()=>{},find:async()=>hits,cancel:()=>{},open,openFragment},locale);
   const input=root.all().find(n=>n.tag==='textarea')!;input.value='needle';await input.fire('input');await root.all().find(n=>n.className==='tb-primary')!.fire('click');
   const main=root.all().find(n=>n.className==='tb-main-results')!, lane=root.all().find(n=>n.className==='tb-suggestions')!;
@@ -67,7 +67,8 @@ it.each(['zh','en'] as const)('separates additional suggestions with no extra se
   expect(main.all().filter(n=>n.tag==='button'&&n.className==='tb-secondary')).toHaveLength(1);expect(lane.all().filter(n=>n.tag==='button'&&n.className==='tb-secondary')).toHaveLength(1);
   await main.all().find(n=>n.tag==='button'&&n.className==='tb-secondary')!.fire('click');
   await lane.all().find(n=>n.tag==='button'&&n.className==='tb-secondary')!.fire('click');
-  expect(openFragment.mock.calls).toEqual([[a.id],[b.id]]);
+  expect(openFragment.mock.calls).toEqual([[a.id,a.evidence[0]],[b.id,b.evidence[0]]]);
+  expect(openFragment.mock.calls[0][1]).toBe(a.evidence[0]); expect(openFragment.mock.calls[1][1]).toBe(b.evidence[0]);
   const trace=lane.all().find(n=>n.className==='tb-indirect-evidence')!;
   for(const button of trace.all().filter(n=>n.tag==='button'))await button.fire('click');
   expect(open.mock.calls).toEqual([[a.evidence[0]],[b.evidence[0]]]);dispose();
