@@ -182,8 +182,9 @@ function referenceDefinition(raw: string): string | undefined {
  * Recognise only a complete label (colon inside or immediately after the pair),
  * never strip arbitrary inline markup, code, escapes or partial-word emphasis.
  * Display/evidence text and AI primary parsing stay untouched. */
-function localContextItem(text: string): boolean {
-  const label = /^(?:examples?|counterexamples?|conditions?|caveats?|limitations?|例子|示例|反例|条件|前提|限制)[ \t]*[:：]/iu;
+function localContextItem(text: string, applicability = false): boolean {
+  const label = applicability ? /^(?:conditions?|条件|前提)[ \t]*[:：]/iu
+    : /^(?:examples?|counterexamples?|conditions?|caveats?|limitations?|例子|示例|反例|条件|前提|限制)[ \t]*[:：]/iu;
   if (label.test(text)) return true;
   const emphasis = /^(\*\*?|__?)([^*_\r\n]+)\1/u.exec(text);
   if (!emphasis || emphasis[2].trim() !== emphasis[2]) return false;
@@ -193,6 +194,7 @@ function localContextItem(text: string): boolean {
 }
 function markdownBlocks(raw: string, base: number, excalidraw = false, local = false, sourcePath = '', includeHeadings = false, quotedLists = true, footnoteDefinitions = local): TextBlock[] {
   const meta = frontmatter(raw), blocks: TextBlock[] = [];
+  const proseSpans = new Map<TextBlock, [number, number]>();
   const ancestors: { depth: number; block: MappedText }[] = [];
   let heading = '', start = -1, end = -1, fence = '', fenceLength = 0, hidden = '', drawing = false;
   let listIndent = -1, contentIndent = -1, blockedIndent = -1, blockedContentIndent = -1, blank = false, rootIsContext = false, orderedRoot = '', taskRoot = '';
@@ -221,6 +223,12 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
         }
         const block: TextBlock = { ...mapped(trimmed, base < 0 ? -1 : base + start + trimStart), heading, ...(local && listIndent >= 0 ? { localList:true } : {}), ...(local && leadIn ? { localLeadIn:leadIn } : {}), ...(local && ancestors.length ? { localHeadings:ancestors.map(item => item.block) } : {}) };
         blocks.push(block);
+        // Parser-owned positions, not decoded Canvas offsets, prove adjacency.
+        // Lists, tables and quote/HTML-like containers retain their own rules.
+        if (local && listIndent < 0 && !leadIn && /^ {0,3}\S/u.test(text) && !startsLocalTable(trimmed)
+          && !trimmed.split(/\r\n|\r|\n/u).some(row => /^\s*(?:>|<|#{1,6}\s|[-*+]\s|\d+[.)]\s|\|)/u.test(row))) {
+          proseSpans.set(block,[start,end]);
+        }
         if (local && listIndent < 0) introduction = introducesList(trimmed) ? { block,end } : undefined;
       }
     }
@@ -491,7 +499,42 @@ function markdownBlocks(raw: string, base: number, excalidraw = false, local = f
     if (start < 0) start = offset;
     end = offset + line.length;
   }
-  flush(); return blocks;
+  flush(); return local && quotedLists ? localProseContext(blocks,proseSpans,raw,sourcePath) : blocks;
+}
+/** A deliberately narrow authored prose unit: explicit condition paragraph(s),
+ * exactly one ordinary point, then explicit example/counterexample/caveat(s).
+ * Both labelled ends are required; arbitrary neighbours and unclosed/multi-point
+ * runs keep their existing boundaries. This is not semantic dependency inference.
+ * Called within one note/node BEFORE footnote/reference resolution. */
+function localProseContext(blocks: TextBlock[], spans: Map<TextBlock, [number, number]>, raw: string, sourcePath: string): TextBlock[] {
+  const result: TextBlock[] = [];
+  const adjacent = (left: number, right: number) => {
+    const a = spans.get(blocks[left]), b = spans.get(blocks[right]);
+    // Nonblank gaps include even repeated headings, hidden/code barriers and
+    // skipped syntax. Never infer adjacency from equal display heading strings.
+    return !!a && !!b && !raw.slice(a[1],b[0]).trim();
+  };
+  for (let i = 0; i < blocks.length; i++) {
+    const first = blocks[i];
+    if (!spans.has(first) || !localContextItem(first.text,true)) { result.push(first); continue; }
+    let point = i + 1;
+    while (point < blocks.length && adjacent(point-1,point) && localContextItem(blocks[point].text,true)) point++;
+    if (point >= blocks.length || !adjacent(point-1,point) || localContextItem(blocks[point].text)) { result.push(first); continue; }
+    let end = point + 1;
+    while (end < blocks.length && adjacent(end-1,end) && localContextItem(blocks[end].text) && !localContextItem(blocks[end].text,true)) end++;
+    if (end === point + 1) { result.push(first); continue; }
+    const parts = blocks.slice(i,end), text = parts.map(part => part.text).join('\n\n');
+    if (parts.some(part => part.text.includes('<!--') || part.text.includes('%%'))) throw new CoreError('Local prose context intersects hidden content; no partial index was saved.');
+    const headings = first.localHeadings ?? [], size = text.length + (headings.length ? headings.map(part => part.text).join('\n').length + 2 : 0);
+    if (size > LOCAL_EXCERPT_CONTEXT_LIMIT) {
+      const error = new CoreError('Local paragraph context exceeds 16384 characters; no partial index was saved.');
+      bindSourceDiagnostic(error,{ relativePath:sourcePath,stage:'analysis',reason:'local-context-size-limit' });
+      throw error;
+    }
+    result.push({ ...first,text,offsets:parts.flatMap((part,index) => [...(index ? [-1,-1] : []),...part.offsets]),localParts:parts });
+    i = end - 1;
+  }
+  return result;
 }
 /** Focus direct unordered branches under a one-line colon parent, without
  * requiring authors to add example/condition labels or asserting independence.

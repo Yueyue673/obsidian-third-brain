@@ -1,0 +1,635 @@
+{
+  "notice": "Authored synthetic baseline fixture; no live AI or private data.",
+  "en": {
+    "condition": "Conditions: This rule applies only to a dry single-layer replica tray on a level cart, not a damp laminated tray.",
+    "point": "Cork corner blocks keep the blue paper tray from sliding when the cart turns.",
+    "counter": "Counterexample: The same cork blocks crease the softened corners of a damp laminated tray.",
+    "opposite": "Conditions: On a damp laminated replica tray the following arrangement is prohibited.",
+    "otherCounter": "Counterexample: A dry replica does not establish suitability for the damp laminated one.",
+    "secondCondition": "Conditions: Use equal tapping force on two hollow wooden disks in a closed box.",
+    "second": "A thin cloth strip separates the brief tapping sounds of the hollow wooden disks.",
+    "secondCounter": "Counterexample: A thick foam wrap suppresses the second onset; solid disks were not tested.",
+    "query": "How can I keep the blue paper tray from sliding when the cart turns?",
+    "secondQuery": "How can I hear the hollow wooden disk taps apart?",
+    "independent": "The unrelated spindle ledger records the order of blank paper sheets."
+  },
+  "zh": {
+    "condition": "条件：本规则只适用于水平推车上的干燥单层复制托盘，不适用于潮湿覆膜托盘。",
+    "point": "软木角挡块可以在推车转弯时防止蓝色纸托盘滑动。",
+    "counter": "反例：潮湿覆膜托盘的边角会被同样的软木挡块压出折痕。",
+    "opposite": "条件：对于潮湿覆膜复制托盘，禁止下述布置。",
+    "otherCounter": "反例：干燥复制品不能证明潮湿覆膜托盘也适用。",
+    "secondCondition": "条件：只比较封闭盒中以同样力度敲击的两块空心木片。",
+    "second": "在空心木片之间放一条薄布带，可以分开短促敲击声。",
+    "secondCounter": "反例：厚泡沫会压掉第二个起音，实心木片没有参与比较。",
+    "query": "我想让蓝色纸托盘在推车转弯时不滑动",
+    "secondQuery": "怎样用薄布带分开空心木片敲击声",
+    "independent": "独立线轴台账记录空白纸张的先后顺序。"
+  },
+  "background": "This invented tabletop rehearsal uses paper and wooden replicas. A folding screen stands beside shallow drawers and a low cart. The chalkboard contains geometric shapes without names or personal observations. A square token marks the entrance so a later reader can reconstruct the route without a photograph. No claim about a real collection is intended.\n\nThe first sketch follows the left wall. A linen square lies beneath a transparent ruler, while blank cards sit beside an empty spool. Afternoon light reaches the ruler but stops before the drawers. A narrow cardboard arch occupies the far edge of the desk. Its role is visual orientation; stiffness and durability were not measured. A closed pencil box is outside the trial area.\n\nA separate drawing shows a cupboard with an uneven painted border. One shelf holds a round wooden token and another supports an unmoved folded sheet. The cupboard is drawn separately because its scale differs from the cart. The unused cushion belongs to neither arrangement and cannot support a later result. Ink colour records drawing order rather than age or quality.\n\nA rectangular floor tile meets a woven mat along the passage. Bare table separates material samples. The imagined observer closes a shallow drawer before placing the notebook on a stool. These actions describe the room, not experimental controls. The later trials state their own applicability. Their explicit counterexamples must accompany a reusable note.\n\nThe last sketch depicts a lamp and a bookend around several unread blank sheets. A curtain corner covers the wall, distinguishing the window from the door. A small arrow indicates the drawing orientation rather than material movement. Empty space inside the paper frame is deliberate. It contains no missing measurements or hidden attachment. The room description cannot establish causality for either later trial.",
+  "raws": {
+    "a.md": "Conditions: This rule applies only to a dry single-layer replica tray on a level cart, not a damp laminated tray.\n\nCork corner blocks keep the blue paper tray from sliding when the cart turns.\n\nCounterexample: The same cork blocks crease the softened corners of a damp laminated tray.",
+    "copy.md": "Conditions: This rule applies only to a dry single-layer replica tray on a level cart, not a damp laminated tray.\n\nCork corner blocks keep the blue paper tray from sliding when the cart turns.\n\nCounterexample: The same cork blocks crease the softened corners of a damp laminated tray.",
+    "opposed.md": "Conditions: On a damp laminated replica tray the following arrangement is prohibited.\n\nCork corner blocks keep the blue paper tray from sliding when the cart turns.\n\nCounterexample: A dry replica does not establish suitability for the damp laminated one."
+  },
+  "signatures": {
+    "local-excerpts": "{\"version\":1,\"localExcerptPolicy\":\"callout-title-context-1\",\"mode\":\"local-excerpts\",\"endpoint\":\"\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "local-model": "{\"version\":1,\"mode\":\"local-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}",
+    "cloud-model": "{\"version\":1,\"mode\":\"cloud-model\",\"endpoint\":\"http://127.0.0.1:11434/v1\",\"model\":\"\",\"excludes\":[],\"maxFileBytes\":2097152}"
+  },
+  "old": {
+    "version": 1,
+    "signature": "editorial-core-2:c2275ec47836d7e22fd8b3525549afc05c8bb5bb2bb89cb4a3965c89c332f4b5",
+    "updatedAt": "2026-01-01T00:00:00.000Z",
+    "sources": {
+      "a.md": {
+        "hash": "387b55525da1449536c8620641b745114de5a21461aeef3c313630f37d84e1aa",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_87307e7508372835346f7ed4cb3c21adaae9561206b51602c11c18776a33d887",
+          "f_982ee7060f6b7e586a9f2cb52bb02c05956cca587a2369a2f0e5e6db04dfbb3e",
+          "f_cff2b036ac450852f4c5be5f9b291fed4063eb698d4e4c0f7ac7b1784e53fcfb"
+        ]
+      },
+      "copy.md": {
+        "hash": "387b55525da1449536c8620641b745114de5a21461aeef3c313630f37d84e1aa",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_87307e7508372835346f7ed4cb3c21adaae9561206b51602c11c18776a33d887",
+          "f_982ee7060f6b7e586a9f2cb52bb02c05956cca587a2369a2f0e5e6db04dfbb3e",
+          "f_cff2b036ac450852f4c5be5f9b291fed4063eb698d4e4c0f7ac7b1784e53fcfb"
+        ]
+      },
+      "opposed.md": {
+        "hash": "fd9f5cb52a17f92841452f7f72b12cfd3ace48bc5bb18b1def8df9c8fb956930",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_2da0f3b1e927245cab8d7fe4ebf6d5e815893dd992d78aa4ed6ee33f91075b1e",
+          "f_982ee7060f6b7e586a9f2cb52bb02c05956cca587a2369a2f0e5e6db04dfbb3e",
+          "f_d5da0cc6902e8598acd6b524c38fb902e9e97d2043be04ecf2c098cfc83c6353"
+        ]
+      }
+    },
+    "fragments": {
+      "f_2da0f3b1e927245cab8d7fe4ebf6d5e815893dd992d78aa4ed6ee33f91075b1e": {
+        "id": "f_2da0f3b1e927245cab8d7fe4ebf6d5e815893dd992d78aa4ed6ee33f91075b1e",
+        "privacy": "normal",
+        "title": "Counterexample: A dry replica does not establish suitability for the damp laminated one.",
+        "summary": "Counterexample: A dry replica does not establish suitability for the damp laminated one.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "ad0f637d5b413e84e712e156",
+            "relativePath": "opposed.md",
+            "sourceHash": "fd9f5cb52a17f92841452f7f72b12cfd3ace48bc5bb18b1def8df9c8fb956930",
+            "quote": "Counterexample: A dry replica does not establish suitability for the damp laminated one.",
+            "start": 166,
+            "end": 254
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_87307e7508372835346f7ed4cb3c21adaae9561206b51602c11c18776a33d887": {
+        "id": "f_87307e7508372835346f7ed4cb3c21adaae9561206b51602c11c18776a33d887",
+        "privacy": "normal",
+        "title": "Counterexample: The same cork blocks crease the softened corners of a damp laminated tray.",
+        "summary": "Counterexample: The same cork blocks crease the softened corners of a damp laminated tray.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "387b55525da1449536c8620641b745114de5a21461aeef3c313630f37d84e1aa",
+            "quote": "Counterexample: The same cork blocks crease the softened corners of a damp laminated tray.",
+            "start": 194,
+            "end": 284
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "387b55525da1449536c8620641b745114de5a21461aeef3c313630f37d84e1aa",
+            "quote": "Counterexample: The same cork blocks crease the softened corners of a damp laminated tray.",
+            "start": 194,
+            "end": 284
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_982ee7060f6b7e586a9f2cb52bb02c05956cca587a2369a2f0e5e6db04dfbb3e": {
+        "id": "f_982ee7060f6b7e586a9f2cb52bb02c05956cca587a2369a2f0e5e6db04dfbb3e",
+        "privacy": "normal",
+        "title": "Cork corner blocks keep the blue paper tray from sliding when the cart turns.",
+        "summary": "Cork corner blocks keep the blue paper tray from sliding when the cart turns.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "387b55525da1449536c8620641b745114de5a21461aeef3c313630f37d84e1aa",
+            "quote": "Cork corner blocks keep the blue paper tray from sliding when the cart turns.",
+            "start": 115,
+            "end": 192
+          },
+          {
+            "sourceId": "ad0f637d5b413e84e712e156",
+            "relativePath": "opposed.md",
+            "sourceHash": "fd9f5cb52a17f92841452f7f72b12cfd3ace48bc5bb18b1def8df9c8fb956930",
+            "quote": "Cork corner blocks keep the blue paper tray from sliding when the cart turns.",
+            "start": 87,
+            "end": 164
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "387b55525da1449536c8620641b745114de5a21461aeef3c313630f37d84e1aa",
+            "quote": "Cork corner blocks keep the blue paper tray from sliding when the cart turns.",
+            "start": 115,
+            "end": 192
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_cff2b036ac450852f4c5be5f9b291fed4063eb698d4e4c0f7ac7b1784e53fcfb": {
+        "id": "f_cff2b036ac450852f4c5be5f9b291fed4063eb698d4e4c0f7ac7b1784e53fcfb",
+        "privacy": "normal",
+        "title": "Conditions: This rule applies only to a dry single-layer replica tray on a level cart, not a damp la",
+        "summary": "Conditions: This rule applies only to a dry single-layer replica tray on a level cart, not a damp laminated tray.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "045625f01bffb97dded3d9f0",
+            "relativePath": "copy.md",
+            "sourceHash": "387b55525da1449536c8620641b745114de5a21461aeef3c313630f37d84e1aa",
+            "quote": "Conditions: This rule applies only to a dry single-layer replica tray on a level cart, not a damp laminated tray.",
+            "start": 0,
+            "end": 113
+          },
+          {
+            "sourceId": "fecccc97532467adbf93017b",
+            "relativePath": "a.md",
+            "sourceHash": "387b55525da1449536c8620641b745114de5a21461aeef3c313630f37d84e1aa",
+            "quote": "Conditions: This rule applies only to a dry single-layer replica tray on a level cart, not a damp laminated tray.",
+            "start": 0,
+            "end": 113
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_d5da0cc6902e8598acd6b524c38fb902e9e97d2043be04ecf2c098cfc83c6353": {
+        "id": "f_d5da0cc6902e8598acd6b524c38fb902e9e97d2043be04ecf2c098cfc83c6353",
+        "privacy": "normal",
+        "title": "Conditions: On a damp laminated replica tray the following arrangement is prohibited.",
+        "summary": "Conditions: On a damp laminated replica tray the following arrangement is prohibited.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "ad0f637d5b413e84e712e156",
+            "relativePath": "opposed.md",
+            "sourceHash": "fd9f5cb52a17f92841452f7f72b12cfd3ace48bc5bb18b1def8df9c8fb956930",
+            "quote": "Conditions: On a damp laminated replica tray the following arrangement is prohibited.",
+            "start": 0,
+            "end": 85
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-01-01T00:00:00.000Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      }
+    }
+  },
+  "aiBlocks": [
+    {
+      "text": "Conditions: This rule applies only to a dry single-layer replica tray on a level cart, not a damp laminated tray.",
+      "offsets": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20,
+        21,
+        22,
+        23,
+        24,
+        25,
+        26,
+        27,
+        28,
+        29,
+        30,
+        31,
+        32,
+        33,
+        34,
+        35,
+        36,
+        37,
+        38,
+        39,
+        40,
+        41,
+        42,
+        43,
+        44,
+        45,
+        46,
+        47,
+        48,
+        49,
+        50,
+        51,
+        52,
+        53,
+        54,
+        55,
+        56,
+        57,
+        58,
+        59,
+        60,
+        61,
+        62,
+        63,
+        64,
+        65,
+        66,
+        67,
+        68,
+        69,
+        70,
+        71,
+        72,
+        73,
+        74,
+        75,
+        76,
+        77,
+        78,
+        79,
+        80,
+        81,
+        82,
+        83,
+        84,
+        85,
+        86,
+        87,
+        88,
+        89,
+        90,
+        91,
+        92,
+        93,
+        94,
+        95,
+        96,
+        97,
+        98,
+        99,
+        100,
+        101,
+        102,
+        103,
+        104,
+        105,
+        106,
+        107,
+        108,
+        109,
+        110,
+        111,
+        112
+      ],
+      "heading": ""
+    },
+    {
+      "text": "Cork corner blocks keep the blue paper tray from sliding when the cart turns.",
+      "offsets": [
+        115,
+        116,
+        117,
+        118,
+        119,
+        120,
+        121,
+        122,
+        123,
+        124,
+        125,
+        126,
+        127,
+        128,
+        129,
+        130,
+        131,
+        132,
+        133,
+        134,
+        135,
+        136,
+        137,
+        138,
+        139,
+        140,
+        141,
+        142,
+        143,
+        144,
+        145,
+        146,
+        147,
+        148,
+        149,
+        150,
+        151,
+        152,
+        153,
+        154,
+        155,
+        156,
+        157,
+        158,
+        159,
+        160,
+        161,
+        162,
+        163,
+        164,
+        165,
+        166,
+        167,
+        168,
+        169,
+        170,
+        171,
+        172,
+        173,
+        174,
+        175,
+        176,
+        177,
+        178,
+        179,
+        180,
+        181,
+        182,
+        183,
+        184,
+        185,
+        186,
+        187,
+        188,
+        189,
+        190,
+        191
+      ],
+      "heading": ""
+    },
+    {
+      "text": "Counterexample: The same cork blocks crease the softened corners of a damp laminated tray.",
+      "offsets": [
+        194,
+        195,
+        196,
+        197,
+        198,
+        199,
+        200,
+        201,
+        202,
+        203,
+        204,
+        205,
+        206,
+        207,
+        208,
+        209,
+        210,
+        211,
+        212,
+        213,
+        214,
+        215,
+        216,
+        217,
+        218,
+        219,
+        220,
+        221,
+        222,
+        223,
+        224,
+        225,
+        226,
+        227,
+        228,
+        229,
+        230,
+        231,
+        232,
+        233,
+        234,
+        235,
+        236,
+        237,
+        238,
+        239,
+        240,
+        241,
+        242,
+        243,
+        244,
+        245,
+        246,
+        247,
+        248,
+        249,
+        250,
+        251,
+        252,
+        253,
+        254,
+        255,
+        256,
+        257,
+        258,
+        259,
+        260,
+        261,
+        262,
+        263,
+        264,
+        265,
+        266,
+        267,
+        268,
+        269,
+        270,
+        271,
+        272,
+        273,
+        274,
+        275,
+        276,
+        277,
+        278,
+        279,
+        280,
+        281,
+        282,
+        283
+      ],
+      "heading": ""
+    }
+  ],
+  "requests": {
+    "local-model": [
+      {
+        "task": "extract",
+        "text": "Conditions: This rule applies only to a dry single-layer replica tray on a level cart, not a damp laminated tray.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Cork corner blocks keep the blue paper tray from sliding when the cart turns.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "",
+          "before": "Conditions: This rule applies only to a dry single-layer replica tray on a level cart, not a damp laminated tray."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Counterexample: The same cork blocks crease the softened corners of a damp laminated tray.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "",
+          "before": "Cork corner blocks keep the blue paper tray from sliding when the cart turns."
+        }
+      }
+    ],
+    "cloud-model": [
+      {
+        "task": "extract",
+        "text": "Conditions: This rule applies only to a dry single-layer replica tray on a level cart, not a damp laminated tray.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Cork corner blocks keep the blue paper tray from sliding when the cart turns.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "",
+          "before": "Conditions: This rule applies only to a dry single-layer replica tray on a level cart, not a damp laminated tray."
+        }
+      },
+      {
+        "task": "extract",
+        "text": "Counterexample: The same cork blocks crease the softened corners of a damp laminated tray.",
+        "vocabulary": {
+          "topics": [],
+          "concepts": [],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "context": {
+          "heading": "",
+          "before": "Cork corner blocks keep the blue paper tray from sliding when the cart turns."
+        }
+      }
+    ]
+  }
+}
