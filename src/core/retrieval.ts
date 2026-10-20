@@ -6,6 +6,8 @@ import { buildFragmentNetwork } from './connections';
 
 export const ACTIVATION_LIMITS = Object.freeze({ seeds: 3, neighborsPerSeed: 3, targets: 6, steps: 1 });
 export const INDIRECT_MECHANISM_CAVEAT = 'Indirect association suggestion via an existing shared mechanism between fragments, not equivalence to the query mechanism or a verified causal relationship; compare both sources and their conditions.';
+export const LOCAL_PASSAGE_CAVEAT = 'Matching words in a bounded local passage, not semantic equivalence; read the full excerpt for conditions and counterexamples.';
+const LOCAL_PASSAGE_TOKENS = 128, LOCAL_PASSAGE_STEP = 64;
 
 const LATIN_STOP = new Set('a an and are as at be been but by can could do does for from had has have how i if in is it its just may me my not of on or our should so some than that the their them there these they this to us was we were what when where which who why will with would you your'.split(' '));
 const HAN_STOP = new Set(['一下','一个','一些','这个','那个','这些','那些','什么','怎么','如何','可以','可能','有没有','有没','没有','想要','我想','想法','事情','东西','知道','感觉','请问','一下','因为','所以','但是','然后','就是','这样','那样','自己','我们','他们']);
@@ -27,6 +29,19 @@ function cosine(query: Map<string,number>, doc: Map<string,number>, frequency: M
   for (const [token,tf] of query) { const value = weight(token,tf); qNorm += value * value; numerator += value * (doc.has(token) ? weight(token,doc.get(token)!) : 0); }
   for (const [token,tf] of doc) { const value = weight(token,tf); dNorm += value * value; }
   return qNorm && dNorm ? numerator / Math.sqrt(qNorm * dNorm) : 0;
+}
+function localPassageMatch(query: Map<string,number>, tokens: string[], full: Map<string,number>, frequency: Map<string,number>, count: number) {
+  let score = cosine(query,full,frequency,count), document = full;
+  // Query-time matching only: never split a stored excerpt or its quotations.
+  // Keep the original score as a fallback and reuse full-corpus IDF. Overlapping
+  // fixed-size windows include the tail without favoring a short final window.
+  if (query.size && tokens.length > LOCAL_PASSAGE_TOKENS) for (let start = 0;; start = Math.min(start + LOCAL_PASSAGE_STEP,tokens.length - LOCAL_PASSAGE_TOKENS)) {
+    const passage = counts(tokens.slice(start,start + LOCAL_PASSAGE_TOKENS));
+    const value = cosine(query,passage,frequency,count);
+    if (value > score) { score = value; document = passage; }
+    if (start + LOCAL_PASSAGE_TOKENS >= tokens.length) break;
+  }
+  return { score,document };
 }
 function mentioned(query: string, values: string[]): string[] {
   const haystack = query.normalize('NFKC').toLocaleLowerCase('en-US');
@@ -64,7 +79,8 @@ export function searchFragments(fragments: Fragment[], query: string, options: S
     const evidence = fragment.evidence.filter(item => item.quote.trim() && (!options.excludeSource || (item.sourceId !== options.excludeSource && item.relativePath !== options.excludeSource)));
     return evidence.length ? [{ ...fragment,evidence }] : [];
   });
-  const documents = candidates.map(fragment => counts(lexicalTokens(`${fragment.title}\n${fragment.summary}`)));
+  const documentTokens = candidates.map(fragment => lexicalTokens(`${fragment.title}\n${fragment.summary}`));
+  const documents = documentTokens.map(counts);
   const facetDocuments = candidates.map(fragment => Object.fromEntries(FACET_KEYS.map(key => [key,counts(lexicalTokens(fragment.facets[key].join(' ')))])) as Record<keyof Facets,Map<string,number>>);
   const frequency = new Map<string,number>();
   // Facet labels are existing local metadata, not filenames or inferred query tags.
@@ -75,12 +91,15 @@ export function searchFragments(fragments: Fragment[], query: string, options: S
   const results: SearchResult[] = [];
   for (let i = 0; i < candidates.length; i++) {
     const fragment = candidates[i], reasons: RelationReason[] = [], quotes = [...new Set(fragment.evidence.map(item => item.quote))].slice(0,3);
-    const lexical = cosine(qTokens,documents[i],frequency,candidates.length);
+    const match = fragment.mode === 'local' && fragment.kind === 'excerpt'
+      ? localPassageMatch(qTokens,documentTokens[i],documents[i],frequency,candidates.length)
+      : { score:cosine(qTokens,documents[i],frequency,candidates.length),document:documents[i] };
+    const lexical = match.score;
     const shared = emptyFacets();
     for (const key of FACET_KEYS) shared[key] = fragment.facets[key].filter(value => intent[key].some(item => facetKey(item) === facetKey(value)));
     let score = lexical;
-    const tokens = [...qTokens.keys()].filter(token => documents[i].has(token)).slice(0,6);
-    if (lexical > 0) reasons.push({ kind:'content',label:`Lexical baseline: ${tokens.join(' · ')}`,quotes });
+    const tokens = [...qTokens.keys()].filter(token => match.document.has(token)).slice(0,6);
+    if (lexical > 0) reasons.push({ kind:'content',label:`${match.document === documents[i] ? 'Lexical baseline' : 'Local passage keyword match'}: ${tokens.join(' · ')}`,quotes,...(match.document !== documents[i] ? { caveat:LOCAL_PASSAGE_CAVEAT } : {}) });
     for (const [key,kind,boost] of [['topics','topic',0.6],['concepts','concept',0.55]] as const) if (shared[key].length) { score += boost; reasons.push({ kind,label:`Shared ${kind} facet: ${shared[key].join(' · ')}`,quotes,caveat:'A shared declared facet is not proof of semantic equivalence.' }); }
     const addFacetKeyword = (key: keyof Facets): boolean => {
       if (shared[key].length) return false; // Exact facet matches already have their own channel.
