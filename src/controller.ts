@@ -25,6 +25,9 @@ export class ThirdBrainController {
   private task: AbortController | null = null;
   private ready = false;
   private hasCompleteIndex = false;
+  // A failed/cancelled commit may already have durably advanced the store.
+  // Reconcile its validated revision before the next incremental build.
+  private refreshRecoveryRequired = false;
   private taskMode: Settings['mode'] = 'local-excerpts';
   private listeners = new Set<() => void>();
   // Bind the exact rendered quotation objects to complete query-time traces.
@@ -45,7 +48,7 @@ export class ThirdBrainController {
   }
   async initialize(): Promise<void> {
     this.ready = false;
-    try { await this.store.recover(); const loaded = await this.store.load(); this.hasCompleteIndex = loaded !== null; this.indexState = loaded ?? emptyIndex(); this.ready = true; this.update('idle'); }
+    try { await this.store.recover(); const loaded = await this.store.load(); this.hasCompleteIndex = loaded !== null; this.indexState = loaded ?? emptyIndex(); this.refreshRecoveryRequired = false; this.ready = true; this.update('idle'); }
     catch (error) {
       this.update('error', undefined, 'index-unavailable', undefined, undefined, undefined, generatedFileDiagnostic(error), storeDiagnostic(error));
       throw error;
@@ -74,6 +77,17 @@ export class ThirdBrainController {
       this.update('indexing',checked.phase === 'done' ? { ...checked,phase:'processing' } : checked);
     };
     try {
+      if (this.refreshRecoveryRequired) {
+        // Recovery and strict load have no AbortSignal:
+        // retain single-flight until recovery settles, then discard a cancelled
+        // result rather than starting analysis from the stale in-memory index.
+        await this.store.recover();
+        checkAbort(task.signal);
+        const loaded = await this.store.load();
+        checkAbort(task.signal);
+        this.indexState = loaded ?? emptyIndex(); this.hasCompleteIndex = loaded !== null;
+        this.refreshRecoveryRequired = false;
+      }
       const model = this.model(options);
       const sources = await cancellable(() => this.sources.list({ signal:task.signal,onProgress:progress }),task.signal);
       checkAbort(task.signal);
@@ -91,11 +105,12 @@ export class ThirdBrainController {
       try { await this.saved(new Date().toISOString()); } catch { warning = 'schedule-not-saved'; }
       this.update('idle', undefined, undefined, warning);
     } catch (error) {
+      if (commitStarted) this.refreshRecoveryRequired = true;
       const cancelled = task.signal.aborted || (error instanceof Error && error.name === 'AbortError');
       const diagnostic = cancelled ? undefined : sourceDiagnostic(error);
       const generated = cancelled || diagnostic ? undefined : generatedFileDiagnostic(error);
       const store = cancelled || diagnostic || generated ? undefined : storeDiagnostic(error);
-      this.update(cancelled ? 'cancelled' : 'error',this.state.progress,cancelled ? undefined : 'operation-failed',undefined,diagnostic,commitStarted ? 'unknown' : diagnostic || generated || store ? 'not-started' : undefined,generated,store);
+      this.update(cancelled ? 'cancelled' : 'error',this.state.progress,cancelled ? undefined : 'operation-failed',undefined,diagnostic,this.refreshRecoveryRequired ? 'unknown' : diagnostic || generated || store ? 'not-started' : undefined,generated,store);
       if (cancelled) { const stopped = abortError(); stopped.message = 'Cancelled.'; throw stopped; }
       throw error;
     }
