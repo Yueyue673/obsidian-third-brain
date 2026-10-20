@@ -504,11 +504,26 @@ export class OwnedStore implements StorePort {
     if (!data) return null;
     const state = manifest(data, marker);
     if (checkFiles) {
-      for (const [name, expected] of Object.entries(state.value.owned)) {
-        const data = await this.read(`${this.folder}/${name}`, FILE_LIMIT);
-        if (!data) throw generatedFileError('missing');
-        if (hash(data) !== expected) throw generatedFileError('changed');
-      }
+      const files = Object.entries(state.value.owned);
+      let cursor = 0, failed = false;
+      let failure: unknown;
+      const check = async (): Promise<void> => {
+        while (!failed && cursor < files.length) {
+          const [name, expected] = files[cursor++];
+          try {
+            const data = await this.read(`${this.folder}/${name}`, FILE_LIMIT);
+            if (!data) throw generatedFileError('missing');
+            if (hash(data) !== expected) throw generatedFileError('changed');
+          } catch (error) {
+            if (!failed) { failed = true; failure = error; }
+          }
+        }
+      };
+      // Bound full guarded reads, not individual checks. Workers absorb failures
+      // so every in-flight read (including handle close) drains before the caller
+      // can release the store lock. Never cache ownership across operations.
+      await Promise.all(Array.from({ length: Math.min(4, files.length) }, check));
+      if (failed) throw failure;
     }
     return state;
   }
