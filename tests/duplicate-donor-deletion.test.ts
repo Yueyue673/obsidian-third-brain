@@ -68,19 +68,36 @@ async function fixture(locale: 'en' | 'zh') {
   const close = async () => { await Promise.allSettled([...queries, ...operations]); dispose(); controller.dispose(); };
   return { root, originals, settings, sources, store, controller, saved, container, port, opened, selected, search, click, actions, protectedFiles, close };
 }
-it.each([['a.md', 'en'], ['c.canvas', 'zh']] as const)('deleting synthetic %s retires complete old actions and reconciles surviving late points (%s)', async (removed, locale) => {
+// Separate fresh-vault lifetimes keep each complete acceptance phase within the
+// unchanged 20-second deadline. Never replace real ownership checks with mocks.
+const removals = [['a.md', 'en'], ['c.canvas', 'zh']] as const;
+async function sharedCard(f: Awaited<ReturnType<typeof fixture>>) {
+  const initial = await f.search('porcelain gauge'); expect(initial).toHaveLength(1);
+  const old = initial[0].fragment; expect(old.localContext).toContain('never apply this to live equipment'); expect(old.summary).toContain('Only inside the offline dummy bench');
+  expect(new Set(old.evidence.map(e => e.relativePath))).toEqual(new Set(donors.map(d => d.name))); expect(old.privacy).toBe('private');
+  const card = f.container.all().find(n => n.className === 'tb-result')!, oldActions = f.actions(card); expect(oldActions.length).toBe(old.evidence.length + 1);
+  return { old, card, oldActions };
+}
+async function removeDonor(f: Awaited<ReturnType<typeof fixture>>, removed: string) {
+  await fs.unlink(path.join(f.root, removed)); // Only this fixture's freshly authored donor.
+  f.originals.delete(removed);
+}
+it.each(removals)('deleting synthetic %s refuses every old action before refresh without changing saved bytes (%s)', async (removed, locale) => {
   const f = await fixture(locale); try {
-    const initial = await f.search('porcelain gauge'); expect(initial).toHaveLength(1);
-    const old = initial[0].fragment; expect(old.localContext).toContain('never apply this to live equipment'); expect(old.summary).toContain('Only inside the offline dummy bench');
-    expect(new Set(old.evidence.map(e => e.relativePath))).toEqual(new Set(donors.map(d => d.name))); expect(old.privacy).toBe('private');
-    const card = f.container.all().find(n => n.className === 'tb-result')!, oldActions = f.actions(card); expect(oldActions.length).toBe(old.evidence.length + 1);
+    const { oldActions } = await sharedCard(f);
     for (const action of oldActions) await f.click(action); await f.protectedFiles();
     const statePath = path.join(f.root, 'Derived/.third-brain/state.json'), before = await fs.readFile(statePath), openCount = f.opened.length;
-    await fs.unlink(path.join(f.root, removed)); // Only this fixture's freshly authored donor.
-    f.originals.delete(removed);
+    await removeDonor(f, removed);
     for (const action of oldActions) await expect(f.click(action)).rejects.toThrow(); expect(f.opened).toHaveLength(openCount);
     await Promise.resolve(); expect(f.container.all().find(n => n.className === 'tb-notice')!.textContent).toBe(messages(locale).sourceEvidenceUnavailable);
     expect(await f.controller.find('porcelain gauge', 'medium')).toEqual([]); expect(await fs.readFile(statePath)).toEqual(before);
+    await f.protectedFiles();
+  } finally { await f.close(); }
+});
+it.each(removals)('refresh after deleting synthetic %s rejects attached old actions during/after commit and opens the fresh card (%s)', async (removed, locale) => {
+  const f = await fixture(locale); try {
+    const { old, card, oldActions } = await sharedCard(f), openCount = f.opened.length;
+    await removeDonor(f, removed);
     // Controlled scheduling-save latch AFTER actual durable commit, not a real disk fault.
     // The previous card is still attached while refresh waits for its saved callback.
     let entered!: () => void, release!: () => void;
@@ -100,6 +117,17 @@ it.each([['a.md', 'en'], ['c.canvas', 'zh']] as const)('deleting synthetic %s re
     for (const action of oldActions) await expect.soft(f.click(action)).rejects.toThrow(); expect.soft(f.opened).toHaveLength(openCount);
     const fresh = await f.search('porcelain gauge'); expect(fresh).toHaveLength(1); expect(fresh[0].fragment.id).toBe(old.id);
     const freshCard = f.container.all().find(n => n.className === 'tb-result')!; for (const action of f.actions(freshCard)) await f.click(action);
+    await f.protectedFiles();
+  } finally { await f.close(); }
+});
+it.each(removals)('deleting synthetic %s keeps every surviving late point, exact donor membership and unchanged-refresh bytes (%s)', async (removed, locale) => {
+  const f = await fixture(locale); try {
+    for (const [name, original] of f.originals) {
+      const donor = donors.find(d => d.name === name)!;
+      expect(original.text.length).toBeGreaterThan(1400); expect(original.text.indexOf(donor.tail)).toBeGreaterThan(original.text.length / 2);
+    }
+    await removeDonor(f, removed); await f.controller.refresh(); await f.controller.initialize();
+    const index = (await f.store.load())!, gone = donors.find(d => d.name === removed)!;
     for (const d of donors.filter(d => d.name !== removed)) {
       const hits = await f.search(d.tail.split(' preserves ')[0]); expect(hits).toHaveLength(1); expect(hits[0].fragment.summary).toContain(d.tail); expect(hits[0].fragment.evidence.every(e => e.relativePath === d.name)).toBe(true);
       for (const action of f.actions(f.container.all().find(n => n.className === 'tb-result')!)) await f.click(action);
@@ -109,7 +137,7 @@ it.each([['a.md', 'en'], ['c.canvas', 'zh']] as const)('deleting synthetic %s re
       const s = (await f.sources.read(e.relativePath))!; expect(e.sourceId).toBe(s.id); expect(e.sourceHash).toBe(s.hash); expect(index.sources[e.relativePath].fragmentIds).toContain(fragment.id);
       if (e.start >= 0) expect(s.text.slice(e.start, e.end)).toBe(e.quote); else expect(hasReadableQuote(s, e.quote)).toBe(true);
     }
-    const saved = await fs.readFile(statePath); await f.controller.refresh(); expect(await fs.readFile(statePath)).toEqual(saved); expect(await f.store.load()).toEqual(index);
+    const statePath = path.join(f.root, 'Derived/.third-brain/state.json'), saved = await fs.readFile(statePath); await f.controller.refresh(); expect(await fs.readFile(statePath)).toEqual(saved); expect(await f.store.load()).toEqual(index);
     await f.protectedFiles();
   } finally { await f.close(); }
 });

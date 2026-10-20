@@ -2,6 +2,12 @@
 
 ## Unreleased main — context-preserving local excerpts
 
+### Duplicate-donor acceptance has separate complete lifetimes
+
+The combined English donor-deletion case exceeded its existing 20-second deadline on Windows/Node 22 in [CI run 39421076665](https://github.com/Yueyue673/obsidian-third-brain/actions/runs/39421076665); a later successful retry did not establish timing stability. The same unchanged runtime passes a direct local baseline. The test now uses fresh synthetic vaults for three complete phases in both renderer languages: every initial source/generated action and pre-refresh refusal without changed saved bytes; attached old actions during the controlled post-commit save latch and after refresh, followed by opening the fresh card; and all surviving late points, strict provenance/membership reload and byte-idempotent maintenance.
+
+Every previous assertion and callback loop remains covered, including restrictive merged privacy, removed donor labels, cloned/cross-fragment proof refusal, cancelled-search compatibility and human/original protection. New assertions explicitly keep the unique observations in the latter half of long authored inputs. The existing fixture awaits its real queries/open operations before disposing the DOM/controller; no fixed delay, ownership mock, timeout increase or skip is introduced. Fresh setup repeats more work overall while reducing the work inside any one timed case. This is test-lifecycle maintenance on identical production bytes, not a user-visible behavior change, native Obsidian acceptance, AI improvement or guarantee against future CI timing failures. Download 0.3.7 is unchanged.
+
 ### Canvas properties do not leak between unrelated text nodes
 
 Fresh synthetic Canvas files with separate paper-rehearsal and sundial observations reproduced file-wide attribute leakage: each local fragment inherited both nodes' declared concepts. Actual FileSources → Controller/buildIndex → OwnedStore strict reload → Main/renderer property-button events included the unrelated node, and frozen old generated Markdown contains the resulting false relationship. Three core/filesystem-renderer regressions failed before the production edit; the expanded immutable old/new comparison was performed afterward, not retroactively claimed as the initial red run.
