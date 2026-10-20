@@ -1,0 +1,56 @@
+{
+  "campaign": "找到那一段，再接着写。",
+  "release": "0.3.7",
+  "commit": "e052cea0c0f7e7ed99eda4f02ad717efb546eaca",
+  "notes": "fixtures/sample-vault; authored demo examples, existing declared labels",
+  "screenshotSource": "Unmodified 0.3.7 renderer in the real browser test page, connected to file sources, controller and generated store. Not native Obsidian.",
+  "originalSource": "fixtures/sample-vault/创作/对话留下的空隙.md",
+  "exactQuotation": "这类留白需要共同语境。删去所有线索只会让人不知道发生了什么。",
+  "visualMethod": "Original vector artwork, real UI screenshots and exact HTML/CSS typography. No image generation model.",
+  "modelRequests": 0,
+  "checks": {
+    "searchWord": "留白",
+    "sourceOpened": "创作/对话留下的空隙.md",
+    "releaseSourceFilesUnchanged": 97,
+    "nativeHostAcceptance": false,
+    "posterDimensions": [
+      2160,
+      2700
+    ],
+    "mobileCheckDimensions": [
+      360,
+      450
+    ],
+    "qrDecodedAtBothSizes": true,
+    "browserErrors": 0,
+    "outOfBounds": 0,
+    "overlaps": 0
+  },
+  "assets": {
+    "ui-evidence.png": "4c452924a15178961ecdd9f5bcb1e818d33bd31e3d6bde848fa334e6f0278119",
+    "ui-matching-passage.png": "ef2838ab38a9a0262351d497c7642aebb8998d32c8fbb0d865887aeb6c31fad7",
+    "ui-open-original.png": "5dad33631c13963c4b54bfe2e3a46f7848196b369eccf35dd2c73e6861e90e92",
+    "ui-search-focus.png": "ae8403c38387c0724cdf374680e282e289e2925636c0adc0a5eba4ea7d337c73",
+    "ui-search.png": "78936a1a3908990968cda659539ef87031208ccb958a1ddd63167f16959f561c",
+    "ui-source-dialog.png": "1372930a3ae00d1319fd89a8cd0626dbcd032b4e02c9cc2e2cf0495ae0dcbad5"
+  },
+  "posters": [
+    {
+      "file": "01-find-the-passage.png",
+      "sha256": "042dc74d29adcb9fc81ac7c5ea05b26371fed61ba1a73ba2795262f39e733384"
+    },
+    {
+      "file": "02-remember-the-word.png",
+      "sha256": "3865483f5a21e3d77c35a213171e3896ba1edf580f6d6f5fd292da39ad255c7a"
+    },
+    {
+      "file": "03-check-the-source.png",
+      "sha256": "1abd7082ddab95d49efa098a8602287bebe02fb33235e90b65d50e690c994b7e"
+    },
+    {
+      "file": "04-try-the-demo.png",
+      "sha256": "099371b611c9a9b91d48b8c5f99df44e1e5350158ea3b60018f00ca32dbd34d6"
+    }
+  ],
+  "qrTarget": "https://github.com/Yueyue673/obsidian-third-brain"
+}

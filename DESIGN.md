@@ -31,3 +31,9 @@ One primary button; processing/scheduling controls live in host settings. Headin
 - Copilot / Smart Second Brain: model configuration and retrieval boundaries; do not turn this plugin into a general chat assistant or copy their code.
 
 Sources and licensing observations are in `docs/RESEARCH.md`.
+
+## Public artwork / 对外视觉素材
+
+Repository covers and campaign posters share a paper-white / ink-green palette and the idea **Find that passage. Keep writing. / 找到那一段，再接着写。** The README cover stays a short, horizontal workflow illustration; standalone posters use 4:5 editorial layouts. Noto Serif SC headlines contrast with readable sans-serif explanation text. Font binaries are not bundled.
+
+Real UI screenshots are never regenerated as fictional controls. Source quotations, URLs and QR targets are exact. Browser-test-page screenshots remain explicitly labelled and bound to their release version. Campaign claims emphasize the verified local word/label search and original-source path, not experimental AI discovery. Editable sources and export instructions live in [docs/posters](docs/posters/README.md). This public artwork does not replace Obsidian's native interface tokens or change runtime behavior.

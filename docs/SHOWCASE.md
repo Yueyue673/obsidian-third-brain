@@ -39,6 +39,7 @@ This verifies filtering by an existing property, not semantic equivalence, causa
 | `images/showcase-search-en.png`, `images/showcase-search-zh.png` | Actual search and source-open screenshots, arranged side by side. The source-open view is the browser test adapter's dialog. |
 | `images/showcase-connection-en.png`, `images/showcase-connection-zh.png` | Actual result-card mechanism selection and matching results, cropped for readability. |
 | Existing `images/native-obsidian-*.png` | Older native screenshots, retained; not presented as current-version acceptance. |
+| `posters/01-*.png` through `posters/04-*.png` | Four separate 4:5 Chinese posters: product, search situation, source evidence and installation. [Download and editable sources](posters/README.md). |
 
 Screenshot framing may crop surrounding empty space, add step labels and place two actual captures together. Product controls, result text and source text are not replaced. Source text is taken from the same sample note throughout the comparison.
 
@@ -50,6 +51,6 @@ README 使用的是仓库自带的演示笔记，没有使用私人资料。主�
 
 展示图来自 **0.3.7 的真实界面渲染器和浏览器测试页**，连接实际的文件读取、搜索控制器与生成文件存储。它们不是原生 Obsidian 截图。测试页中「查看原文」打开的是原文对话框；安装到 Obsidian 后，这个动作打开的是原笔记，不能据浏览器截图声称完成了原生宿主验收。
 
-封面是原创流程示意，不是新界面。展示图只裁剪空白、加步骤说明或并排放置真实截图，不替换按钮、结果或原文。
+封面是原创流程示意，不是新界面。展示图只裁剪空白、加步骤说明或并排放置真实截图，不替换按钮、结果或原文。四张[独立海报](posters/README.md)沿用同一事实范围，另存为适合信息流的 4:5 图片；不把它们整套重复塞进 README。
 
 复现方式：安装 Demo → 复制示例笔记 → 保持「本地摘录」→ 更新 → 搜索 `留白`。展开引用，再点「查看原文」。把发散度设为「中」，点 `不完整信息促使主动补全` 标签，可以找到带相同标签的对话与音乐笔记。这不证明 AI 能自动发现这样的联系。

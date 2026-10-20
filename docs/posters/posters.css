@@ -1,0 +1,43 @@
+/* Third Brain promotional artwork — MIT, Copyright (c) 2026 Yueyue.
+   Fonts are not bundled. Use Noto Serif SC and Microsoft YaHei, or the fallbacks below. */
+*{box-sizing:border-box}
+:root{--paper:#f5f2eb;--ink:#23332e;--muted:#5f6e66;--green:#246b57;--line:#cbd5cb;--serif:"Campaign Serif","Noto Serif SC","Songti SC","SimSun",serif;--sans:"Microsoft YaHei","PingFang SC",sans-serif}
+html,body{margin:0;padding:0}body{background:#d9dfd8;color:var(--ink);font-family:var(--sans)}
+.poster{position:relative;width:1080px;height:1350px;overflow:hidden;background:var(--paper);color:var(--ink);isolation:isolate;margin:0 0 32px;font-family:var(--sans)}
+.brand{position:absolute;left:72px;right:72px;top:60px;display:flex;align-items:center;justify-content:space-between;height:68px}
+.lockup{display:flex;align-items:center;gap:18px}.mark{width:54px;height:64px;color:var(--green)}
+.name{font-size:32px;line-height:1.2;font-weight:700;letter-spacing:1px}.name small{display:block;font-size:15px;letter-spacing:2.3px;font-weight:500;margin-top:8px}
+.category{font-size:26px;font-weight:400;color:var(--muted)}
+h1{position:absolute;left:72px;right:56px;top:180px;margin:0;font-family:var(--serif);font-size:100px;font-weight:720;line-height:1.24;letter-spacing:-3px;word-break:keep-all}
+.lead{position:absolute;left:76px;right:60px;top:458px;margin:0;font-size:34px;line-height:1.65;font-weight:400}
+.footer{position:absolute;left:72px;right:72px;bottom:46px;border-top:1px solid var(--line);padding-top:20px}
+.url{font-size:27px;line-height:1.3;font-family:var(--sans);letter-spacing:.1px}
+.footer-row{display:flex;justify-content:space-between;align-items:center;margin-top:12px;color:var(--muted);font-size:23px;line-height:1.3}
+.eyebrow{font-size:26px;letter-spacing:.5px;color:var(--muted);margin:0}.caption{font-size:25px;line-height:1.6;color:var(--muted);margin:0}
+.p1 h1{font-size:108px;top:177px}.p1 .lead{top:464px}
+.note-paper{position:absolute;left:72px;right:72px;top:622px;height:426px;background:#fcfaf5;border:1px solid #d4dacf;display:grid;grid-template-columns:335px 1fr;align-items:center;padding:36px 40px;column-gap:36px}
+.keyword{font-family:var(--serif);font-size:156px;font-weight:650;line-height:1.1;color:var(--green);letter-spacing:-10px}
+.keyword small{display:block;font-family:var(--sans);font-weight:400;font-size:25px;letter-spacing:0;color:var(--muted);margin-bottom:26px}
+.note-copy{border-left:1px solid var(--line);padding-left:36px}.note-copy h2{font-size:28px;line-height:1.4;margin:0 0 22px;color:var(--green);font-weight:500}.note-copy p{font-family:var(--serif);font-size:37px;line-height:1.7;font-weight:500;margin:0}
+.p1 .process{position:absolute;left:76px;right:72px;top:1091px;font-size:30px;letter-spacing:1px;color:var(--green);display:flex;align-items:center;justify-content:space-between}
+.p1 .process .arrow{font-size:25px;color:#82948a}
+.p2 h1{font-size:96px;top:181px}.p2 .lead{top:451px;font-size:33px}
+.p2 .search-label{position:absolute;left:76px;top:566px;font-size:26px;color:var(--green);margin:0}
+.search-shot{position:absolute;left:72px;top:615px;width:936px;height:auto;display:block}
+.p2 .match-label{position:absolute;left:76px;top:826px;margin:0;font-size:26px;color:var(--green)}
+.match-shot{position:absolute;left:72px;top:880px;width:936px;height:auto;display:block}
+.p2 .outcome{position:absolute;left:76px;right:72px;top:1120px;margin:0;font-size:28px;line-height:1.55}
+.p2 .source-note{position:absolute;left:76px;top:1065px;color:var(--muted);font-size:23px;margin:0}
+.p3{--paper:#173f32;--ink:#f5f2eb;--muted:#c4d5c9;--line:#527060;--green:#bcdbc7}
+.p3 h1{top:179px;font-size:100px}.p3 .lead{top:451px;font-size:34px}
+.quotation{position:absolute;left:76px;right:72px;top:615px;margin:0;font-family:var(--serif);font-size:56px;line-height:1.63;font-weight:550;letter-spacing:-1px}
+.p3 .quote-source{position:absolute;left:78px;top:899px;margin:0;font-size:27px;color:var(--muted)}
+.p3 .button-label{position:absolute;left:78px;top:958px;margin:0;font-size:30px}
+.open-shot{position:absolute;left:76px;top:1008px;max-width:924px;width:850px;height:auto;display:block}
+.p3 .caption{position:absolute;left:78px;top:1152px;font-size:23px}
+.p4 h1{top:180px;font-size:96px}.p4 .lead{top:451px;font-size:33px;line-height:1.75}
+.steps{position:absolute;left:76px;top:624px;width:535px;list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:42px}
+.steps li{display:grid;grid-template-columns:36px 1fr;column-gap:16px}.step-number{font-size:22px;color:var(--green);padding-top:10px}.step-title{font-size:38px;line-height:1.5;font-weight:500;margin:0;letter-spacing:-1px}.step-detail{font-size:26px;line-height:1.55;color:var(--muted);margin:5px 0 0}
+.qr-area{position:absolute;right:72px;top:630px;width:369px;text-align:center}.qr{display:block;width:369px;height:369px;image-rendering:pixelated;background:white}.qr-area p{font-size:27px;line-height:1.5;margin:16px 0 0;color:var(--green)}
+.p4 .try-note{position:absolute;left:76px;top:1123px;font-size:28px;line-height:1.5;color:var(--muted);margin:0}
+@media print{body{background:none}.poster{margin:0;break-after:page}.poster:last-child{break-after:auto}}

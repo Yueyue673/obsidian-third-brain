@@ -13,7 +13,7 @@ Third Brain is a plugin for the **Obsidian desktop note-taking app**. It helps y
   <img src="docs/images/readme-cover.svg" alt="Third Brain workflow: your notes, matching excerpts, back to the original." width="960">
 </picture>
 
-## Find a passage, then check the original
+## Find that passage. Keep writing.
 
 You're writing a dialogue scene and want to revisit your notes about leaving things unsaid. In the [sample notes](fixtures/sample-vault), search for **`留白`** — a Chinese term for leaving space for the reader or listener.
 
@@ -83,7 +83,7 @@ Found a problem? [Open an issue](https://github.com/Yueyue673/obsidian-third-bra
 
 For code or documentation changes, start with [Contributing](CONTRIBUTING.md). [Build from source](docs/GETTING-STARTED.md#build-from-source) requires Node 22.12+ and npm; installing the ZIP does not. `npm run demo` opens the browser test page, not Obsidian or a live AI model.
 
-[Architecture](docs/ARCHITECTURE.md) · [Security](SECURITY.md) · [Third-party notices](THIRD-PARTY-NOTICES.md)
+[Architecture](docs/ARCHITECTURE.md) · [Security](SECURITY.md) · [Third-party notices](THIRD-PARTY-NOTICES.md) · [Covers and standalone posters](docs/posters/README.md)
 
 ## License
 

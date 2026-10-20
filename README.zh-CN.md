@@ -13,7 +13,7 @@
   <img src="docs/images/readme-cover-zh.svg" alt="第三大脑的使用过程：你的笔记 → 匹配片段 → 回到原文。" width="960">
 </picture>
 
-## 找到一段笔记，再回到原文
+## 找到那一段，再接着写
 
 你正在写一段对话，想回看以前记过的「留白」。把[示例笔记](fixtures/sample-vault)放进测试库后：
 
@@ -83,7 +83,7 @@
 
 修改代码或文档前请看[贡献指南](CONTRIBUTING.md)。只有[源码构建](docs/GETTING-STARTED.md#build-from-source)需要 Node 22.12+ 和 npm，直接安装 ZIP 不需要。`npm run demo` 是浏览器测试页面，不是 Obsidian，也不调用真实 AI 模型。
 
-[架构说明](docs/ARCHITECTURE.md) · [安全反馈](SECURITY.md) · [第三方许可](THIRD-PARTY-NOTICES.md)
+[架构](docs/ARCHITECTURE.md) · [安全](SECURITY.md) · [第三方声明](THIRD-PARTY-NOTICES.md) · [封面与独立海报](docs/posters/README.md)
 
 ## 许可证
 
