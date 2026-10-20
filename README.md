@@ -1,84 +1,90 @@
 # Third Brain
 
-An Obsidian plugin that turns notes into searchable fragments. Enter an idea, see why a passage matches, and open it in the original note.
+[简体中文](README.zh-CN.md) · English
 
-> **Demo — desktop only.** Try local excerpt search in a test vault. AI-assisted extraction and cross-domain connections are experimental.
+Third Brain is a plugin for the **Obsidian desktop note-taking app**. It helps you find passages in your notes. Click **Refresh notes**, type words from an idea, then read matching excerpts and open their original notes. The default mode runs on your computer without an account or API key. You need **desktop Obsidian 1.11.5 or newer**.
 
-[Download demo 0.3.7](https://github.com/Yueyue673/obsidian-third-brain/releases/tag/0.3.7) · [Getting started](docs/GETTING-STARTED.md) · [简体中文](README.zh-CN.md)
+**[Download the 0.3.7 demo](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.7/third-brain-0.3.7.zip)** · [Install](#install) · [Try the sample notes](fixtures/sample-vault)
 
-<img src="docs/images/native-obsidian-source-open-zh.png" alt="A source note open beside search results in Obsidian" width="680">
+> Desktop demo. Start in a test vault. The download is version 0.3.7; `main` includes newer, unreleased changes. Optional AI features are experimental.
 
-*Screenshot from an earlier build, using sample notes in local mode.*
+<picture>
+  <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme-cover-dark.svg">
+  <img src="docs/images/readme-cover.svg" alt="Third Brain workflow: your notes, matching excerpts, back to the original." width="960">
+</picture>
+
+## Find a passage, then check the original
+
+You're writing a dialogue scene and want to revisit your notes about leaving things unsaid. In the [sample notes](fixtures/sample-vault), search for **`留白`** — a Chinese term for leaving space for the reader or listener.
+
+1. Click **Refresh notes**, then search for `留白`.
+2. Read the passages returned from the dialogue and music notes, along with their matching reasons.
+3. Expand **Source evidence** and click **Open original** to return to the note. The dialogue example includes the warning: leaving out every clue can make the scene incomprehensible.
+
+<img src="docs/images/showcase-search-en.png" alt="Actual 0.3.7 browser test page: searching the sample notes for 留白, then opening the dialogue note and reading its original text." width="960">
+
+*Authored demo notes, local mode. Screenshots use the released plugin's renderer in a browser test page, not native Obsidian. The Chinese note text is shown as written; the plugin has not translated it. [Open full-size image](docs/images/showcase-search-en.png).*
+
+Local search matches words and existing note labels. It does not understand every paraphrase, so an unrelated search can return nothing.
+
+## Follow an idea into another note
+
+The sample dialogue and music notes both have the label **`不完整信息促使主动补全`**: incomplete information prompts the audience to fill in the gaps.
+
+Set breadth to **Medium** and click that mechanism label on a result card. The plugin finds passages carrying the same label, so you can compare a pause in music with something left unsaid in dialogue. Here, “mechanism” means a shared process or principle.
+
+<img src="docs/images/showcase-connection-en.png" alt="Actual 0.3.7 browser test page: selecting the shared mechanism label returns both the dialogue and music notes." width="600">
+
+*These labels were written into the demo notes in advance. This example does not show AI discovering a connection. [Open full-size image](docs/images/showcase-connection-en.png) · [How the examples were checked](docs/SHOWCASE.md).*
+
+**Low / Medium / High** changes how widely the plugin looks for connections. High can also show separate indirect suggestions with quotations from both notes. A suggested connection may not be useful; compare the sources before reusing it.
+
+## Keep your notes, update the excerpts
+
+- **After editing a note:** click **Refresh notes** again. Unchanged notes reuse their saved results. Old results whose sources changed must be checked again before they can be opened.
+- **While writing:** select a passage and click **Use current note**. It fills the idea box; you review it and start the search yourself. Nothing is inserted into your note.
+- **When saving results:** the plugin writes separate Markdown files under `Third Brain/Fragments` by default. It does not rewrite your original notes or overwrite manually edited generated files.
+
+Manual refresh is the default. Daily or weekly refresh runs only while Obsidian is open. You can cancel a running task.
 
 ## Install
 
-Requires **desktop Obsidian 1.11.5+**. This is a demo release; it is not listed in Community plugins yet. Try it in a test vault first.
+This demo is **not in Obsidian's Community plugins directory** yet. Installation does not need Node.js or an API key.
 
-1. Download [third-brain-0.3.7.zip](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.7/third-brain-0.3.7.zip) and extract it. Use the plugin ZIP, not the source-code archive.
-2. Put `main.js`, `manifest.json`, `styles.css` and `LICENSE` in your vault's `.obsidian/plugins/third-brain/` folder. Do not add another folder level.
-3. Restart Obsidian, enable **Third Brain** in **Settings → Community plugins**, and open the brain icon in the ribbon.
+1. Download [third-brain-0.3.7.zip](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.7/third-brain-0.3.7.zip). Choose the plugin ZIP, not **Source code**. [Check the download](docs/GETTING-STARTED.md#check-the-download).
+2. Extract it. Put these four files directly inside your test vault:
 
-No Node.js or API key is needed for local mode. [Download checks and installation help](docs/GETTING-STARTED.md#install-the-preview).
+   ```text
+   .obsidian/plugins/third-brain/
+   ├── main.js
+   ├── manifest.json
+   ├── styles.css
+   └── LICENSE
+   ```
 
-## Usage
+3. Restart Obsidian. In **Settings → Community plugins**, allow third-party plugins if prompted and enable **Third Brain**. Click the brain icon in the left ribbon.
+4. Add a few notes, keep **Local excerpts** selected, and click **Refresh notes**. Enter a word or idea and click **Find connections**.
 
-1. Click **Refresh notes** to build the index.
-2. Type an idea and click **Find connections**. To use your selection or current draft instead, click **Use current note**, review the filled-in idea, then click **Find connections**.
-3. Read the matching passages, expand **Source evidence**, and click **Open original**.
+For the examples above, copy the [sample notes](fixtures/sample-vault) into your test vault first. [Installation help](docs/GETTING-STARTED.md) · [Troubleshooting](docs/TROUBLESHOOTING.md).
 
-For a quick trial, copy the [sample notes](fixtures/sample-vault) into your test vault and search for `留白` or `Change one variable at a time`.
+## What to expect
 
-## Features
+- **Desktop only:** requires Obsidian 1.11.5+. Mobile is not supported. Markdown and text nodes in Canvas are supported; PDFs, images and compressed drawings are not indexed as note text.
+- **Offline by default:** local-excerpt mode processes notes on your computer and sends no note text to a model service. Your own vault sync or backup software works separately. The plugin does not collect clicks, dwell time or a typing history.
+- **AI is optional:** local and cloud model modes require a separately configured model service. Cloud mode also requires your explicit permission; eligible note text and submitted searches may then leave your computer. Notes marked local/private are excluded from cloud requests. Read [model setup](docs/GETTING-STARTED.md#optional-model-setup) and [privacy](docs/PRIVACY.md) first.
+- **Results have limits:** searches show a limited set of matches. AI can miss connections or misinterpret text. A correct quotation proves the source, not the explanation. This release's complete native Obsidian click flow, real provider compatibility and broader AI quality still need testing.
+- **Generated files are not encrypted:** excerpts and history may enter sync or backups. Removing a source does not erase every old excerpt.
 
-- Index Markdown and Canvas text. Generated fragments are saved to `Third Brain/Fragments`; original notes are not rewritten.
-- Show matching reasons and source quotations. Changed or missing sources invalidate old results.
-- Explore topics, concepts, mechanisms and fragment types from the result cards. Open a fragment to follow its saved links to related fragments.
-- Adjust association breadth with **Low**, **Medium** or **High**. High can show separate indirect suggestions, with quotations from both notes. These are suggestions, not proof that two ideas mean the same thing.
-- Refresh manually, daily or weekly while Obsidian is open. Reuse unchanged notes rather than processing them again.
+Recent source builds improve context preservation and source navigation, but those changes are **not in the 0.3.7 download**. See the [changelog](CHANGELOG.md), [compatibility notes](docs/COMPATIBILITY.md) and [testing record](docs/VERIFICATION.md) for version-specific details.
 
-## Search modes
+## Help, contribute, or build
 
-| Mode | How it works | Setup |
-| --- | --- | --- |
-| Local excerpts — default | Extracts passages and matches text or existing note attributes. It does not infer meaning. | None; works offline. |
-| Local model | Uses a model to edit fragments and interpret searches. | Your own local OpenAI-compatible service. |
-| Cloud model | Sends eligible note text and submitted searches to your chosen provider. | HTTPS endpoint, model, API key and explicit consent. |
+Found a problem? [Open an issue](https://github.com/Yueyue673/obsidian-third-brain/issues/new) with your Obsidian version, plugin version, what you tried and what happened. Please use a small invented example rather than private notes.
 
-[Model setup](docs/GETTING-STARTED.md#optional-model-setup).
+For code or documentation changes, start with [Contributing](CONTRIBUTING.md). [Build from source](docs/GETTING-STARTED.md#build-from-source) requires Node 22.12+ and npm; installing the ZIP does not. `npm run demo` opens the browser test page, not Obsidian or a live AI model.
 
-## How connections work
-
-Search compares text and attributes stored on fragments. **Medium** allows shared-mechanism matches; **High** can also suggest material one existing mechanism link away, with quotations from both notes. It does not treat an indirect link as a direct match.
-
-For example, the sample dialogue and music notes both declare `不完整信息促使主动补全`. At Medium, selecting that mechanism finds both notes without a model call. These sample labels are supplied in note properties, not inferred by live AI.
-
-Model modes can infer labels, but automatic cross-domain discovery is experimental and can miss valid links. Source quotations establish where an excerpt came from; they do not validate a model's interpretation.
-
-## Privacy
-
-Cloud processing is off by default. Notes marked `privacy: local` or `privacy: private` are excluded from cloud requests, including their derived labels. The plugin does not collect clicks, dwell time or a typing history.
-
-Generated files and history are not encrypted and may be included in vault sync or backups. Removing a source does not guarantee that every old excerpt is erased. See [Privacy](docs/PRIVACY.md) before enabling a cloud model.
-
-## Current status
-
-Local search is available without a model. AI quality and real provider compatibility are not yet validated for general use; correct source citations do not guarantee a useful connection. This demo's complete native Obsidian click flow still needs testing. See [testing status](docs/VERIFICATION.md).
-
-## Development
-
-Requires Node **22.12+** and npm.
-
-```sh
-git clone https://github.com/Yueyue673/obsidian-third-brain.git
-cd obsidian-third-brain
-npm ci --ignore-scripts
-npm run build
-```
-
-Copy `dist/main.js`, `dist/manifest.json`, `dist/styles.css` and `dist/LICENSE` to the plugin folder. Development checks are listed in [Contributing](CONTRIBUTING.md). `npm run demo` opens a browser test app with sample notes, not Obsidian or a live model.
-
-[Architecture](docs/ARCHITECTURE.md) · [Compatibility](docs/COMPATIBILITY.md) · [Troubleshooting](docs/TROUBLESHOOTING.md) · [Changelog](CHANGELOG.md) · [Security](SECURITY.md)
+[Architecture](docs/ARCHITECTURE.md) · [Security](SECURITY.md) · [Third-party notices](THIRD-PARTY-NOTICES.md)
 
 ## License
 
-[MIT](LICENSE). See [third-party notices](THIRD-PARTY-NOTICES.md) for dependencies.
+Created by [Yueyue](https://github.com/Yueyue673). [MIT](LICENSE).

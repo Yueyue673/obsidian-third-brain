@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="310" viewBox="0 0 1200 310" role="img" aria-labelledby="title desc">
+<title id="title">Third Brain</title>
+<desc id="desc">Original Third Brain identity and notes-to-excerpts-to-original workflow diagram. Not a screenshot.</desc>
+<rect width="1200" height="310" rx="16" fill="#131c19"/>
+<g fill="none" stroke="#92c7ae" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+<path d="M60 73h53l19 19v72H60z"/><path d="M113 73v20h19"/>
+<path d="M75 84h53l19 19v72H75" opacity=".5"/>
+<path d="M90 95h53l19 19v72H90" opacity=".25"/>
+<path d="M80 114h-7v22h7m29-22h7v22h-7"/><path d="M86 121h16m-16 8h12" stroke-width="2"/>
+</g>
+<g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif" fill="#e7eee8">
+<text x="192" y="117" font-size="54" font-weight="650" letter-spacing="-1.3">Third Brain</text>
+<text x="194" y="158" font-size="23" fill="#a8b9ae">Find a passage. Return to its source.</text>
+<text x="60" y="256" font-size="12" letter-spacing="1.7" fill="#a8b9ae">OBSIDIAN DESKTOP PLUGIN  /  LOCAL EXCERPTS  /  DEMO</text>
+</g>
+<path d="M719 107H1077" stroke="#35473c" stroke-width="2"/>
+<g font-family="-apple-system,BlinkMacSystemFont,'Segoe UI','Microsoft YaHei',sans-serif" font-size="13" fill="#a8b9ae" text-anchor="middle">
+<circle cx="725" cy="107" r="17" fill="#131c19" stroke="#92c7ae" stroke-width="1.5"/><text x="725" y="112" fill="#92c7ae" font-size="12">01</text><text x="725" y="153">YOUR NOTES</text>
+<circle cx="895" cy="107" r="17" fill="#131c19" stroke="#92c7ae" stroke-width="1.5"/><text x="895" y="112" fill="#92c7ae" font-size="12">02</text><text x="895" y="153">MATCHING EXCERPTS</text>
+<circle cx="1065" cy="107" r="17" fill="#131c19" stroke="#92c7ae" stroke-width="1.5"/><text x="1065" y="112" fill="#92c7ae" font-size="12">03</text><text x="1065" y="153">ORIGINAL SOURCE</text>
+</g>
+</svg>
