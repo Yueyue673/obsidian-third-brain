@@ -2,6 +2,14 @@
 
 ## Unreleased main — context-preserving local excerpts
 
+### Canvas properties do not leak between unrelated text nodes
+
+Fresh synthetic Canvas files with separate paper-rehearsal and sundial observations reproduced file-wide attribute leakage: each local fragment inherited both nodes' declared concepts. Actual FileSources → Controller/buildIndex → OwnedStore strict reload → Main/renderer property-button events included the unrelated node, and frozen old generated Markdown contains the resulting false relationship. Three core/filesystem-renderer regressions failed before the production edit; the expanded immutable old/new comparison was performed afterward, not retroactively claimed as the initial red run.
+
+Local extraction now attaches supported frontmatter declarations to the text node after local context expansion. All four channels, focused lists/footnotes, empty-property nodes, exact duplicate nodes, mixed Markdown/Canvas donors and note-wide Markdown controls are covered. Whole-Canvas restrictive privacy, source identity/hash/quote/member/exclusion checks and AI file-wide vocabulary hints remain separate and unchanged. Same-generation reuse retains node-scoped properties without rewriting them as a Canvas-wide union; changed or removed donors force complete merged-fragment reconciliation. These are authored synthetic labels, not AI discoveries or semantic grading.
+
+English/Chinese natural ideas and actual typed-property events exercise current source/generated-file callbacks and stale/excluded/human-edited refusal. Real storage reads frozen old bytes unchanged, upgrades local generation once on explicit refresh, preserves old links in history and reruns byte/nanosecond-mtime idempotently. Cooperative cancellation makes no commit and repaired retries retain source and human-owned files; generated-directory inventory is checked. Offline synthetic model-port captures verify unchanged AI primary/vocabulary and cache signatures, not provider quality. No real model, ignored model cache, private vault or GUI is used. Host/DOM callbacks are not native Obsidian clicks, and download 0.3.7 is unchanged.
+
 ### A first-item underlined heading no longer blocks local indexing
 
 Fresh authored long Markdown/local and Canvas/private notes reproduced a valid list-item heading being mistaken for a thematic rule: `- Only inside an unplugged synthetic chest:` followed immediately by an indented `---`, then a later child action, refused the whole refresh. Four failing core and actual FileSources → Controller/buildIndex → OwnedStore strict-reload regressions preceded the production edit. The later expanded identical-test comparison against the frozen old runtime also includes local-version expectations; failing cases are not separate defect counts.

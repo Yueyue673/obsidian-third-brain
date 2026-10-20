@@ -1,0 +1,88 @@
+{
+  "raw": "{\"nodes\":[{\"id\":\"n0\",\"type\":\"text\",\"x\":0,\"y\":0,\"width\":320,\"height\":240,\"text\":\"---\\nprivacy: normal\\nconcepts: [felt cradle]\\n---\\nOnly in the inert paper rehearsal, a cobalt seal rests flat in a felt cradle; a damp tray curls its corners.\"},{\"id\":\"n1\",\"type\":\"text\",\"x\":400,\"y\":0,\"width\":320,\"height\":240,\"text\":\"---\\nprivacy: normal\\nconcepts: [shadow reading]\\n---\\nThe unrelated synthetic sundial trial uses a copper pointer to read the afternoon shadow; clouds prevent that reading.\"}],\"edges\":[]}",
+  "index": {
+    "version": 1,
+    "signature": "editorial-core-2:018fa647f558c2c72b40e6c9a1e38ccd6b680e78b9b16a88dc04dcf130d3d0c8",
+    "updatedAt": "2026-10-20T12:02:22.777Z",
+    "sources": {
+      "board.canvas": {
+        "hash": "706008e7e4d9e5f3e9cd41cbc1d1d6367642338853ba7aa5fa9395124238bd8d",
+        "status": "indexed",
+        "fragmentIds": [
+          "f_5417ced99281c545139691459b6acdb39c2cadd20aafff75fc23e26abfe25249",
+          "f_8062aff616d16a9de3dd5cc6abd277a34a028df08fc25598e8757318a63296ec"
+        ]
+      }
+    },
+    "fragments": {
+      "f_5417ced99281c545139691459b6acdb39c2cadd20aafff75fc23e26abfe25249": {
+        "id": "f_5417ced99281c545139691459b6acdb39c2cadd20aafff75fc23e26abfe25249",
+        "privacy": "normal",
+        "title": "Only in the inert paper rehearsal, a cobalt seal rests flat in a felt cradle; a damp tray curls its ",
+        "summary": "Only in the inert paper rehearsal, a cobalt seal rests flat in a felt cradle; a damp tray curls its corners.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [
+            "felt cradle",
+            "shadow reading"
+          ],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "67199a9369cd5875405f3092",
+            "relativePath": "board.canvas",
+            "sourceHash": "706008e7e4d9e5f3e9cd41cbc1d1d6367642338853ba7aa5fa9395124238bd8d",
+            "quote": "Only in the inert paper rehearsal, a cobalt seal rests flat in a felt cradle; a damp tray curls its corners.",
+            "start": 132,
+            "end": 240
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-20T12:02:22.777Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      },
+      "f_8062aff616d16a9de3dd5cc6abd277a34a028df08fc25598e8757318a63296ec": {
+        "id": "f_8062aff616d16a9de3dd5cc6abd277a34a028df08fc25598e8757318a63296ec",
+        "privacy": "normal",
+        "title": "The unrelated synthetic sundial trial uses a copper pointer to read the afternoon shadow; clouds pre",
+        "summary": "The unrelated synthetic sundial trial uses a copper pointer to read the afternoon shadow; clouds prevent that reading.",
+        "kind": "excerpt",
+        "facets": {
+          "topics": [],
+          "concepts": [
+            "felt cradle",
+            "shadow reading"
+          ],
+          "mechanisms": [],
+          "atmosphere": []
+        },
+        "evidence": [
+          {
+            "sourceId": "67199a9369cd5875405f3092",
+            "relativePath": "board.canvas",
+            "sourceHash": "706008e7e4d9e5f3e9cd41cbc1d1d6367642338853ba7aa5fa9395124238bd8d",
+            "quote": "The unrelated synthetic sundial trial uses a copper pointer to read the afternoon shadow; clouds prevent that reading.",
+            "start": 370,
+            "end": 488
+          }
+        ],
+        "mode": "local",
+        "updatedAt": "2026-10-20T12:02:22.777Z",
+        "conditions": [],
+        "caveats": [
+          "Local excerpt · lexical baseline"
+        ]
+      }
+    }
+  },
+  "rendered": {
+    "f_5417ced99281c545139691459b6acdb39c2cadd20aafff75fc23e26abfe25249": "---\nthird_brain_render: 2\naliases: [\"Only in the inert paper rehearsal, a cobalt seal rests flat in a felt cradle; a damp tray curls its \"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_5417ced99281c545139691459b6acdb39c2cadd20aafff75fc23e26abfe25249\"\nprivacy: normal\ntitle: \"Only in the inert paper rehearsal, a cobalt seal rests flat in a felt cradle; a damp tray curls its \"\nextraction: local-excerpt\nupdated_at: \"2026-10-20T12:02:22.777Z\"\nprovenance: [{\"path\":\"board.canvas\",\"revision\":\"706008e7e4d9e5f3e9cd41cbc1d1d6367642338853ba7aa5fa9395124238bd8d\",\"start\":132,\"end\":240}]\n---\n\n# Only in the inert paper rehearsal, a cobalt seal rests flat in a felt cradle; a damp tray curls its \n\nOnly in the inert paper rehearsal, a cobalt seal rests flat in a felt cradle; a damp tray curls its corners.\n\n_Local excerpt; not an AI summary._\n\n**concepts:** felt cradle, shadow reading\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../board.canvas>) — board.canvas\n\nRevision: 706008e7e4d9e5f3e9cd41cbc1d1d6367642338853ba7aa5fa9395124238bd8d; character range: 132–240\n\n> Only in the inert paper rehearsal, a cobalt seal rests flat in a felt cradle; a damp tray curls its corners.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\n- [The unrelated synthetic sundial trial uses a copper pointer to read the afternoon shadow; clouds pre](<fragment-8203ff34f346e0b60f53348d13093400533d80cb19e67bdd36970e612ee01502.md>) — Shared concepts: felt cradle; concepts: shadow reading.\n",
+    "f_8062aff616d16a9de3dd5cc6abd277a34a028df08fc25598e8757318a63296ec": "---\nthird_brain_render: 2\naliases: [\"The unrelated synthetic sundial trial uses a copper pointer to read the afternoon shadow; clouds pre\"]\nthird_brain_owned: true\nthird_brain_schema: 1\nthird_brain_store: SYNTHETIC_STORE_ID\nfragment_id: \"f_8062aff616d16a9de3dd5cc6abd277a34a028df08fc25598e8757318a63296ec\"\nprivacy: normal\ntitle: \"The unrelated synthetic sundial trial uses a copper pointer to read the afternoon shadow; clouds pre\"\nextraction: local-excerpt\nupdated_at: \"2026-10-20T12:02:22.777Z\"\nprovenance: [{\"path\":\"board.canvas\",\"revision\":\"706008e7e4d9e5f3e9cd41cbc1d1d6367642338853ba7aa5fa9395124238bd8d\",\"start\":370,\"end\":488}]\n---\n\n# The unrelated synthetic sundial trial uses a copper pointer to read the afternoon shadow; clouds pre\n\nThe unrelated synthetic sundial trial uses a copper pointer to read the afternoon shadow; clouds prevent that reading.\n\n_Local excerpt; not an AI summary._\n\n**concepts:** felt cradle, shadow reading\n\n- Caveat: Local excerpt · lexical baseline\n\n## Original evidence\n\n[Open original](<../board.canvas>) — board.canvas\n\nRevision: 706008e7e4d9e5f3e9cd41cbc1d1d6367642338853ba7aa5fa9395124238bd8d; character range: 370–488\n\n> The unrelated synthetic sundial trial uses a copper pointer to read the afternoon shadow; clouds prevent that reading.\n\n\n## Related fragments\n\nSuggested from shared existing facets, not verified AI semantics or causal equivalence. Check both originals; mechanism applicability and conditions may differ.\nSame-privacy targets only. Generic/common labels and bounded candidates may be omitted; absence is not proof of no relationship.\n\n- [Only in the inert paper rehearsal, a cobalt seal rests flat in a felt cradle; a damp tray curls its ](<fragment-635ea4c69414f885fea4abec526db6c268cf983e81b1cf012b08f10e70122fb2.md>) — Shared concepts: felt cradle; concepts: shadow reading.\n"
+  }
+}

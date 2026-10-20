@@ -4,7 +4,7 @@ import { CoreError, FACET_KEYS, boundedString, canonicalFacets, isPrivacy, parse
 import { mapped, safeVocabulary, type MappedText } from './privacy';
 import { bindSourceDiagnostic } from './source-diagnostics';
 
-export interface TextBlock extends MappedText { heading: string; localList?: boolean; localHeadings?: MappedText[]; localLeadIn?: MappedText; localParts?: MappedText[]; localSiblings?: MappedText[]; localFootnote?: string; localFootnotes?: MappedText[]; localReference?: string; localReferenceValid?: boolean; localReferences?: MappedText[]; }
+export interface TextBlock extends MappedText { heading: string; localFacets?: Facets; localList?: boolean; localHeadings?: MappedText[]; localLeadIn?: MappedText; localParts?: MappedText[]; localSiblings?: MappedText[]; localFootnote?: string; localFootnotes?: MappedText[]; localReference?: string; localReferenceValid?: boolean; localReferences?: MappedText[]; }
 /** Bound complete local structural context before any focused-branch fan-out. Never truncate. */
 export const LOCAL_EXCERPT_CONTEXT_LIMIT = 16384;
 // Each focused copy retains every sibling's text/evidence. Bound that quadratic
@@ -683,7 +683,13 @@ function sourceBlocks(snapshot: SourceSnapshot, local = false, includeHeadings =
     // Escaped Canvas strings have no contiguous original-byte span. Never fake one.
     const literal = JSON.stringify(text), rawPosition = literal.includes('\\') ? -1 : snapshot.text.indexOf(literal);
     const parsed = markdownBlocks(text, rawPosition < 0 ? -1 : rawPosition + 1, false, local, snapshot.path, includeHeadings,true,local || readableFootnotes);
-    blocks.push(...(local ? localReferenceContext(localFootnoteContext(parsed)) : parsed));
+    // A text node's declared properties scope its own excerpts, not every node
+    // sharing the Canvas file. Whole-document privacy and AI vocabulary/input
+    // remain separate policies. Attach only after all local context fan-out.
+    if (local) {
+      const facets = metadataFacets(frontmatter(text).metadata);
+      blocks.push(...localReferenceContext(localFootnoteContext(parsed)).map(block => ({ ...block,localFacets:facets })));
+    } else blocks.push(...parsed);
   }
   return blocks;
 }

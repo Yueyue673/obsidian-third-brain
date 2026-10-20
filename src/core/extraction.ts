@@ -62,7 +62,7 @@ export async function analyzeSource(input: SourceSnapshot, options: AnalyzeOptio
         bindSourceDiagnostic(error,{ relativePath:snapshot.path,stage:'analysis',reason:'local-context-size-limit' });
         throw error;
       }
-      const fragment: Fragment = { id:'',privacy:snapshot.privacy,title:piece.heading || piece.text.replace(/^[\s>*+\-\[\]xX0-9.)]+/u,'').slice(0,100),summary,kind:'excerpt',facets:explicit,evidence,mode:'local',updatedAt:now,conditions:[],caveats:[LOCAL_LABEL],...(piece.localSiblings?.length ? { localContext:piece.localSiblings.map(part => part.text).join('\n') } : {}) };
+      const fragment: Fragment = { id:'',privacy:snapshot.privacy,title:piece.heading || piece.text.replace(/^[\s>*+\-\[\]xX0-9.)]+/u,'').slice(0,100),summary,kind:'excerpt',facets:piece.localFacets ?? explicit,evidence,mode:'local',updatedAt:now,conditions:[],caveats:[LOCAL_LABEL],...(piece.localSiblings?.length ? { localContext:piece.localSiblings.map(part => part.text).join('\n') } : {}) };
       validateLocalContext(fragment);
       if (evidence.some(item => item.start < 0)) fragment.caveats.push(CANVAS_OFFSET_CAVEAT);
       fragment.id = fragmentId(fragment); fragments.push(fragment);

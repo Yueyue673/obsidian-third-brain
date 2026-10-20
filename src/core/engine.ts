@@ -145,9 +145,12 @@ export async function buildIndex(inputs: SourceSnapshot[], options: RunOptions):
       else if (sameGeneration && old?.hash === snapshot.hash && old.status !== 'local-only' && old.fragmentIds.every(id => reusable.has(id) && options.previous!.fragments[id].evidence.some(item => item.relativePath === snapshot.path && item.sourceHash === snapshot.hash && item.sourceId === snapshot.id))) {
         status=old.status;
         fragments=old.fragmentIds.map(id => currentEvidence(options.previous!.fragments[id],snapshot));
-        // Explicit local facets are regenerated from current source metadata. This
-        // prevents merged tags from a deleted/edited source surviving on another.
-        if (options.mode === 'local-excerpts') for (const fragment of fragments) fragment.facets = sourceFacets(snapshot);
+        // Markdown declarations scope the whole note. Canvas declarations scope
+        // individual text nodes: never replace them with the file-wide hint union.
+        // Reuse already validated Canvas facets only with the SAME generation
+        // and ALL donors current. A changed/missing/excluded donor invalidates
+        // the whole merged fragment above, rebuilding each surviving source.
+        if (options.mode === 'local-excerpts' && snapshot.format === 'markdown') for (const fragment of fragments) fragment.facets = sourceFacets(snapshot);
         // AI facets retain their own verified source revision; they do not
         // depend on today's bounded request dictionary or explicit tags.
       } else {
