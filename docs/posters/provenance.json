@@ -37,19 +37,19 @@
   "posters": [
     {
       "file": "01-find-the-passage.png",
-      "sha256": "042dc74d29adcb9fc81ac7c5ea05b26371fed61ba1a73ba2795262f39e733384"
+      "sha256": "1f3f18773c0db07176ceac0ec1a3e95ed1596884f94324474d65d53d37cc017a"
     },
     {
       "file": "02-remember-the-word.png",
-      "sha256": "3865483f5a21e3d77c35a213171e3896ba1edf580f6d6f5fd292da39ad255c7a"
+      "sha256": "151d84964ba5a0a22497510cc494a08cd53b7f857ab4ee30eaab76b46ddd2063"
     },
     {
       "file": "03-check-the-source.png",
-      "sha256": "1abd7082ddab95d49efa098a8602287bebe02fb33235e90b65d50e690c994b7e"
+      "sha256": "ee11efb47291b77bf8b7d3288e75937b295ef62a37c02a61ea4511767aa1741a"
     },
     {
       "file": "04-try-the-demo.png",
-      "sha256": "099371b611c9a9b91d48b8c5f99df44e1e5350158ea3b60018f00ca32dbd34d6"
+      "sha256": "993efb21397383dff3bfaa4f258d4483f7edfa6fe6494969bf1345f44955a81e"
     }
   ],
   "qrTarget": "https://github.com/Yueyue673/obsidian-third-brain"

@@ -2,18 +2,18 @@
 
 [简体中文](README.zh-CN.md) · English
 
-Third Brain is a plugin for the **Obsidian desktop note-taking app**. It helps you find passages in your notes. Click **Refresh notes**, type words from an idea, then read matching excerpts and open their original notes. The default mode runs on your computer without an account or API key. You need **desktop Obsidian 1.11.5 or newer**.
+Third Brain is a plugin for the **Obsidian desktop note-taking app**. It helps you find passages in your notes. Click **Refresh notes**, type a word or an idea, then read matching excerpts and open the original notes. The default mode runs on your computer without an account or API key. You need **desktop Obsidian 1.11.5 or newer**.
 
 **[Download the 0.3.7 demo](https://github.com/Yueyue673/obsidian-third-brain/releases/download/0.3.7/third-brain-0.3.7.zip)** · [Install](#install) · [Try the sample notes](fixtures/sample-vault)
 
-> Desktop demo. Start in a test vault. The download is version 0.3.7; `main` includes newer, unreleased changes. Optional AI features are experimental.
+> This is a desktop demo. Start in a test vault. The download is version 0.3.7; `main` includes newer, unreleased changes. Optional AI features are experimental.
 
 <picture>
   <source media="(prefers-color-scheme: dark)" srcset="docs/images/readme-cover-dark.svg">
   <img src="docs/images/readme-cover.svg" alt="Third Brain workflow: your notes, matching excerpts, back to the original." width="960">
 </picture>
 
-## Find that passage. Keep writing.
+## Find that passage, then keep writing
 
 You're writing a dialogue scene and want to revisit your notes about leaving things unsaid. In the [sample notes](fixtures/sample-vault), search for **`留白`** — a Chinese term for leaving space for the reader or listener.
 
@@ -37,13 +37,13 @@ Set breadth to **Medium** and click that mechanism label on a result card. The p
 
 *These labels were written into the demo notes in advance. This example does not show AI discovering a connection. [Open full-size image](docs/images/showcase-connection-en.png) · [How the examples were checked](docs/SHOWCASE.md).*
 
-**Low / Medium / High** changes how widely the plugin looks for connections. High can also show separate indirect suggestions with quotations from both notes. A suggested connection may not be useful; compare the sources before reusing it.
+**Low / Medium / High** changes how widely the plugin looks for connections. High can also show separate indirect suggestions, with quotations from both notes. A suggested connection may not be useful; compare the sources before reusing it.
 
-## Keep your notes, update the excerpts
+## Keep your notes, save excerpts separately
 
 - **After editing a note:** click **Refresh notes** again. Unchanged notes reuse their saved results. Old results whose sources changed must be checked again before they can be opened.
 - **While writing:** select a passage and click **Use current note**. It fills the idea box; you review it and start the search yourself. Nothing is inserted into your note.
-- **When saving results:** the plugin writes separate Markdown files under `Third Brain/Fragments` by default. It does not rewrite your original notes or overwrite manually edited generated files.
+- **When saving results:** the plugin writes separate Markdown files under `Third Brain/Fragments` by default. It does not rewrite your original notes or overwrite generated files you have edited by hand.
 
 Manual refresh is the default. Daily or weekly refresh runs only while Obsidian is open. You can cancel a running task.
 
@@ -69,17 +69,17 @@ For the examples above, copy the [sample notes](fixtures/sample-vault) into your
 
 ## What to expect
 
-- **Desktop only:** requires Obsidian 1.11.5+. Mobile is not supported. Markdown and text nodes in Canvas are supported; PDFs, images and compressed drawings are not indexed as note text.
-- **Offline by default:** local-excerpt mode processes notes on your computer and sends no note text to a model service. Your own vault sync or backup software works separately. The plugin does not collect clicks, dwell time or a typing history.
+- **Desktop only:** requires Obsidian 1.11.5+. Mobile is not supported. Markdown and text nodes in Canvas are supported; PDFs, images, and compressed drawings are not indexed as note text.
+- **Offline by default:** local-excerpt mode processes notes on your computer and sends no note text to a model service. Your own vault sync or backup software works separately. The plugin does not collect clicks, dwell time, or a typing history.
 - **AI is optional:** local and cloud model modes require a separately configured model service. Cloud mode also requires your explicit permission; eligible note text and submitted searches may then leave your computer. Notes marked local/private are excluded from cloud requests. Read [model setup](docs/GETTING-STARTED.md#optional-model-setup) and [privacy](docs/PRIVACY.md) first.
-- **Results have limits:** searches show a limited set of matches. AI can miss connections or misinterpret text. A correct quotation proves the source, not the explanation. This release's complete native Obsidian click flow, real provider compatibility and broader AI quality still need testing.
+- **Results have limits:** searches show a limited set of matches. AI can miss connections or misinterpret text. A correct quotation proves the source, not the explanation. This release's complete native Obsidian click flow, real provider compatibility, and broader AI quality still need testing.
 - **Generated files are not encrypted:** excerpts and history may enter sync or backups. Removing a source does not erase every old excerpt.
 
-Recent source builds improve context preservation and source navigation, but those changes are **not in the 0.3.7 download**. See the [changelog](CHANGELOG.md), [compatibility notes](docs/COMPATIBILITY.md) and [testing record](docs/VERIFICATION.md) for version-specific details.
+Recent source builds improve context preservation and source navigation, but those changes are **not in the 0.3.7 download**. See the [changelog](CHANGELOG.md), [compatibility notes](docs/COMPATIBILITY.md), and [testing record](docs/VERIFICATION.md) for version-specific details.
 
 ## Help, contribute, or build
 
-Found a problem? [Open an issue](https://github.com/Yueyue673/obsidian-third-brain/issues/new) with your Obsidian version, plugin version, what you tried and what happened. Please use a small invented example rather than private notes.
+Found a problem? [Open an issue](https://github.com/Yueyue673/obsidian-third-brain/issues/new) with your Obsidian version, plugin version, what you tried, and what happened. Please use a small invented example rather than private notes.
 
 For code or documentation changes, start with [Contributing](CONTRIBUTING.md). [Build from source](docs/GETTING-STARTED.md#build-from-source) requires Node 22.12+ and npm; installing the ZIP does not. `npm run demo` opens the browser test page, not Obsidian or a live AI model.
 
